@@ -44,12 +44,13 @@
             min-height: -webkit-fill-available;
         }
 
-        /* FIX: Fundo fixo via pseudo-elemento (mais estável no Instagram) */
+        /* FIX: Fundo fixo com degradê vermelho e preto simples */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 40%, #2b0000 0%, #000000 100%);
+            /* Degradê mais visível: Vermelho escuro para preto */
+            background: linear-gradient(180deg, #440000 0%, #000000 100%);
             z-index: -1;
             transform: translateZ(0);
         }
@@ -511,7 +512,7 @@
         // Detection Script for In-App Browsers
         window.addEventListener('load', () => { 
             const ua = navigator.userAgent || navigator.vendor || window.opera;
-            const isInApp = (ua.indexOf("Instagram") > -1) || (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
+            const isInApp = (ua.indexOf("Instagram") > -1) || (ua.indexOf("FBAN") > -1) || (ua.indexOf("FB_IAB") > -1) || (ua.indexOf("FB4A") > -1);
             
             if (isInApp) {
                 document.getElementById('in-app-warning').style.display = 'block';
