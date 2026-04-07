@@ -74,6 +74,486 @@
         .hero-bg-text-wrapper { 
             position: relative; z-index: 1; text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
+        .hero-bg-title { font-size: clamp(4rem, 22vw, 22rem); color: rgba(255, 255, 255, 0.9); width: 100%; text-align: center; line-height: 1; margin-top: 10px; }
+        .hero-tag-top {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(10px, 2vw, 14px);
+            letter-spacing: 0.8em;
+            text-transform: uppercase;
+            color: var(--brand-color);
+            opacity: 0.8;
+            font-weight: 700;
+        }
+        .hero-front-signature {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%) rotate(-5deg); font-size: clamp(3rem, 12vw, 12rem); color: var(--brand-color); font-family: 'Mrs Saint Delafield', cursive; z-index: 2; white-space: nowrap; text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        
+        .hero-description {
+            position: relative; z-index: 3; max-width: 800px; text-align: center; margin-top: 40px; padding: 0 20px;
+            font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(255,255,255,0.4);
+        }
+
+        /* --- MODAL --- */
+        #project-viewer {
+            position: fixed; inset: 0; width: 100vw; height: 100vh; background: #000; z-index: 99999; display: none; overflow-y: auto; overflow-x: hidden; backdrop-filter: blur(20px);
+        }
+        .modal-inner { width: 100%; min-height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; position: relative; }
+        .btn-close { position: fixed; top: 30px; right: 30px; z-index: 100000; background: var(--brand-color); color: white; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 24px; font-weight: bold; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); border: none; cursor: pointer; }
+        .btn-close:hover { transform: scale(1.1) rotate(90deg); background: white; color: var(--brand-color); }
+
+        /* --- CARDS & VIDEO --- */
+        .liquid-glass { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; transition: all 0.5s; position: relative; overflow: hidden; }
+        .liquid-glass:hover { border-color: var(--brand-color); transform: scale(1.02); }
+        .thumb-image-container { position: relative; width: 100%; height: 100%; background: #111; overflow: hidden; }
+        .thumb-image-container img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: all 0.8s; }
+        .liquid-glass:hover .thumb-image-container img { filter: grayscale(0%); transform: scale(1.1); }
+        .play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; background: rgba(255, 0, 0, 0.1); transition: opacity 0.4s; z-index: 2; }
+        .liquid-glass:hover .play-overlay { opacity: 1; }
+
+        .video-reel-container { position: relative; width: 100%; height: 100%; background: #000; overflow: hidden; border-radius: inherit; }
+        .video-reel-container iframe { width: 150%; height: 150%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+
+        /* --- SPLIT HEROES --- */
+        .section-hero-split { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; margin-bottom: 80px; }
+        .section-hero-vertical-split { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items: center; margin-bottom: 80px; }
+
+        /* --- LANGUAGE TOGGLE UI --- */
+        .lang-switch-container { display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.6); padding: 8px 18px; border-radius: 40px; border: 1.5px solid var(--brand-color); cursor: pointer; transition: 0.4s; box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); z-index: 101; }
+        .lang-switch-container:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
+        .flag { font-size: 18px; transition: 0.4s; display: inline-block; line-height: 1; }
+        .flag-off { filter: grayscale(100%) brightness(0.4); opacity: 0.3; transform: scale(0.85); }
+        .flag-on { filter: grayscale(0%) brightness(1.2); opacity: 1; transform: scale(1.25); filter: drop-shadow(0 0 8px rgba(255,255,255,0.4)); }
+        .toggle-track { width: 32px; height: 14px; background: rgba(255, 255, 255, 0.15); border-radius: 10px; position: relative; border: 1px solid rgba(255, 0, 0, 0.3); }
+        .toggle-thumb { width: 14px; height: 14px; background: white; border-radius: 50%; position: absolute; top: -1px; left: -1px; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 0 10px rgba(255,255,255,0.8); }
+        body.is-pt .toggle-thumb { transform: translateX(18px); }
+
+        /* --- CTA LINKS --- */
+        .cta-more-link { display: inline-flex; align-items: center; font-family: 'Syne', sans-serif; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5em; color: rgba(255,255,255,0.4); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; position: relative; }
+        .cta-more-link:hover { color: #fff; border-color: var(--brand-color); letter-spacing: 0.6em; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+        .cta-more-link .arrow-icon { margin-left: 10px; transition: transform 0.4s ease; }
+        .cta-more-link:hover .arrow-icon { transform: translateX(10px); color: var(--brand-color); }
+
+        /* --- PAGINATION UI --- */
+        .pagination-container { display: flex; justify-content: center; gap: 15px; margin-top: 40px; }
+        .page-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 12px; transition: all 0.3s; cursor: pointer; background: rgba(255,255,255,0.02); }
+        .page-btn.active { background: var(--brand-color); border-color: var(--brand-color); color: #000; font-weight: 800; box-shadow: 0 0 15px var(--brand-color); }
+
+        .noise { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); opacity: 0.03; pointer-events: none; z-index: 5000; }
+
+        /* --- RESPONSIVE FIXES --- */
+        @media (max-width: 1024px) {
+            .section-hero-split, .section-hero-vertical-split { grid-template-columns: 1fr; gap: 30px; text-align: center; margin-bottom: 40px; }
+        }
+        @media (max-width: 768px) {
+            /* HERO MOBILE AJUSTADO (Mais apertado) */
+            .hero-container { min-height: 60vh; padding-top: 60px; padding-bottom: 10px; justify-content: center; }
+            .hero-bg-title { font-size: 5.2rem; transform: scaleX(1.15); transform-origin: center; text-align: center; display: block; width: 100%; }
+            .hero-front-signature { transform: translate(-50%, -20%) rotate(-5deg) scale(0.9); font-size: 4rem; }
+            
+            /* Texto Mobile Estruturado e Muito Maior - "QUEM SOMOS" */
+            .hero-description {
+                display: block; 
+                margin-top: 60px; 
+                font-size: 16px; 
+                letter-spacing: 0.1em; 
+                color: rgba(255,255,255,0.95); 
+                border-top: 1.5px solid var(--brand-color); 
+                padding-top: 30px; 
+                line-height: 1.8; 
+                text-transform: uppercase; 
+                font-weight: 400;
+                text-align: center;
+                max-width: 95%;
+            }
+
+            /* Espaçamento reduzido entre seções no mobile */
+            .mb-48 { margin-bottom: 30px !important; }
+            .mb-32 { margin-bottom: 20px !important; }
+            .py-32 { padding-top: 20px !important; padding-bottom: 20px !important; }
+            .container { padding-top: 0 !important; }
+
+            .nav-main { display: none; }
+            .lang-switch-container { padding: 8px 14px; }
+            
+            /* STUDIO fix para mobile */
+            #services { overflow-x: hidden !important; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; }
+            .studio-watermark { font-size: 12rem !important; left: -10% !important; width: 120% !important; overflow: hidden; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="pre-render"><div class="loader-bar"><div class="loader-progress"></div></div></div>
+    <div class="noise"></div>
+
+    <div class="marquee-fixed"><div class="scroll-anim">
+        <span data-en="PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — &nbsp;" data-pt="PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUÇÃO — &nbsp;">PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — &nbsp;</span>
+        <span data-en="PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — &nbsp;" data-pt="PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUÇÃO — &nbsp;">PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — &nbsp;</span>
+    </div></div>
+
+    <nav class="fixed top-12 w-full z-[100] px-8 flex justify-between items-center mix-blend-difference text-white">
+        <div class="font-syne text-xl tracking-tighter">PURE RED <span class="text-red-600">©2026</span></div>
+        <div class="flex items-center gap-8">
+            <div class="hidden md:flex gap-8 text-[10px] tracking-widest font-bold nav-main">
+                <a href="#work" class="hover:text-red-600 transition" data-en="WORK" data-pt="TRABALHOS">WORK</a>
+                <a href="#vertical-work" class="hover:text-red-600 transition" data-en="SOCIAL" data-pt="SOCIAL">SOCIAL</a>
+                <a href="#ai-driven" class="hover:text-red-600 transition" data-en="AI" data-pt="IA">AI</a>
+                <a href="#services" class="hover:text-red-600 transition" data-en="SERVICES" data-pt="SERVIÇOS">SERVICES</a>
+            </div>
+            <div class="lang-switch-container" onclick="toggleLanguage()">
+                <span id="flag-en" class="flag flag-on">🇺🇸</span>
+                <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                <span id="flag-pt" class="flag flag-off">🇧🇷</span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HERO PRINCIPAL -->
+        <section class="hero-container">
+            <div class="hero-bg-text-wrapper">
+                <div class="hero-tag-top" data-en="VIDEO STUDIO" data-pt="ESTÚDIO DE VÍDEO">VIDEO STUDIO</div>
+                <h1 class="hero-bg-title font-brutal-wide text-center">PURE RED</h1>
+                <div class="hero-front-signature">The Vision</div>
+            </div>
+            <!-- TEXTO EXPLICATIVO (QUEM SOMOS) -->
+            <div class="hero-description" 
+                 data-en="We are a visual engineering department dedicated to high-end motion design and cinematic VFX. Our mission is to sculpt the future of digital storytelling by blending raw artistic energy with elite technology for premium global brands."
+                 data-pt="Somos um departamento de engenharia visual dedicado a motion design de alto nível e VFX cinematográfico. Nossa missão é esculpir o futuro da narrativa digital fundindo energia artística bruta com tecnologia de elite para marcas premium globais.">
+                We are a visual engineering department dedicated to high-end motion design and cinematic VFX workflows.
+            </div>
+            
+            <!-- TEXTO EM JAPONÊS -->
+            <div class="mt-4 text-white font-black opacity-90 tracking-[1em] text-[10px] md:text-[12px] uppercase text-center select-none" style="font-family: 'Noto Sans JP', sans-serif;">ピュア・レッド</div>
+        </section>
+
+        <div class="container mx-auto px-6 relative z-10 py-10">
+            
+            <!-- WIDESCREEN SECTION -->
+            <section id="work" class="mb-48">
+                <div class="mb-12 flex items-center gap-4">
+                    <div class="w-1.5 h-1.5 bg-red-600"></div>
+                    <h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50" data-en="Widescreen // Cinema" data-pt="Widescreen // Cinema">Widescreen // Cinema</h2>
+                </div>
+
+                <div class="section-hero-split">
+                    <div class="liquid-glass p-1 rounded-[32px] overflow-hidden group cursor-pointer" onclick="openProject('p1')">
+                        <div class="aspect-video relative overflow-hidden rounded-[30px] video-reel-container">
+                            <iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&background=1&muted=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen"></iframe>
+                            <div class="play-overlay"><span class="text-white font-bold tracking-[0.5em] text-xs">PLAY_REEL</span></div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h3 class="font-syne font-black text-5xl md:text-7xl uppercase mb-8 leading-[0.9] text-red-600" data-en="Cinematic<br>Narrative" data-pt="Narrativa<br>Cinematográfica">Cinematic<br>Narrative</h3>
+                        <p class="font-space text-sm tracking-widest leading-loose text-zinc-400 uppercase text-justify"
+                           data-en="We push the limits of widescreen composition. Every frame is calculated to deliver the high-end cinematic texture that premium brands demand. Our focus is on the art of visual storytelling through anamorphic perspectives and elite post-production."
+                           data-pt="Levamos a composição widescreen ao limite. Cada frame é calculado para entregar a textura cinematográfica de alto nível que marcas premium exigem. Nosso foco é a arte da narrativa visual através de perspectivas anamórficas e pós-produção de elite.">
+                            We push the limits of widescreen composition. Every frame is calculated to deliver the high-end cinematic texture that premium brands demand.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="liquid-glass group cursor-pointer" onclick="openProject('p2')">
+                        <div class="aspect-video relative overflow-hidden">
+                            <div class="play-overlay"><span class="text-white font-bold text-[8px] tracking-[0.5em]">VIEW_CASE</span></div>
+                            <img loading="lazy" src="thumb_wide_1.jpg" onerror="this.src='https://placehold.co/600x400/000?text=W1'" class="thumb-image-container img">
+                        </div>
+                        <div class="p-4"><h4 class="font-syne text-[10px] tracking-widest uppercase opacity-40">High_Tier_Production</h4></div>
+                    </div>
+                    <div class="liquid-glass group cursor-pointer" onclick="openProject('p3')">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img loading="lazy" src="thumb_wide_2.jpg" onerror="this.src='https://placehold.co/600x400/000?text=W2'" class="thumb-image-container img">
+                        </div>
+                        <div class="p-4"><h4 class="font-syne text-[10px] tracking-widest uppercase opacity-40">Urban_Motion</h4></div>
+                    </div>
+                    <div class="liquid-glass group cursor-pointer" onclick="openProject('p4')">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img loading="lazy" src="thumb_wide_3.jpg" onerror="this.src='https://placehold.co/600x400/000?text=W3'" class="thumb-image-container img">
+                        </div>
+                        <div class="p-4"><h4 class="font-syne text-[10px] tracking-widest uppercase opacity-40">VFX_Master_Edit</h4></div>
+                    </div>
+                    <div class="liquid-glass group cursor-pointer" onclick="openProject('p1')">
+                        <div class="aspect-video relative overflow-hidden">
+                            <img loading="lazy" src="thumb_wide_4.jpg" onerror="this.src='https://placehold.co/600x400/000?text=W4'" class="thumb-image-container img">
+                        </div>
+                        <div class="p-4"><h4 class="font-syne text-[10px] tracking-widest uppercase opacity-40">Street_Brand_Story</h4></div>
+                    </div>
+                </div>
+                <div class="mt-16 flex justify-end">
+                    <a href="https://instagram.com/withpurered" target="_blank" class="cta-more-link" data-en="EXPLORE FULL ARCHIVE" data-pt="EXPLORAR ARQUIVO COMPLETO">EXPLORE FULL ARCHIVE <span class="arrow-icon">→</span></a>
+                </div>
+            </section>
+
+            <!-- VERTICAL SECTION -->
+            <section id="vertical-work" class="mb-48">
+                <div class="mb-12 flex items-center gap-4"><div class="w-1.5 h-1.5 bg-red-600"></div><h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50" data-en="Vertical // Social" data-pt="Vertical // Social">Vertical // Social</h2></div>
+                
+                <div class="section-hero-vertical-split">
+                    <div class="flex flex-col justify-center order-2 lg:order-1">
+                        <h3 class="font-syne font-black text-5xl md:text-7xl uppercase mb-8 leading-[0.9] text-red-600 lg:text-right" data-en="Social<br>Impact" data-pt="Impacto<br>Social">Social<br>Impact</h3>
+                        <p class="font-space text-sm tracking-widest leading-loose text-zinc-400 uppercase lg:text-right"
+                           data-en="Optimized for mobile retention. We create high-ticket vertical content that stops the scroll and dominates the digital landscape. Engineering every second for maximum engagement and brand authority."
+                           data-pt="Otimizado para retenção mobile. Criamos conteúdo vertical de alto nível que para o scroll e domina o cenário digital. Projetando cada segundo para o máximo engajamento e autoridade de marca.">
+                            Optimized for mobile retention. We create high-ticket vertical content that stops the scroll.
+                        </p>
+                    </div>
+                    <div class="flex justify-center order-1 lg:order-2">
+                        <div class="liquid-glass p-1 rounded-[40px] overflow-hidden group cursor-pointer max-w-[320px] w-full" onclick="openProject('m1')">
+                            <div class="aspect-[9/16] relative overflow-hidden rounded-[38px] video-reel-container">
+                                <iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&background=1&muted=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen"></iframe>
+                                <div class="play-overlay"><span class="text-white font-bold tracking-[0.5em] text-xs">GO_VIRAL</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="vertical-grid" class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12"></div>
+                
+                <div class="pagination-container">
+                    <div class="page-btn active" onclick="changePage(1)">1</div>
+                    <div class="page-btn" onclick="changePage(2)">2</div>
+                </div>
+
+                <div class="mt-16 flex justify-end">
+                    <a href="https://instagram.com/withpurered" target="_blank" class="cta-more-link" data-en="FOLLOW THE PROCESS" data-pt="ACOMPANHE O PROCESSO">FOLLOW THE PROCESS <span class="arrow-icon">→</span></a>
+                </div>
+            </section>
+
+            <!-- AI SECTION (VÍDEO FIXO) -->
+            <section id="ai-driven" class="mb-32 py-24 border-y border-white/5">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16 items-end">
+                    <div>
+                        <h3 class="font-syne font-extrabold text-7xl md:text-9xl text-red-600 leading-none uppercase">Neural<br>Boost</h3>
+                        <div class="mt-8 flex gap-4 overflow-hidden opacity-20 text-[8px] tracking-[0.5em] uppercase">
+                            <span>Processing Core_01</span><span>Processing Core_02</span><span>Processing Core_03</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-6">
+                        <p class="max-w-md text-zinc-300 uppercase text-xs tracking-widest leading-loose text-justify" 
+                           data-en="AI is our engine, VFX is our soul. We don't just generate images; we sculpt frames with artificial intelligence to achieve textures and movements that are humanly impossible. This is the new frontier of visual engineering." 
+                           data-pt="IA é o nosso motor, VFX é a nossa alma. Não apenas geramos imagens; esculpimos frames com inteligência artificial para atingir texturas e movimentos humanamente impossíveis. Esta é a nova fronteira da engenharia visual.">
+                           AI is our engine, VFX is our soul.
+                        </p>
+                        <p class="max-w-md text-zinc-500 uppercase text-[10px] tracking-widest leading-relaxed"
+                           data-en="By blending traditional cinema techniques with cutting-edge diffusion models, we unlock a new dimension of storytelling. Where high-end aesthetics meet the raw power of neural processing to create unprecedented commercial and artistic impact."
+                           data-pt="Ao fundir técnicas de cinema tradicionais com modelos de difusão de última geração, desbloqueamos uma nova dimensão de narrativa. Onde a estética premium encontra o poder bruto do processamento neural para criar um impacto comercial e artístico sem precedentes.">
+                           By blending traditional cinema techniques with neural models...
+                        </p>
+                    </div>
+                </div>
+                <div class="liquid-glass p-1 rounded-[32px] cursor-pointer" onclick="openProject('ai_reel')">
+                    <div class="aspect-video bg-black rounded-[30px] overflow-hidden relative border border-white/10 video-reel-container">
+                        <iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&background=1&muted=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen"></iframe>
+                        <div class="play-overlay"><span class="text-white font-bold text-3xl" data-en="PLAY NEURAL REEL" data-pt="REEL NEURAL">PLAY NEURAL REEL</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICES SECTION -->
+            <section id="services" class="mb-8 py-32 relative overflow-hidden">
+                <div class="font-syne font-black text-[12rem] md:text-[20rem] opacity-5 absolute -top-10 left-0 uppercase pointer-events-none italic select-none studio-watermark">Studio</div>
+                <div class="relative z-10 flex items-center gap-4 mb-20">
+                    <div class="w-1.5 h-1.5 bg-red-600"></div>
+                    <h3 class="font-syne text-2xl tracking-tighter uppercase" data-en="Capabilities // Services" data-pt="Capacidades // Serviços">Capabilities // Services</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-12 relative z-10">
+                    <!-- 01 -->
+                    <div class="border-t border-red-600/30 pt-10 group hover:border-red-600 transition-colors duration-500">
+                        <span class="text-red-600 font-bold mb-6 block font-syne text-xs tracking-[0.5em]">01 / VFX</span>
+                        <h4 class="font-syne text-2xl mb-6 uppercase tracking-tighter" data-en="Advanced Compositing" data-pt="Composição Avançada">Advanced Compositing</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-[0.2em] leading-relaxed uppercase" 
+                           data-en="High-end 3D integration, rotoscoping, and digital practical effects for cinema-grade results. Precision compositing and seamless element blending for high-ticket projects."
+                           data-pt="Integração 3D de alta gama, rotoscopia e efeitos práticos digitais para resultados de nível cinema. Composição de precisão e fusão perfeita de elementos para projectos de alto nível.">
+                           High-end 3D integration...
+                        </p>
+                    </div>
+                    <!-- 02 -->
+                    <div class="border-t border-red-600/30 pt-10 group hover:border-red-600 transition-colors duration-500">
+                        <span class="text-red-600 font-bold mb-6 block font-syne text-xs tracking-[0.5em]">02 / MOTION</span>
+                        <h4 class="font-syne text-2xl mb-6 uppercase tracking-tighter" data-en="Typography Design" data-pt="Design Tipográfico">Typography Design</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-[0.2em] leading-relaxed uppercase"
+                           data-en="Brutalist and rhythmic typography workflows focused on street culture and high-ticket brands. Motion that breathes brand personality through elite timing and spatial awareness."
+                           data-pt="Workflows de tipografia brutalista e rítmica focados em cultura urbana e marcas premium. Movimento que respira a personalidade da marca através de timing de elite e consciência espacial.">
+                           Brutalist and rhythmic typography...
+                        </p>
+                    </div>
+                    <!-- 03 -->
+                    <div class="border-t border-red-600/30 pt-10 group hover:border-red-600 transition-colors duration-500">
+                        <span class="text-red-600 font-bold mb-6 block font-syne text-xs tracking-[0.5em]">03 / COLOR</span>
+                        <h4 class="font-syne text-2xl mb-6 uppercase tracking-tighter" data-en="Color Grading" data-pt="Tratamento de Cor">Color Grading</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-[0.2em] leading-relaxed uppercase"
+                           data-en="Scientific color processing for commercial and music video workflows. Custom LUT development for specific cinematic looks and color space management across all delivery standards."
+                           data-pt="Processamento científico de cor para workflows de publicidade e videoclipes. Desenvolvimento de LUTs personalizadas para visuais cinematográficos específicos e gestão de cor.">
+                           Scientific color processing...
+                        </p>
+                    </div>
+                    <!-- 04 -->
+                    <div class="border-t border-red-600/30 pt-10 group hover:border-red-600 transition-colors duration-500">
+                        <span class="text-red-600 font-bold mb-6 block font-syne text-xs tracking-[0.5em]">04 / NEURAL</span>
+                        <h4 class="font-syne text-2xl mb-6 uppercase tracking-tighter" data-en="AI Upscaling" data-pt="Upscaling de IA">AI Upscaling</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-[0.2em] leading-relaxed uppercase"
+                           data-en="Legacy footage restoration and neural amplification using custom-trained models. Modernizing assets for 4K/8K standards without losing the organic texture of the original film."
+                           data-pt="Restauração de footage legado e amplificação neural usando modelos treinados sob medida. Modernização de assets para padrões 4K/8K sem perder a textura orgânica original.">
+                           Legacy footage restoration...
+                        </p>
+                    </div>
+                    <!-- 05 -->
+                    <div class="border-t border-red-600/30 pt-10 group hover:border-red-600 transition-colors duration-500">
+                        <span class="text-red-600 font-bold mb-6 block font-syne text-xs tracking-[0.5em]">05 / GEN_ART</span>
+                        <h4 class="font-syne text-2xl mb-6 uppercase tracking-tighter" data-en="Neural Environments" data-pt="Cenários Neurais">Neural Environments</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-[0.2em] leading-relaxed uppercase"
+                           data-en="Generative asset creation for complex cinematic world-building. AI-assisted matte painting and environment expansion to push the limits of production scale and atmosphere."
+                           data-pt="Criação de assets generativos para construção de mundos cinematográficos complexos. Matte painting e expansão de cenários assistidos por IA para elevar a escala de produção.">
+                           Generative asset creation...
+                        </p>
+                    </div>
+                    <!-- 06 -->
+                    <div class="border-t border-red-600/30 pt-10 group hover:border-red-600 transition-colors duration-500">
+                        <span class="text-red-600 font-bold mb-6 block font-syne text-xs tracking-[0.5em]">06 / PIPELINE</span>
+                        <h4 class="font-syne text-2xl mb-6 uppercase tracking-tighter" data-en="Mocap Synthesis" data-pt="Síntese Mocap">Mocap Synthesis</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-[0.2em] leading-relaxed uppercase"
+                           data-en="Neural-driven motion capture and facial performance workflows. Streamlining the bridge between raw human performance and high-end digital avatars for the next generation of visuals."
+                           data-pt="Workflows de captura de movimento e performance facial guiados por IA. Simplificando a ponte entre a performance humana bruta e avatares digitais de alto nível.">
+                           Neural-driven motion capture...
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer id="contact" class="py-20 text-center border-t border-white/5">
+            <h2 class="font-syne font-black text-8xl md:text-[10rem] mb-12 uppercase italic" data-en="Let's Create" data-pt="Vamos Criar">Let's Create</h2>
+            <a href="https://wa.me/5514991223598" class="liquid-glass px-12 py-6 text-2xl font-syne font-bold hover:bg-red-600 transition-all uppercase group">
+                <span class="group-hover:text-black" data-en="Contact" data-pt="Contacto">Contact</span>
+            </a>
+        </footer>
+    </main>
+
+    <div id="project-viewer">
+        <button onclick="closeProject()" class="btn-close">✕</button>
+        <div class="modal-inner">
+            <div id="video-spinner" class="video-loader"></div>
+            <div id="project-content" class="w-full max-w-6xl flex flex-col items-center"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+
+        const verticalData = [
+            { id: 'm1', img: 'thumb_vertical_1.jpg', title: {en: "Viral Motion", pt: "Motion Viral"}, page: 1 },
+            { id: 'm2', img: 'thumb_vertical_2.jpg', title: {en: "Street Content", pt: "Conteúdo Urbano"}, page: 1 },
+            { id: 'm3', img: 'thumb_vertical_3.jpg', title: {en: "Digital Art", pt: "Arte Digital"}, page: 1 },
+            { id: 'm4', img: 'thumb_vertical_4.jpg', title: {en: "Brand Stories", pt: "Brand Stories"}, page: 1 },
+            { id: 'm5', img: 'thumb_vertical_5.jpg', title: {en: "Experimental", pt: "Experimental"}, page: 2 },
+            { id: 'm6', img: 'thumb_vertical_6.jpg', title: {en: "Neural Art", pt: "Arte Neural"}, page: 2 },
+            { id: 'm7', img: 'thumb_vertical_7.jpg', title: {en: "Fashion Edit", pt: "Edição Fashion"}, page: 2 },
+            { id: 'm8', img: 'thumb_vertical_8.jpg', title: {en: "Streetwear V2", pt: "Streetwear V2"}, page: 2 }
+        ];
+
+        const projectData = {
+            p1: { title: {en: "SHOWREEL 2026", pt: "SHOWREEL 2026"}, video: "949759419", ratio: 'widescreen' },
+            p2: { title: {en: "PRODUCTION", pt: "PRODUÇÃO"}, video: "949759419", ratio: 'widescreen' },
+            ai_reel: { title: {en: "NEURAL SHOWREEL", pt: "SHOWREEL NEURAL"}, video: "949759419", ratio: 'widescreen' }
+        };
+
+        function changePage(page) {
+            const grid = document.getElementById('vertical-grid');
+            const items = verticalData.filter(item => item.page === page);
+            document.querySelectorAll('.page-btn').forEach((btn, idx) => { btn.classList.toggle('active', idx + 1 === page); });
+            grid.style.opacity = '0';
+            setTimeout(() => {
+                grid.innerHTML = items.map(item => `
+                    <div class="group cursor-pointer" onclick="openProject('${item.id}')">
+                        <div class="liquid-glass aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
+                            <div class="thumb-image-container">
+                                <img loading="lazy" src="${item.img}" onerror="this.src='https://placehold.co/400x711/000?text=V${item.id}'" alt="${item.title[currentLang]}">
+                            </div>
+                        </div>
+                        <h3 class="mt-4 font-syne text-[10px] tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity">${item.title[currentLang]}</h3>
+                    </div>
+                `).join('');
+                grid.style.transition = 'opacity 0.5s ease'; grid.style.opacity = '1';
+            }, 300);
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'pt' : 'en';
+            document.body.classList.toggle('is-pt', currentLang === 'pt');
+            const flagEn = document.getElementById('flag-en'); const flagPt = document.getElementById('flag-pt');
+            if (currentLang === 'pt') { flagEn.className = 'flag flag-off'; flagPt.className = 'flag flag-on'; } 
+            else { flagEn.className = 'flag flag-on'; flagPt.className = 'flag flag-off'; }
+            document.querySelectorAll('[data-en]').forEach(el => { 
+                const enText = el.getAttribute('data-en');
+                const ptText = el.getAttribute('data-pt');
+                el.textContent = currentLang === 'en' ? enText : ptText;
+            });
+            changePage(parseInt(document.querySelector('.page-btn.active').textContent));
+        }
+
+        function openProject(id) {
+            const p = projectData[id] || projectData['p1'];
+            const content = document.getElementById('project-content');
+            const spinner = document.getElementById('video-spinner');
+            const viewer = document.getElementById('project-viewer');
+            const videoClass = p.ratio === 'mobile' ? 'max-w-[320px] aspect-[9/16]' : 'w-full aspect-video';
+            spinner.style.display = 'block';
+            content.style.opacity = '0';
+            content.innerHTML = `
+                <div class="${videoClass} bg-black rounded-3xl overflow-hidden border-2 border-red-600/30 shadow-2xl relative w-full">
+                    <iframe id="v-frame" src="https://player.vimeo.com/video/${p.video}?autoplay=1&muted=0" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen"></iframe>
+                </div>
+                <h2 class="font-syne font-bold text-4xl md:text-7xl mt-12 uppercase text-center">${p.title[currentLang]}</h2>
+            `;
+            viewer.style.display = 'block'; document.body.style.overflow = 'hidden';
+            document.getElementById('v-frame').onload = () => { spinner.style.display = 'none'; content.style.transition = 'opacity 0.8s ease'; content.style.opacity = '1'; };
+        }
+
+        function closeProject() { document.getElementById('project-viewer').style.display = 'none'; document.body.style.overflow = 'auto'; }
+        window.addEventListener('load', () => { setTimeout(() => { document.body.classList.add('loaded'); }, 500); changePage(1); });
+    </script>
+</body>
+</html>            background: radial-gradient(circle at 50% 40%, #2b0000 0%, #000000 100%) no-repeat fixed;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        /* --- LOADER --- */
+        #pre-render {
+            position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.8s;
+        }
+        .loader-bar { width: 200px; height: 2px; background: rgba(255, 0, 0, 0.1); margin: 20px auto; position: relative; overflow: hidden; }
+        .loader-progress { position: absolute; height: 100%; width: 40%; background: var(--brand-color); left: -100%; animation: loadingMove 1.5s infinite ease-in-out; box-shadow: 0 0 15px var(--brand-color); }
+        @keyframes loadingMove { 0% { left: -40%; } 100% { left: 100%; } }
+        .loaded #pre-render { opacity: 0; visibility: hidden; }
+
+        /* --- VIDEO SPINNER --- */
+        .video-loader {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border: 3px solid rgba(255, 0, 0, 0.2); border-top: 3px solid var(--brand-color); border-radius: 50%; animation: spin 1s linear infinite; z-index: 5;
+        }
+        @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* --- TIPOGRAFIA --- */
+        .font-brutal-wide { 
+            font-family: 'Syne', sans-serif; text-transform: uppercase; line-height: 0.8; letter-spacing: -0.04em; font-weight: 800; display: inline-block; transform: scaleX(1.3); transform-origin: center;
+        }
+
+        .marquee-fixed {
+            background: var(--brand-color); color: black; padding: 8px 0; z-index: 1000; position: fixed; top: 0; width: 100%; display: flex; overflow: hidden; font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 10px; letter-spacing: 0.2em;
+        }
+        .scroll-anim { display: flex; white-space: nowrap; animation: scroll 25s linear infinite; }
+        @keyframes scroll { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+
+        /* --- HERO --- */
+        .hero-container {
+            position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; background: transparent;
+        }
+        .hero-bg-text-wrapper { 
+            position: relative; z-index: 1; text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
         .hero-bg-title { font-size: clamp(4rem, 22vw, 22rem); color: rgba(255, 255, 255, 0.9); width: 100%; text-align: center; line-height: 1; }
         .hero-front-signature {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%) rotate(-5deg); font-size: clamp(3rem, 12vw, 12rem); color: var(--brand-color); font-family: 'Mrs Saint Delafield', cursive; z-index: 2; white-space: nowrap; text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
