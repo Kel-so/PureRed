@@ -22,7 +22,7 @@
             --dark-bg: #000000;
         }
 
-        html, body {
+        html {
             background-color: #000000;
             scroll-behavior: smooth;
             overflow-x: hidden;
@@ -32,11 +32,25 @@
         * { cursor: crosshair; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background: radial-gradient(circle at 50% 40%, #aa0000 0%, #000000 100%) no-repeat fixed;
             color: #fff;
             font-family: 'Space Grotesk', sans-serif;
             margin: 0;
             min-height: 100vh;
+            background-color: #000;
+        }
+
+        /* FIX: Fundo fixo REAL para Mobile (Viewport Lock) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100dvh; /* Fixa no tamanho da tela, não do site */
+            background: radial-gradient(circle at 50% 40%, #aa0000 0%, #000000 100%);
+            z-index: -1;
+            pointer-events: none;
+            transform: translateZ(0); /* Aceleração de hardware para evitar flickers no scroll */
         }
 
         /* --- LOADER --- */
@@ -305,12 +319,12 @@
                     <div class="page-btn" onclick="changePage(2)">2</div>
                 </div>
 
-                <div class="mt-16 flex justify-end">
+                <div class="mt-8 flex justify-end">
                     <a href="https://instagram.com/withpurered" target="_blank" class="cta-more-link" data-en="FOLLOW THE PROCESS" data-pt="ACOMPANHE O PROCESSO">FOLLOW THE PROCESS <span class="arrow-icon">→</span></a>
                 </div>
             </section>
 
-            <!-- AI SECTION -->
+            <!-- AI SECTION (VÍDEO FIXO) -->
             <section id="ai-driven" class="mb-8 py-12 border-y border-white/5">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-8 items-end">
                     <div>
@@ -410,6 +424,9 @@
         const projectData = {
             p1: { title: {en: "SHOWREEL 2026", pt: "SHOWREEL 2026"}, video: "949759419", ratio: 'widescreen' },
             p2: { title: {en: "PRODUCTION", pt: "PRODUÇÃO"}, video: "949759419", ratio: 'widescreen' },
+            p3: { title: {en: "STREET CONCEPTS", pt: "CONCEITOS URBANOS"}, video: "949759419", ratio: 'widescreen' },
+            p4: { title: {en: "VFX MASTER", pt: "VFX MASTER"}, video: "949759419", ratio: 'widescreen' },
+            m1: { title: {en: "VIRAL IMPACT", pt: "IMPACTO VIRAL"}, video: "949759419", ratio: 'mobile' },
             ai_reel: { title: {en: "NEURAL SHOWREEL", pt: "SHOWREEL NEURAL"}, video: "949759419", ratio: 'widescreen' }
         };
 
