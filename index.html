@@ -266,58 +266,95 @@
         }
         .liquid-glass:hover .play-overlay { opacity: 1; }
 
-        /* --- LANGUAGE TOGGLE UI (FLAGS) --- */
+        /* --- LANGUAGE TOGGLE UI (FLAGS) - ENHANCED --- */
         .lang-switch-container {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(255,255,255,0.05);
-            padding: 8px 16px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1.5px solid var(--pure-red);
             cursor: pointer;
-            transition: border-color 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+            position: relative;
+            z-index: 101;
         }
-        .lang-switch-container:hover { border-color: var(--pure-red); }
+        .lang-switch-container:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+            background: rgba(20, 0, 0, 0.8);
+        }
         
         .flag {
-            font-size: 16px;
+            font-size: 18px;
             transition: all 0.4s ease;
             display: inline-block;
             line-height: 1;
         }
 
-        /* Logic for Flags state */
         .flag-off {
-            filter: grayscale(100%);
-            opacity: 0.2;
-            transform: scale(0.9);
+            filter: grayscale(100%) brightness(0.4);
+            opacity: 0.3;
+            transform: scale(0.85);
         }
         .flag-on {
-            filter: grayscale(0%);
+            filter: grayscale(0%) brightness(1.2);
             opacity: 1;
-            transform: scale(1.2);
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            transform: scale(1.25);
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
         }
 
         .toggle-track {
-            width: 30px;
-            height: 16px;
-            background: rgba(255,255,255,0.1);
+            width: 32px;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 10px;
             position: relative;
+            border: 1px solid rgba(255, 0, 0, 0.3);
         }
         .toggle-thumb {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             background: white;
             border-radius: 50%;
             position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            top: -1px;
+            left: -1px;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 0 10px rgba(255,255,255,0.8);
         }
-        body.is-pt .toggle-thumb { transform: translateX(14px); }
+        body.is-pt .toggle-thumb { transform: translateX(18px); }
+
+        /* --- ENHANCED CTA LINKS --- */
+        .cta-more-link {
+            display: inline-flex;
+            align-items: center;
+            font-family: 'Syne', sans-serif;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            color: rgba(255,255,255,0.4);
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+        }
+        .cta-more-link:hover {
+            color: #fff;
+            border-color: var(--pure-red);
+            letter-spacing: 0.6em;
+            text-shadow: 0 0 10px rgba(255,0,0,0.5);
+        }
+        .cta-more-link .arrow-icon {
+            margin-left: 10px;
+            transition: transform 0.4s ease;
+        }
+        .cta-more-link:hover .arrow-icon {
+            transform: translateX(10px);
+            color: var(--pure-red);
+        }
 
         .noise {
             position: fixed;
@@ -371,8 +408,10 @@
             .grid-widescreen { grid-template-columns: 1fr; }
             .grid-mobile { grid-template-columns: repeat(2, 1fr); }
             
-            .nav-main { display: none; } /* Hide text links on mobile */
-            .lang-switch-container { padding: 6px 12px; } /* Compact on mobile */
+            .nav-main { display: none; }
+            .lang-switch-container { padding: 8px 14px; border-width: 1px; }
+            
+            .cta-more-link { font-size: 9px; letter-spacing: 0.3em; }
         }
     </style>
 </head>
@@ -406,15 +445,14 @@
         <div class="font-syne text-xl tracking-tighter">PURE RED <span class="text-red-600">©2026</span></div>
         
         <div class="flex items-center gap-8">
-            <!-- Hidden on mobile -->
             <div class="hidden md:flex gap-8 text-[10px] tracking-widest font-bold nav-main">
                 <a href="#work" class="hover:text-red-600 transition" data-en="WORK" data-pt="TRABALHOS">WORK</a>
                 <a href="#vertical-work" class="hover:text-red-600 transition" data-en="SOCIAL" data-pt="SOCIAL">SOCIAL</a>
-                <a href="#ai-driven" class="hover:text-red-600 transition" data-en="AI" data-pt="IA">IA</a>
+                <a href="#ai-driven" class="hover:text-red-600 transition" data-en="AI" data-pt="IA">AI</a>
                 <a href="#services" class="hover:text-red-600 transition" data-en="SERVICES" data-pt="SERVIÇOS">SERVICES</a>
             </div>
 
-            <!-- Language Toggle WITH FLAGS -->
+            <!-- Language Toggle WITH FLAGS (ENHANCED) -->
             <div class="lang-switch-container" onclick="toggleLanguage()">
                 <span id="flag-en" class="flag flag-on">🇺🇸</span>
                 <div class="toggle-track">
@@ -457,6 +495,7 @@
                     <h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50" data-en="Widescreen // Cinematic" data-pt="Widescreen // Cinematográfico">Widescreen // Cinematic</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Cards 1-4 -->
                     <div class="liquid-glass p-3 group cursor-pointer" onclick="openProject('p1')">
                         <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
                              <div class="thumb-image-container">
@@ -497,6 +536,14 @@
                         <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase" data-en="Concepts" data-pt="Conceitos">Concepts</h3></div>
                     </div>
                 </div>
+                <!-- MARCANT CTA LINK -->
+                <div class="mt-16 flex justify-end">
+                    <a href="https://instagram.com/SEU_USER" target="_blank" class="cta-more-link" 
+                       data-en="EXPLORE FULL ARCHIVE" 
+                       data-pt="EXPLORAR ARQUIVO COMPLETO">
+                       EXPLORE FULL ARCHIVE <span class="arrow-icon">→</span>
+                    </a>
+                </div>
             </section>
 
             <!-- VERTICAL SECTION -->
@@ -527,6 +574,14 @@
                         </div>
                         <h3 class="mt-4 font-syne text-[10px] tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity" data-en="Brand Stories" data-pt="Brand Stories">Brand Stories</h3>
                     </div>
+                </div>
+                <!-- MARCANT CTA LINK -->
+                <div class="mt-16 flex justify-end">
+                    <a href="https://instagram.com/SEU_USER" target="_blank" class="cta-more-link" 
+                       data-en="FOLLOW THE PROCESS" 
+                       data-pt="ACOMPANHE O PROCESSO">
+                       FOLLOW THE PROCESS <span class="arrow-icon">→</span>
+                    </a>
                 </div>
             </section>
 
