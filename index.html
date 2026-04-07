@@ -77,6 +77,7 @@
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%) rotate(-5deg); font-size: clamp(3rem, 12vw, 12rem); color: var(--pure-red); font-family: 'Mrs Saint Delafield', cursive; z-index: 2; white-space: nowrap; text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
         
+        /* Texto Desktop */
         .hero-description {
             position: relative; z-index: 3; max-width: 800px; text-align: center; margin-top: 40px; padding: 0 20px;
             font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: rgba(255,255,255,0.4);
@@ -134,13 +135,25 @@
             .section-hero-split, .section-hero-vertical-split { grid-template-columns: 1fr; gap: 30px; text-align: center; margin-bottom: 40px; }
         }
         @media (max-width: 768px) {
-            .hero-container { min-height: 60vh; padding-top: 60px; padding-bottom: 20px; }
+            /* HERO MOBILE AJUSTADO */
+            .hero-container { min-height: 60vh; padding-top: 60px; padding-bottom: 20px; justify-content: center; }
             .hero-bg-title { font-size: 5.2rem; transform: scaleX(1.15); transform-origin: center; text-align: center; display: block; width: 100%; }
             .hero-front-signature { transform: translate(-50%, -20%) rotate(-5deg) scale(0.9); font-size: 4rem; }
             
-            /* Texto Mobile Estruturado */
+            /* Texto Mobile Estruturado e Maior */
             .hero-description {
-                display: block; margin-top: 60px; font-size: 11px; letter-spacing: 0.3em; color: rgba(255,255,255,0.8); border-top: 1px solid rgba(255,0,0,0.5); padding-top: 25px; line-height: 2.2; text-transform: uppercase; font-weight: 300;
+                display: block; 
+                margin-top: 60px; 
+                font-size: 14px; 
+                letter-spacing: 0.15em; 
+                color: rgba(255,255,255,0.9); 
+                border-top: 1px solid rgba(255,0,0,0.7); 
+                padding-top: 30px; 
+                line-height: 2; 
+                text-transform: uppercase; 
+                font-weight: 300;
+                text-align: center;
+                max-width: 90%;
             }
 
             .mb-48 { margin-bottom: 40px !important; }
@@ -186,8 +199,8 @@
                 <div class="hero-front-signature">The Vision</div>
             </div>
             <div class="hero-description" 
-                 data-en="Visual engineering department specialized in high-end motion design and cinematic VFX workflows. Crafting the future of digital textures with a focus on raw energy and precision."
-                 data-pt="Departamento de engenharia visual especializado em motion design de alto nível e workflows de VFX cinematográficos. Esculpindo o futuro das texturas digitais com foco em energia bruta e precisão.">
+                 data-en="Visual engineering department specialized in high-end motion design and cinematic VFX workflows. Crafting the future of digital textures with a focus on raw energy, precision, and elite storytelling for premium brands worldwide."
+                 data-pt="Departamento de engenharia visual especializado em motion design de alto nível e workflows de VFX cinematográficos. Esculpindo o futuro das texturas digitais com foco em energia bruta, precisão e narrativa de elite para marcas premium globais.">
                 Visual engineering department specialized in high-end motion design and cinematic VFX workflows.
             </div>
         </section>
@@ -449,7 +462,11 @@
             const flagEn = document.getElementById('flag-en'); const flagPt = document.getElementById('flag-pt');
             if (currentLang === 'pt') { flagEn.className = 'flag flag-off'; flagPt.className = 'flag flag-on'; } 
             else { flagEn.className = 'flag flag-on'; flagPt.className = 'flag flag-off'; }
-            document.querySelectorAll('[data-en]').forEach(el => { el.innerHTML = el.getAttribute(`data-${currentLang}`); });
+            document.querySelectorAll('[data-en]').forEach(el => { 
+                const enText = el.getAttribute('data-en');
+                const ptText = el.getAttribute('data-pt');
+                el.textContent = currentLang === 'en' ? enText : ptText;
+            });
             changePage(parseInt(document.querySelector('.page-btn.active').textContent));
         }
 
