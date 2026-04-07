@@ -32,7 +32,7 @@
         * { cursor: crosshair; }
 
         body {
-            background: radial-gradient(circle at 50% 40%, #2f0000 0%, #000000 100%) no-repeat fixed;
+            background: radial-gradient(circle at 50% 40%, #aa0000 0%, #000000 100%) no-repeat fixed;
             color: #fff;
             font-family: 'Space Grotesk', sans-serif;
             margin: 0;
@@ -107,13 +107,12 @@
         .play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; background: rgba(255, 0, 0, 0.1); transition: opacity 0.4s; z-index: 2; }
         .liquid-glass:hover .play-overlay { opacity: 1; }
 
-        /* PRINCIPLE VIDEOS (ALWAYS LOAD) */
         .video-reel-container { position: relative; width: 100%; height: 100%; background: #000; overflow: hidden; border-radius: inherit; }
         .video-reel-container iframe { width: 150%; height: 150%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
 
         /* --- SPLIT HEROES --- */
-        .section-hero-split { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; margin-bottom: 80px; }
-        .section-hero-vertical-split { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items: center; margin-bottom: 80px; }
+        .section-hero-split { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; margin-bottom: 40px; }
+        .section-hero-vertical-split { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items: center; margin-bottom: 40px; }
 
         /* --- LANGUAGE TOGGLE UI --- */
         .lang-switch-container { display: flex; align-items: center; gap: 12px; background: rgba(0, 0, 0, 0.6); padding: 8px 18px; border-radius: 40px; border: 1.5px solid var(--brand-color); cursor: pointer; transition: 0.4s; box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); z-index: 101; }
@@ -140,7 +139,7 @@
 
         /* --- RESPONSIVE FIXES --- */
         @media (max-width: 1024px) {
-            .section-hero-split, .section-hero-vertical-split { grid-template-columns: 1fr; gap: 30px; text-align: center; margin-bottom: 40px; }
+            .section-hero-split, .section-hero-vertical-split { grid-template-columns: 1fr; gap: 30px; text-align: center; margin-bottom: 20px; }
         }
         @media (max-width: 768px) {
             .hero-container { min-height: 60vh; padding-top: 40px; padding-bottom: 10px; justify-content: center; }
@@ -163,9 +162,11 @@
                 max-width: 95%;
             }
 
-            .mb-48 { margin-bottom: 40px !important; }
-            .mb-32 { margin-bottom: 25px !important; }
-            .py-32 { padding-top: 25px !important; padding-bottom: 25px !important; }
+            /* Reduced spacing between heros (Mobile) */
+            .mb-48 { margin-bottom: 20px !important; }
+            .mb-32 { margin-bottom: 15px !important; }
+            .py-32 { padding-top: 20px !important; padding-bottom: 20px !important; }
+            .py-10 { padding-top: 0 !important; }
             
             #services { overflow-x: hidden !important; width: 100vw; position: relative; }
             .studio-watermark { font-size: 12rem !important; left: -5% !important; width: 110% !important; overflow: hidden; }
@@ -217,9 +218,9 @@
 
         <div class="container mx-auto px-6 relative z-10 py-10">
             
-            <!-- WIDESCREEN SECTION (PRINCIPLE VIDEO 1) -->
-            <section id="work" class="mb-48">
-                <div class="mb-12 flex items-center gap-4">
+            <!-- WIDESCREEN SECTION -->
+            <section id="work" class="mb-12">
+                <div class="mb-8 flex items-center gap-4">
                     <div class="w-1.5 h-1.5 bg-red-600"></div>
                     <h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50" data-en="Widescreen // Cinema" data-pt="Widescreen // Cinema">Widescreen // Cinema</h2>
                 </div>
@@ -227,7 +228,6 @@
                 <div class="section-hero-split">
                     <div class="liquid-glass p-1 rounded-[32px] overflow-hidden group cursor-pointer" onclick="openProject('p1')">
                         <div class="aspect-video relative overflow-hidden rounded-[30px] video-reel-container">
-                            <!-- PRINCIPLE 1: Widescreen Hero -->
                             <iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&background=1&muted=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen"></iframe>
                             <div class="play-overlay"><span class="text-white font-bold tracking-[0.5em] text-xs">PLAY_REEL</span></div>
                         </div>
@@ -269,14 +269,14 @@
                         <div class="p-4"><h4 class="font-syne text-[10px] tracking-widest uppercase opacity-40">Street_Brand_Story</h4></div>
                     </div>
                 </div>
-                <div class="mt-16 flex justify-end">
+                <div class="mt-8 flex justify-end">
                     <a href="https://instagram.com/withpurered" target="_blank" class="cta-more-link" data-en="EXPLORE FULL ARCHIVE" data-pt="EXPLORAR ARQUIVO COMPLETO">EXPLORE FULL ARCHIVE <span class="arrow-icon">→</span></a>
                 </div>
             </section>
 
-            <!-- VERTICAL SECTION (PRINCIPLE VIDEO 2) -->
-            <section id="vertical-work" class="mb-48">
-                <div class="mb-12 flex items-center gap-4"><div class="w-1.5 h-1.5 bg-red-600"></div><h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50" data-en="Vertical // Social" data-pt="Vertical // Social">Vertical // Social</h2></div>
+            <!-- VERTICAL SECTION -->
+            <section id="vertical-work" class="mb-12">
+                <div class="mb-8 flex items-center gap-4"><div class="w-1.5 h-1.5 bg-red-600"></div><h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50" data-en="Vertical // Social" data-pt="Vertical // Social">Vertical // Social</h2></div>
                 
                 <div class="section-hero-vertical-split">
                     <div class="flex flex-col justify-center order-2 lg:order-1">
@@ -290,7 +290,6 @@
                     <div class="flex justify-center order-1 lg:order-2">
                         <div class="liquid-glass p-1 rounded-[40px] overflow-hidden group cursor-pointer max-w-[320px] w-full" onclick="openProject('m1')">
                             <div class="aspect-[9/16] relative overflow-hidden rounded-[38px] video-reel-container">
-                                <!-- PRINCIPLE 2: Vertical Hero -->
                                 <iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&background=1&muted=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen"></iframe>
                                 <div class="play-overlay"><span class="text-white font-bold tracking-[0.5em] text-xs">GO_VIRAL</span></div>
                             </div>
@@ -305,14 +304,14 @@
                     <div class="page-btn" onclick="changePage(2)">2</div>
                 </div>
 
-                <div class="mt-16 flex justify-end">
+                <div class="mt-8 flex justify-end">
                     <a href="https://instagram.com/withpurered" target="_blank" class="cta-more-link" data-en="FOLLOW THE PROCESS" data-pt="ACOMPANHE O PROCESSO">FOLLOW THE PROCESS <span class="arrow-icon">→</span></a>
                 </div>
             </section>
 
-            <!-- AI SECTION (PRINCIPLE VIDEO 3) -->
-            <section id="ai-driven" class="mb-32 py-24 border-y border-white/5">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16 items-end">
+            <!-- AI SECTION -->
+            <section id="ai-driven" class="mb-8 py-12 border-y border-white/5">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-8 items-end">
                     <div>
                         <h3 class="font-syne font-extrabold text-7xl md:text-9xl text-red-600 leading-none uppercase">Neural<br>Boost</h3>
                         <div class="mt-8 flex gap-4 overflow-hidden opacity-20 text-[8px] tracking-[0.5em] uppercase">
@@ -321,20 +320,14 @@
                     </div>
                     <div class="flex flex-col gap-6">
                         <p class="max-w-md text-zinc-300 uppercase text-xs tracking-widest leading-loose text-justify" 
-                           data-en="AI is our engine, VFX is our soul. We don't just generate images; we sculpt frames with artificial intelligence to achieve textures and movements that are humanly impossible." 
+                           data-en="AI is our engine, VFX is our soul. We don't just generate images; we sculpt frames with artificial intelligence to achieve textures and movements that are humanly impossible. This is the new frontier of visual engineering." 
                            data-pt="IA é o nosso motor, VFX é a nossa alma. Não apenas geramos imagens; esculpimos frames com inteligência artificial para atingir texturas e movimentos humanamente impossíveis.">
                            AI is our engine, VFX is our soul.
-                        </p>
-                        <p class="max-w-md text-zinc-500 uppercase text-[10px] tracking-widest leading-relaxed"
-                           data-en="By blending traditional cinema techniques with cutting-edge diffusion models, we unlock a new dimension of storytelling."
-                           data-pt="Ao fundir técnicas de cinema tradicionais com modelos de difusão de última geração, desbloqueamos uma nova dimensão de narrativa.">
-                           By blending traditional cinema techniques...
                         </p>
                     </div>
                 </div>
                 <div class="liquid-glass p-1 rounded-[32px] cursor-pointer" onclick="openProject('ai_reel')">
                     <div class="aspect-video bg-black rounded-[30px] overflow-hidden relative border border-white/10 video-reel-container">
-                        <!-- PRINCIPLE 3: AI Reel -->
                         <iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&background=1&muted=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen"></iframe>
                         <div class="play-overlay"><span class="text-white font-bold text-3xl" data-en="PLAY NEURAL REEL" data-pt="REEL NEURAL">PLAY NEURAL REEL</span></div>
                     </div>
@@ -342,13 +335,13 @@
             </section>
 
             <!-- SERVICES SECTION -->
-            <section id="services" class="mb-8 py-32 relative overflow-hidden">
+            <section id="services" class="mb-4 py-16 relative overflow-hidden">
                 <div class="font-syne font-black text-[12rem] md:text-[20rem] opacity-5 absolute -top-10 left-0 uppercase pointer-events-none italic select-none studio-watermark">Studio</div>
                 <div class="relative z-10 flex items-center gap-4 mb-20">
                     <div class="w-1.5 h-1.5 bg-red-600"></div>
                     <h3 class="font-syne text-2xl tracking-tighter uppercase" data-en="Capabilities // Services" data-pt="Capacidades // Serviços">Capabilities // Services</h3>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-12 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-12 relative z-10">
                     <div class="border-t border-red-600/30 pt-10 group hover:border-red-600 transition-colors duration-500">
                         <span class="text-red-600 font-bold mb-6 block font-syne text-xs tracking-[0.5em]">01 / VFX</span>
                         <h4 class="font-syne text-2xl mb-6 uppercase tracking-tighter" data-en="Advanced Compositing" data-pt="Composição Avançada">Advanced Compositing</h4>
@@ -386,7 +379,7 @@
         <footer id="contact" class="py-20 text-center border-t border-white/5">
             <h2 class="font-syne font-black text-8xl md:text-[10rem] mb-12 uppercase italic" data-en="Let's Create" data-pt="Vamos Criar">Let's Create</h2>
             <a href="https://wa.me/5514991223598" class="liquid-glass px-12 py-6 text-2xl font-syne font-bold hover:bg-red-600 transition-all uppercase group">
-                <span class="group-hover:text-black" data-en="Contact" data-pt="Contacto">Contact</span>
+                <span class="group-hover:text-black" data-en="Contact" data-pt="Contacto">Contacto</span>
             </a>
         </footer>
     </main>
@@ -416,14 +409,12 @@
         const projectData = {
             p1: { title: {en: "SHOWREEL 2026", pt: "SHOWREEL 2026"}, video: "949759419", ratio: 'widescreen' },
             p2: { title: {en: "PRODUCTION", pt: "PRODUÇÃO"}, video: "949759419", ratio: 'widescreen' },
-            p3: { title: {en: "STREET CONCEPTS", pt: "CONCEITOS URBANOS"}, video: "949759419", ratio: 'widescreen' },
-            p4: { title: {en: "VFX MASTER", pt: "VFX MASTER"}, video: "949759419", ratio: 'widescreen' },
-            m1: { title: {en: "VIRAL IMPACT", pt: "IMPACTO VIRAL"}, video: "949759419", ratio: 'mobile' },
             ai_reel: { title: {en: "NEURAL SHOWREEL", pt: "SHOWREEL NEURAL"}, video: "949759419", ratio: 'widescreen' }
         };
 
         function changePage(page) {
             const grid = document.getElementById('vertical-grid');
+            if (!grid) return;
             const items = verticalData.filter(item => item.page === page);
             document.querySelectorAll('.page-btn').forEach((btn, idx) => { btn.classList.toggle('active', idx + 1 === page); });
             grid.style.opacity = '0';
@@ -453,7 +444,8 @@
                 const ptText = el.getAttribute('data-pt');
                 el.textContent = currentLang === 'en' ? enText : ptText;
             });
-            changePage(parseInt(document.querySelector('.page-btn.active ').textContent));
+            const activePageBtn = document.querySelector('.page-btn.active');
+            if (activePageBtn) changePage(parseInt(activePageBtn.textContent));
         }
 
         function openProject(id) {
@@ -467,10 +459,9 @@
             viewer.style.display = 'block'; 
             document.body.style.overflow = 'hidden';
 
-            // THE REST ONLY LOADS HERE (ON CLICK)
             content.innerHTML = `
                 <div class="${videoClass} bg-black rounded-3xl overflow-hidden border-2 border-red-600/30 shadow-2xl relative w-full">
-                    <iframe id="v-frame" src="https://player.vimeo.com/video/${p.video}?autoplay=1&muted=0" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen"></iframe>
+                    <iframe id="v-frame" src="https://player.vimeo.com/video/${p.video}?autoplay=1&muted=0&playsinline=1" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen"></iframe>
                 </div>
                 <h2 class="font-syne font-bold text-4xl md:text-7xl mt-12 uppercase text-center">${p.title[currentLang]}</h2>
             `;
