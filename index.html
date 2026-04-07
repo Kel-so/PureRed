@@ -26,6 +26,8 @@
         html, body {
             background-color: #000000;
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
         }
 
         * { cursor: crosshair; }
@@ -34,7 +36,6 @@
             background: radial-gradient(circle at 50% 40%, #2b0000 0%, #000000 100%) no-repeat fixed;
             color: #fff;
             font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
             margin: 0;
             min-height: 100vh;
         }
@@ -72,7 +73,7 @@
         .hero-bg-text-wrapper { 
             position: relative; z-index: 1; text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .hero-bg-title { font-size: clamp(4rem, 22vw, 22rem); color: rgba(255, 255, 255, 0.9); width: 100%; text-align: center; }
+        .hero-bg-title { font-size: clamp(4rem, 22vw, 22rem); color: rgba(255, 255, 255, 0.9); width: 100%; text-align: center; line-height: 1; }
         .hero-front-signature {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%) rotate(-5deg); font-size: clamp(3rem, 12vw, 12rem); color: var(--pure-red); font-family: 'Mrs Saint Delafield', cursive; z-index: 2; white-space: nowrap; text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
@@ -119,7 +120,7 @@
 
         /* --- CTA LINKS --- */
         .cta-more-link { display: inline-flex; align-items: center; font-family: 'Syne', sans-serif; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5em; color: rgba(255,255,255,0.4); padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); transition: all 0.4s; position: relative; }
-        .cta-more-link:hover { color: #fff; border-color: var(--pure-red); letter-spacing: 0.6em; }
+        .cta-more-link:hover { color: #fff; border-color: var(--pure-red); letter-spacing: 0.6em; text-shadow: 0 0 10px rgba(255,0,0,0.5); }
         .cta-more-link .arrow-icon { margin-left: 10px; transition: transform 0.4s ease; }
         .cta-more-link:hover .arrow-icon { transform: translateX(10px); color: var(--pure-red); }
 
@@ -135,35 +136,42 @@
             .section-hero-split, .section-hero-vertical-split { grid-template-columns: 1fr; gap: 30px; text-align: center; margin-bottom: 40px; }
         }
         @media (max-width: 768px) {
-            /* HERO MOBILE AJUSTADO */
-            .hero-container { min-height: 60vh; padding-top: 60px; padding-bottom: 20px; justify-content: center; }
+            /* HERO MOBILE AJUSTADO (Mais apertado) */
+            .hero-container { min-height: 50vh; padding-top: 40px; padding-bottom: 10px; justify-content: center; }
             .hero-bg-title { font-size: 5.2rem; transform: scaleX(1.15); transform-origin: center; text-align: center; display: block; width: 100%; }
             .hero-front-signature { transform: translate(-50%, -20%) rotate(-5deg) scale(0.9); font-size: 4rem; }
             
-            /* Texto Mobile Estruturado e Maior */
+            /* Texto Mobile Estruturado e Muito Maior */
             .hero-description {
                 display: block; 
-                margin-top: 60px; 
-                font-size: 14px; 
-                letter-spacing: 0.15em; 
+                margin-top: 50px; 
+                font-size: 16px; 
+                letter-spacing: 0.1em; 
                 color: rgba(255,255,255,0.9); 
-                border-top: 1px solid rgba(255,0,0,0.7); 
-                padding-top: 30px; 
-                line-height: 2; 
+                border-top: 1.5px solid var(--pure-red); 
+                padding-top: 25px; 
+                line-height: 1.8; 
                 text-transform: uppercase; 
-                font-weight: 300;
+                font-weight: 400;
                 text-align: center;
-                max-width: 90%;
+                max-width: 95%;
             }
 
-            .mb-48 { margin-bottom: 40px !important; }
-            .mb-32 { margin-bottom: 30px !important; }
-            .py-32 { padding-top: 30px !important; padding-bottom: 30px !important; }
+            /* Espaçamento reduzido entre seções no mobile */
+            .mb-48 { margin-bottom: 30px !important; }
+            .mb-32 { margin-bottom: 20px !important; }
+            .py-32 { padding-top: 20px !important; padding-bottom: 20px !important; }
+            .container { padding-top: 0 !important; }
+
             .nav-main { display: none; }
             .lang-switch-container { padding: 8px 14px; }
+            
+            /* STUDIO fix para mobile */
+            #services { overflow-x: hidden !important; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; }
+            .studio-watermark { font-size: 12rem !important; left: -10% !important; width: 120% !important; overflow: hidden; }
         }
     </style>
-</head>
+ head>
 <body>
 
     <div id="pre-render"><div class="loader-bar"><div class="loader-progress"></div></div></div>
@@ -330,7 +338,7 @@
 
             <!-- SERVICES SECTION -->
             <section id="services" class="mb-8 py-32 relative overflow-hidden">
-                <div class="font-syne font-black text-[12rem] md:text-[20rem] opacity-5 absolute -top-10 left-0 uppercase pointer-events-none italic select-none">Studio</div>
+                <div class="font-syne font-black text-[12rem] md:text-[20rem] opacity-5 absolute -top-10 left-0 uppercase pointer-events-none italic select-none studio-watermark">Studio</div>
                 <div class="relative z-10 flex items-center gap-4 mb-20">
                     <div class="w-1.5 h-1.5 bg-red-600"></div>
                     <h3 class="font-syne text-2xl tracking-tighter uppercase" data-en="Capabilities // Services" data-pt="Capacidades // Serviços">Capabilities // Services</h3>
