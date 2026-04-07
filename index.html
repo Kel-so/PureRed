@@ -117,7 +117,7 @@
         }
         @keyframes scroll { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
 
-        /* --- HERO ADAPTÁVEL --- */
+        /* --- HERO --- */
         .hero-container {
             position: relative;
             height: 100vh;
@@ -127,7 +127,6 @@
             align-items: center;
             overflow: hidden;
             background: transparent;
-            padding-top: 50px;
         }
         .hero-bg-text-wrapper { position: relative; z-index: 1; text-align: center; width: 100%; }
         .hero-bg-title {
@@ -147,6 +146,17 @@
             white-space: nowrap;
             text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
+        
+        .hero-description {
+            position: relative;
+            z-index: 3;
+            max-width: 600px;
+            text-align: center;
+            margin-top: 20px;
+            padding: 0 20px;
+            display: none; 
+        }
+
         .hero-hud-credits {
             position: absolute;
             bottom: 5vh;
@@ -203,12 +213,13 @@
             overflow: hidden;
         }
         .liquid-glass:hover { border-color: var(--pure-red); transform: scale(1.02); }
+        
         .thumb-video-container {
             position: relative;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            background: #000;
+            background: #111;
             overflow: hidden;
             filter: grayscale(100%);
             opacity: 0;
@@ -221,8 +232,8 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 150%;
-            height: 150%;
+            width: 115%; /* Reduzido para evitar bug de corte excessivo */
+            height: 115%;
             transform: translate(-50%, -50%);
             border: none;
         }
@@ -239,15 +250,46 @@
         @media (max-width: 768px) {
             .hero-container { 
                 height: auto; 
-                min-height: 50vh; 
-                padding-top: 100px; 
-                padding-bottom: 80px; 
+                min-height: 85vh; 
+                padding-top: 140px; 
+                padding-bottom: 40px; 
+                justify-content: flex-start;
             }
-            .hero-bg-title { transform: scaleX(1.1); font-size: 5rem; }
-            .hero-front-signature { transform: translate(-50%, -40%) rotate(-5deg) scale(0.75); }
-            .hero-hud-credits { position: relative; bottom: 0; margin-top: 40px; }
+            .hero-bg-text-wrapper { margin-bottom: 20px; }
+            .hero-bg-title { transform: scaleX(1.15); font-size: 5.2rem; }
+            .hero-front-signature { 
+                transform: translate(-50%, -20%) rotate(-5deg) scale(0.9); 
+                font-size: 4rem;
+            }
             
-            .btn-close { width: 50px; height: 50px; top: 20px; right: 20px; font-size: 20px; }
+            .hero-description {
+                display: block;
+                margin-top: 80px;
+                text-transform: uppercase;
+                font-size: 11px;
+                letter-spacing: 0.4em;
+                line-height: 2.2;
+                color: rgba(255,255,255,0.8);
+                font-weight: 300;
+                border-top: 1px solid rgba(255,0,0,0.5);
+                padding-top: 30px;
+            }
+
+            .hero-hud-credits { 
+                position: relative; 
+                bottom: 0; 
+                margin-top: 50px; 
+                font-size: 9px; 
+                line-height: 2.5;
+                letter-spacing: 0.15em;
+                opacity: 0.7;
+            }
+            
+            /* Thumbnails no mobile sem filtro para garantir playback imediato */
+            .thumb-video-container { filter: none !important; opacity: 1 !important; background: #000; }
+            .thumb-video-container iframe { width: 130%; height: 130%; } /* Um pouco mais de margem no mobile */
+            
+            .btn-close { width: 55px; height: 55px; top: 20px; right: 20px; font-size: 20px; }
             .grid-widescreen { grid-template-columns: 1fr; }
             .grid-mobile { grid-template-columns: repeat(2, 1fr); }
         }
@@ -284,19 +326,24 @@
     </nav>
 
     <main>
-        <!-- HERO ADAPTÁVEL -->
+        <!-- HERO -->
         <section class="hero-container">
             <div class="hero-bg-text-wrapper">
                 <h1 class="hero-bg-title font-brutal-wide">PURE RED</h1>
                 <div class="hero-front-signature">The Vision</div>
             </div>
+            
+            <div class="hero-description">
+                Visual engineering department specialized in high-end motion design and cinematic VFX workflows.
+            </div>
+
             <div class="hero-hud-credits">
                 <div>Executive Producers <span>Pure Red</span> — Studio Leads <span>AI & Neural Workflows</span></div>
                 <div class="mt-2 opacity-40">EST. 2026 // VISUAL ENGINEERING // BRAZIL</div>
             </div>
         </section>
 
-        <div class="container mx-auto px-6 relative z-10 py-20">
+        <div class="container mx-auto px-6 relative z-10 py-10">
             
             <!-- WIDESCREEN -->
             <section id="work" class="mb-32">
@@ -307,25 +354,25 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div class="liquid-glass p-3 group cursor-pointer js-observe" onclick="openProject('p1')">
                         <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
-                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&autopause=0&muted=1&background=1" frameborder="0"></iframe></div>
+                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&muted=1&background=1&loop=1" frameborder="0"></iframe></div>
                         </div>
                         <div class="mt-5 px-2 flex justify-between items-center"><h3 class="font-syne font-bold text-3xl uppercase">Showreel '26</h3><span class="text-red-600 font-bold text-xs uppercase">Play</span></div>
                     </div>
                     <div class="liquid-glass p-3 group cursor-pointer js-observe" onclick="openProject('p2')">
                         <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
-                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&autopause=0&muted=1&background=1" frameborder="0"></iframe></div>
+                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&muted=1&background=1&loop=1" frameborder="0"></iframe></div>
                         </div>
                         <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase">Production</h3></div>
                     </div>
                     <div class="liquid-glass p-3 group cursor-pointer js-observe" onclick="openProject('p3')">
                         <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
-                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&autopause=0&muted=1&background=1" frameborder="0"></iframe></div>
+                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&muted=1&background=1&loop=1" frameborder="0"></iframe></div>
                         </div>
                         <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase">Street VFX</h3></div>
                     </div>
                     <div class="liquid-glass p-3 group cursor-pointer js-observe" onclick="openProject('p4')">
                         <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
-                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&autopause=0&muted=1&background=1" frameborder="0"></iframe></div>
+                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&muted=1&background=1&loop=1" frameborder="0"></iframe></div>
                         </div>
                         <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase">Concepts</h3></div>
                     </div>
@@ -359,7 +406,7 @@
                 </div>
                 <div class="liquid-glass p-4 cursor-pointer" onclick="openProject('p1')">
                     <div class="aspect-video bg-black rounded-xl overflow-hidden relative border border-white/10 group-hover:border-red-600 transition-all">
-                        <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&background=1" frameborder="0"></iframe></div>
+                        <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&background=1&muted=1" frameborder="0"></iframe></div>
                         <div class="absolute inset-0 flex items-center justify-center bg-black/60"><div class="font-syne font-bold text-5xl opacity-80 uppercase">AI_VFX_REEL</div></div>
                     </div>
                 </div>
@@ -430,7 +477,8 @@
             m1: { title: "VIRAL", video: "949759419", ratio: 'mobile' },
             m2: { title: "STREETWEAR", video: "949759419", ratio: 'mobile' },
             m3: { title: "MOTION", video: "949759419", ratio: 'mobile' },
-            m4: { title: "LOOKBOOK", video: "949759419", ratio: 'mobile' }
+            m4: { title: "LOOKBOOK", video: "949759419", ratio: 'mobile' },
+            ai_reel: { title: "NEURAL VFX", video: "949759419", ratio: 'widescreen' }
         };
 
         function openProject(id) {
@@ -445,9 +493,9 @@
             content.innerHTML = `
                 <div class="flex flex-col items-center">
                     <div class="${videoClass} bg-black rounded-3xl overflow-hidden border-2 border-red-600/30 shadow-2xl relative">
-                        <iframe id="video-iframe" src="https://player.vimeo.com/video/${p.video}?autoplay=1" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen"></iframe>
+                        <iframe id="video-iframe" src="https://player.vimeo.com/video/${p.video}?autoplay=1&muted=1" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen"></iframe>
                     </div>
-                    <h2 class="font-syne font-bold text-4xl md:text-7xl mt-12 uppercase">${p.title}</h2>
+                    <h2 class="font-syne font-bold text-4xl md:text-7xl mt-12 uppercase text-center">${p.title}</h2>
                 </div>
             `;
             
@@ -455,7 +503,14 @@
             document.body.style.overflow = 'hidden';
 
             const iframe = document.getElementById('video-iframe');
+            
+            const fallback = setTimeout(() => {
+                spinner.style.display = 'none';
+                content.style.opacity = '1';
+            }, 6000);
+
             iframe.onload = function() {
+                clearTimeout(fallback);
                 spinner.style.display = 'none';
                 content.style.transition = 'opacity 0.8s ease';
                 content.style.opacity = '1';
@@ -468,13 +523,21 @@
             document.getElementById('project-content').innerHTML = '';
         }
 
-        window.addEventListener('load', () => { setTimeout(() => { document.body.classList.add('loaded'); }, 1000); });
+        window.addEventListener('load', () => { 
+            setTimeout(() => { document.body.classList.add('loaded'); }, 500); 
+        });
+        
+        setTimeout(() => {
+            if (!document.body.classList.contains('loaded')) {
+                document.body.classList.add('loaded');
+            }
+        }, 3000);
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('is-in-view');
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.1 });
         document.querySelectorAll('.js-observe').forEach(target => observer.observe(target));
     </script>
 </body>
