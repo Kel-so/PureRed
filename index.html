@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -175,18 +175,33 @@
         /* --- MODAL --- */
         #project-viewer {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98);
-            z-index: 2000;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 99999;
             display: none;
             overflow-y: auto;
-            backdrop-filter: blur(15px);
+            overflow-x: hidden;
+            backdrop-filter: blur(20px);
         }
+        
+        .modal-inner {
+            width: 100%;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
         .btn-close {
             position: fixed;
             top: 30px;
             right: 30px;
-            z-index: 2100;
+            z-index: 100000;
             background: var(--pure-red);
             color: white;
             width: 60px;
@@ -197,10 +212,12 @@
             border-radius: 50%;
             font-size: 24px;
             font-weight: bold;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
             box-shadow: 0 0 20px rgba(255,0,0,0.4);
+            border: none;
+            cursor: pointer;
         }
-        .btn-close:hover { transform: scale(1.1) rotate(90deg); }
+        .btn-close:hover { transform: scale(1.1) rotate(90deg); background: white; color: var(--pure-red); }
 
         /* --- CARDS --- */
         .liquid-glass {
@@ -214,29 +231,93 @@
         }
         .liquid-glass:hover { border-color: var(--pure-red); transform: scale(1.02); }
         
-        .thumb-video-container {
+        .thumb-image-container {
             position: relative;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             background: #111;
             overflow: hidden;
-            filter: grayscale(100%);
-            opacity: 0;
-            transition: opacity 1s ease, filter 0.6s ease;
+            transition: filter 0.6s ease;
         }
-        .loaded .thumb-video-container { opacity: 1; }
-        .liquid-glass:hover .thumb-video-container { filter: grayscale(0%); }
 
-        .thumb-video-container iframe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 115%; /* Reduzido para evitar bug de corte excessivo */
-            height: 115%;
-            transform: translate(-50%, -50%);
-            border: none;
+        .thumb-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
         }
+
+        .liquid-glass:hover .thumb-image-container img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            background: rgba(255,0,0,0.1);
+            transition: opacity 0.4s ease;
+            z-index: 2;
+        }
+        .liquid-glass:hover .play-overlay { opacity: 1; }
+
+        /* --- LANGUAGE TOGGLE UI (FLAGS) --- */
+        .lang-switch-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .lang-switch-container:hover { border-color: var(--pure-red); }
+        
+        .flag {
+            font-size: 16px;
+            transition: all 0.4s ease;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        /* Logic for Flags state */
+        .flag-off {
+            filter: grayscale(100%);
+            opacity: 0.2;
+            transform: scale(0.9);
+        }
+        .flag-on {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.2);
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .toggle-track {
+            width: 30px;
+            height: 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            position: relative;
+        }
+        .toggle-thumb {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body.is-pt .toggle-thumb { transform: translateX(14px); }
 
         .noise {
             position: fixed;
@@ -285,13 +366,13 @@
                 opacity: 0.7;
             }
             
-            /* Thumbnails no mobile sem filtro para garantir playback imediato */
-            .thumb-video-container { filter: none !important; opacity: 1 !important; background: #000; }
-            .thumb-video-container iframe { width: 130%; height: 130%; } /* Um pouco mais de margem no mobile */
-            
-            .btn-close { width: 55px; height: 55px; top: 20px; right: 20px; font-size: 20px; }
+            .thumb-image-container img { filter: none !important; }
+            .btn-close { width: 50px; height: 50px; top: 20px; right: 20px; font-size: 20px; }
             .grid-widescreen { grid-template-columns: 1fr; }
             .grid-mobile { grid-template-columns: repeat(2, 1fr); }
+            
+            .nav-main { display: none; } /* Hide text links on mobile */
+            .lang-switch-container { padding: 6px 12px; } /* Compact on mobile */
         }
     </style>
 </head>
@@ -310,18 +391,37 @@
 
     <div class="marquee-fixed">
         <div class="scroll-anim">
-            <span>PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — RAW ENERGY — &nbsp;</span>
-            <span>PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — RAW ENERGY — &nbsp;</span>
+            <span data-en="PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — RAW ENERGY — &nbsp;" 
+                  data-pt="PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUÇÃO — ENERGIA BRUTA — &nbsp;">
+                  PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — RAW ENERGY — &nbsp;
+            </span>
+            <span data-en="PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — RAW ENERGY — &nbsp;" 
+                  data-pt="PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUÇÃO — ENERGIA BRUTA — &nbsp;">
+                  PURE RED // MOTION DESIGN — VFX — MUSIC VIDEOS — STREETWEAR — PRODUCTION — RAW ENERGY — &nbsp;
+            </span>
         </div>
     </div>
 
     <nav class="fixed top-12 w-full z-[100] px-8 flex justify-between items-center mix-blend-difference text-white">
         <div class="font-syne text-xl tracking-tighter">PURE RED <span class="text-red-600">©2026</span></div>
-        <div class="hidden md:flex gap-8 text-[10px] tracking-widest font-bold">
-            <a href="#work" class="hover:text-red-600 transition">WORK</a>
-            <a href="#vertical-work" class="hover:text-red-600 transition">SOCIAL</a>
-            <a href="#ai-driven" class="hover:text-red-600 transition">AI</a>
-            <a href="#services" class="hover:text-red-600 transition">SERVICES</a>
+        
+        <div class="flex items-center gap-8">
+            <!-- Hidden on mobile -->
+            <div class="hidden md:flex gap-8 text-[10px] tracking-widest font-bold nav-main">
+                <a href="#work" class="hover:text-red-600 transition" data-en="WORK" data-pt="TRABALHOS">WORK</a>
+                <a href="#vertical-work" class="hover:text-red-600 transition" data-en="SOCIAL" data-pt="SOCIAL">SOCIAL</a>
+                <a href="#ai-driven" class="hover:text-red-600 transition" data-en="AI" data-pt="IA">IA</a>
+                <a href="#services" class="hover:text-red-600 transition" data-en="SERVICES" data-pt="SERVIÇOS">SERVICES</a>
+            </div>
+
+            <!-- Language Toggle WITH FLAGS -->
+            <div class="lang-switch-container" onclick="toggleLanguage()">
+                <span id="flag-en" class="flag flag-on">🇺🇸</span>
+                <div class="toggle-track">
+                    <div class="toggle-thumb"></div>
+                </div>
+                <span id="flag-pt" class="flag flag-off">🇧🇷</span>
+            </div>
         </div>
     </nav>
 
@@ -330,84 +430,136 @@
         <section class="hero-container">
             <div class="hero-bg-text-wrapper">
                 <h1 class="hero-bg-title font-brutal-wide">PURE RED</h1>
-                <div class="hero-front-signature">The Vision</div>
+                <div class="hero-front-signature" data-en="The Vision" data-pt="A Visão">The Vision</div>
             </div>
             
-            <div class="hero-description">
+            <div class="hero-description" 
+                 data-en="Visual engineering department specialized in high-end motion design and cinematic VFX workflows."
+                 data-pt="Departamento de engenharia visual especializado em motion design de alto nível e workflows de VFX cinematográficos.">
                 Visual engineering department specialized in high-end motion design and cinematic VFX workflows.
             </div>
 
             <div class="hero-hud-credits">
-                <div>Executive Producers <span>Pure Red</span> — Studio Leads <span>AI & Neural Workflows</span></div>
+                <div>
+                    <span data-en="Executive Producers" data-pt="Produtores Executivos">Executive Producers</span> <span>Pure Red</span> — 
+                    <span data-en="Studio Leads" data-pt="Líderes de Estúdio">Studio Leads</span> <span>AI & Neural Workflows</span>
+                </div>
                 <div class="mt-2 opacity-40">EST. 2026 // VISUAL ENGINEERING // BRAZIL</div>
             </div>
         </section>
 
         <div class="container mx-auto px-6 relative z-10 py-10">
             
-            <!-- WIDESCREEN -->
+            <!-- WIDESCREEN SECTION -->
             <section id="work" class="mb-32">
                 <div class="mb-12 flex items-center gap-4">
                     <div class="w-1.5 h-1.5 bg-red-600"></div>
-                    <h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50">Widescreen // Cinematic</h2>
+                    <h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50" data-en="Widescreen // Cinematic" data-pt="Widescreen // Cinematográfico">Widescreen // Cinematic</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div class="liquid-glass p-3 group cursor-pointer js-observe" onclick="openProject('p1')">
+                    <div class="liquid-glass p-3 group cursor-pointer" onclick="openProject('p1')">
                         <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
-                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&muted=1&background=1&loop=1" frameborder="0"></iframe></div>
+                             <div class="thumb-image-container">
+                                 <div class="play-overlay"><span class="text-white font-bold tracking-[0.5em] text-xs" data-en="VIEW" data-pt="VER">VIEW</span></div>
+                                 <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=2000" alt="Showreel">
+                             </div>
                         </div>
-                        <div class="mt-5 px-2 flex justify-between items-center"><h3 class="font-syne font-bold text-3xl uppercase">Showreel '26</h3><span class="text-red-600 font-bold text-xs uppercase">Play</span></div>
+                        <div class="mt-5 px-2 flex justify-between items-center">
+                            <h3 class="font-syne font-bold text-3xl uppercase" data-en="Showreel '26" data-pt="Showreel '26">Showreel '26</h3>
+                            <span class="text-red-600 font-bold text-xs uppercase" data-en="Expand" data-pt="Expandir">Expand</span>
+                        </div>
                     </div>
-                    <div class="liquid-glass p-3 group cursor-pointer js-observe" onclick="openProject('p2')">
+                    <div class="liquid-glass p-3 group cursor-pointer" onclick="openProject('p2')">
                         <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
-                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&muted=1&background=1&loop=1" frameborder="0"></iframe></div>
+                             <div class="thumb-image-container">
+                                 <div class="play-overlay"><span class="text-white font-bold tracking-[0.5em] text-xs" data-en="VIEW" data-pt="VER">VIEW</span></div>
+                                 <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000" alt="Production">
+                             </div>
                         </div>
-                        <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase">Production</h3></div>
+                        <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase" data-en="Production" data-pt="Produção">Production</h3></div>
                     </div>
-                    <div class="liquid-glass p-3 group cursor-pointer js-observe" onclick="openProject('p3')">
+                    <div class="liquid-glass p-3 group cursor-pointer" onclick="openProject('p3')">
                         <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
-                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&muted=1&background=1&loop=1" frameborder="0"></iframe></div>
+                             <div class="thumb-image-container">
+                                 <div class="play-overlay"><span class="text-white font-bold tracking-[0.5em] text-xs" data-en="VIEW" data-pt="VER">VIEW</span></div>
+                                 <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2000" alt="Street VFX">
+                             </div>
                         </div>
-                        <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase">Street VFX</h3></div>
+                        <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase" data-en="Street VFX" data-pt="VFX Urbano">Street VFX</h3></div>
                     </div>
-                    <div class="liquid-glass p-3 group cursor-pointer js-observe" onclick="openProject('p4')">
+                    <div class="liquid-glass p-3 group cursor-pointer" onclick="openProject('p4')">
                         <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
-                             <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&muted=1&background=1&loop=1" frameborder="0"></iframe></div>
+                             <div class="thumb-image-container">
+                                 <div class="play-overlay"><span class="text-white font-bold tracking-[0.5em] text-xs" data-en="VIEW" data-pt="VER">VIEW</span></div>
+                                 <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000" alt="Concepts">
+                             </div>
                         </div>
-                        <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase">Concepts</h3></div>
+                        <div class="mt-5 px-2"><h3 class="font-syne font-bold text-3xl uppercase" data-en="Concepts" data-pt="Conceitos">Concepts</h3></div>
                     </div>
                 </div>
             </section>
 
-            <!-- VERTICAL -->
+            <!-- VERTICAL SECTION -->
             <section id="vertical-work" class="mb-32">
-                <div class="mb-12 flex items-center gap-4"><div class="w-1.5 h-1.5 bg-red-600"></div><h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50">Vertical // Social</h2></div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="liquid-glass p-2 cursor-pointer js-observe" onclick="openProject('m1')">
-                        <div class="aspect-[9/16] bg-black rounded-lg overflow-hidden relative"><div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&muted=1&background=1" frameborder="0"></iframe></div></div>
+                <div class="mb-12 flex items-center gap-4"><div class="w-1.5 h-1.5 bg-red-600"></div><h2 class="font-syne text-2xl tracking-tighter uppercase opacity-50" data-en="Vertical // Social Ads" data-pt="Vertical // Social Ads">Vertical // Social Ads</h2></div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+                    <div class="group cursor-pointer" onclick="openProject('m1')">
+                        <div class="liquid-glass aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
+                            <div class="thumb-image-container"><img src="https://images.unsplash.com/photo-1626544827763-d516dce335e2?q=80&w=1000" alt="Viral Edit"></div>
+                        </div>
+                        <h3 class="mt-4 font-syne text-[10px] tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity" data-en="Viral Motion" data-pt="Motion Viral">Viral Motion</h3>
                     </div>
-                    <div class="liquid-glass p-2 cursor-pointer js-observe" onclick="openProject('m2')">
-                        <div class="aspect-[9/16] bg-black rounded-lg overflow-hidden relative"><div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&muted=1&background=1" frameborder="0"></iframe></div></div>
+                    <div class="group cursor-pointer" onclick="openProject('m2')">
+                        <div class="liquid-glass aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
+                            <div class="thumb-image-container"><img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=1000" alt="Social Ads"></div>
+                        </div>
+                        <h3 class="mt-4 font-syne text-[10px] tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity" data-en="Street Content" data-pt="Conteúdo Urbano">Street Content</h3>
                     </div>
-                    <div class="liquid-glass p-2 cursor-pointer js-observe" onclick="openProject('m3')">
-                        <div class="aspect-[9/16] bg-black rounded-lg overflow-hidden relative"><div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&muted=1&background=1" frameborder="0"></iframe></div></div>
+                    <div class="group cursor-pointer" onclick="openProject('m3')">
+                        <div class="liquid-glass aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
+                            <div class="thumb-image-container"><img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=1000" alt="Motion Art"></div>
+                        </div>
+                        <h3 class="mt-4 font-syne text-[10px] tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity" data-en="Digital Art" data-pt="Arte Digital">Digital Art</h3>
                     </div>
-                    <div class="liquid-glass p-2 cursor-pointer js-observe" onclick="openProject('m4')">
-                        <div class="aspect-[9/16] bg-black rounded-lg overflow-hidden relative"><div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&muted=1&background=1" frameborder="0"></iframe></div></div>
+                    <div class="group cursor-pointer" onclick="openProject('m4')">
+                        <div class="liquid-glass aspect-[9/16] bg-black rounded-lg overflow-hidden relative">
+                            <div class="thumb-image-container"><img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1000" alt="Lookbook"></div>
+                        </div>
+                        <h3 class="mt-4 font-syne text-[10px] tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity" data-en="Brand Stories" data-pt="Brand Stories">Brand Stories</h3>
                     </div>
                 </div>
             </section>
 
             <!-- AI SECTION -->
-            <section id="ai-driven" class="mb-32 py-20 border-y border-white/5">
-                <div class="mb-12">
-                    <h3 class="font-syne font-extrabold text-7xl md:text-9xl text-red-600 leading-none uppercase">Neural<br>Boost</h3>
-                    <p class="max-w-md mt-6 text-zinc-500 uppercase text-xs tracking-widest leading-loose">AI as engine. VFX as soul. Catalyst for high-end textures.</p>
+            <section id="ai-driven" class="mb-32 py-24 border-y border-white/5">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16 items-end">
+                    <div>
+                        <h3 class="font-syne font-extrabold text-7xl md:text-9xl text-red-600 leading-none uppercase">Neural<br>Boost</h3>
+                        <div class="mt-8 flex gap-4 overflow-hidden opacity-20">
+                            <span class="font-syne text-[8px] whitespace-nowrap tracking-[0.5em] uppercase">Processing Core_01 // Stable Diffusion</span>
+                            <span class="font-syne text-[8px] whitespace-nowrap tracking-[0.5em] uppercase">Processing Core_02 // Midjourney API</span>
+                            <span class="font-syne text-[8px] whitespace-nowrap tracking-[0.5em] uppercase">Processing Core_03 // Custom LORA</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-6">
+                        <p class="max-w-md text-zinc-300 uppercase text-xs tracking-widest leading-loose text-justify"
+                           data-en="AI is our engine, VFX is our soul. We don't just generate images; we sculpt frames with artificial intelligence to achieve textures and movements that are humanly impossible."
+                           data-pt="IA é o nosso motor, VFX é a nossa alma. Não apenas geramos imagens; esculpimos frames com inteligência artificial para atingir texturas e movimentos humanamente impossíveis.">
+                            AI is our engine, VFX is our soul. We don't just generate images; we sculpt frames with artificial intelligence to achieve textures and movements that are humanly impossible.
+                        </p>
+                        <p class="max-w-md text-zinc-500 uppercase text-[10px] tracking-widest leading-relaxed"
+                           data-en="Our pipeline integrates latent diffusion models directly into cinema compositing software (Nuke/After Effects), enabling neural restoration, complex environment generation, and art direction assisted by cutting-edge neural networks."
+                           data-pt="Nossa pipeline integra modelos de difusão latente diretamente em softwares de composição de cinema, permitindo restauração neural, geração de cenários complexos e direção de arte assistida por redes neurais de última geração.">
+                            Our pipeline integrates latent diffusion models directly into cinema compositing software (Nuke/After Effects), enabling neural restoration, complex environment generation, and art direction assisted by cutting-edge neural networks.
+                        </p>
+                    </div>
                 </div>
-                <div class="liquid-glass p-4 cursor-pointer" onclick="openProject('p1')">
+                <div class="liquid-glass p-4 cursor-pointer" onclick="openProject('ai_reel')">
                     <div class="aspect-video bg-black rounded-xl overflow-hidden relative border border-white/10 group-hover:border-red-600 transition-all">
-                        <div class="thumb-video-container"><iframe src="https://player.vimeo.com/video/949759419?autoplay=1&loop=1&background=1&muted=1" frameborder="0"></iframe></div>
-                        <div class="absolute inset-0 flex items-center justify-center bg-black/60"><div class="font-syne font-bold text-5xl opacity-80 uppercase">AI_VFX_REEL</div></div>
+                        <div class="thumb-image-container">
+                            <div class="play-overlay"><span class="text-white font-bold text-3xl" data-en="PLAY NEURAL REEL" data-pt="REEL NEURAL">PLAY NEURAL REEL</span></div>
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000" alt="AI VFX Showcase">
+                        </div>
                     </div>
                 </div>
             </section>
@@ -415,95 +567,119 @@
             <!-- SERVICES -->
             <section id="services" class="mb-8 py-16">
                 <div class="relative mb-20">
-                    <h2 class="font-syne font-black text-8xl md:text-[12rem] opacity-5 absolute -top-10 left-0 uppercase pointer-events-none italic">Studio</h2>
-                    <h3 class="relative z-10 font-syne text-2xl tracking-tighter uppercase">Capabilities // Services</h3>
+                    <h2 class="font-syne font-black text-8xl md:text-[12rem] opacity-5 absolute -top-10 left-0 uppercase pointer-events-none italic" data-en="Studio" data-pt="Estúdio">Studio</h2>
+                    <h3 class="relative z-10 font-syne text-2xl tracking-tighter uppercase" data-en="Capabilities // Services" data-pt="Capacidades // Serviços">Capabilities // Services</h3>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
                     <div class="border-t border-red-600/30 pt-8 group hover:border-red-600 transition-colors">
                         <span class="text-red-600 font-bold mb-4 block text-xs tracking-widest">01 / VFX</span>
-                        <h4 class="font-syne text-2xl mb-4 uppercase">Advanced Compositing</h4>
-                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase">High-end 3D integration.</p>
+                        <h4 class="font-syne text-2xl mb-4 uppercase" data-en="Advanced Compositing" data-pt="Composição Avançada">Advanced Compositing</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase" data-en="High-end 3D integration." data-pt="Integração 3D de alta gama.">High-end 3D integration.</p>
                     </div>
                     <div class="border-t border-red-600/30 pt-8 group hover:border-red-600 transition-colors">
                         <span class="text-red-600 font-bold mb-4 block text-xs tracking-widest">02 / MOTION</span>
-                        <h4 class="font-syne text-2xl mb-4 uppercase">Typography Design</h4>
-                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase">Rhythmic brutalist design.</p>
+                        <h4 class="font-syne text-2xl mb-4 uppercase" data-en="Typography Design" data-pt="Design Tipográfico">Typography Design</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase" data-en="Rhythmic brutalist design." data-pt="Design rítmico e brutalista.">Rhythmic brutalist design.</p>
                     </div>
                     <div class="border-t border-red-600/30 pt-8 group hover:border-red-600 transition-colors">
                         <span class="text-red-600 font-bold mb-4 block text-xs tracking-widest">03 / COLOR</span>
-                        <h4 class="font-syne text-2xl mb-4 uppercase">Color Grading</h4>
-                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase">Cinematic science.</p>
+                        <h4 class="font-syne text-2xl mb-4 uppercase" data-en="Color Grading" data-pt="Tratamento de Cor">Color Grading</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase" data-en="Cinematic science." data-pt="Ciência de cor cinematográfica.">Cinematic science.</p>
                     </div>
                     <div class="border-t border-red-600/30 pt-8 group hover:border-red-600 transition-colors">
                         <span class="text-red-600 font-bold mb-4 block text-xs tracking-widest">04 / NEURAL</span>
-                        <h4 class="font-syne text-2xl mb-4 uppercase">AI Upscaling</h4>
-                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase">Legacy restoration.</p>
+                        <h4 class="font-syne text-2xl mb-4 uppercase" data-en="AI Upscaling" data-pt="Upscaling de IA">AI Upscaling</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase" data-en="Legacy restoration." data-pt="Restauração de footage legado.">Legacy restoration.</p>
                     </div>
                     <div class="border-t border-red-600/30 pt-8 group hover:border-red-600 transition-colors">
                         <span class="text-red-600 font-bold mb-4 block text-xs tracking-widest">05 / GEN_ART</span>
-                        <h4 class="font-syne text-2xl mb-4 uppercase">Environments</h4>
-                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase">Procedural assets.</p>
+                        <h4 class="font-syne text-2xl mb-4 uppercase" data-en="Environments" data-pt="Cenários">Environments</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase" data-en="Procedural assets." data-pt="Assets procedurais.">Procedural assets.</p>
                     </div>
                     <div class="border-t border-red-600/30 pt-8 group hover:border-red-600 transition-colors">
                         <span class="text-red-600 font-bold mb-4 block text-xs tracking-widest">06 / PIPELINE</span>
-                        <h4 class="font-syne text-2xl mb-4 uppercase">Neural Mocap</h4>
-                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase">Markerless capture.</p>
+                        <h4 class="font-syne text-2xl mb-4 uppercase" data-en="Neural Mocap" data-pt="Mocap Neural">Neural Mocap</h4>
+                        <p class="text-[10px] text-zinc-500 tracking-widest uppercase" data-en="Markerless capture." data-pt="Captura sem marcadores.">Markerless capture.</p>
                     </div>
                 </div>
             </section>
         </div>
 
         <footer id="contact" class="py-20 text-center border-t border-white/5">
-            <h2 class="font-syne font-black text-8xl md:text-[10rem] mb-12 uppercase italic">Let's Create</h2>
-            <a href="https://wa.me/SEU_NUMERO" class="liquid-glass px-12 py-6 text-2xl font-syne font-bold hover:bg-red-600 transition-all uppercase group"><span class="group-hover:text-black">Contact</span></a>
+            <h2 class="font-syne font-black text-8xl md:text-[10rem] mb-12 uppercase italic" data-en="Let's Create" data-pt="Vamos Criar">Let's Create</h2>
+            <a href="https://wa.me/SEU_NUMERO" class="liquid-glass px-12 py-6 text-2xl font-syne font-bold hover:bg-red-600 transition-all uppercase group">
+                <span class="group-hover:text-black" data-en="Contact" data-pt="Contato">Contact</span>
+            </a>
         </footer>
     </main>
 
     <!-- MODAL -->
     <div id="project-viewer">
         <button onclick="closeProject()" class="btn-close">✕</button>
-        <div class="container mx-auto px-6 py-24 min-h-screen flex flex-col justify-center relative">
+        <div class="modal-inner">
             <div id="video-spinner" class="video-loader"></div>
-            <div id="project-content"></div>
+            <div id="project-content" class="w-full max-w-6xl flex flex-col items-center"></div>
         </div>
     </div>
 
     <script>
+        let currentLang = 'en';
+
         const projectData = {
-            p1: { title: "SHOWREEL 2026", video: "949759419", ratio: 'widescreen' },
-            p2: { title: "PRODUCTION", video: "949759419", ratio: 'widescreen' },
-            p3: { title: "MOTION CONCEPTS", video: "949759419", ratio: 'widescreen' },
-            p4: { title: "VFX BREAKDOWN", video: "949759419", ratio: 'widescreen' },
-            m1: { title: "VIRAL", video: "949759419", ratio: 'mobile' },
-            m2: { title: "STREETWEAR", video: "949759419", ratio: 'mobile' },
-            m3: { title: "MOTION", video: "949759419", ratio: 'mobile' },
-            m4: { title: "LOOKBOOK", video: "949759419", ratio: 'mobile' },
-            ai_reel: { title: "NEURAL VFX", video: "949759419", ratio: 'widescreen' }
+            p1: { title: {en: "SHOWREEL 2026", pt: "SHOWREEL 2026"}, video: "949759419", ratio: 'widescreen' },
+            p2: { title: {en: "PRODUCTION", pt: "PRODUÇÃO"}, video: "949759419", ratio: 'widescreen' },
+            p3: { title: {en: "MOTION CONCEPTS", pt: "CONCEITOS MOTION"}, video: "949759419", ratio: 'widescreen' },
+            p4: { title: {en: "VFX BREAKDOWN", pt: "BREAKDOWN VFX"}, video: "949759419", ratio: 'widescreen' },
+            m1: { title: {en: "VIRAL MOTION", pt: "MOTION VIRAL"}, video: "949759419", ratio: 'mobile' },
+            m2: { title: {en: "SOCIAL ADS", pt: "SOCIAL ADS"}, video: "949759419", ratio: 'mobile' },
+            m3: { title: {en: "STREET CULTURE", pt: "CULTURA URBANA"}, video: "949759419", ratio: 'mobile' },
+            m4: { title: {en: "LOOKBOOK V2", pt: "LOOKBOOK V2"}, video: "949759419", ratio: 'mobile' },
+            ai_reel: { title: {en: "NEURAL SHOWREEL", pt: "SHOWREEL NEURAL"}, video: "949759419", ratio: 'widescreen' }
         };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'pt' : 'en';
+            document.body.classList.toggle('is-pt', currentLang === 'pt');
+            
+            const flagEn = document.getElementById('flag-en');
+            const flagPt = document.getElementById('flag-pt');
+
+            if (currentLang === 'pt') {
+                flagEn.className = 'flag flag-off';
+                flagPt.className = 'flag flag-on';
+            } else {
+                flagEn.className = 'flag flag-on';
+                flagPt.className = 'flag flag-off';
+            }
+            
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+        }
 
         function openProject(id) {
             const p = projectData[id] || projectData['p1'];
             const content = document.getElementById('project-content');
             const spinner = document.getElementById('video-spinner');
+            const viewer = document.getElementById('project-viewer');
+            
             const videoClass = p.ratio === 'mobile' ? 'max-w-[400px] aspect-[9/16]' : 'w-full aspect-video';
+            const displayTitle = p.title[currentLang];
             
             spinner.style.display = 'block';
             content.style.opacity = '0';
             
             content.innerHTML = `
-                <div class="flex flex-col items-center">
-                    <div class="${videoClass} bg-black rounded-3xl overflow-hidden border-2 border-red-600/30 shadow-2xl relative">
-                        <iframe id="video-iframe" src="https://player.vimeo.com/video/${p.video}?autoplay=1&muted=1" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen"></iframe>
-                    </div>
-                    <h2 class="font-syne font-bold text-4xl md:text-7xl mt-12 uppercase text-center">${p.title}</h2>
+                <div class="${videoClass} bg-black rounded-3xl overflow-hidden border-2 border-red-600/30 shadow-2xl relative w-full">
+                    <iframe id="video-iframe" src="https://player.vimeo.com/video/${p.video}?autoplay=1&muted=0" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen"></iframe>
                 </div>
+                <h2 class="font-syne font-bold text-4xl md:text-7xl mt-12 uppercase text-center">${displayTitle}</h2>
             `;
             
-            document.getElementById('project-viewer').style.display = 'block';
+            viewer.style.display = 'block';
             document.body.style.overflow = 'hidden';
 
             const iframe = document.getElementById('video-iframe');
-            
             const fallback = setTimeout(() => {
                 spinner.style.display = 'none';
                 content.style.opacity = '1';
@@ -526,19 +702,6 @@
         window.addEventListener('load', () => { 
             setTimeout(() => { document.body.classList.add('loaded'); }, 500); 
         });
-        
-        setTimeout(() => {
-            if (!document.body.classList.contains('loaded')) {
-                document.body.classList.add('loaded');
-            }
-        }, 3000);
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('is-in-view');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.js-observe').forEach(target => observer.observe(target));
     </script>
 </body>
 </html>
