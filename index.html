@@ -111,7 +111,7 @@
         .lang-switch-container:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
         .flag { font-size: 18px; transition: 0.4s; display: inline-block; line-height: 1; }
         .flag-off { filter: grayscale(100%) brightness(0.4); opacity: 0.3; transform: scale(0.85); }
-        .flag-on { filter: grayscale(0%) brightness(1.2); opacity: 1; transform: scale(1.25); }
+        .flag-on { filter: grayscale(0%) brightness(1.2); opacity: 1; transform: scale(1.25); filter: drop-shadow(0 0 8px rgba(255,255,255,0.4)); }
         .toggle-track { width: 32px; height: 14px; background: rgba(255, 255, 255, 0.15); border-radius: 10px; position: relative; border: 1px solid rgba(255, 0, 0, 0.3); }
         .toggle-thumb { width: 14px; height: 14px; background: white; border-radius: 50%; position: absolute; top: -1px; left: -1px; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 0 10px rgba(255,255,255,0.8); }
         body.is-pt .toggle-thumb { transform: translateX(18px); }
@@ -134,7 +134,7 @@
             .section-hero-split, .section-hero-vertical-split { grid-template-columns: 1fr; gap: 30px; text-align: center; margin-bottom: 40px; }
         }
         @media (max-width: 768px) {
-            .hero-container { min-height: 80vh; padding-top: 100px; padding-bottom: 20px; }
+            .hero-container { min-height: 60vh; padding-top: 60px; padding-bottom: 20px; }
             .hero-bg-title { font-size: 5.2rem; transform: scaleX(1.15); transform-origin: center; text-align: center; display: block; width: 100%; }
             .hero-front-signature { transform: translate(-50%, -20%) rotate(-5deg) scale(0.9); font-size: 4rem; }
             
@@ -143,9 +143,9 @@
                 display: block; margin-top: 60px; font-size: 11px; letter-spacing: 0.3em; color: rgba(255,255,255,0.8); border-top: 1px solid rgba(255,0,0,0.5); padding-top: 25px; line-height: 2.2; text-transform: uppercase; font-weight: 300;
             }
 
-            .mb-48 { margin-bottom: 60px !important; }
-            .mb-32 { margin-bottom: 40px !important; }
-            .py-32 { padding-top: 40px !important; padding-bottom: 40px !important; }
+            .mb-48 { margin-bottom: 40px !important; }
+            .mb-32 { margin-bottom: 30px !important; }
+            .py-32 { padding-top: 30px !important; padding-bottom: 30px !important; }
             .nav-main { display: none; }
             .lang-switch-container { padding: 8px 14px; }
         }
@@ -182,7 +182,7 @@
         <!-- HERO PRINCIPAL -->
         <section class="hero-container">
             <div class="hero-bg-text-wrapper">
-                <h1 class="hero-bg-title font-brutal-wide">PURE RED</h1>
+                <h1 class="hero-bg-title font-brutal-wide text-center">PURE RED</h1>
                 <div class="hero-front-signature">The Vision</div>
             </div>
             <div class="hero-description" 
@@ -316,7 +316,7 @@
             </section>
 
             <!-- SERVICES SECTION -->
-            <section id="services" class="mb-8 py-32 relative">
+            <section id="services" class="mb-8 py-32 relative overflow-hidden">
                 <div class="font-syne font-black text-[12rem] md:text-[20rem] opacity-5 absolute -top-10 left-0 uppercase pointer-events-none italic select-none">Studio</div>
                 <div class="relative z-10 flex items-center gap-4 mb-20">
                     <div class="w-1.5 h-1.5 bg-red-600"></div>
