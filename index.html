@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>PURE RED // VISUALS</title>
     
     <!-- FIX PARA MOBILE: COR DA BARRA E FUNDO DE OVERSCROLL -->
@@ -29,7 +29,7 @@
             width: 100%;
         }
 
-        * { cursor: crosshair; }
+        * { cursor: crosshair; -webkit-tap-highlight-color: transparent; }
 
         body {
             background: radial-gradient(circle at 50% 40%, #aa0000 0%, #000000 100%) no-repeat fixed;
@@ -162,7 +162,7 @@
                 max-width: 95%;
             }
 
-            /* Reduced spacing between heros (Mobile) */
+            /* Espaçamento reduzido entre heros (Mobile) */
             .mb-48 { margin-bottom: 20px !important; }
             .mb-32 { margin-bottom: 15px !important; }
             .py-32 { padding-top: 20px !important; padding-bottom: 20px !important; }
@@ -208,6 +208,7 @@
                 <h1 class="hero-bg-title font-brutal-wide text-center">PURE RED</h1>
                 <div class="hero-front-signature">The Vision</div>
             </div>
+            <!-- TEXTO EXPLICATIVO (QUEM SOMOS) -->
             <div class="hero-description" 
                  data-en="We are a visual engineering department dedicated to high-end motion design and cinematic VFX. Our mission is to sculpt the future of digital storytelling by blending raw artistic energy with elite technology for premium global brands."
                  data-pt="Somos um departamento de engenharia visual dedicado a motion design de alto nível e VFX cinematográfico. Nossa missão é esculpir o futuro da narrativa digital fundindo energia artística bruta com tecnologia de elite para marcas premium globais.">
@@ -304,7 +305,7 @@
                     <div class="page-btn" onclick="changePage(2)">2</div>
                 </div>
 
-                <div class="mt-8 flex justify-end">
+                <div class="mt-16 flex justify-end">
                     <a href="https://instagram.com/withpurered" target="_blank" class="cta-more-link" data-en="FOLLOW THE PROCESS" data-pt="ACOMPANHE O PROCESSO">FOLLOW THE PROCESS <span class="arrow-icon">→</span></a>
                 </div>
             </section>
@@ -437,12 +438,13 @@
             currentLang = currentLang === 'en' ? 'pt' : 'en';
             document.body.classList.toggle('is-pt', currentLang === 'pt');
             const flagEn = document.getElementById('flag-en'); const flagPt = document.getElementById('flag-pt');
-            if (currentLang === 'pt') { flagEn.className = 'flag flag-off'; flagPt.className = 'flag flag-on'; } 
-            else { flagEn.className = 'flag flag-on'; flagPt.className = 'flag flag-off'; }
+            if (flagEn && flagPt) {
+                flagEn.className = (currentLang === 'en' ? 'flag flag-on' : 'flag flag-off');
+                flagPt.className = (currentLang === 'pt' ? 'flag flag-on' : 'flag flag-off');
+            }
             document.querySelectorAll('[data-en]').forEach(el => { 
-                const enText = el.getAttribute('data-en');
-                const ptText = el.getAttribute('data-pt');
-                el.textContent = currentLang === 'en' ? enText : ptText;
+                const text = el.getAttribute(`data-${currentLang}`);
+                if (text) el.innerHTML = text;
             });
             const activePageBtn = document.querySelector('.page-btn.active');
             if (activePageBtn) changePage(parseInt(activePageBtn.textContent));
@@ -454,7 +456,8 @@
             const viewer = document.getElementById('project-viewer');
             const videoClass = p.ratio === 'mobile' ? 'max-w-[320px] aspect-[9/16]' : 'w-full aspect-video';
             
-            document.getElementById('video-spinner').style.display = 'block';
+            const spinner = document.getElementById('video-spinner');
+            if (spinner) spinner.style.display = 'block';
             content.style.opacity = '0';
             viewer.style.display = 'block'; 
             document.body.style.overflow = 'hidden';
@@ -466,11 +469,14 @@
                 <h2 class="font-syne font-bold text-4xl md:text-7xl mt-12 uppercase text-center">${p.title[currentLang]}</h2>
             `;
             
-            document.getElementById('v-frame').onload = () => { 
-                document.getElementById('video-spinner').style.display = 'none'; 
-                content.style.transition = 'opacity 0.8s ease';
-                content.style.opacity = '1'; 
-            };
+            const iframe = document.getElementById('v-frame');
+            if (iframe) {
+                iframe.onload = () => { 
+                    if (spinner) spinner.style.display = 'none'; 
+                    content.style.transition = 'opacity 0.8s ease';
+                    content.style.opacity = '1'; 
+                };
+            }
         }
 
         function closeProject() { document.getElementById('project-viewer').style.display = 'none'; document.body.style.overflow = 'auto'; document.getElementById('project-content').innerHTML = ''; }
