@@ -166,7 +166,10 @@
     .work-grid { grid-template-columns: 1fr; }
     .work-item.wide { aspect-ratio: 16/9; }
     section { padding: 60px 20px; }
-    .hero-signature { top: 40%; }
+    /* FIX HERO MOBILE */
+    .hero-title { font-size: clamp(4.5rem, 22vw, 9rem); }
+    .hero-signature { top: 42%; font-size: clamp(2.5rem, 12vw, 5.5rem); }
+    .hero-eyebrow { letter-spacing: 0.3em; font-size: 0.55rem; }
     nav { padding: 10px 20px; }
   }
 </style>
@@ -192,7 +195,7 @@
   <div class="relative">
     <h1 class="hero-title">
       PURE<br>
-      <span class="hero-title">RED</span>
+      <span class="outline">RED</span>
     </h1>
     <div class="hero-signature">The Vision</div>
   </div>
