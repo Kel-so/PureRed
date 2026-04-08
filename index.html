@@ -1,40 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PURE RED // VISUALS</title>
-    
-    <!-- FIX PARA MOBILE: COR DA BARRA E FUNDO DE OVERSCROLL -->
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- FAVICON -->
-    <link rel="icon" type="image/jpeg" href="Icon.jpg?v=2">
-    <link rel="apple-touch-icon" href="Icon.jpg?v=2">
-    
-    <!-- Fontes Brutalistas e de Assinatura -->
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@800&family=Space+Grotesk:wght@300;700&family=Noto+Sans+JP:wght@900&family=Birthstone+Bounce:wght@400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --brand-color: #ff0000; /* PURE RED */
-            --dark-bg: #000000;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PURE RED // VISUAL ENGINEERING</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;700;900&family=Birthstone+Bounce:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #FF0000;
+    --black: #000000;
+    --white: #FFFFFF;
+    --gray: #0a0a0a;
+    --border-width: 2px;
+  }
 
-        /* HARD FIX: Impede scroll horizontal em qualquer circunstância */
-        html, body {
-            background-color: #1c0000;
-            scroll-behavior: smooth;
-            overflow-x: hidden !important;
-            width: 100%;
-            position: relative;
-        }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
-        /* Removendo tap highlight irritante no mobile */
-        * { cursor: crosshair; -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
 
+  /* ── NOISE OVERLAY ──────────────────────── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: .4;
+  }
+
+  /* Fundo Fixo - Pure Red Gradient */
+  .bg-fixed {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100dvh;
+    background: radial-gradient(circle at 50% 35%, #440000 0%, #000000 100%);
+    z-index: -1;
+  }
+
+  /* ── NAV ────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000; display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 30px; border-bottom: 1px solid rgba(255,0,0,0.3);
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(12px);
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.1em; color: var(--white); }
+  .nav-logo span { color: var(--red); }
+  
+  .lang-switcher {
+    display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05);
+    padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer; transition: all 0.3s;
+  }
+  .lang-switcher:hover { border-color: var(--red); }
+  .lang-switcher span { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; opacity: 0.4; }
+  .lang-switcher span.active { opacity: 1; color: var(--red); }
+
+  /* ── HERO ───────────────────────────────── */
+  .hero {
+    height: 100dvh; display: flex; flex-direction: column; justify-content: center;
+    align-items: center; text-align: center; position: relative; padding: 0 20px;
+  }
+  .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.5em; color: var(--red); text-transform: uppercase; margin-bottom: 20px; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(6rem, 20vw, 18rem); line-height: 0.8; letter-spacing: -0.02em; position: relative; }
+  .hero-title span.outline { -webkit-text-stroke: 1.5px var(--white); color: transparent; opacity: 0.3; }
+  .hero-signature { 
+    font-family: 'Birthstone Bounce', cursive; color: var(--red); 
+    font-size: clamp(3rem, 10vw, 9rem); position: absolute; top: 45%; left: 50%; 
+    transform: translate(-50%, -50%) rotate(-5deg); z-index: 10; text-shadow: 0 0 30px rgba(255,0,0,0.5);
+  }
+  .hero-bottom { position: absolute; bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; }
+  .hero-scroll { font-size: 0.55rem; letter-spacing: 0.3em; opacity: 0.3; text-transform: uppercase; }
+  .hero-scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--red), transparent); }
+
+  /* ── TICKER ─────────────────────────────── */
+  .ticker-wrap { background: var(--red); color: #000; padding: 12px 0; border-bottom: 2px solid #000; border-top: 2px solid #000; overflow: hidden; }
+  .ticker { display: flex; white-space: nowrap; animation: ticker 20s linear infinite; }
+  .ticker-item { font-family: 'Bebas Neue'; font-size: 1.2rem; letter-spacing: 0.2em; padding: 0 50px; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SECTIONS ───────────────────────────── */
+  section { padding: 80px 30px; position: relative; }
+  .section-header { margin-bottom: 60px; border-bottom: 3px solid var(--red); padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .section-title { font-family: 'Bebas Neue'; font-size: clamp(3rem, 8vw, 6rem); line-height: 1; letter-spacing: 0.05em; }
+  .section-num { font-family: 'Space Mono'; font-size: 0.7rem; color: var(--red); letter-spacing: 0.3em; }
+
+  /* ── GRID SYSTEM ────────────────────────── */
+  .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .work-item { background: var(--gray); position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+  .work-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+  .work-item.vert { aspect-ratio: 9/16; }
+  
+  .video-container { width: 100%; height: 100%; position: relative; background: #000; }
+  .video-container iframe { width: 100%; height: 100%; border: none; }
+  
+  /* Thumbnail Styling */
+  .video-thumb {
+    position: absolute; inset: 0; width: 100%; height: 100%; 
+    object-fit: cover; z-index: 2; transition: transform 0.5s ease;
+    opacity: 0.7;
+  }
+  .work-item:hover .video-thumb { transform: scale(1.05); opacity: 0.9; }
+
+  .item-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: opacity 0.4s; opacity: 1; z-index: 3;
+  }
+  .work-item:hover .item-overlay { background: rgba(255,0,0,0.1); }
+  
+  .play-icon {
+    font-size: 3rem; color: var(--red); margin-bottom: 15px;
+    filter: drop-shadow(0 0 10px rgba(255,0,0,0.5));
+  }
+
+  .item-label { font-family: 'Bebas Neue'; font-size: 1.5rem; letter-spacing: 0.2em; margin-bottom: 10px; text-shadow: 0 2px 10px #000; }
+  .item-tag { font-size: 0.6rem; border: 1px solid var(--red); color: var(--red); padding: 3px 10px; background: rgba(0,0,0,0.8); }
+
+  /* ── SOCIAL LINKS ────────────────────── */
+  .view-more-container {
+    margin-top: 40px; text-align: right;
+  }
+  .insta-link {
+    font-family: 'Bebas Neue'; font-size: 1.2rem; color: var(--white);
+    text-decoration: none; border-bottom: 2px solid var(--red);
+    padding-bottom: 5px; transition: color 0.3s;
+    letter-spacing: 0.1em;
+  }
+  .insta-link:hover { color: var(--red); }
+
+  /* ── CAPABILITIES ───────────────────────── */
+  .cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .cap-card { padding: 40px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); transition: 0.3s; }
+  .cap-card:hover { border-color: var(--red); background: rgba(255,0,0,0.05); transform: translateY(-5px); }
+  .cap-card h4 { font-family: 'Bebas Neue'; font-size: 1.8rem; margin-bottom: 15px; }
+  .cap-card p { font-size: 0.75rem; color: rgba(255,255,255,0.4); line-height: 1.8; }
+
+  /* ── FOOTER/CONTACT ─────────────────────── */
+  .contact-footer { padding: 120px 30px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
+  .contact-title { font-family: 'Bebas Neue'; font-size: clamp(4rem, 15vw, 12rem); line-height: 0.8; margin-bottom: 40px; }
+  .cta-button { 
+    display: inline-block; padding: 25px 60px; background: var(--red); color: #000; 
+    font-family: 'Bebas Neue'; font-size: 1.5rem; text-decoration: none; 
+    transition: 0.3s; border: 2px solid var(--red);
+  }
+  .cta-button:hover { background: transparent; color: var(--red); box-shadow: 0 0 30px rgba(255,0,0,0.3); }
+
+  /* ── ANIMATIONS ─────────────────────────── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── LOADER ─────────────────────────────── */
+  #pre-render { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; transition: opacity 0.8s; }
+  .loader-bar { width: 200px; height: 1px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; }
+  .loader-progress { position: absolute; height: 100%; width: 50%; background: var(--red); left: -100%; animation: load 1.5s infinite; }
+  @keyframes load { to { left: 100%; } }
+  body.loaded #pre-render { opacity: 0; pointer-events: none; }
+
+  @media (max-width: 768px) {
+    .work-grid { grid-template-columns: 1fr; }
+    .work-item.wide { aspect-ratio: 16/9; }
+    section { padding: 60px 20px; }
+    .hero-signature { top: 40%; }
+    nav { padding: 10px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="pre-render"><div class="loader-bar"><div class="loader-progress"></div></div></div>
+<div class="bg-fixed"></div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">PURE<span>RED</span></div>
+  <div class="lang-switcher" onclick="toggleLanguage()">
+    <span id="lang-en" class="active">EN</span>
+    <span>/</span>
+    <span id="lang-pt">PT</span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <p class="hero-eyebrow" data-en="VISUAL ENGINEERING STUDIO" data-pt="ESTÚDIO DE ENGENHARIA VISUAL">VISUAL ENGINEERING STUDIO</p>
+  <div class="relative">
+    <h1 class="hero-title">
+      PURE<br>
+      <span class="outline">RED</span>
+    </h1>
+    <div class="hero-signature">The Vision</div>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-scroll" data-en="SCROLL TO EXPLORE" data-pt="ROLE PARA EXPLORAR">SCROLL TO EXPLORE</p>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── TICKER ── -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item">STREETWEAR AESTHETICS ◆ NEURAL VFX ◆ HIGH-TICKET CINEMA ◆ ADVANCED MOTION ◆ </span>
+    <span class="ticker-item">STREETWEAR AESTHETICS ◆ NEURAL VFX ◆ HIGH-TICKET CINEMA ◆ ADVANCED MOTION ◆ </span>
+  </div>
+</div>
+
+<!-- ── WORK: MASTER GRID (WIDE) ── -->
+<section id="work-wide" class="reveal">
+  <div class="section-header">
+    <h2 class="section-title">MASTER WORKS</h2>
+    <span class="section-num">01 / WIDE_CINEMA</span>
+  </div>
+  
+  <div class="work-grid">
+    <!-- VIDEO 01 (WIDE) -->
+    <div class="work-item wide" onclick="loadVimeo(this, '949759419')">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1450&auto=format&fit=crop" class="video-thumb">
+        <div class="item-overlay">
+          <div class="play-icon">▶</div>
+          <p class="item-label">SHOWREEL 2026</p>
+          <span class="item-tag">16:9 MASTER</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO 02 (WIDE) -->
+    <div class="work-item wide" style="aspect-ratio: 21/9;" onclick="loadVimeo(this, '949759419')">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1492691523567-62791245f3c0?q=80&w=1470&auto=format&fit=crop" class="video-thumb">
+        <div class="item-overlay">
+          <div class="play-icon">▶</div>
+          <p class="item-label" data-en="BRAND FILM // NIKE" data-pt="FILME DE MARCA // NIKE">BRAND FILM // NIKE</p>
+          <span class="item-tag">ANAMORPHIC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-more-container">
+    <a href="https://instagram.com/withpurered" target="_blank" class="insta-link" data-en="SEE MORE ON INSTAGRAM ↗" data-pt="VEJA MAIS NO INSTAGRAM ↗">SEE MORE ON INSTAGRAM ↗</a>
+  </div>
+</section>
+
+<!-- ── WORK: SOCIAL (VERTICAL) ── -->
+<section id="work-vert" class="reveal">
+  <div class="section-header">
+    <h2 class="section-title">VIRAL IMPACT</h2>
+    <span class="section-num">02 / VERT_RETENTION</span>
+  </div>
+
+  <div class="work-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+    <!-- VERT 01 -->
+    <div class="work-item vert" onclick="loadVimeo(this, '949759419')">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1470&auto=format&fit=crop" class="video-thumb">
+        <div class="item-overlay">
+          <div class="play-icon" style="font-size: 2rem;">▶</div>
+          <p class="item-label">REEL_01</p>
+          <span class="item-tag">9:16</span>
+        </div>
+      </div>
+    </div>
+    <!-- VERT 02 -->
+    <div class="work-item vert" onclick="loadVimeo(this, '949759419')">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1364&auto=format&fit=crop" class="video-thumb">
+        <div class="item-overlay">
+          <div class="play-icon" style="font-size: 2rem;">▶</div>
+          <p class="item-label">REEL_02</p>
+          <span class="item-tag">9:16</span>
+        </div>
+      </div>
+    </div>
+    <!-- VERT 03 -->
+    <div class="work-item vert" onclick="loadVimeo(this, '949759419')">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1374&auto=format&fit=crop" class="video-thumb">
+        <div class="item-overlay">
+          <div class="play-icon" style="font-size: 2rem;">▶</div>
+          <p class="item-label">REEL_03</p>
+          <span class="item-tag">9:16</span>
+        </div>
+      </div>
+    </div>
+    <!-- VERT 04 -->
+    <div class="work-item vert" onclick="loadVimeo(this, '949759419')">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?q=80&w=1470&auto=format&fit=crop" class="video-thumb">
+        <div class="item-overlay">
+          <div class="play-icon" style="font-size: 2rem;">▶</div>
+          <p class="item-label">REEL_04</p>
+          <span class="item-tag">9:16</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-more-container">
+    <a href="https://instagram.com/withpurered" target="_blank" class="insta-link" data-en="FOLLOW THE FEED ↗" data-pt="ACOMPANHE O FEED ↗">FOLLOW THE FEED ↗</a>
+  </div>
+</section>
+
+<!-- ── HERO: NEURAL PRODUCTION (AI) ── -->
+<section id="ai-hero" class="reveal" style="background: #050000; border-y: 1px solid rgba(255,0,0,0.2);">
+  <div class="section-header">
+    <h2 class="section-title">NEURAL<br>EVOLUTION</h2>
+    <span class="section-num">03 / AI_PRODUCTION</span>
+  </div>
+  
+  <div class="ai-hero-content" style="margin-bottom: 40px;">
+    <p style="font-size: 1.1rem; line-height: 1.6; color: rgba(255,255,255,0.8); max-width: 800px; margin-bottom: 30px;" 
+       data-en="We don't just use AI; we engineer neural workflows. Blending diffusion models with high-end VFX to create visuals that defy reality." 
+       data-pt="Nós não apenas usamos IA; nós projetamos workflows neurais. Unindo modelos de difusão com VFX de alto nível para criar visuais que desafiam a realidade.">
+      We don't just use AI; we engineer neural workflows. Blending diffusion models with high-end VFX to create visuals that defy reality.
+    </p>
+  </div>
+
+  <div class="work-grid">
+    <!-- AI WIDE -->
+    <div class="work-item wide" onclick="loadVimeo(this, '949759419')">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1632&auto=format&fit=crop" class="video-thumb">
+        <div class="item-overlay">
+          <div class="play-icon">▶</div>
+          <p class="item-label" data-en="AI SHOWREEL // 2026" data-pt="IA SHOWREEL // 2026">IA SHOWREEL // 2026</p>
+          <span class="item-tag">NEURAL ENGINE</span>
+        </div>
+      </div>
+    </div>
+    <!-- AI VERTICAL -->
+    <div class="work-item vert" onclick="loadVimeo(this, '949759419')">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1470&auto=format&fit=crop" class="video-thumb">
+        <div class="item-overlay">
+          <div class="play-icon" style="font-size: 2rem;">▶</div>
+          <p class="item-label">NEURAL_CLIP</p>
+          <span class="item-tag">9:16 AI</span>
+        </div>
+      </div>
+    </div>
+    <div class="work-item vert" onclick="loadVimeo(this, '949759419')">
+      <div class="video-container">
+        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1374&auto=format&fit=crop" class="video-thumb">
+        <div class="item-overlay">
+          <div class="play-icon" style="font-size: 2rem;">▶</div>
+          <p class="item-label">VFX_DREAM</p>
+          <span class="item-tag">9:16 AI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-more-container">
+    <a href="https://instagram.com/withpurered" target="_blank" class="insta-link" data-en="EXPLORE NEURAL ART ↗" data-pt="EXPLORE ARTE NEURAL ↗">EXPLORE NEURAL ART ↗</a>
+  </div>
+</section>
+
+<!-- ── CAPABILITIES ── -->
+<section id="capabilities" class="reveal">
+  <div class="section-header">
+    <h2 class="section-title">EXPERTISE</h2>
+    <span class="section-num">04 / CORE_SKILLS</span>
+  </div>
+  <div class="cap-grid">
+    <div class="cap-card">
+      <h4 data-en="Advanced Compositing" data-pt="Composição Avançada">Advanced Compositing</h4>
+      <p data-en="Precision integration of CGI and live-action. Cinema-grade visual fusion." data-pt="Integração de precisão entre CGI e live-action. Fusão visual de nível cinema.">Precision integration.</p>
+    </div>
+    <div class="cap-card">
+      <h4 data-en="Color Science" data-pt="Ciência de Cor">Color Science</h4>
+      <p data-en="Scientific grading focused on emotional impact and technical exclusivity." data-pt="Gradação científica focada em impacto emocional e exclusividade técnica.">Scientific grading.</p>
+    </div>
+    <div class="cap-card">
+      <h4 data-en="Motion Typography" data-pt="Tipografia Cinética">Motion Typography</h4>
+      <p data-en="Brutalist and rhythmic workflows for high-ticket brand storytelling." data-pt="Workflows brutalistas e rítmicos para storytelling de marcas de alto ticket.">Brutalist workflows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT & WHATSAPP ── -->
+<section class="contact-footer reveal">
+  <h2 class="contact-title" data-en="LET'S<br>PROJECT" data-pt="VAMOS<br>PROJETAR">LET'S<br>PROJECT</h2>
+  <!-- Link do WhatsApp configurado com mensagem personalizada -->
+  <a href="https://wa.me/5514991223598?text=Olá! Vim pelo site e gostaria de um orçamento para engenharia visual." 
+     target="_blank" 
+     class="cta-button" 
+     data-en="START_ENGINEERING →" 
+     data-pt="INICIAR_PROJETO →">
+     START_ENGINEERING →
+  </a>
+  <div style="margin-top: 50px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 0.3em;">
+    LONDRINA, BR — GLOBAL OPS — 2026 © PURE RED VISUALS
+  </div>
+</section>
+
+<script>
+// --- STATE & TRANSLATION ---
+let currentLang = 'en';
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'pt' : 'en';
+  
+  document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
+  document.getElementById('lang-pt').classList.toggle('active', currentLang === 'pt');
+  
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.innerHTML = el.getAttribute(`data-${currentLang}`);
+  });
+}
+
+// --- VIMEO LAZY LOAD ---
+function loadVimeo(element, vimeoId) {
+  const container = element.querySelector('.video-container');
+  // Substitui todo o conteúdo pelo iframe com autoplay e cor da marca
+  container.innerHTML = `
+    <iframe src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&color=FF0000" 
+            allow="autoplay; fullscreen" 
+            allowfullscreen></iframe>
+  `;
+}
+
+// --- REVEAL ANIMATION ---
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// --- LOADER & INIT ---
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.body.classList.add('loaded');
+  }, 1000);
+});
+</script>
+</body>
+</html>
         body {
             color: #fff;
             font-family: 'Space Grotesk', sans-serif;
