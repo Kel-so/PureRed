@@ -1,382 +1,343 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>PURE RED // VISUAL ENGINEERING</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;700;900&family=Birthstone+Bounce:wght@400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --red: #FF0000;
-    --black: #000000;
-    --white: #FFFFFF;
-    --gray: #0a0a0a;
-    --border-width: 2px;
-  }
+import React, { useState } from 'react';
+import { Play, ArrowUpRight, Zap, Cpu, Aperture, Code2, Globe } from 'lucide-react';
 
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+const App = () => {
+  const [lang, setLang] = useState('en');
+  const [hoveredProject, setHoveredProject] = useState(null);
+  const [hoveredVertical, setHoveredVertical] = useState(null);
 
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Space Mono', monospace;
-    overflow-x: hidden;
-    cursor: crosshair;
-  }
-
-  /* ── NOISE OVERLAY ──────────────────────── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: .4;
-  }
-
-  /* Fundo Fixo - Pure Red Gradient */
-  .bg-fixed {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100dvh;
-    background: radial-gradient(circle at 50% 35%, #440000 0%, #000000 100%);
-    z-index: -1;
-  }
-
-  /* ── NAV ────────────────────────────────── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 1000; display: flex; align-items: center; justify-content: space-between;
-    padding: 15px 30px; border-bottom: 1px solid rgba(255,0,0,0.3);
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(12px);
-  }
-  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.1em; color: var(--white); }
-  .nav-logo span { color: var(--red); }
-  
-  .lang-switcher {
-    display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05);
-    padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
-    cursor: pointer; transition: all 0.3s;
-  }
-  .lang-switcher:hover { border-color: var(--red); }
-  .lang-switcher span { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; opacity: 0.4; }
-  .lang-switcher span.active { opacity: 1; color: var(--red); }
-
-  /* ── HERO ───────────────────────────────── */
-  .hero {
-    height: 100dvh; display: flex; flex-direction: column; justify-content: center;
-    align-items: center; text-align: center; position: relative; padding: 0 20px;
-  }
-  .hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.5em; color: var(--red); text-transform: uppercase; margin-bottom: 20px; }
-  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(6rem, 20vw, 18rem); line-height: 0.8; letter-spacing: -0.02em; position: relative; }
-  .hero-title span.outline { -webkit-text-stroke: 1.5px var(--white); color: transparent; opacity: 0.3; }
-  .hero-signature { 
-    font-family: 'Birthstone Bounce', cursive; color: var(--red); 
-    font-size: clamp(3rem, 10vw, 9rem); position: absolute; top: 45%; left: 50%; 
-    transform: translate(-50%, -50%) rotate(-5deg); z-index: 10; text-shadow: 0 0 30px rgba(255,0,0,0.5);
-  }
-  .hero-bottom { position: absolute; bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; }
-  .hero-scroll { font-size: 0.55rem; letter-spacing: 0.3em; opacity: 0.3; text-transform: uppercase; }
-  .hero-scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--red), transparent); }
-
-  /* ── TICKER ─────────────────────────────── */
-  .ticker-wrap { background: var(--red); color: #000; padding: 12px 0; border-bottom: 2px solid #000; border-top: 2px solid #000; overflow: hidden; }
-  .ticker { display: flex; white-space: nowrap; animation: ticker 20s linear infinite; }
-  .ticker-item { font-family: 'Bebas Neue'; font-size: 1.2rem; letter-spacing: 0.2em; padding: 0 50px; }
-  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-  /* ── SECTIONS ───────────────────────────── */
-  section { padding: 80px 30px; position: relative; }
-  .section-header { margin-bottom: 60px; border-bottom: 3px solid var(--red); padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
-  .section-title { font-family: 'Bebas Neue'; font-size: clamp(3rem, 8vw, 6rem); line-height: 1; letter-spacing: 0.05em; }
-  .section-num { font-family: 'Space Mono'; font-size: 0.7rem; color: var(--red); letter-spacing: 0.3em; }
-
-  /* ── GRID SYSTEM ────────────────────────── */
-  .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .work-item { background: var(--gray); position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
-  .work-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
-  .work-item.vert { aspect-ratio: 9/16; }
-  
-  .video-container { width: 100%; height: 100%; position: relative; background: #000; }
-  .video-container iframe { width: 100%; height: 100%; border: none; }
-  
-  /* Thumbnail Styling */
-  .video-thumb {
-    position: absolute; inset: 0; width: 100%; height: 100%; 
-    object-fit: cover; z-index: 2; transition: transform 0.5s ease;
-    opacity: 0.7;
-  }
-  .work-item:hover .video-thumb { transform: scale(1.05); opacity: 0.9; }
-
-  .item-overlay {
-    position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; align-items: center;
-    transition: opacity 0.4s; opacity: 1; z-index: 3;
-  }
-  .work-item:hover .item-overlay { background: rgba(255,0,0,0.1); }
-  
-  .play-icon {
-    font-size: 3rem; color: var(--red); margin-bottom: 15px;
-    filter: drop-shadow(0 0 10px rgba(255,0,0,0.5));
-  }
-
-  .item-label { font-family: 'Bebas Neue'; font-size: 1.5rem; letter-spacing: 0.2em; margin-bottom: 10px; text-shadow: 0 2px 10px #000; }
-  .item-tag { font-size: 0.6rem; border: 1px solid var(--red); color: var(--red); padding: 3px 10px; background: rgba(0,0,0,0.8); }
-
-  /* ── SOCIAL LINKS ────────────────────── */
-  .view-more-container {
-    margin-top: 40px; text-align: right;
-  }
-  .insta-link {
-    font-family: 'Bebas Neue'; font-size: 1.2rem; color: var(--white);
-    text-decoration: none; border-bottom: 2px solid var(--red);
-    padding-bottom: 5px; transition: color 0.3s;
-    letter-spacing: 0.1em;
-  }
-  .insta-link:hover { color: var(--red); }
-
-  /* ── CAPABILITIES ───────────────────────── */
-  .cap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-  .cap-card { padding: 40px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); transition: 0.3s; }
-  .cap-card:hover { border-color: var(--red); background: rgba(255,0,0,0.05); transform: translateY(-5px); }
-  .cap-card h4 { font-family: 'Bebas Neue'; font-size: 1.8rem; margin-bottom: 15px; }
-  .cap-card p { font-size: 0.75rem; color: rgba(255,255,255,0.4); line-height: 1.8; }
-
-  /* ── FOOTER/CONTACT ─────────────────────── */
-  .contact-footer { padding: 120px 30px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
-  .contact-title { font-family: 'Bebas Neue'; font-size: clamp(4rem, 15vw, 12rem); line-height: 0.8; margin-bottom: 40px; }
-  .cta-button { 
-    display: inline-block; padding: 25px 60px; background: var(--red); color: #000; 
-    font-family: 'Bebas Neue'; font-size: 1.5rem; text-decoration: none; 
-    transition: 0.3s; border: 2px solid var(--red);
-  }
-  .cta-button:hover { background: transparent; color: var(--red); box-shadow: 0 0 30px rgba(255,0,0,0.3); }
-
-  /* ── ANIMATIONS ─────────────────────────── */
-  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  /* ── LOADER ─────────────────────────────── */
-  #pre-render { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center; transition: opacity 0.8s; }
-  .loader-bar { width: 200px; height: 1px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; }
-  .loader-progress { position: absolute; height: 100%; width: 50%; background: var(--red); left: -100%; animation: load 1.5s infinite; }
-  @keyframes load { to { left: 100%; } }
-  body.loaded #pre-render { opacity: 0; pointer-events: none; }
-
-  @media (max-width: 768px) {
-    .work-grid { grid-template-columns: 1fr; }
-    .work-item.wide { aspect-ratio: 16/9; }
-    section { padding: 60px 20px; }
-    /* FIX HERO MOBILE */
-    .hero-title { font-size: clamp(4.5rem, 22vw, 9rem); }
-    .hero-signature { top: 42%; font-size: clamp(2.5rem, 12vw, 5.5rem); }
-    .hero-eyebrow { letter-spacing: 0.3em; font-size: 0.55rem; }
-    nav { padding: 10px 20px; }
-  }
-</style>
-</head>
-<body>
-
-<div id="pre-render"><div class="loader-bar"><div class="loader-progress"></div></div></div>
-<div class="bg-fixed"></div>
-
-<!-- ── NAV ── -->
-<nav>
-  <div class="nav-logo">PURE<span>RED</span></div>
-  <div class="lang-switcher" onclick="toggleLanguage()">
-    <span id="lang-en" class="active">EN</span>
-    <span>/</span>
-    <span id="lang-pt">PT</span>
-  </div>
-</nav>
-
-<!-- ── HERO ── -->
-<section class="hero">
-  <p class="hero-eyebrow" data-en="VISUAL ENGINEERING STUDIO" data-pt="ESTÚDIO DE ENGENHARIA VISUAL">VISUAL ENGINEERING STUDIO</p>
-  <div class="relative">
-    <h1 class="hero-title">
-      PURE<br>
-      <span class="hero-signature">Red</span>
-    </h1>
-  </div>
-  <div class="hero-bottom">
-    <p class="hero-scroll" data-en="SCROLL TO EXPLORE" data-pt="ROLE PARA EXPLORAR">SCROLL TO EXPLORE</p>
-    <div class="hero-scroll-line"></div>
-  </div>
-</section>
-
-<!-- ── TICKER ── -->
-<div class="ticker-wrap">
-  <div class="ticker">
-    <span class="ticker-item">STREETWEAR AESTHETICS ◆ NEURAL VFX ◆ HIGH-TICKET CINEMA ◆ ADVANCED MOTION ◆ </span>
-    <span class="ticker-item">STREETWEAR AESTHETICS ◆ NEURAL VFX ◆ HIGH-TICKET CINEMA ◆ ADVANCED MOTION ◆ </span>
-  </div>
-</div>
-
-<!-- ── WORK: MASTER GRID (WIDE) ── -->
-<section id="work-wide" class="reveal">
-  <div class="section-header">
-    <h2 class="section-title">MASTER WORKS</h2>
-    <span class="section-num">01 / WIDE_CINEMA</span>
-  </div>
-  
-  <div class="work-grid">
-    <!-- VIDEO 01 (WIDE) -->
-    <div class="work-item wide" onclick="loadVimeo(this, '1185367649')">
-      <div class="video-container">
-        <img src="thumb-3.jpg" class="video-thumb">
-        <div class="item-overlay">
-          <div class="play-icon">▶</div>
-          <p class="item-label">SPORTS</p>
-          <span class="item-tag">16:9 MASTER</span>
-        </div>
-      </div>
-    </div>
-
-  <div class="view-more-container">
-    <a href="https://instagram.com/withpurered" target="_blank" class="insta-link" data-en="SEE MORE ON INSTAGRAM ↗" data-pt="VEJA MAIS NO INSTAGRAM ↗">SEE MORE ON INSTAGRAM ↗</a>
-  </div>
-</section>
-
-<!-- ── WORK: SOCIAL (VERTICAL) ── -->
-<section id="work-vert" class="reveal">
-  <div class="section-header">
-    <h2 class="section-title">VIRAL IMPACT</h2>
-    <span class="section-num">02 / VERT_RETENTION</span>
-  </div>
-
-  <div class="work-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-    <!-- VERT 01 -->
-    <div class="work-item vert" onclick="loadVimeo(this, '1185367506')">
-      <div class="video-container">
-        <img src="thumb-4.jpg" class="video-thumb">
-        <div class="item-overlay">
-          <div class="play-icon" style="font-size: 2rem;">▶</div>
-          <p class="item-label">REEL_01</p>
-          <span class="item-tag">9:16</span>
-        </div>
-      </div>
-    </div>
-    <!-- VERT 02 -->
-    <div class="work-item vert" onclick="loadVimeo(this, '1185367680')">
-      <div class="video-container">
-        <img src="thumb.jpg" class="video-thumb">
-        <div class="item-overlay">
-          <div class="play-icon" style="font-size: 2rem;">▶</div>
-          <p class="item-label">REEL_02</p>
-          <span class="item-tag">9:16</span>
-        </div>
-      </div>
-    </div>
-    <!-- VERT 03 -->
-    <div class="work-item vert" onclick="loadVimeo(this, '1185367580')">
-      <div class="video-container">
-        <img src="thumb-5.jpg" class="video-thumb">
-        <div class="item-overlay">
-          <div class="play-icon" style="font-size: 2rem;">▶</div>
-          <p class="item-label">REEL_03</p>
-          <span class="item-tag">9:16</span>
-        </div>
-      </div>
-    </div>
-    <!-- VERT 04 -->
-    <div class="work-item vert" onclick="loadVimeo(this, '1185367867')">
-      <div class="video-container">
-        <img src="thumb-2.jpg" class="video-thumb">
-        <div class="item-overlay">
-          <div class="play-icon" style="font-size: 2rem;">▶</div>
-          <p class="item-label">REEL_04</p>
-          <span class="item-tag">9:16</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="view-more-container">
-    <a href="https://instagram.com/withpurered" target="_blank" class="insta-link" data-en="FOLLOW THE FEED ↗" data-pt="ACOMPANHE O FEED ↗">FOLLOW THE FEED ↗</a>
-  </div>
-</section>
-
-<!-- ── CAPABILITIES ── -->
-<section id="capabilities" class="reveal">
-  <div class="section-header">
-    <h2 class="section-title">EXPERTISE</h2>
-    <span class="section-num">04 / CORE_SKILLS</span>
-  </div>
-  <div class="cap-grid">
-    <div class="cap-card">
-      <h4 data-en="Advanced Compositing" data-pt="Composição Avançada">Advanced Compositing</h4>
-      <p data-en="Precision integration of CGI and live-action. Cinema-grade visual fusion." data-pt="Integração de precisão entre CGI e live-action. Fusão visual de nível cinema.">Precision integration.</p>
-    </div>
-    <div class="cap-card">
-      <h4 data-en="Color Science" data-pt="Ciência de Cor">Color Science</h4>
-      <p data-en="Scientific grading focused on emotional impact and technical exclusivity." data-pt="Gradação científica focada em impacto emocional e exclusividade técnica.">Scientific grading.</p>
-    </div>
-    <div class="cap-card">
-      <h4 data-en="Motion Typography" data-pt="Tipografia Cinética">Motion Typography</h4>
-      <p data-en="Brutalist and rhythmic workflows for high-ticket brand storytelling." data-pt="Workflows brutalistas e rítmicos para storytelling de marcas de alto ticket.">Brutalist workflows.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── CONTACT & WHATSAPP ── -->
-<section class="contact-footer reveal">
-  <h2 class="contact-title" data-en="LET'S<br>PROJECT" data-pt="VAMOS<br>PROJETAR">LET'S<br>PROJECT</h2>
-  <!-- Link do WhatsApp configurado com mensagem personalizada -->
-  <a href="https://wa.me/5514991223598?text=Olá! Vim pelo site e gostaria de um orçamento para engenharia visual." 
-     target="_blank" 
-     class="cta-button" 
-     data-en="START_ENGINEERING →" 
-     data-pt="INICIAR_PROJETO →">
-     START_ENGINEERING →
-  </a>
-  <div style="margin-top: 50px; opacity: 0.3; font-size: 0.6rem; letter-spacing: 0.3em;">
-    LONDRINA, BR — GLOBAL OPS — 2026 © PURE RED VISUALS
-  </div>
-</section>
-
-<script>
-// --- STATE & TRANSLATION ---
-let currentLang = 'en';
-
-function toggleLanguage() {
-  currentLang = currentLang === 'en' ? 'pt' : 'en';
-  
-  document.getElementById('lang-en').classList.toggle('active', currentLang === 'en');
-  document.getElementById('lang-pt').classList.toggle('active', currentLang === 'pt');
-  
-  document.querySelectorAll('[data-en]').forEach(el => {
-    el.innerHTML = el.getAttribute(`data-${currentLang}`);
-  });
-}
-
-// --- VIMEO LAZY LOAD ---
-function loadVimeo(element, vimeoId) {
-  const container = element.querySelector('.video-container');
-  // Substitui todo o conteúdo pelo iframe com autoplay e cor da marca
-  container.innerHTML = `
-    <iframe src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&color=FF0000" 
-            allow="autoplay; fullscreen" 
-            allowfullscreen></iframe>
-  `;
-}
-
-// --- REVEAL ANIMATION ---
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+  // Dicionário de traduções natural e direto
+  const t = {
+    en: {
+      nav: { work: 'Work', stack: 'Arsenal', contact: 'Contact' },
+      hero: {
+        role: '> Visual Engineer & VFX Artist',
+        title1: "I don't edit",
+        title2: "Videos.",
+        desc: "I build visual manifestos. Merging Engineering, AI, and aggressive pacing for brands that refuse to blend in.",
+        btn: "View Arsenal"
+      },
+      works: {
+        title: "Selected",
+        subtitle: "Works",
+        tag: "03 RELEVANT PROJECTS. NO BULLSHIT."
+      },
+      vertical: {
+        title: "High",
+        subtitle: "Retention",
+        tag: "9:16 FORMAT // FAST PACING"
+      },
+      stack: {
+        title: "Workflow & Arsenal",
+        ai: { title: "AI Generation", desc: "Kling & Higgsfield VFX" },
+        hw: { title: "Hardware", desc: "iPhone 16 Pro + Ulanzi Lenses" },
+        post: { title: "Post-Production", desc: "DaVinci / AE / Premiere" },
+        logic: { title: "Logic", desc: "Computer Eng. Background" }
+      },
+      cta: {
+        title1: "Ready to subvert",
+        title2: "the norm?",
+        desc: "If you want a cute corporate video, there are cheaper people. If you want your brand to collide with the top of the market, let's talk.",
+        btn: "Start Project (10k+)"
+      },
+      footer: "ALL RIGHTS RESERVED. DO NOT COPY."
+    },
+    pt: {
+      nav: { work: 'Projetos', stack: 'Arsenal', contact: 'Contato' },
+      hero: {
+        role: '> Engenheiro Visual & Artista de VFX',
+        title1: "Não edito",
+        title2: "Vídeos.",
+        desc: "Construo manifestos visuais. Unindo Engenharia, IA e um ritmo agressivo para marcas que não aceitam o padrão.",
+        btn: "Ver Arsenal"
+      },
+      works: {
+        title: "Selected",
+        subtitle: "Works",
+        tag: "03 PROJETOS RELEVANTES. NADA DE ENROLAÇÃO."
+      },
+      vertical: {
+        title: "High",
+        subtitle: "Retention",
+        tag: "FORMATO 9:16 // ALTO IMPACTO"
+      },
+      stack: {
+        title: "Workflow & Arsenal",
+        ai: { title: "Geração por IA", desc: "Kling & Higgsfield VFX" },
+        hw: { title: "Hardware", desc: "iPhone 16 Pro + Lentes Ulanzi" },
+        post: { title: "Pós-Produção", desc: "DaVinci / AE / Premiere" },
+        logic: { title: "Lógica", desc: "Background em Eng. da Computação" }
+      },
+      cta: {
+        title1: "Pronto para subverter",
+        title2: "a norma?",
+        desc: "Se você quer um videozinho institucional, tem gente mais barata. Se você quer que sua marca bata de frente com o topo do mercado, a gente conversa.",
+        btn: "Iniciar Projeto (10k+)"
+      },
+      footer: "TODOS OS DIREITOS RESERVADOS. NÃO COPIE."
     }
-  });
-}, { threshold: 0.1 });
+  };
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const horizontalProjects = [
+    {
+      id: 1,
+      title: "URBAN ADRENALINE",
+      client: "SPEC AD // ATHLETICS",
+      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=1200",
+      desc_en: "Organic transitions and aggressive speed ramping for streetwear aesthetics.",
+      desc_pt: "Transições orgânicas e speed ramping agressivo para streetwear."
+    },
+    {
+      id: 2,
+      title: "OVERCLOCK",
+      client: "SPEC AD // COMPETITIVE GAMING",
+      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=1200",
+      desc_en: "Gameplay integration with AI-generated environments (Kling) and grunge textures.",
+      desc_pt: "Integração de gameplay com cenários gerados por IA (Kling) e texturas grunge."
+    },
+    {
+      id: 3,
+      title: "BLOODLINE",
+      client: "SPEC AD // GLOBAL SAAS",
+      image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200",
+      desc_en: "Complex product showcase featuring deep contrast visuals, volumetric lighting, and smooth motion.",
+      desc_pt: "Apresentação de produto complexo com alto contraste, luz volumétrica e motion suave."
+    }
+  ];
 
-// --- LOADER & INIT ---
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.body.classList.add('loaded');
-  }, 1000);
-});
-</script>
-</body>
-</html>
+  const verticalProjects = [
+    {
+      id: 'v1',
+      title: "DROP SNEAKERS",
+      client: "REELS // APPAREL",
+      image: "https://images.unsplash.com/photo-1608248593842-8021c6a811c7?auto=format&fit=crop&q=80&w=800",
+    },
+    {
+      id: 'v2',
+      title: "TOURNAMENT HIGHLIGHT",
+      client: "TIKTOK // ESPORTS",
+      image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800",
+    },
+    {
+      id: 'v3',
+      title: "PRODUCT TEASER",
+      client: "SHORTS // TECH",
+      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0a] text-zinc-50 font-sans selection:bg-[#FF0000] selection:text-white overflow-x-hidden">
+      
+      {/* Navbar com Toggle de Idioma */}
+      <nav className="fixed top-0 w-full p-6 flex justify-between items-center mix-blend-difference z-50">
+        <div className="font-black tracking-tighter text-xl">SEU NOME<span className="text-[#FF0000]">.</span></div>
+        
+        <div className="flex items-center gap-8">
+          <div className="hidden md:flex text-xs font-bold uppercase tracking-widest text-zinc-400 gap-6">
+            <a href="#work" className="hover:text-zinc-50 transition-colors">{t[lang].nav.work}</a>
+            <a href="#stack" className="hover:text-zinc-50 transition-colors">{t[lang].nav.stack}</a>
+            <a href="#contact" className="hover:text-zinc-50 transition-colors">{t[lang].nav.contact}</a>
+          </div>
+          
+          <div className="flex items-center gap-2 bg-zinc-900/50 rounded-full p-1 border border-zinc-800 backdrop-blur-md">
+            <Globe size={14} className="ml-2 text-zinc-500" />
+            <button 
+              onClick={() => setLang('en')}
+              className={`text-[10px] font-bold px-2 py-1 rounded-full transition-all ${lang === 'en' ? 'bg-zinc-200 text-black' : 'text-zinc-500 hover:text-zinc-300'}`}
+            >
+              EN
+            </button>
+            <button 
+              onClick={() => setLang('pt')}
+              className={`text-[10px] font-bold px-2 py-1 rounded-full transition-all ${lang === 'pt' ? 'bg-zinc-200 text-black' : 'text-zinc-500 hover:text-zinc-300'}`}
+            >
+              PT
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <header className="h-screen flex flex-col justify-center px-6 md:px-12 relative border-b border-zinc-900">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900/40 via-[#0a0a0a] to-[#0a0a0a] -z-10"></div>
+        
+        <div className="max-w-5xl">
+          <p className="text-zinc-500 font-mono text-sm mb-6 uppercase tracking-widest">
+            {t[lang].hero.role}
+          </p>
+          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.85] mb-8 text-zinc-100">
+            {t[lang].hero.title1} <br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-400 to-zinc-600">
+              {t[lang].hero.title2}
+            </span>
+          </h1>
+          <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl font-light leading-relaxed">
+            {t[lang].hero.desc.split('Engineering, AI').map((part, i) => i === 0 ? part : <span key={i}><strong className="text-zinc-100">Engineering, AI</strong>{part}</span>)}
+            {lang === 'pt' && t[lang].hero.desc.includes('Engenharia, IA') ? '' : ''}
+            {lang === 'pt' ? 
+              <>Construo manifestos visuais. Unindo <strong className="text-zinc-100">Engenharia, IA</strong> e um ritmo agressivo para marcas que não aceitam o padrão.</> 
+              : 
+              <>I build visual manifestos. Merging <strong className="text-zinc-100">Engineering, AI</strong>, and aggressive pacing for brands that refuse to blend in.</>
+            }
+          </p>
+          
+          <a href="#stack" className="inline-flex mt-12 bg-zinc-50 text-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-[#FF0000] hover:text-white transition-all duration-300 items-center gap-3 group">
+            {t[lang].hero.btn}
+            <ArrowUpRight className="group-hover:rotate-45 transition-transform" size={20} />
+          </a>
+        </div>
+      </header>
+
+      {/* Selected Works - Horizontal */}
+      <section id="work" className="pt-32 pb-16 px-6 md:px-12">
+        <div className="flex justify-between items-end mb-16 border-b border-zinc-900 pb-8">
+          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
+            {t[lang].works.title} <span className="text-zinc-600">{t[lang].works.subtitle}</span>
+          </h2>
+          <p className="text-zinc-500 font-mono text-sm hidden md:block">{t[lang].works.tag}</p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-12">
+          {horizontalProjects.map((project) => (
+            <div 
+              key={project.id}
+              className="group relative cursor-pointer"
+              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseLeave={() => setHoveredProject(null)}
+            >
+              <div className="w-full h-[50vh] md:h-[70vh] bg-zinc-900 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[#0a0a0a]/60 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply" />
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out"
+                />
+                
+                <div className={`absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 ${hoveredProject === project.id ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+                  <div className="bg-[#FF0000] text-white rounded-full p-6 backdrop-blur-sm shadow-[0_0_40px_rgba(255,0,0,0.6)]">
+                    <Play fill="currentColor" size={32} />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                <div>
+                  <p className="text-zinc-500 font-mono text-xs mb-2 uppercase tracking-widest">{project.client}</p>
+                  <h3 className="text-3xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">{project.title}</h3>
+                </div>
+                <div className="md:text-right max-w-sm">
+                  <p className="text-zinc-400 group-hover:text-zinc-300 transition-colors text-sm">
+                    {lang === 'en' ? project.desc_en : project.desc_pt}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Selected Works - Vertical (9:16) */}
+      <section className="pb-32 px-6 md:px-12 flex flex-col items-center">
+        <div className="w-full max-w-6xl flex justify-between items-end mb-16 border-b border-zinc-900 pb-8 mt-16">
+          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">
+            {t[lang].vertical.title} <span className="text-zinc-600">{t[lang].vertical.subtitle}</span>
+          </h2>
+          <p className="text-zinc-500 font-mono text-sm hidden md:block">{t[lang].vertical.tag}</p>
+        </div>
+
+        <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+          {verticalProjects.map((project) => (
+            <div 
+              key={project.id}
+              className="group relative cursor-pointer w-full max-w-[360px] mx-auto"
+              onMouseEnter={() => setHoveredVertical(project.id)}
+              onMouseLeave={() => setHoveredVertical(null)}
+            >
+              <div className="w-full aspect-[9/16] bg-zinc-900 relative overflow-hidden border border-zinc-900 group-hover:border-[#FF0000]/30 transition-colors duration-500">
+                <div className="absolute inset-0 bg-[#0a0a0a]/70 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply" />
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out"
+                />
+                
+                <div className={`absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 ${hoveredVertical === project.id ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+                  <div className="bg-[#FF0000] text-white rounded-full p-4 backdrop-blur-sm shadow-[0_0_30px_rgba(255,0,0,0.5)]">
+                    <Play fill="currentColor" size={24} />
+                  </div>
+                </div>
+
+                {/* Overlays text directly on the vertical video for a cleaner look */}
+                <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent z-20">
+                  <p className="text-zinc-400 font-mono text-[10px] mb-1 uppercase tracking-widest">{project.client}</p>
+                  <h3 className="text-xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">{project.title}</h3>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Tech Stack / Arsenal */}
+      <section id="stack" className="py-24 bg-[#0a0a0a] border-y border-zinc-900">
+        <div className="px-6 md:px-12">
+          <h2 className="text-2xl font-black uppercase tracking-widest text-center mb-16 text-zinc-100">{t[lang].stack.title}</h2>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+            <div className="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
+              <Cpu className="text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300" size={32} />
+              <div>
+                <h4 className="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors">{t[lang].stack.ai.title}</h4>
+                <p className="text-xs text-zinc-500 mt-1">{t[lang].stack.ai.desc}</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
+              <Aperture className="text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300" size={32} />
+              <div>
+                <h4 className="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors">{t[lang].stack.hw.title}</h4>
+                <p className="text-xs text-zinc-500 mt-1">{t[lang].stack.hw.desc}</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
+              <Zap className="text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300" size={32} />
+              <div>
+                <h4 className="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors">{t[lang].stack.post.title}</h4>
+                <p className="text-xs text-zinc-500 mt-1">{t[lang].stack.post.desc}</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
+              <Code2 className="text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300" size={32} />
+              <div>
+                <h4 className="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors">{t[lang].stack.logic.title}</h4>
+                <p className="text-xs text-zinc-500 mt-1">{t[lang].stack.logic.desc}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA / Footer */}
+      <section id="contact" className="py-32 px-6 md:px-12 flex flex-col items-center text-center">
+        <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 text-zinc-100">
+          {t[lang].cta.title1} <br/> <span className="text-zinc-500">{t[lang].cta.title2}</span>
+        </h2>
+        <p className="text-zinc-400 max-w-lg mb-12">
+          {t[lang].cta.desc}
+        </p>
+        <a href="mailto:seuemail@exemplo.com" className="bg-[#FF0000] text-white px-12 py-5 font-black uppercase tracking-widest text-lg hover:bg-white hover:text-black hover:scale-105 transition-all duration-300">
+          {t[lang].cta.btn}
+        </a>
+      </section>
+
+      <footer className="py-6 text-center border-t border-zinc-900 text-zinc-600 text-xs font-mono">
+        © {new Date().getFullYear()} SEU NOME. {t[lang].footer}
+      </footer>
+    </div>
+  );
+};
+
+export default App;
