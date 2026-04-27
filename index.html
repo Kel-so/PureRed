@@ -1,343 +1,312 @@
-import React, { useState } from 'react';
-import { Play, ArrowUpRight, Zap, Cpu, Aperture, Code2, Globe } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEU NOME. | Visual Engineer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Selection Color */
+        ::selection {
+            background-color: #FF0000;
+            color: white;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#0a0a0a] text-zinc-50 font-sans overflow-x-hidden">
 
-const App = () => {
-  const [lang, setLang] = useState('en');
-  const [hoveredProject, setHoveredProject] = useState(null);
-  const [hoveredVertical, setHoveredVertical] = useState(null);
-
-  // Dicionário de traduções natural e direto
-  const t = {
-    en: {
-      nav: { work: 'Work', stack: 'Arsenal', contact: 'Contact' },
-      hero: {
-        role: '> Visual Engineer & VFX Artist',
-        title1: "I don't edit",
-        title2: "Videos.",
-        desc: "I build visual manifestos. Merging Engineering, AI, and aggressive pacing for brands that refuse to blend in.",
-        btn: "View Arsenal"
-      },
-      works: {
-        title: "Selected",
-        subtitle: "Works",
-        tag: "03 RELEVANT PROJECTS. NO BULLSHIT."
-      },
-      vertical: {
-        title: "High",
-        subtitle: "Retention",
-        tag: "9:16 FORMAT // FAST PACING"
-      },
-      stack: {
-        title: "Workflow & Arsenal",
-        ai: { title: "AI Generation", desc: "Kling & Higgsfield VFX" },
-        hw: { title: "Hardware", desc: "iPhone 16 Pro + Ulanzi Lenses" },
-        post: { title: "Post-Production", desc: "DaVinci / AE / Premiere" },
-        logic: { title: "Logic", desc: "Computer Eng. Background" }
-      },
-      cta: {
-        title1: "Ready to subvert",
-        title2: "the norm?",
-        desc: "If you want a cute corporate video, there are cheaper people. If you want your brand to collide with the top of the market, let's talk.",
-        btn: "Start Project (10k+)"
-      },
-      footer: "ALL RIGHTS RESERVED. DO NOT COPY."
-    },
-    pt: {
-      nav: { work: 'Projetos', stack: 'Arsenal', contact: 'Contato' },
-      hero: {
-        role: '> Engenheiro Visual & Artista de VFX',
-        title1: "Não edito",
-        title2: "Vídeos.",
-        desc: "Construo manifestos visuais. Unindo Engenharia, IA e um ritmo agressivo para marcas que não aceitam o padrão.",
-        btn: "Ver Arsenal"
-      },
-      works: {
-        title: "Selected",
-        subtitle: "Works",
-        tag: "03 PROJETOS RELEVANTES. NADA DE ENROLAÇÃO."
-      },
-      vertical: {
-        title: "High",
-        subtitle: "Retention",
-        tag: "FORMATO 9:16 // ALTO IMPACTO"
-      },
-      stack: {
-        title: "Workflow & Arsenal",
-        ai: { title: "Geração por IA", desc: "Kling & Higgsfield VFX" },
-        hw: { title: "Hardware", desc: "iPhone 16 Pro + Lentes Ulanzi" },
-        post: { title: "Pós-Produção", desc: "DaVinci / AE / Premiere" },
-        logic: { title: "Lógica", desc: "Background em Eng. da Computação" }
-      },
-      cta: {
-        title1: "Pronto para subverter",
-        title2: "a norma?",
-        desc: "Se você quer um videozinho institucional, tem gente mais barata. Se você quer que sua marca bata de frente com o topo do mercado, a gente conversa.",
-        btn: "Iniciar Projeto (10k+)"
-      },
-      footer: "TODOS OS DIREITOS RESERVADOS. NÃO COPIE."
-    }
-  };
-
-  const horizontalProjects = [
-    {
-      id: 1,
-      title: "URBAN ADRENALINE",
-      client: "SPEC AD // ATHLETICS",
-      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=1200",
-      desc_en: "Organic transitions and aggressive speed ramping for streetwear aesthetics.",
-      desc_pt: "Transições orgânicas e speed ramping agressivo para streetwear."
-    },
-    {
-      id: 2,
-      title: "OVERCLOCK",
-      client: "SPEC AD // COMPETITIVE GAMING",
-      image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=1200",
-      desc_en: "Gameplay integration with AI-generated environments (Kling) and grunge textures.",
-      desc_pt: "Integração de gameplay com cenários gerados por IA (Kling) e texturas grunge."
-    },
-    {
-      id: 3,
-      title: "BLOODLINE",
-      client: "SPEC AD // GLOBAL SAAS",
-      image: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200",
-      desc_en: "Complex product showcase featuring deep contrast visuals, volumetric lighting, and smooth motion.",
-      desc_pt: "Apresentação de produto complexo com alto contraste, luz volumétrica e motion suave."
-    }
-  ];
-
-  const verticalProjects = [
-    {
-      id: 'v1',
-      title: "DROP SNEAKERS",
-      client: "REELS // APPAREL",
-      image: "https://images.unsplash.com/photo-1608248593842-8021c6a811c7?auto=format&fit=crop&q=80&w=800",
-    },
-    {
-      id: 'v2',
-      title: "TOURNAMENT HIGHLIGHT",
-      client: "TIKTOK // ESPORTS",
-      image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800",
-    },
-    {
-      id: 'v3',
-      title: "PRODUCT TEASER",
-      client: "SHORTS // TECH",
-      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-[#0a0a0a] text-zinc-50 font-sans selection:bg-[#FF0000] selection:text-white overflow-x-hidden">
-      
-      {/* Navbar com Toggle de Idioma */}
-      <nav className="fixed top-0 w-full p-6 flex justify-between items-center mix-blend-difference z-50">
-        <div className="font-black tracking-tighter text-xl">SEU NOME<span className="text-[#FF0000]">.</span></div>
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full p-6 flex justify-between items-center mix-blend-difference z-50">
+        <div class="font-black tracking-tighter text-xl">SEU NOME<span class="text-[#FF0000]">.</span></div>
         
-        <div className="flex items-center gap-8">
-          <div className="hidden md:flex text-xs font-bold uppercase tracking-widest text-zinc-400 gap-6">
-            <a href="#work" className="hover:text-zinc-50 transition-colors">{t[lang].nav.work}</a>
-            <a href="#stack" className="hover:text-zinc-50 transition-colors">{t[lang].nav.stack}</a>
-            <a href="#contact" className="hover:text-zinc-50 transition-colors">{t[lang].nav.contact}</a>
-          </div>
-          
-          <div className="flex items-center gap-2 bg-zinc-900/50 rounded-full p-1 border border-zinc-800 backdrop-blur-md">
-            <Globe size={14} className="ml-2 text-zinc-500" />
-            <button 
-              onClick={() => setLang('en')}
-              className={`text-[10px] font-bold px-2 py-1 rounded-full transition-all ${lang === 'en' ? 'bg-zinc-200 text-black' : 'text-zinc-500 hover:text-zinc-300'}`}
-            >
-              EN
-            </button>
-            <button 
-              onClick={() => setLang('pt')}
-              className={`text-[10px] font-bold px-2 py-1 rounded-full transition-all ${lang === 'pt' ? 'bg-zinc-200 text-black' : 'text-zinc-500 hover:text-zinc-300'}`}
-            >
-              PT
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <header className="h-screen flex flex-col justify-center px-6 md:px-12 relative border-b border-zinc-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900/40 via-[#0a0a0a] to-[#0a0a0a] -z-10"></div>
-        
-        <div className="max-w-5xl">
-          <p className="text-zinc-500 font-mono text-sm mb-6 uppercase tracking-widest">
-            {t[lang].hero.role}
-          </p>
-          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.85] mb-8 text-zinc-100">
-            {t[lang].hero.title1} <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-400 to-zinc-600">
-              {t[lang].hero.title2}
-            </span>
-          </h1>
-          <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl font-light leading-relaxed">
-            {t[lang].hero.desc.split('Engineering, AI').map((part, i) => i === 0 ? part : <span key={i}><strong className="text-zinc-100">Engineering, AI</strong>{part}</span>)}
-            {lang === 'pt' && t[lang].hero.desc.includes('Engenharia, IA') ? '' : ''}
-            {lang === 'pt' ? 
-              <>Construo manifestos visuais. Unindo <strong className="text-zinc-100">Engenharia, IA</strong> e um ritmo agressivo para marcas que não aceitam o padrão.</> 
-              : 
-              <>I build visual manifestos. Merging <strong className="text-zinc-100">Engineering, AI</strong>, and aggressive pacing for brands that refuse to blend in.</>
-            }
-          </p>
-          
-          <a href="#stack" className="inline-flex mt-12 bg-zinc-50 text-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-[#FF0000] hover:text-white transition-all duration-300 items-center gap-3 group">
-            {t[lang].hero.btn}
-            <ArrowUpRight className="group-hover:rotate-45 transition-transform" size={20} />
-          </a>
-        </div>
-      </header>
-
-      {/* Selected Works - Horizontal */}
-      <section id="work" className="pt-32 pb-16 px-6 md:px-12">
-        <div className="flex justify-between items-end mb-16 border-b border-zinc-900 pb-8">
-          <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
-            {t[lang].works.title} <span className="text-zinc-600">{t[lang].works.subtitle}</span>
-          </h2>
-          <p className="text-zinc-500 font-mono text-sm hidden md:block">{t[lang].works.tag}</p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-12">
-          {horizontalProjects.map((project) => (
-            <div 
-              key={project.id}
-              className="group relative cursor-pointer"
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-            >
-              <div className="w-full h-[50vh] md:h-[70vh] bg-zinc-900 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[#0a0a0a]/60 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply" />
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out"
-                />
-                
-                <div className={`absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 ${hoveredProject === project.id ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
-                  <div className="bg-[#FF0000] text-white rounded-full p-6 backdrop-blur-sm shadow-[0_0_40px_rgba(255,0,0,0.6)]">
-                    <Play fill="currentColor" size={32} />
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
-                <div>
-                  <p className="text-zinc-500 font-mono text-xs mb-2 uppercase tracking-widest">{project.client}</p>
-                  <h3 className="text-3xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">{project.title}</h3>
-                </div>
-                <div className="md:text-right max-w-sm">
-                  <p className="text-zinc-400 group-hover:text-zinc-300 transition-colors text-sm">
-                    {lang === 'en' ? project.desc_en : project.desc_pt}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Selected Works - Vertical (9:16) */}
-      <section className="pb-32 px-6 md:px-12 flex flex-col items-center">
-        <div className="w-full max-w-6xl flex justify-between items-end mb-16 border-b border-zinc-900 pb-8 mt-16">
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">
-            {t[lang].vertical.title} <span className="text-zinc-600">{t[lang].vertical.subtitle}</span>
-          </h2>
-          <p className="text-zinc-500 font-mono text-sm hidden md:block">{t[lang].vertical.tag}</p>
-        </div>
-
-        <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-          {verticalProjects.map((project) => (
-            <div 
-              key={project.id}
-              className="group relative cursor-pointer w-full max-w-[360px] mx-auto"
-              onMouseEnter={() => setHoveredVertical(project.id)}
-              onMouseLeave={() => setHoveredVertical(null)}
-            >
-              <div className="w-full aspect-[9/16] bg-zinc-900 relative overflow-hidden border border-zinc-900 group-hover:border-[#FF0000]/30 transition-colors duration-500">
-                <div className="absolute inset-0 bg-[#0a0a0a]/70 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply" />
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out"
-                />
-                
-                <div className={`absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 ${hoveredVertical === project.id ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
-                  <div className="bg-[#FF0000] text-white rounded-full p-4 backdrop-blur-sm shadow-[0_0_30px_rgba(255,0,0,0.5)]">
-                    <Play fill="currentColor" size={24} />
-                  </div>
-                </div>
-
-                {/* Overlays text directly on the vertical video for a cleaner look */}
-                <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent z-20">
-                  <p className="text-zinc-400 font-mono text-[10px] mb-1 uppercase tracking-widest">{project.client}</p>
-                  <h3 className="text-xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">{project.title}</h3>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Tech Stack / Arsenal */}
-      <section id="stack" className="py-24 bg-[#0a0a0a] border-y border-zinc-900">
-        <div className="px-6 md:px-12">
-          <h2 className="text-2xl font-black uppercase tracking-widest text-center mb-16 text-zinc-100">{t[lang].stack.title}</h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            <div className="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
-              <Cpu className="text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300" size={32} />
-              <div>
-                <h4 className="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors">{t[lang].stack.ai.title}</h4>
-                <p className="text-xs text-zinc-500 mt-1">{t[lang].stack.ai.desc}</p>
-              </div>
+        <div class="flex items-center gap-8">
+            <div class="hidden md:flex text-xs font-bold uppercase tracking-widest text-zinc-400 gap-6">
+                <a href="#work" class="hover:text-zinc-50 transition-colors" data-en="Work" data-pt="Projetos">Work</a>
+                <a href="#stack" class="hover:text-zinc-50 transition-colors" data-en="Arsenal" data-pt="Arsenal">Arsenal</a>
+                <a href="#contact" class="hover:text-zinc-50 transition-colors" data-en="Contact" data-pt="Contato">Contact</a>
             </div>
             
-            <div className="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
-              <Aperture className="text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300" size={32} />
-              <div>
-                <h4 className="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors">{t[lang].stack.hw.title}</h4>
-                <p className="text-xs text-zinc-500 mt-1">{t[lang].stack.hw.desc}</p>
-              </div>
+            <!-- Language Toggle -->
+            <div class="flex items-center gap-2 bg-zinc-900/50 rounded-full p-1 border border-zinc-800 backdrop-blur-md">
+                <i data-lucide="globe" class="w-3.5 h-3.5 ml-2 text-zinc-500"></i>
+                <button id="btn-en" onclick="setLang('en')" class="bg-zinc-200 text-black text-[10px] font-bold px-2 py-1 rounded-full transition-all">EN</button>
+                <button id="btn-pt" onclick="setLang('pt')" class="text-zinc-500 hover:text-zinc-300 text-[10px] font-bold px-2 py-1 rounded-full transition-all">PT</button>
             </div>
-
-            <div className="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
-              <Zap className="text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300" size={32} />
-              <div>
-                <h4 className="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors">{t[lang].stack.post.title}</h4>
-                <p className="text-xs text-zinc-500 mt-1">{t[lang].stack.post.desc}</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
-              <Code2 className="text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300" size={32} />
-              <div>
-                <h4 className="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors">{t[lang].stack.logic.title}</h4>
-                <p className="text-xs text-zinc-500 mt-1">{t[lang].stack.logic.desc}</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
+    </nav>
 
-      {/* CTA / Footer */}
-      <section id="contact" className="py-32 px-6 md:px-12 flex flex-col items-center text-center">
-        <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 text-zinc-100">
-          {t[lang].cta.title1} <br/> <span className="text-zinc-500">{t[lang].cta.title2}</span>
+    <!-- Hero Section -->
+    <header class="h-screen flex flex-col justify-center px-6 md:px-12 relative border-b border-zinc-900">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900/40 via-[#0a0a0a] to-[#0a0a0a] -z-10"></div>
+        
+        <div class="max-w-5xl">
+            <p class="text-zinc-500 font-mono text-sm mb-6 uppercase tracking-widest" data-en="&gt; Visual Engineer & VFX Artist" data-pt="&gt; Engenheiro Visual & Artista de VFX">
+                &gt; Visual Engineer & VFX Artist
+            </p>
+            <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter leading-[0.85] mb-8 text-zinc-100">
+                <span data-en="I don't edit" data-pt="Não edito">I don't edit</span> <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-zinc-400 to-zinc-600" data-en="Videos." data-pt="Vídeos.">
+                    Videos.
+                </span>
+            </h1>
+            <p class="text-xl md:text-2xl text-zinc-400 max-w-2xl font-light leading-relaxed" data-en="I build visual manifestos. Merging <strong class='text-zinc-100'>Engineering, AI</strong>, and aggressive pacing for brands that refuse to blend in." data-pt="Construo manifestos visuais. Unindo <strong class='text-zinc-100'>Engenharia, IA</strong> e um ritmo agressivo para marcas que não aceitam o padrão.">
+                I build visual manifestos. Merging <strong class="text-zinc-100">Engineering, AI</strong>, and aggressive pacing for brands that refuse to blend in.
+            </p>
+            
+            <a href="#stack" class="inline-flex mt-12 bg-zinc-50 text-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-[#FF0000] hover:text-white transition-all duration-300 items-center gap-3 group">
+                <span data-en="View Arsenal" data-pt="Ver Arsenal">View Arsenal</span>
+                <i data-lucide="arrow-up-right" class="w-5 h-5 group-hover:rotate-45 transition-transform"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Selected Works - Horizontal -->
+    <section id="work" class="pt-32 pb-16 px-6 md:px-12">
+        <div class="flex justify-between items-end mb-16 border-b border-zinc-900 pb-8">
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter">
+                Selected <span class="text-zinc-600">Works</span>
+            </h2>
+            <p class="text-zinc-500 font-mono text-sm hidden md:block" data-en="03 RELEVANT PROJECTS. NO BULLSHIT." data-pt="03 PROJETOS RELEVANTES. NADA DE ENROLAÇÃO.">03 RELEVANT PROJECTS. NO BULLSHIT.</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-12">
+            <!-- Project 1 -->
+            <div class="group relative cursor-pointer">
+                <div class="w-full h-[50vh] md:h-[70vh] bg-zinc-900 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[#0a0a0a]/60 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply"></div>
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=1200" alt="Nike" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out" />
+                    
+                    <div class="absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+                        <div class="bg-[#FF0000] text-white rounded-full p-6 backdrop-blur-sm shadow-[0_0_40px_rgba(255,0,0,0.6)]">
+                            <i data-lucide="play" class="w-8 h-8 fill-current"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                    <div>
+                        <p class="text-zinc-500 font-mono text-xs mb-2 uppercase tracking-widest">SPEC AD // ATHLETICS</p>
+                        <h3 class="text-3xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">URBAN ADRENALINE</h3>
+                    </div>
+                    <div class="md:text-right max-w-sm">
+                        <p class="text-zinc-400 group-hover:text-zinc-300 transition-colors text-sm" data-en="Organic transitions and aggressive speed ramping for streetwear aesthetics." data-pt="Transições orgânicas e speed ramping agressivo para streetwear.">
+                            Organic transitions and aggressive speed ramping for streetwear aesthetics.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="group relative cursor-pointer">
+                <div class="w-full h-[50vh] md:h-[70vh] bg-zinc-900 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[#0a0a0a]/60 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply"></div>
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=1200" alt="Esports" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out" />
+                    
+                    <div class="absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+                        <div class="bg-[#FF0000] text-white rounded-full p-6 backdrop-blur-sm shadow-[0_0_40px_rgba(255,0,0,0.6)]">
+                            <i data-lucide="play" class="w-8 h-8 fill-current"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                    <div>
+                        <p class="text-zinc-500 font-mono text-xs mb-2 uppercase tracking-widest">SPEC AD // COMPETITIVE GAMING</p>
+                        <h3 class="text-3xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">OVERCLOCK</h3>
+                    </div>
+                    <div class="md:text-right max-w-sm">
+                        <p class="text-zinc-400 group-hover:text-zinc-300 transition-colors text-sm" data-en="Gameplay integration with AI-generated environments (Kling) and grunge textures." data-pt="Integração de gameplay com cenários gerados por IA (Kling) e texturas grunge.">
+                            Gameplay integration with AI-generated environments (Kling) and grunge textures.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="group relative cursor-pointer">
+                <div class="w-full h-[50vh] md:h-[70vh] bg-zinc-900 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[#0a0a0a]/60 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply"></div>
+                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200" alt="Tech" class="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out" />
+                    
+                    <div class="absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+                        <div class="bg-[#FF0000] text-white rounded-full p-6 backdrop-blur-sm shadow-[0_0_40px_rgba(255,0,0,0.6)]">
+                            <i data-lucide="play" class="w-8 h-8 fill-current"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                    <div>
+                        <p class="text-zinc-500 font-mono text-xs mb-2 uppercase tracking-widest">SPEC AD // GLOBAL SAAS</p>
+                        <h3 class="text-3xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">BLOODLINE</h3>
+                    </div>
+                    <div class="md:text-right max-w-sm">
+                        <p class="text-zinc-400 group-hover:text-zinc-300 transition-colors text-sm" data-en="Complex product showcase featuring deep contrast visuals, volumetric lighting, and smooth motion." data-pt="Apresentação de produto complexo com alto contraste, luz volumétrica e motion suave.">
+                            Complex product showcase featuring deep contrast visuals, volumetric lighting, and smooth motion.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Works - Vertical (9:16) -->
+    <section class="pb-32 px-6 md:px-12 flex flex-col items-center">
+        <div class="w-full max-w-6xl flex justify-between items-end mb-16 border-b border-zinc-900 pb-8 mt-16">
+            <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter">
+                High <span class="text-zinc-600" data-en="Retention" data-pt="Retention">Retention</span>
+            </h2>
+            <p class="text-zinc-500 font-mono text-sm hidden md:block" data-en="9:16 FORMAT // FAST PACING" data-pt="FORMATO 9:16 // ALTO IMPACTO">9:16 FORMAT // FAST PACING</p>
+        </div>
+
+        <div class="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+            <!-- Vert 1 -->
+            <div class="group relative cursor-pointer w-full max-w-[360px] mx-auto">
+                <div class="w-full aspect-[9/16] bg-zinc-900 relative overflow-hidden border border-zinc-900 group-hover:border-[#FF0000]/30 transition-colors duration-500">
+                    <div class="absolute inset-0 bg-[#0a0a0a]/70 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply"></div>
+                    <img src="https://images.unsplash.com/photo-1608248593842-8021c6a811c7?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out" />
+                    
+                    <div class="absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+                        <div class="bg-[#FF0000] text-white rounded-full p-4 backdrop-blur-sm shadow-[0_0_30px_rgba(255,0,0,0.5)]">
+                            <i data-lucide="play" class="w-6 h-6 fill-current"></i>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent z-20">
+                        <p class="text-zinc-400 font-mono text-[10px] mb-1 uppercase tracking-widest">REELS // APPAREL</p>
+                        <h3 class="text-xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">DROP SNEAKERS</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vert 2 -->
+            <div class="group relative cursor-pointer w-full max-w-[360px] mx-auto">
+                <div class="w-full aspect-[9/16] bg-zinc-900 relative overflow-hidden border border-zinc-900 group-hover:border-[#FF0000]/30 transition-colors duration-500">
+                    <div class="absolute inset-0 bg-[#0a0a0a]/70 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply"></div>
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out" />
+                    
+                    <div class="absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+                        <div class="bg-[#FF0000] text-white rounded-full p-4 backdrop-blur-sm shadow-[0_0_30px_rgba(255,0,0,0.5)]">
+                            <i data-lucide="play" class="w-6 h-6 fill-current"></i>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent z-20">
+                        <p class="text-zinc-400 font-mono text-[10px] mb-1 uppercase tracking-widest">TIKTOK // ESPORTS</p>
+                        <h3 class="text-xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">TOURNAMENT HIGHLIGHT</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vert 3 -->
+            <div class="group relative cursor-pointer w-full max-w-[360px] mx-auto">
+                <div class="w-full aspect-[9/16] bg-zinc-900 relative overflow-hidden border border-zinc-900 group-hover:border-[#FF0000]/30 transition-colors duration-500">
+                    <div class="absolute inset-0 bg-[#0a0a0a]/70 group-hover:bg-transparent transition-all z-10 duration-500 mix-blend-multiply"></div>
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-in-out" />
+                    
+                    <div class="absolute inset-0 flex items-center justify-center z-20 transition-all duration-300 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+                        <div class="bg-[#FF0000] text-white rounded-full p-4 backdrop-blur-sm shadow-[0_0_30px_rgba(255,0,0,0.5)]">
+                            <i data-lucide="play" class="w-6 h-6 fill-current"></i>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent z-20">
+                        <p class="text-zinc-400 font-mono text-[10px] mb-1 uppercase tracking-widest">SHORTS // TECH</p>
+                        <h3 class="text-xl font-black uppercase tracking-tight group-hover:text-[#FF0000] transition-colors">PRODUCT TEASER</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack / Arsenal -->
+    <section id="stack" class="py-24 bg-[#0a0a0a] border-y border-zinc-900">
+        <div class="px-6 md:px-12">
+            <h2 class="text-2xl font-black uppercase tracking-widest text-center mb-16 text-zinc-100" data-en="Workflow & Arsenal" data-pt="Workflow & Arsenal">Workflow & Arsenal</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
+                <div class="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
+                    <i data-lucide="cpu" class="w-8 h-8 text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300"></i>
+                    <div>
+                        <h4 class="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors" data-en="AI Generation" data-pt="Geração por IA">AI Generation</h4>
+                        <p class="text-xs text-zinc-500 mt-1">Kling & Higgsfield VFX</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
+                    <i data-lucide="aperture" class="w-8 h-8 text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300"></i>
+                    <div>
+                        <h4 class="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors" data-en="Hardware" data-pt="Hardware">Hardware</h4>
+                        <p class="text-xs text-zinc-500 mt-1">iPhone 16 Pro + Ulanzi Lenses</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
+                    <i data-lucide="zap" class="w-8 h-8 text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300"></i>
+                    <div>
+                        <h4 class="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors" data-en="Post-Production" data-pt="Pós-Produção">Post-Production</h4>
+                        <p class="text-xs text-zinc-500 mt-1">DaVinci / AE / Premiere</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center text-center gap-4 p-6 border border-zinc-900 hover:border-[#FF0000]/50 transition-all bg-[#0a0a0a] group">
+                    <i data-lucide="code-2" class="w-8 h-8 text-zinc-500 group-hover:text-[#FF0000] group-hover:scale-110 transition-all duration-300"></i>
+                    <div>
+                        <h4 class="font-bold uppercase text-sm group-hover:text-zinc-100 transition-colors" data-en="Logic" data-pt="Lógica">Logic</h4>
+                        <p class="text-xs text-zinc-500 mt-1">Computer Eng. Background</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Footer -->
+    <section id="contact" class="py-32 px-6 md:px-12 flex flex-col items-center text-center">
+        <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 text-zinc-100">
+            <span data-en="Ready to subvert" data-pt="Pronto para subverter">Ready to subvert</span> <br/> 
+            <span class="text-zinc-500" data-en="the norm?" data-pt="a norma?">the norm?</span>
         </h2>
-        <p className="text-zinc-400 max-w-lg mb-12">
-          {t[lang].cta.desc}
+        <p class="text-zinc-400 max-w-lg mb-12" data-en="If you want a cute corporate video, there are cheaper people. If you want your brand to collide with the top of the market, let's talk." data-pt="Se você quer um videozinho institucional, tem gente mais barata. Se você quer que sua marca bata de frente com o topo do mercado, a gente conversa.">
+            If you want a cute corporate video, there are cheaper people. If you want your brand to collide with the top of the market, let's talk.
         </p>
-        <a href="mailto:seuemail@exemplo.com" className="bg-[#FF0000] text-white px-12 py-5 font-black uppercase tracking-widest text-lg hover:bg-white hover:text-black hover:scale-105 transition-all duration-300">
-          {t[lang].cta.btn}
+        <a href="mailto:seuemail@exemplo.com" class="bg-[#FF0000] text-white px-12 py-5 font-black uppercase tracking-widest text-lg hover:bg-white hover:text-black hover:scale-105 transition-all duration-300">
+            <span data-en="Start Project (10k+)" data-pt="Iniciar Projeto (10k+)">Start Project (10k+)</span>
         </a>
-      </section>
+    </section>
 
-      <footer className="py-6 text-center border-t border-zinc-900 text-zinc-600 text-xs font-mono">
-        © {new Date().getFullYear()} SEU NOME. {t[lang].footer}
-      </footer>
-    </div>
-  );
-};
+    <footer class="py-6 text-center border-t border-zinc-900 text-zinc-600 text-xs font-mono">
+        © <span id="year"></span> SEU NOME. <span data-en="ALL RIGHTS RESERVED. DO NOT COPY." data-pt="TODOS OS DIREITOS RESERVADOS. NÃO COPIE.">ALL RIGHTS RESERVED. DO NOT COPY.</span>
+    </footer>
 
-export default App;
+    <script>
+        // Inicializa os ícones do Lucide
+        lucide.createIcons();
+
+        // Seta o ano no rodapé
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Lógica de Tradução brutalmente simples
+        function setLang(lang) {
+            // Troca os textos baseados nos atributos data-en e data-pt
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${lang}`);
+            });
+
+            // Atualiza o visual dos botões
+            const btnEn = document.getElementById('btn-en');
+            const btnPt = document.getElementById('btn-pt');
+
+            if (lang === 'en') {
+                btnEn.className = "bg-zinc-200 text-black text-[10px] font-bold px-2 py-1 rounded-full transition-all";
+                btnPt.className = "text-zinc-500 hover:text-zinc-300 text-[10px] font-bold px-2 py-1 rounded-full transition-all";
+            } else {
+                btnPt.className = "bg-zinc-200 text-black text-[10px] font-bold px-2 py-1 rounded-full transition-all";
+                btnEn.className = "text-zinc-500 hover:text-zinc-300 text-[10px] font-bold px-2 py-1 rounded-full transition-all";
+            }
+        }
+    </script>
+</body>
+</html>
