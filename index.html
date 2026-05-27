@@ -25,7 +25,7 @@
         <span class="logo-dot"></span>Pure<span>Red</span>
       </a>
       
-      <nav>
+      <nav id="nav-menu">
         <ul>
           <li><a href="#trabalhos">Trabalhos</a></li>
           <li><a href="#sobre">Sobre</a></li>
@@ -34,6 +34,13 @@
       </nav>
       
       <a href="#contato" class="nav-cta">Falar no WhatsApp</a>
+      
+      <!-- Mobile Nav Trigger -->
+      <button class="mobile-nav-toggle" id="mobile-menu-toggle" aria-label="Abrir menu">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+      </button>
     </div>
   </header>
 
@@ -49,17 +56,65 @@
           <a href="#showreel" class="btn-brutal btn-white">Ver Showreel</a>
         </div>
       </div>
-      <!-- Decorative brutalist grid graphic on the right -->
-      <div style="display: flex; justify-content: center; align-items: center; position: relative; height: 350px;">
-        <div style="width: 100%; height: 100%; border: 3px solid var(--border-color); background-color: var(--bg-card); box-shadow: 10px 10px 0 var(--primary-red); display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr); padding: 1.5rem; gap: 10px;">
-          <div style="background-color: var(--primary-red); grid-column: span 2; grid-row: span 2;"></div>
-          <div style="border: 2px solid var(--border-color-dark);"></div>
-          <div style="border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.5rem;">4K</div>
-          <div style="border: 2px solid var(--border-color-dark);"></div>
-          <div style="background-color: #ffffff; grid-column: span 2; display: flex; align-items: center; justify-content: center; color: #000; font-family: var(--font-header); font-weight: 800; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Kel-so Studio</div>
-          <div style="border: 2px solid var(--border-color-dark);"></div>
-          <div style="border: 2px solid var(--border-color-dark); grid-column: span 2;"></div>
-          <div style="background-color: var(--primary-red);"></div>
+      <!-- Premium CSS Phone Mockup replicating the user's reference image -->
+      <div class="phone-mockup-wrapper">
+        <div class="phone-frame">
+          <!-- Top notch/dynamic island & status bar -->
+          <div class="phone-status-bar">
+            <span class="phone-time">15:26</span>
+            <div class="phone-status-icons">
+              <svg viewBox="0 0 24 24" class="phone-icon" width="12" height="12" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.13 19.62 10.51 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+              <svg viewBox="0 0 24 24" class="phone-icon" width="12" height="12" fill="currentColor"><path d="M2 22h20V2z"/></svg>
+              <div class="phone-battery">21%</div>
+            </div>
+          </div>
+          
+          <!-- Inner screen app interface -->
+          <div class="phone-screen-content">
+            <!-- App header inside mockup -->
+            <div class="app-mockup-header">
+              <div class="mockup-menu-btn">
+                <span></span>
+                <span></span>
+              </div>
+              <div class="mockup-search-btn">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+              </div>
+            </div>
+            
+            <!-- Large techwear logo in app mockup -->
+            <div class="app-mockup-logo">
+              PURE<span>(RED)</span><br>STUDIOS
+            </div>
+            
+            <!-- Floating Tech badges -->
+            <div style="display: flex; gap: 8px; margin-top: 12px; z-index: 2; position: relative;">
+              <span class="mockup-badge">🎬 SHOWREEL</span>
+              <span class="mockup-badge" style="border-color: rgba(255, 0, 0, 0.4); color: var(--primary-red);">⚡ 4K HDR</span>
+            </div>
+            
+            <!-- Main visual card container inside mockup -->
+            <div class="mockup-main-card" id="mockup-card-trigger">
+              <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=600&q=80" alt="Techwear Editor">
+              
+              <!-- Floating Glass card at bottom of phone card -->
+              <div class="mockup-glass-overlay">
+                <div class="mockup-overlay-meta">
+                  <span>Showreel 2026</span>
+                  <span style="color: var(--primary-red);">● LIVE</span>
+                </div>
+                <div class="mockup-overlay-title">CORTES DE ALTA ENERGIA</div>
+                
+                <div class="mockup-btn-row">
+                  <div class="mockup-btn mockup-btn-glass">Detalhes</div>
+                  <div class="mockup-btn mockup-btn-red">
+                    Play
+                    <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor" style="margin-left: 4px;"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
