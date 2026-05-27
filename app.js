@@ -235,16 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Connect Phone Mockup Card to Showreel
-  const mockupCardTrigger = document.getElementById('mockup-card-trigger');
-  if (mockupCardTrigger) {
-    mockupCardTrigger.addEventListener('click', () => {
-      if (mainReelTrigger) {
-        mainReelTrigger.click();
-      }
-    });
-  }
-
   // 8. Mobile Navigation Toggle Drawer
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const navMenu = document.getElementById('nav-menu');
