@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1",
+    "title": "CULTURA URBANA - AFTERMOVIE",
+    "category": "events",
+    "description": "Aftermovie oficial do festival de Hip-Hop e Skate de São Paulo. Ritmo acelerado, sincronia perfeita com a batida, sound design imersivo e transições estilizadas gravadas em câmera lenta.",
+    "client": "Cultura de Rua Co.",
+    "date": "2026-04",
+    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["Aftermovie", "Edição Dinâmica", "Sound Design", "Câmera Lenta"]
+  },
+  {
+    "id": "2",
+    "title": "CAMPANHA SPEEDWAY - CORRIDA",
+    "category": "editing",
+    "description": "Edição de vídeo promocional de alta energia para lançamento de calçados de corrida. Foco em cortes brutais rápidos, sobreposição de texturas analógicas (grain e VHS leak) e trilha sonora eletrônica pulsante.",
+    "client": "Pulse Athletics",
+    "date": "2026-03",
+    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["Comercial", "Cortes Rápidos", "Color Grading", "Efeitos VHS"]
+  },
+  {
+    "id": "3",
+    "title": "RED BULL CHAMPIONS - ESPORTS",
+    "category": "editing",
+    "description": "Edição do teaser de abertura da grande final do campeonato de eSports. Mistura de animação 2D/3D com gravação real, sincronização de áudio pesada de impacto e efeitos visuais agressivos.",
+    "client": "Red Bull Gaming",
+    "date": "2026-02",
+    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["eSports", "Teaser", "VFX", "Sincronia de Áudio"]
+  },
+  {
+    "id": "4",
+    "title": "FESTIVAL AURA - SHOW REEL",
+    "category": "events",
+    "description": "Teaser promocional do festival internacional Aura de música eletrônica. Transições orgânicas de luz, lentes anamórficas e foco em transmitir a euforia e a imersão visual do evento.",
+    "client": "Aura Music Group",
+    "date": "2025-12",
+    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80",
+    "tags": ["Festival", "Aftermovie", "Light Leaks", "Anamórfico"]
+  }
+]

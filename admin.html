@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PureRed | Painel Administrativo</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a0a0c%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23FF003C%22/></svg>">
+
+  <!-- Core and Admin Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- LOGIN CONTAINER -->
+  <div class="login-wrapper" id="login-screen">
+    <div class="login-card">
+      <div class="logo" style="margin-bottom: 2rem; justify-content: center;">
+        <span class="logo-dot"></span>Pure<span>Red</span>
+      </div>
+      <h2 style="font-family: var(--font-header); text-transform: uppercase; font-size: 1.5rem; text-align: center; margin-bottom: 1.5rem;">Acesso ao Painel Admin</h2>
+      
+      <form id="login-form">
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label for="passcode">Digite a Senha de Acesso</label>
+          <input type="password" id="passcode" placeholder="Ex: purered2026" required style="border: 2px solid var(--border-color); text-align: center; font-size: 1.2rem; letter-spacing: 4px;">
+          <span class="error-msg" id="login-error">Senha incorreta. Tente novamente!</span>
+        </div>
+        <button type="submit" class="btn-brutal" style="width: 100%; box-shadow: 4px 4px 0px #ffffff;">Entrar no Console</button>
+      </form>
+      <div style="margin-top: 1.5rem; text-align: center;">
+        <a href="index.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">&larr; Voltar para o Site</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD CONTAINER (Hidden by default) -->
+  <div class="dashboard-wrapper hidden" id="dashboard-screen">
+    
+    <!-- Admin Header -->
+    <header class="admin-header">
+      <div class="container nav-container" style="max-width: 100%; padding: 0 3rem;">
+        <a href="index.html" class="logo">
+          <span class="logo-dot"></span>Pure<span>Red</span> <span class="badge-admin">Admin</span>
+        </a>
+        <div style="display: flex; align-items: center; gap: 2rem;">
+          <a href="index.html" class="nav-cta" style="border-color: #ffffff; font-size: 0.85rem;">Ver Site Principal &rarr;</a>
+          <button class="btn-logout" id="btn-logout">Sair do Painel 🔒</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Admin Workspace -->
+    <main class="container admin-main" style="max-width: 100%; padding: 3rem;">
+      
+      <!-- Stats Board -->
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-total">0</div>
+          <div class="stat-label">Projetos Totais</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-editing">0</div>
+          <div class="stat-label">Edições de Vídeo</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-events">0</div>
+          <div class="stat-label">Aftermovies / Eventos</div>
+        </div>
+        <div class="stat-card" style="border-color: var(--primary-red); box-shadow: 4px 4px 0px var(--primary-red);">
+          <div class="stat-num" style="color: var(--primary-red);">LOCAL</div>
+          <div class="stat-label">Modo Banco de Dados</div>
+        </div>
+      </section>
+
+      <!-- Workspace Division -->
+      <div class="workspace-grid">
+        
+        <!-- Left: Database List -->
+        <section class="list-section">
+          <div class="workspace-header">
+            <h3>Lista de Projetos Ativos</h3>
+            <span class="indicator-green">● Atualizado</span>
+          </div>
+          
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Categoria</th>
+                  <th>Cliente</th>
+                  <th style="width: 140px; text-align: center;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="projects-table-body">
+                <!-- Loaded dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Right: CRUD Form -->
+        <section class="form-section">
+          <div class="workspace-header">
+            <h3 id="form-action-title">Adicionar Novo Projeto</h3>
+          </div>
+          
+          <form class="admin-form" id="project-form">
+            <input type="hidden" id="project-id">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="project-title">Título do Projeto</label>
+                <input type="text" id="project-title" placeholder="Ex: Nike Speedway - Comercial" required>
+              </div>
+              
+              <div class="form-group" style="max-width: 200px;">
+                <label for="project-category">Categoria</label>
+                <select id="project-category" required>
+                  <option value="editing">Edição de Vídeo</option>
+                  <option value="events">Eventos</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="project-video-url">URL do Vídeo (Direct MP4, YouTube ou Vimeo)</label>
+              <input type="url" id="project-video-url" placeholder="Ex: videos/corrida.mp4 ou https://youtube.com/watch?v=..." required>
+              <span class="help-text">Para link direto (GitHub), faça o upload do vídeo na pasta do projeto e use a URL relativa, ou use links externos de vídeos (MP4, YouTube, Vimeo).</span>
+            </div>
+
+            <div class="form-group">
+              <label for="project-thumbnail-url">URL da Capa (Thumbnail)</label>
+              <input type="url" id="project-thumbnail-url" placeholder="Ex: https://images.unsplash.com/photo-..." required>
+              <span class="help-text">Insira um link de imagem do Unsplash, Imgur ou uma imagem local da pasta do seu projeto.</span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="project-client">Cliente</label>
+                <input type="text" id="project-client" placeholder="Ex: Nike Brasil" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="project-date">Data de Conclusão</label>
+                <input type="month" id="project-date" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="project-tags">Tags (separadas por vírgula)</label>
+              <input type="text" id="project-tags" placeholder="Ex: Comercial, Cortes Rápidos, Sound Design" required>
+            </div>
+
+            <div class="form-group">
+              <label for="project-desc">Descrição Detalhada do Trabalho</label>
+              <textarea id="project-desc" rows="4" placeholder="Descreva o que você fez neste projeto. Cortes de alta velocidade, sincronia de trilha sonora, etc." required></textarea>
+            </div>
+
+            <div style="display: flex; gap: 1.5rem; margin-top: 1rem;">
+              <button type="submit" class="btn-brutal" id="btn-save-project" style="flex-grow: 1;">Salvar Projeto</button>
+              <button type="button" class="btn-brutal btn-white" id="btn-cancel-edit" style="display: none;">Cancelar</button>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <!-- Bottom Panel: JSON Sync for GitHub Pages -->
+      <section class="sync-panel">
+        <div class="sync-info">
+          <h4>🚀 Como publicar suas alterações no GitHub Pages?</h4>
+          <p>Como o seu site roda estático de graça no GitHub Pages, você não tem um banco de dados hospedado em nuvem. Nosso sistema resolve isso de forma genial:</p>
+          <ol>
+            <li>Use o painel acima para <strong>Adicionar, Editar ou Excluir</strong> seus vídeos. Suas edições salvam instantaneamente localmente!</li>
+            <li>Quando terminar todas as alterações, clique no botão <strong>"Exportar Banco de Dados (JSON)"</strong> ao lado para baixar seu arquivo <code>projects.json</code>.</li>
+            <li>Substitua o arquivo <code>projects.json</code> existente na pasta do seu projeto por este que você acabou de baixar.</li>
+            <li>Abra o terminal na pasta do projeto e rode:
+              <pre><code>git add projects.json
+git commit -m "atualizacao de portfolio de videos"
+git push</code></pre>
+            </li>
+            <li>Pronto! Em segundos o seu site público estará atualizado com os novos vídeos e alterações!</li>
+          </ol>
+        </div>
+        
+        <div class="sync-actions">
+          <button class="btn-sync-export" id="btn-export-db">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+            </svg>
+            Exportar Banco de Dados (JSON)
+          </button>
+          
+          <div style="width: 100%; border-top: 1px solid var(--border-color-dark); margin: 1.5rem 0;"></div>
+          
+          <h5 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; margin-bottom: 0.6rem; color: var(--text-muted);">Já tem um backup ou quer recarregar o JSON existente?</h5>
+          <input type="file" id="import-file-input" accept=".json" style="display: none;">
+          <button class="btn-sync-import" id="btn-import-db">
+            Importar Arquivo JSON
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- JS Logic for Dashboard -->
+  <script src="admin.js"></script>
+</body>
+</html>
