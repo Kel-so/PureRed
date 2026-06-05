@@ -17,21 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize and Load Projects
   async function init() {
     try {
-      // Check if localStorage has projects, otherwise fetch from projects.json
-      const localData = localStorage.getItem('purered_projects');
-      if (localData) {
-        projects = JSON.parse(localData);
+      // Always fetch the freshest projects.json, avoiding cache
+      const response = await fetch('projects.json?t=' + new Date().getTime());
+      if (response.ok) {
+        projects = await response.json();
       } else {
-        const response = await fetch('projects.json');
-        if (response.ok) {
-          projects = await response.json();
-          // Seed local storage for the admin dashboard to work seamlessly
-          localStorage.setItem('purered_projects', JSON.stringify(projects));
-        } else {
-          // Fallback static mock if projects.json isn't loaded/found
-          projects = getFallbackMockData();
-          localStorage.setItem('purered_projects', JSON.stringify(projects));
-        }
+        // Fallback static mock if projects.json isn't loaded/found
+        projects = getFallbackMockData();
       }
       renderProjects(projects);
       setupFilters();
