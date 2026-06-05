@@ -69,12 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const formattedCategory = project.category === 'editing' ? 'Edição' : 'Evento';
 
       const previewHTML = project.previewUrl 
-        ? `<video class="preview-video" src="${project.previewUrl}" loop muted playsinline preload="none"></video>` 
+        ? `<video class="preview-video" src="${project.previewUrl}" autoplay loop muted playsinline></video>` 
         : '';
 
       card.innerHTML = `
         <div class="card-image" data-id="${project.id}">
-          <img src="${project.thumbnailUrl || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800'}" alt="${project.title}" loading="lazy">
+          <img src="${project.thumbnailUrl || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800'}" alt="${project.title}" loading="lazy" ${project.previewUrl ? 'style="opacity: 0;"' : ''}>
           ${previewHTML}
           ${playIcon}
         </div>
@@ -93,25 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       portfolioGrid.appendChild(card);
 
-      // Event listener for clicking on the card thumbnail to play video
+      // Event listener for clicking on the card thumbnail to play full video
       const cardImg = card.querySelector('.card-image');
       
-      // Hover effects for video preview
-      if (project.previewUrl) {
-        const vid = cardImg.querySelector('.preview-video');
-        cardImg.addEventListener('mouseenter', () => {
-          if (vid) {
-            vid.play().catch(() => {}); // catch autoplay restrictions
-            cardImg.classList.add('is-hovering-video');
-          }
-        });
-        cardImg.addEventListener('mouseleave', () => {
-          if (vid) {
-            vid.pause();
-            cardImg.classList.remove('is-hovering-video');
-          }
-        });
-      }
       cardImg.addEventListener('click', () => {
         openLightbox(project);
       });

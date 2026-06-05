@@ -611,24 +611,13 @@ nav a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  opacity: 1;
   z-index: 2;
   pointer-events: none;
 }
 
-.project-card:hover .card-image img {
+.project-card:hover .preview-video {
   transform: scale(1.02);
-  opacity: 0.9;
-}
-
-/* When video is playing on hover */
-.card-image.is-hovering-video img {
-  opacity: 0;
-}
-
-.card-image.is-hovering-video .preview-video {
-  opacity: 1;
 }
 
 .video-icon-badge {
