@@ -1,46 +1,90 @@
 [
   {
-    "id": "1",
-    "title": "CULTURA URBANA - AFTERMOVIE",
+    "id": "sameday04",
+    "title": "SAME DAY EDIT - EVENTO PRINCIPAL",
     "category": "events",
-    "description": "Aftermovie oficial do festival de Hip-Hop e Skate de São Paulo. Ritmo acelerado, sincronia perfeita com a batida, sound design imersivo e transições estilizadas gravadas em câmera lenta.",
-    "client": "Cultura de Rua Co.",
+    "description": "Aftermovie gravado, editado e exibido no mesmo dia. Edição ritmada de altíssima velocidade para manter a energia do evento no topo.",
+    "client": "Evento Principal",
+    "date": "2026-05",
+    "videoUrl": "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=80",
+    "tags": ["Same Day Edit", "Aftermovie", "Energia", "Widescreen"]
+  },
+  {
+    "id": "futsal01",
+    "title": "FUTSAL CHAMPIONS HIGHLIGHTS",
+    "category": "events",
+    "description": "Teaser agressivo para a final do campeonato de futsal. Velocidade da bola ditando os cortes, sound design pesado e foco total no impacto.",
+    "client": "Futsal League",
     "date": "2026-04",
-    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
-    "tags": ["Aftermovie", "Edição Dinâmica", "Sound Design", "Câmera Lenta"]
+    "videoUrl": "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&w=1600&q=80",
+    "tags": ["Esportes", "Futsal", "Cortes Rápidos", "Sound Design"]
   },
   {
-    "id": "2",
-    "title": "CAMPANHA SPEEDWAY - CORRIDA",
+    "id": "drift01",
+    "title": "DRIFT CINEMATICS",
     "category": "editing",
-    "description": "Edição de vídeo promocional de alta energia para lançamento de calçados de corrida. Foco em cortes brutais rápidos, sobreposição de texturas analógicas (grain e VHS leak) e trilha sonora eletrônica pulsante.",
-    "client": "Pulse Athletics",
+    "description": "Edição insana e dinâmica focada no cenário automobilístico de Drift. Formato vertical pensado nativamente para retenção absurda no mobile.",
+    "client": "Drift Series",
     "date": "2026-03",
-    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80",
-    "tags": ["Comercial", "Cortes Rápidos", "Color Grading", "Efeitos VHS"]
+    "videoUrl": "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1600&q=80",
+    "tags": ["Vertical", "Automotivo", "Velocidade", "Mobile"]
   },
   {
-    "id": "3",
-    "title": "RED BULL CHAMPIONS - ESPORTS",
-    "category": "editing",
-    "description": "Edição do teaser de abertura da grande final do campeonato de eSports. Mistura de animação 2D/3D com gravação real, sincronização de áudio pesada de impacto e efeitos visuais agressivos.",
-    "client": "Red Bull Gaming",
-    "date": "2026-02",
-    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
-    "tags": ["eSports", "Teaser", "VFX", "Sincronia de Áudio"]
-  },
-  {
-    "id": "4",
-    "title": "FESTIVAL AURA - SHOW REEL",
+    "id": "ldjr01",
+    "title": "LDJR EXPERIENCE",
     "category": "events",
-    "description": "Teaser promocional do festival internacional Aura de música eletrônica. Transições orgânicas de luz, lentes anamórficas e foco em transmitir a euforia e a imersão visual do evento.",
-    "client": "Aura Music Group",
+    "description": "Imersão completa no evento LDJR. Uma jornada audiovisual em formato widescreen de cinema com tratamento de cor cinematográfico.",
+    "client": "LDJR Tour",
+    "date": "2026-02",
+    "videoUrl": "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1540039155733-d76e6c4849ec?auto=format&fit=crop&w=1600&q=80",
+    "tags": ["Aftermovie", "Show", "Cinematográfico", "Color Grading"]
+  },
+  {
+    "id": "sameday01",
+    "title": "SAME DAY EDIT - DIA 1",
+    "category": "events",
+    "description": "Abertura do festival com cortes sincronizados no beat. Material entregue no mesmo dia do evento.",
+    "client": "Festival Dia 1",
+    "date": "2026-01",
+    "videoUrl": "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1600&q=80",
+    "tags": ["Same Day Edit", "Música"]
+  },
+  {
+    "id": "sameday02",
+    "title": "SAME DAY EDIT - DIA 2",
+    "category": "events",
+    "description": "Segundo dia de festival. Picos de energia acompanhados de uma decupagem agressiva e moderna.",
+    "client": "Festival Dia 2",
+    "date": "2026-01",
+    "videoUrl": "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1600&q=80",
+    "tags": ["Same Day Edit", "Festivais"]
+  },
+  {
+    "id": "sameday03",
+    "title": "SAME DAY EDIT - DIA 3",
+    "category": "events",
+    "description": "Encerramento explosivo. Fechamento do material captação/edição in-loco garantindo impacto nas redes em tempo real.",
+    "client": "Festival Dia 3",
+    "date": "2026-01",
+    "videoUrl": "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1533174000255-12dc36a61763?auto=format&fit=crop&w=1600&q=80",
+    "tags": ["Same Day Edit", "Explosivo", "VFX"]
+  },
+  {
+    "id": "skoria01",
+    "title": "SKORIA SOCIAL TEASER",
+    "category": "editing",
+    "description": "Peça brutal e veloz montada no formato mobile para a marca Skoria. Retenção de tela baseada em microcortes.",
+    "client": "Skoria",
     "date": "2025-12",
-    "videoUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80",
-    "tags": ["Festival", "Aftermovie", "Light Leaks", "Anamórfico"]
+    "videoUrl": "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1552072092-7f9b8d63efcb?auto=format&fit=crop&w=800&q=80",
+    "tags": ["Vertical", "Moda/Marca", "Social Media", "Mobile"]
   }
 ]

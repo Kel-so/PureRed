@@ -149,6 +149,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoUrl = project.videoUrl;
     lightboxMediaContainer.innerHTML = '';
 
+    // Handle Vertical/Mobile aspect ratios
+    if (project.tags && (project.tags.includes('Vertical') || project.tags.includes('Mobile'))) {
+      lightboxMediaContainer.classList.add('is-vertical');
+    } else {
+      lightboxMediaContainer.classList.remove('is-vertical');
+    }
+
     if (isVideoFile(videoUrl)) {
       // Direct video file (MP4, WebM, etc. - local or hosted e.g. in GitHub)
       const videoEl = document.createElement('video');
@@ -163,7 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // YouTube Video
       const ytId = extractYouTubeId(videoUrl);
       const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
+      // Minimal UI: autoplay, no related videos from others, modest branding, hide controls slightly
+      iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&controls=1`;
       iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
       iframe.allowFullscreen = true;
       lightboxMediaContainer.appendChild(iframe);

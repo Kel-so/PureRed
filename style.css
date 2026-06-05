@@ -1084,6 +1084,13 @@ footer {
   width: 100%;
 }
 
+.dialog-body.is-vertical {
+  aspect-ratio: 9 / 16;
+  max-height: 75vh;
+  width: auto;
+  margin: 0 auto;
+}
+
 .dialog-body iframe,
 .dialog-body video {
   width: 100%;
@@ -1091,6 +1098,11 @@ footer {
   border: none;
   aspect-ratio: 16 / 9;
   display: block;
+}
+
+.dialog-body.is-vertical iframe,
+.dialog-body.is-vertical video {
+  aspect-ratio: 9 / 16;
 }
 
 .dialog-details {
