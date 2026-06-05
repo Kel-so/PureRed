@@ -600,11 +600,35 @@ nav a:hover {
   object-fit: cover;
   opacity: 0.75;
   transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.preview-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .project-card:hover .card-image img {
   transform: scale(1.02);
   opacity: 0.9;
+}
+
+/* When video is playing on hover */
+.card-image.is-hovering-video img {
+  opacity: 0;
+}
+
+.card-image.is-hovering-video .preview-video {
+  opacity: 1;
 }
 
 .video-icon-badge {

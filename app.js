@@ -76,9 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const formattedCategory = project.category === 'editing' ? 'Edição' : 'Evento';
 
+      const previewHTML = project.previewUrl 
+        ? `<video class="preview-video" src="${project.previewUrl}" loop muted playsinline preload="none"></video>` 
+        : '';
+
       card.innerHTML = `
         <div class="card-image" data-id="${project.id}">
           <img src="${project.thumbnailUrl || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800'}" alt="${project.title}" loading="lazy">
+          ${previewHTML}
           ${playIcon}
         </div>
         <div class="card-content">
@@ -98,6 +103,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Event listener for clicking on the card thumbnail to play video
       const cardImg = card.querySelector('.card-image');
+      
+      // Hover effects for video preview
+      if (project.previewUrl) {
+        const vid = cardImg.querySelector('.preview-video');
+        cardImg.addEventListener('mouseenter', () => {
+          if (vid) {
+            vid.play().catch(() => {}); // catch autoplay restrictions
+            cardImg.classList.add('is-hovering-video');
+          }
+        });
+        cardImg.addEventListener('mouseleave', () => {
+          if (vid) {
+            vid.pause();
+            cardImg.classList.remove('is-hovering-video');
+          }
+        });
+      }
       cardImg.addEventListener('click', () => {
         openLightbox(project);
       });
