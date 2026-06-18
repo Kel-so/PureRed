@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const inputId = document.getElementById('project-id');
   const inputTitle = document.getElementById('project-title');
   const inputCategory = document.getElementById('project-category');
+  const inputOrientation = document.getElementById('project-orientation');
   const inputVideoUrl = document.getElementById('project-video-url');
   const inputThumbnailUrl = document.getElementById('project-thumbnail-url');
   const inputClient = document.getElementById('project-client');
@@ -184,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const id = inputId.value;
       const title = inputTitle.value.trim();
       const category = inputCategory.value;
+      const orientation = inputOrientation.value;
       const videoUrl = inputVideoUrl.value.trim();
       const thumbnailUrl = inputThumbnailUrl.value.trim();
       const client = inputClient.value.trim();
@@ -195,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Edit Mode
         const idx = projects.findIndex(p => p.id === id);
         if (idx !== -1) {
-          projects[idx] = { id, title, category, videoUrl, thumbnailUrl, client, date, tags, description };
+          projects[idx] = { id, title, category, orientation, videoUrl, thumbnailUrl, client, date, tags, description };
           alert('Projeto atualizado com sucesso! (Salvo localmente)');
         }
       } else {
@@ -204,6 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
           id: Date.now().toString(),
           title,
           category,
+          orientation,
           videoUrl,
           thumbnailUrl,
           client,
@@ -236,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     inputId.value = project.id;
     inputTitle.value = project.title;
     inputCategory.value = project.category;
+    inputOrientation.value = project.orientation || 'horizontal';
     inputVideoUrl.value = project.videoUrl;
     inputThumbnailUrl.value = project.thumbnailUrl || '';
     inputClient.value = project.client || 'Independente';

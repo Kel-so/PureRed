@@ -51,7 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     projectsToRender.forEach(project => {
       const card = document.createElement('article');
-      card.className = 'project-card';
+      const orientationClass = project.orientation === 'vertical' ? 'card-vertical' : 'card-horizontal';
+      card.className = `project-card ${orientationClass}`;
       card.setAttribute('data-category', project.category);
       
       // Video/Play Badge overlay
@@ -147,15 +148,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoUrl = project.videoUrl;
     lightboxMediaContainer.innerHTML = '';
 
-    // Handle Vertical/Mobile aspect ratios
-    if (project.tags && (project.tags.includes('Vertical') || project.tags.includes('Mobile'))) {
+    // Handle Vertical/Mobile aspect ratios based on JSON or fallback to tags
+    const isVertical = project.orientation === 'vertical' || (project.tags && (project.tags.includes('Vertical') || project.tags.includes('Mobile')));
+    
+    if (isVertical) {
       lightboxMediaContainer.classList.add('is-vertical');
     } else {
       lightboxMediaContainer.classList.remove('is-vertical');
     }
 
     if (isVideoFile(videoUrl)) {
-      // Direct video file (MP4, WebM, etc. - local or hosted e.g. in GitHub)
+      // Direct video file
       const videoEl = document.createElement('video');
       videoEl.src = videoUrl;
       videoEl.controls = true;
@@ -168,10 +171,22 @@ document.addEventListener('DOMContentLoaded', () => {
       // YouTube Video
       const ytId = extractYouTubeId(videoUrl);
       const iframe = document.createElement('iframe');
-      // Minimal UI: autoplay, no related videos from others, modest branding, hide controls slightly
       iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3&controls=1`;
       iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
       iframe.allowFullscreen = true;
+      lightboxMediaContainer.appendChild(iframe);
+    } else if (isInstagram(videoUrl)) {
+      // Instagram Post/Reel
+      const igEmbedUrl = extractInstagramEmbedUrl(videoUrl);
+      const iframe = document.createElement('iframe');
+      iframe.src = igEmbedUrl;
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('scrolling', 'no');
+      iframe.setAttribute('allowtransparency', 'true');
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      // To hide scrollbars and crop perfectly
+      iframe.style.overflow = 'hidden';
       lightboxMediaContainer.appendChild(iframe);
     } else if (isVimeo(videoUrl)) {
       // Vimeo Video
@@ -286,6 +301,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const regExp = /(vimeo\.com\/|video\/)(\d+)/;
     const match = url.match(regExp);
     return match ? match[2] : null;
+  }
+
+  function isInstagram(url) {
+    if (!url) return false;
+    return /instagram\.com/i.test(url);
+  }
+
+  function extractInstagramEmbedUrl(url) {
+    // Strip trailing slash if present, ignore query params
+    const cleanUrl = url.split('?')[0].replace(/\/$/, '');
+    return `${cleanUrl}/embed/`;
   }
 
   // Fallback mock array if loading fails
