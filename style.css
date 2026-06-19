@@ -9,9 +9,9 @@
   /* Palette PureRed / Dark */
   --bg-dark: #050505;
   --bg-obsidian: #0a0a0c;
-  --bg-card: rgba(15, 15, 18, 0.6);
-  --bg-glass: rgba(10, 10, 12, 0.7);
-  --bg-glass-heavy: rgba(5, 5, 5, 0.85);
+  --bg-card: rgba(0, 0, 0, 0.4);
+  --bg-glass: rgba(0, 0, 0, 0.5);
+  --bg-glass-heavy: rgba(0, 0, 0, 0.7);
   
   --border-glass: 1px solid rgba(255, 255, 255, 0.05);
   --border-glass-light: 1px solid rgba(255, 255, 255, 0.03);
@@ -322,21 +322,21 @@ nav a:hover {
   background-color: #ffffff;
   color: #000000;
   border: none;
-  padding: 0.85rem 2rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: none;
   text-decoration: none;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  border-radius: var(--radius-pill);
+  border-radius: 100px;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .btn-brutal:hover {
-  transform: scale(1.02);
-  background-color: var(--text-main);
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.08);
+  transform: scale(1.05);
+  background-color: #ffffff;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
 }
 
 .btn-brutal.btn-white {
