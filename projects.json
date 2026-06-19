@@ -1,5 +1,29 @@
 [
   {
+    "id": "ig-test-1",
+    "title": "TESTE INSTAGRAM 1",
+    "category": "editing",
+    "orientation": "vertical",
+    "description": "Vídeo teste linkado direto do Instagram (Reels).",
+    "client": "Teste Instagram",
+    "date": "2026-06",
+    "videoUrl": "https://www.instagram.com/reel/DZqfVZnOcjn/?igsh=MzN3NjA3MXR4dnFu",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80",
+    "tags": ["Vertical", "Instagram", "Reels"]
+  },
+  {
+    "id": "ig-test-2",
+    "title": "TESTE INSTAGRAM 2",
+    "category": "editing",
+    "orientation": "vertical",
+    "description": "Vídeo teste linkado direto do Instagram (Reels).",
+    "client": "Teste Instagram",
+    "date": "2026-06",
+    "videoUrl": "https://www.instagram.com/reel/DZvkVJeuiyC/?igsh=MTByaDBoZXllMG1waw==",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?auto=format&fit=crop&w=800&q=80",
+    "tags": ["Vertical", "Instagram", "Reels"]
+  },
+  {
     "id": "sameday04",
     "title": "SAME DAY EDIT - EVENTO PRINCIPAL",
     "category": "events",

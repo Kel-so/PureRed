@@ -587,10 +587,13 @@ nav a:hover {
 }
 
 .card-horizontal {
-  grid-column: span 2;
+  grid-column: span 1;
 }
 
 @media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
   .card-horizontal {
     grid-column: span 1;
   }
