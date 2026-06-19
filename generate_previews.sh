@@ -9,8 +9,8 @@ generate() {
   out_name="$2"
   if [ -f "$IN_DIR/$in_file" ]; then
     echo "Processing $in_file -> $out_name"
-    # Ensure dimensions are even using trunc(iw/2)*2:trunc(ih/2)*2
-    "$FFMPEG" -y -ss 00:00:03 -t 4 -i "$IN_DIR/$in_file" -an -vf "scale='min(720,iw)':'min(720,ih)':force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -crf 26 -preset fast -r 24 "$OUT_DIR/$out_name"
+    # Ensure dimensions are even using trunc(iw/2)*2:trunc(ih/2)*2, and increase to 1080p with CRF 20 for better quality
+    "$FFMPEG" -y -ss 00:00:03 -t 4 -i "$IN_DIR/$in_file" -an -vf "scale='min(1080,iw)':'min(1080,ih)':force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -crf 20 -preset fast -r 24 "$OUT_DIR/$out_name"
   else
     echo "Warning: $in_file not found"
   fi
