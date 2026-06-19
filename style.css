@@ -562,7 +562,7 @@ nav a:hover {
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-auto-flow: dense;
   gap: 2rem;
 }
@@ -583,18 +583,27 @@ nav a:hover {
 }
 
 .card-vertical {
-  grid-row: span 2;
-}
-
-.card-horizontal {
   grid-column: span 1;
 }
 
-@media (max-width: 768px) {
+.card-horizontal {
+  grid-column: span 2;
+}
+
+@media (max-width: 992px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card-horizontal, .card-vertical {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 576px) {
   .portfolio-grid {
     grid-template-columns: 1fr;
   }
-  .card-horizontal {
+  .card-horizontal, .card-vertical {
     grid-column: span 1;
   }
 }

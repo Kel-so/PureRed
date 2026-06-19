@@ -79,16 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
           ${previewHTML}
           ${playIcon}
         </div>
-        <div class="card-content">
-          <div class="card-meta">
-            <span>${formattedCategory}</span>
-            <span class="client">${project.client || 'Independente'}</span>
-          </div>
-          <h3>${project.title}</h3>
-          <p>${project.description || ''}</p>
-          <div class="tag-list">
-            ${tagsHTML}
-          </div>
+        <div class="card-content" style="padding: 1.2rem; align-items: center; justify-content: center; text-align: center;">
+          <h3 style="margin: 0; font-size: 0.95rem;">${project.title}</h3>
         </div>
       `;
 
