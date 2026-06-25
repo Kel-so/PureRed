@@ -8,6 +8,7 @@
     "client": "Podcast Series",
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/0yxV8XFZ-AE",
+    "previewUrl": "assets/previews/podcast1.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80",
     "tags": [
       "Vertical",
@@ -24,6 +25,7 @@
     "client": "Podcast Series",
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/cZzEg0UpHb4",
+    "previewUrl": "assets/previews/podcast2.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1581368135153-a506cf13b1e1?auto=format&fit=crop&w=800&q=80",
     "tags": [
       "Vertical",
