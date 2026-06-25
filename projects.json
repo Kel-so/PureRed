@@ -1,112 +1,150 @@
 [
   {
     "id": "ig-test-1",
-    "title": "TESTE INSTAGRAM 1",
+    "title": "INSTAGRAM TEST 1",
     "category": "editing",
     "orientation": "vertical",
-    "description": "Vídeo teste linkado direto do Instagram (Reels).",
-    "client": "Teste Instagram",
+    "description": "Test video linked directly from Instagram (Reels).",
+    "client": "Instagram Test",
     "date": "2026-06",
     "videoUrl": "https://www.instagram.com/reel/DZqfVZnOcjn/?igsh=MzN3NjA3MXR4dnFu",
     "thumbnailUrl": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80",
-    "tags": ["Vertical", "Instagram", "Reels"]
+    "tags": [
+      "Vertical",
+      "Instagram",
+      "Reels"
+    ]
   },
   {
     "id": "ig-test-2",
-    "title": "TESTE INSTAGRAM 2",
+    "title": "INSTAGRAM TEST 2",
     "category": "editing",
     "orientation": "vertical",
-    "description": "Vídeo teste linkado direto do Instagram (Reels).",
-    "client": "Teste Instagram",
+    "description": "Test video linked directly from Instagram (Reels).",
+    "client": "Instagram Test",
     "date": "2026-06",
     "videoUrl": "https://www.instagram.com/reel/DZvkVJeuiyC/?igsh=MTByaDBoZXllMG1waw==",
     "thumbnailUrl": "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?auto=format&fit=crop&w=800&q=80",
-    "tags": ["Vertical", "Instagram", "Reels"]
+    "tags": [
+      "Vertical",
+      "Instagram",
+      "Reels"
+    ]
   },
   {
     "id": "sameday04",
-    "title": "SAME DAY EDIT - EVENTO PRINCIPAL",
+    "title": "MAIN EVENT - SAME DAY EDIT",
     "category": "events",
-    "description": "Aftermovie gravado, editado e exibido no mesmo dia. Edição ritmada de altíssima velocidade para manter a energia do evento no topo.",
-    "client": "Evento Principal",
+    "description": "Aftermovie recorded, edited and screened on the same day. High-speed rhythmic editing to keep the event energy at its peak.",
+    "client": "Main Event",
     "date": "2026-05",
     "videoUrl": "https://youtu.be/-XNmHMceOL8",
     "previewUrl": "assets/previews/sameday04.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=80",
-    "tags": ["Same Day Edit", "Aftermovie", "Energia", "Widescreen"]
+    "tags": [
+      "Same Day Edit",
+      "Aftermovie",
+      "Energy",
+      "Widescreen"
+    ]
   },
   {
     "id": "futsal01",
     "title": "FUTSAL CHAMPIONS HIGHLIGHTS",
     "category": "events",
-    "description": "Teaser agressivo para a final do campeonato de futsal. Velocidade da bola ditando os cortes, sound design pesado e foco total no impacto.",
+    "description": "Aggressive teaser for the futsal championship final. Ball speed dictating the cuts, heavy sound design and total focus on impact.",
     "client": "Futsal League",
     "date": "2026-04",
     "videoUrl": "https://youtu.be/_cHcLPJayJI",
     "previewUrl": "assets/previews/futsal01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&w=1600&q=80",
-    "tags": ["Esportes", "Futsal", "Cortes Rápidos", "Sound Design"]
+    "tags": [
+      "Sports",
+      "Futsal",
+      "Fast Cuts",
+      "Sound Design"
+    ]
   },
   {
     "id": "drift01",
     "title": "DRIFT CINEMATICS",
     "category": "editing",
     "orientation": "vertical",
-    "description": "Edição insana e dinâmica focada no cenário automobilístico de Drift. Formato vertical pensado nativamente para retenção absurda no mobile.",
+    "description": "Insane and dynamic editing focused on the Drift automotive scene. Vertical format natively designed for massive mobile retention.",
     "client": "Drift Series",
     "date": "2026-03",
     "videoUrl": "https://youtube.com/shorts/oRawt81rJAY",
     "previewUrl": "assets/previews/drift01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1600&q=80",
-    "tags": ["Vertical", "Automotivo", "Velocidade", "Mobile"]
+    "tags": [
+      "Vertical",
+      "Automotive",
+      "Speed",
+      "Mobile"
+    ]
   },
   {
     "id": "ldjr01",
     "title": "LDJR EXPERIENCE",
     "category": "events",
-    "description": "Imersão completa no evento LDJR. Uma jornada audiovisual em formato widescreen de cinema com tratamento de cor cinematográfico.",
+    "description": "Complete immersion in the LDJR event. An audiovisual journey in widescreen cinema format with cinematic color grading.",
     "client": "LDJR Tour",
     "date": "2026-02",
     "videoUrl": "https://youtu.be/2a20iJjK7oA",
     "previewUrl": "assets/previews/ldjr01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1540039155733-d76e6c4849ec?auto=format&fit=crop&w=1600&q=80",
-    "tags": ["Aftermovie", "Show", "Cinematográfico", "Color Grading"]
+    "tags": [
+      "Aftermovie",
+      "Show",
+      "Cinematic",
+      "Color Grading"
+    ]
   },
   {
     "id": "sameday01",
-    "title": "SAME DAY EDIT - DIA 1",
+    "title": "SAME DAY EDIT - DAY 1",
     "category": "events",
-    "description": "Abertura do festival com cortes sincronizados no beat. Material entregue no mesmo dia do evento.",
-    "client": "Festival Dia 1",
+    "description": "Festival opening with beat-synced cuts. Material delivered on the same day as the event.",
+    "client": "Festival Day 1",
     "date": "2026-01",
     "videoUrl": "https://youtu.be/M9wujVLJ5GI",
     "previewUrl": "assets/previews/sameday01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1600&q=80",
-    "tags": ["Same Day Edit", "Música"]
+    "tags": [
+      "Same Day Edit",
+      "Music"
+    ]
   },
   {
     "id": "sameday02",
-    "title": "SAME DAY EDIT - DIA 2",
+    "title": "SAME DAY EDIT - DAY 2",
     "category": "events",
-    "description": "Segundo dia de festival. Picos de energia acompanhados de uma decupagem agressiva e moderna.",
-    "client": "Festival Dia 2",
+    "description": "Second day of the festival. Energy peaks accompanied by aggressive and modern editing.",
+    "client": "Festival Day 2",
     "date": "2026-01",
     "videoUrl": "https://youtu.be/6o3ANYnXrgE",
     "previewUrl": "assets/previews/sameday02.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1600&q=80",
-    "tags": ["Same Day Edit", "Festivais"]
+    "tags": [
+      "Same Day Edit",
+      "Festivals"
+    ]
   },
   {
     "id": "sameday03",
-    "title": "SAME DAY EDIT - DIA 3",
+    "title": "SAME DAY EDIT - DAY 3",
     "category": "events",
     "description": "Encerramento explosivo. Fechamento do material captação/edição in-loco garantindo impacto nas redes em tempo real.",
-    "client": "Festival Dia 3",
+    "client": "Festival Day 3",
     "date": "2026-01",
     "videoUrl": "https://youtu.be/-NOFgKQvNAo",
     "previewUrl": "assets/previews/sameday03.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1533174000255-12dc36a61763?auto=format&fit=crop&w=1600&q=80",
-    "tags": ["Same Day Edit", "Explosivo", "VFX"]
+    "tags": [
+      "Same Day Edit",
+      "Explosivo",
+      "VFX"
+    ]
   },
   {
     "id": "skoria01",
@@ -119,6 +157,11 @@
     "videoUrl": "https://youtube.com/shorts/kN-DsB2VsO4",
     "previewUrl": "assets/previews/skoria01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1552072092-7f9b8d63efcb?auto=format&fit=crop&w=800&q=80",
-    "tags": ["Vertical", "Moda/Marca", "Social Media", "Mobile"]
+    "tags": [
+      "Vertical",
+      "Moda/Marca",
+      "Social Media",
+      "Mobile"
+    ]
   }
 ]
