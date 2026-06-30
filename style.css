@@ -273,15 +273,7 @@ nav a:hover {
   gap: 8px;
 }
 
-.tagline::before {
-  content: 'REC';
-  color: var(--primary-red);
-  font-size: 0.65rem;
-  border: 1px solid var(--primary-red);
-  padding: 1px 4px;
-  border-radius: 3px;
-  font-weight: 800;
-}
+/* REC tag removed upon user request */
 
 .hero h1 {
   font-family: var(--font-title);
