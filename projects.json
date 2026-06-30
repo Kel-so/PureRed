@@ -1,11 +1,96 @@
 [
   {
-    "id": "podcast-cut-1",
-    "title": "PODCAST HIGHLIGHT 1",
+    "id": "port-banners",
+    "title": "PORTFÓLIO DE BANNERS",
     "category": "editing",
     "orientation": "vertical",
-    "description": "Dynamic podcast cut focused on high-retention topics. Vertical format designed for YouTube Shorts.",
-    "client": "Podcast Series",
+    "description": "Compilado de banners focados em impacto visual e conversão. Design limpo e direto, pensado para destacar a identidade visual e reter a atenção logo de cara.",
+    "client": "Portfólio",
+    "date": "2026-06",
+    "videoUrl": "https://youtube.com/shorts/gSBYCEqQJ_A",
+    "previewUrl": "assets/previews/banners_portfolio.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80",
+    "tags": [
+      "Design",
+      "Motion",
+      "Vertical"
+    ]
+  },
+  {
+    "id": "valorant-1",
+    "title": "VALORANT EDIT 1",
+    "category": "editing",
+    "orientation": "horizontal",
+    "description": "Edit de Valorant com pacing dinâmico e sync cravado. Foco no flow da gameplay, com transições fluidas e um ritmo que acompanha a energia das plays.",
+    "client": "Gaming",
+    "date": "2026-06",
+    "videoUrl": "https://youtu.be/oAI_3m2g6C4",
+    "previewUrl": "assets/previews/valorant1.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
+    "tags": [
+      "Gaming",
+      "eSports",
+      "Sync"
+    ]
+  },
+  {
+    "id": "valorant-2",
+    "title": "VALORANT EDIT 2",
+    "category": "editing",
+    "orientation": "horizontal",
+    "description": "Mais uma edição de Valorant, explorando efeitos e sound design para dar aquele peso nas kills, mas mantendo a tela limpa pra não estragar a visibilidade da jogada.",
+    "client": "Gaming",
+    "date": "2026-06",
+    "videoUrl": "https://youtu.be/NI4rfyjLqmg",
+    "previewUrl": "assets/previews/valorant2.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
+    "tags": [
+      "Gaming",
+      "Sound Design",
+      "VFX"
+    ]
+  },
+  {
+    "id": "intro-red",
+    "title": "INTRODUÇÃO",
+    "category": "editing",
+    "orientation": "horizontal",
+    "description": "Introdução rápida e com ritmo acelerado. Motion design estruturado para fisgar a atenção nos primeiros segundos, criando a expectativa certa pro conteúdo.",
+    "client": "Pure Red",
+    "date": "2026-06",
+    "videoUrl": "https://youtu.be/vG7LiCzxt3w",
+    "previewUrl": "assets/previews/intro.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+    "tags": [
+      "Motion",
+      "Intro",
+      "Dinâmico"
+    ]
+  },
+  {
+    "id": "anim-logo",
+    "title": "ANIMAÇÃO DE LOGO",
+    "category": "editing",
+    "orientation": "horizontal",
+    "description": "Animação de logo fluida e direta ao ponto. Uma revelação profissional que dá vida à marca de forma orgânica e bem resolvida no motion.",
+    "client": "Marca Própria",
+    "date": "2026-06",
+    "videoUrl": "https://youtu.be/BVbdk1nTYLQ",
+    "previewUrl": "assets/previews/logo_anim.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "tags": [
+      "Logo",
+      "Motion",
+      "Branding"
+    ]
+  },
+  {
+    "id": "podcast-cut-1",
+    "title": "CORTE PODCAST 1",
+    "category": "editing",
+    "orientation": "vertical",
+    "description": "Corte de podcast dinâmico focado em tópicos de alta retenção. Formato vertical pensado para YouTube Shorts.",
+    "client": "Série de Podcast",
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/0yxV8XFZ-AE",
     "previewUrl": "assets/previews/podcast1.mp4",
@@ -18,11 +103,11 @@
   },
   {
     "id": "podcast-cut-2",
-    "title": "PODCAST HIGHLIGHT 2",
+    "title": "CORTE PODCAST 2",
     "category": "editing",
     "orientation": "vertical",
-    "description": "Dynamic podcast cut focused on high-retention topics. Vertical format designed for YouTube Shorts.",
-    "client": "Podcast Series",
+    "description": "Corte de podcast dinâmico focado em tópicos de alta retenção. Formato vertical pensado para YouTube Shorts.",
+    "client": "Série de Podcast",
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/cZzEg0UpHb4",
     "previewUrl": "assets/previews/podcast2.mp4",
@@ -35,10 +120,10 @@
   },
   {
     "id": "sameday04",
-    "title": "MAIN EVENT - SAME DAY EDIT",
+    "title": "SAME DAY EDIT - EVENTO PRINCIPAL",
     "category": "events",
-    "description": "Aftermovie recorded, edited and screened on the same day. High-speed rhythmic editing to keep the event energy at its peak.",
-    "client": "Main Event",
+    "description": "Aftermovie gravado, editado e exibido no mesmo dia. Edição ritmada de altíssima velocidade para manter a energia do evento no topo.",
+    "client": "Evento Principal",
     "date": "2026-05",
     "videoUrl": "https://youtu.be/-XNmHMceOL8",
     "previewUrl": "assets/previews/sameday04.mp4",
@@ -46,7 +131,7 @@
     "tags": [
       "Same Day Edit",
       "Aftermovie",
-      "Energy",
+      "Energia",
       "Widescreen"
     ]
   },
@@ -54,16 +139,16 @@
     "id": "futsal01",
     "title": "FUTSAL CHAMPIONS HIGHLIGHTS",
     "category": "events",
-    "description": "Aggressive teaser for the futsal championship final. Ball speed dictating the cuts, heavy sound design and total focus on impact.",
+    "description": "Teaser agressivo para a final do campeonato de futsal. Velocidade da bola ditando os cortes, sound design pesado e foco total no impacto.",
     "client": "Futsal League",
     "date": "2026-04",
     "videoUrl": "https://youtu.be/_cHcLPJayJI",
     "previewUrl": "assets/previews/futsal01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&w=1600&q=80",
     "tags": [
-      "Sports",
+      "Esportes",
       "Futsal",
-      "Fast Cuts",
+      "Cortes Rápidos",
       "Sound Design"
     ]
   },
@@ -72,7 +157,7 @@
     "title": "DRIFT CINEMATICS",
     "category": "editing",
     "orientation": "vertical",
-    "description": "Insane and dynamic editing focused on the Drift automotive scene. Vertical format natively designed for massive mobile retention.",
+    "description": "Edição insana e dinâmica focada no cenário automobilístico de Drift. Formato vertical pensado nativamente para retenção absurda no mobile.",
     "client": "Drift Series",
     "date": "2026-03",
     "videoUrl": "https://youtube.com/shorts/oRawt81rJAY",
@@ -80,8 +165,8 @@
     "thumbnailUrl": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1600&q=80",
     "tags": [
       "Vertical",
-      "Automotive",
-      "Speed",
+      "Automotivo",
+      "Velocidade",
       "Mobile"
     ]
   },
@@ -89,7 +174,7 @@
     "id": "ldjr01",
     "title": "LDJR EXPERIENCE",
     "category": "events",
-    "description": "Complete immersion in the LDJR event. An audiovisual journey in widescreen cinema format with cinematic color grading.",
+    "description": "Imersão completa no evento LDJR. Uma jornada audiovisual em formato widescreen de cinema com tratamento de cor cinematográfico.",
     "client": "LDJR Tour",
     "date": "2026-02",
     "videoUrl": "https://youtu.be/2a20iJjK7oA",
@@ -98,46 +183,46 @@
     "tags": [
       "Aftermovie",
       "Show",
-      "Cinematic",
+      "Cinematográfico",
       "Color Grading"
     ]
   },
   {
     "id": "sameday01",
-    "title": "SAME DAY EDIT - DAY 1",
+    "title": "SAME DAY EDIT - DIA 1",
     "category": "events",
-    "description": "Festival opening with beat-synced cuts. Material delivered on the same day as the event.",
-    "client": "Festival Day 1",
+    "description": "Abertura do festival com cortes sincronizados no beat. Material entregue no mesmo dia do evento.",
+    "client": "Festival Dia 1",
     "date": "2026-01",
     "videoUrl": "https://youtu.be/M9wujVLJ5GI",
     "previewUrl": "assets/previews/sameday01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1600&q=80",
     "tags": [
       "Same Day Edit",
-      "Music"
+      "Música"
     ]
   },
   {
     "id": "sameday02",
-    "title": "SAME DAY EDIT - DAY 2",
+    "title": "SAME DAY EDIT - DIA 2",
     "category": "events",
-    "description": "Second day of the festival. Energy peaks accompanied by aggressive and modern editing.",
-    "client": "Festival Day 2",
+    "description": "Segundo dia de festival. Picos de energia acompanhados de uma decupagem agressiva e moderna.",
+    "client": "Festival Dia 2",
     "date": "2026-01",
     "videoUrl": "https://youtu.be/6o3ANYnXrgE",
     "previewUrl": "assets/previews/sameday02.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1600&q=80",
     "tags": [
       "Same Day Edit",
-      "Festivals"
+      "Festivais"
     ]
   },
   {
     "id": "sameday03",
-    "title": "SAME DAY EDIT - DAY 3",
+    "title": "SAME DAY EDIT - DIA 3",
     "category": "events",
     "description": "Encerramento explosivo. Fechamento do material captação/edição in-loco garantindo impacto nas redes em tempo real.",
-    "client": "Festival Day 3",
+    "client": "Festival Dia 3",
     "date": "2026-01",
     "videoUrl": "https://youtu.be/-NOFgKQvNAo",
     "previewUrl": "assets/previews/sameday03.mp4",

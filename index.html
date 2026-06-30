@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,13 +35,13 @@
       
       <nav id="nav-menu">
         <ul>
-          <li><a href="#trabalhos">Work</a></li>
-          <li><a href="#sobre">About</a></li>
-          <li><a href="#contato">Contact</a></li>
+          <li><a href="#trabalhos">Trabalhos</a></li>
+          <li><a href="#sobre">Sobre Mim</a></li>
+          <li><a href="#contato">Contato</a></li>
         </ul>
       </nav>
       
-      <a href="mailto:kelson.felp@gmail.com?subject=Project%20Inquiry%20-%20PureRed&body=Hello%20Kelson,%0A%0AI%20would%20like%20to%20discuss%20a%20new%20project..." class="nav-cta">Get in Touch</a>
+      <a href="mailto:kelson.felp@gmail.com?subject=Project%20Inquiry%20-%20PureRed&body=Hello%20Kelson,%0A%0AI%20would%20like%20to%20discuss%20a%20new%20project..." class="nav-cta">Fale Comigo</a>
       
       <!-- Mobile Nav Trigger -->
       <button class="mobile-nav-toggle" id="mobile-menu-toggle" aria-label="Abrir menu">
@@ -52,42 +52,31 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
+    <!-- Hero Section -->
+  <section class="hero" id="inicio">
     <div class="container">
-      <div class="hero-content">
+      <div class="hero-content" style="max-width: 900px;">
         <div class="tagline">Editor & Filmmaker</div>
-        <h1>RHYTHM, IMPACT AND <br><span>VISUAL TENSION.</span></h1>
-        <p>I create high-intensity cinematic narratives. Specialized in creative direction, commercial post-production, immersive sound design and anamorphic aftermovies for global brands.</p>
-        <div class="hero-actions">
-          <a href="#contato" class="btn-brutal">Get in Touch</a>
-          <a href="#showreel" class="btn-brutal btn-white">Watch Showreel</a>
+        <h1>RITMO, IMPACTO E <br><span>TENSÃO VISUAL.</span></h1>
+        
+        <!-- Video Feature in Hero -->
+        <div class="showreel-container" id="main-reel-trigger" style="margin-top: 2rem; margin-bottom: 2rem;" data-video="https://youtu.be/vG7LiCzxt3w" data-title="INTRODUÇÃO PURE RED" data-client="Pure Red" data-date="2026-06" data-description="Introdução rápida e com ritmo acelerado. Motion design estruturado para fisgar a atenção nos primeiros segundos, criando a expectativa certa pro conteúdo.">
+          <img src="assets/thumbnails/main_thumb.jpg" alt="Vídeo Destaque">
+          <div class="showreel-overlay">
+            <div class="play-badge">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="showreel-details">
+              <h3>PROJETO EM DESTAQUE</h3>
+              <p>Motion Design & Edição • Assista agora</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Showreel Section (Inspiration from Bruno Guterres) -->
-  <section id="showreel" class="showreel-section">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Presentation <span>Reel</span></h2>
-        <p>A quick compilation of my best work in rhythm, cuts and creative direction.</p>
-      </div>
-      
-      <!-- Showreel container - click to play main reel -->
-      <div class="showreel-container" id="main-reel-trigger" data-video="https://youtu.be/-XNmHMceOL8" data-title="MAIN EVENT - SAME DAY EDIT" data-client="Main Event" data-date="2026-05" data-description="Aftermovie recorded, edited and screened on the same day. High-speed rhythmic editing to keep the event energy at its peak.">
-        <img src="assets/thumbnails/main_thumb.jpg" alt="Showreel Thumbnail">
-        <div class="showreel-overlay">
-          <div class="play-badge">
-            <svg viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          </div>
-          <div class="showreel-details">
-            <h3>MAIN EVENT - SAME DAY EDIT</h3>
-            <p>Editing, VFX & Sound • Watch Highlight</p>
-          </div>
+        
+        <p style="margin: 0 auto;">Transformo gravações brutas em narrativas audiovisuais dinâmicas. Especializado em edição de vídeo, motion design e projetos com estética urbana e moderna.</p>
+        <div class="hero-actions" style="justify-content: center; margin-top: 2rem;">
+          <a href="#trabalhos" class="btn-brutal">Ver Portfólio</a>
+          <a href="#contato" class="btn-brutal btn-white">Entrar em Contato</a>
         </div>
       </div>
     </div>
@@ -96,7 +85,7 @@
   <!-- Marquee Text Ribbon -->
   <div class="marquee-container">
     <div class="marquee-content">
-      CORTE BRUTAL • HIGH ENERGY EDITING • SOUND DESIGN AGRESSIVO • AFTERMOVIES • ESPORTS TEASERS <span>PURE RED STUDIO</span> CORTE BRUTAL • HIGH ENERGY EDITING • SOUND DESIGN AGRESSIVO • AFTERMOVIES • ESPORTS TEASERS <span>PURE RED STUDIO</span>
+      CORTE BRUTAL • EDIÇÃO DE ALTA ENERGIA • SOUND DESIGN AGRESSIVO • AFTERMOVIES • ESPORTS TEASERS <span>PURE RED STUDIO</span> CORTE BRUTAL • EDIÇÃO DE ALTA ENERGIA • SOUND DESIGN AGRESSIVO • AFTERMOVIES • ESPORTS TEASERS <span>PURE RED STUDIO</span>
     </div>
   </div>
 
@@ -104,14 +93,14 @@
   <section id="trabalhos" class="portfolio-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Recent <span>Works</span></h2>
+        <h2 class="section-title">Trabalhos <span>Recentes</span></h2>
       </div>
       
       <!-- Categories Filter Menu -->
       <div class="filter-menu">
-        <button class="filter-btn active" data-filter="all">All Projects</button>
-        <button class="filter-btn" data-filter="editing">Video Editing</button>
-        <button class="filter-btn" data-filter="events">Events</button>
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="editing">Edição de Vídeo</button>
+        <button class="filter-btn" data-filter="events">Eventos</button>
       </div>
       
       <!-- Portfolio Grid (Populated by app.js) -->
@@ -125,32 +114,32 @@
   <section id="sobre" class="about-section">
     <div class="container about-grid">
       <div class="about-text">
-        <div class="tagline" style="transform: rotate(1deg);">My Journey</div>
-        <h2>CRAFTING STORIES AT <span class="highlight-red">HIGH SPEED.</span></h2>
-        <p>I'm a video editor and filmmaker focused on modern, dynamic narratives that instantly capture the viewer's attention. My influences come directly from independent cinema, urban culture, streetwear and contemporary aesthetics.</p>
-        <p>I work transforming raw footage into communication pieces with aggressive rhythm, impeccable sound design and eye-popping color grading. Whether it's a 30-second eSports teaser or a 10-minute post-event documentary, the goal is the same: to give goosebumps and hold attention.</p>
+        <div class="tagline" style="transform: rotate(1deg);">Minha Jornada</div>
+        <h2>CRIANDO HISTÓRIAS EM <span class="highlight-red">ALTA VELOCIDADE.</span></h2>
+        <p>Sou um editor de vídeo e filmmaker focado em narrativas modernas e dinâmicas que capturam a atenção instantaneamente. Minhas influências vêm do cinema independente, cultura urbana e estética contemporânea.</p>
+        <p>Trabalho transformando material bruto em peças de comunicação com ritmo agressivo, sound design impecável e color grading vibrante. Seja um teaser de 30 segundos ou um aftermovie de 10 minutos, o objetivo é o mesmo: prender a atenção e causar impacto visual.</p>
         
         <!-- Experience Table -->
         <table class="experience-table">
           <tr>
             <td class="exp-date">2024 - PRESENT</td>
             <td>
-              <div class="exp-role">Freelance Video Editor & Creator</div>
-              <div class="exp-company">Independent editing for eSports brands, action athletes and streetwear brands.</div>
+              <div class="exp-role">Editor de Vídeo Freelancer</div>
+              <div class="exp-company">Edição independente para marcas, criadores de conteúdo e projetos comerciais.</div>
             </td>
           </tr>
           <tr>
             <td class="exp-date">2022 - 2024</td>
             <td>
-              <div class="exp-role">Filmmaker & Post-Production Editor</div>
-              <div class="exp-company">Coordination of shooting, aftermovies and audiovisual coverage of regional parties and local championships.</div>
+              <div class="exp-role">Filmmaker e Editor</div>
+              <div class="exp-company">Captação e edição de aftermovies, cobertura audiovisual de eventos e campeonatos regionais.</div>
             </td>
           </tr>
           <tr>
             <td class="exp-date">2020 - 2022</td>
             <td>
-              <div class="exp-role">Assistant Editor & VFX</div>
-              <div class="exp-company">Initial assembly, basic sound design, syncing and 2D animations applied to digital advertising.</div>
+              <div class="exp-role">Assistente de Edição & VFX</div>
+              <div class="exp-company">Montagem inicial, sound design básico, decupagem e animações 2D aplicadas à publicidade digital.</div>
             </td>
           </tr>
         </table>
@@ -159,7 +148,7 @@
       <div class="skills-container">
         <!-- Skill categories -->
         <div class="skills-category">
-          <h4>Main Tools</h4>
+          <h4>Ferramentas Principais</h4>
           <div class="skills-list">
             <div class="skill-tag">Adobe Premiere Pro</div>
             <div class="skill-tag">Adobe After Effects</div>
@@ -170,14 +159,14 @@
         </div>
         
         <div class="skills-category">
-          <h4>Creative Specialties</h4>
+          <h4>Especialidades Criativas</h4>
           <div class="skills-list">
-            <div class="skill-tag">High Energy Cuts</div>
-            <div class="skill-tag">Advanced Sound Design</div>
-            <div class="skill-tag">Aggressive Color Grading</div>
-            <div class="skill-tag">Festival Aftermovies</div>
-            <div class="skill-tag">eSports Teasers</div>
-            <div class="skill-tag">Rhythmic Direction</div>
+            <div class="skill-tag">Cortes Dinâmicos</div>
+            <div class="skill-tag">Sound Design Avançado</div>
+            <div class="skill-tag">Color Grading</div>
+            <div class="skill-tag">Aftermovies de Eventos</div>
+            <div class="skill-tag">Teasers Comerciais</div>
+            <div class="skill-tag">Direção Rítmica</div>
           </div>
         </div>
     </div>
@@ -187,22 +176,22 @@
   <section id="contato" class="contact-section">
     <div class="container contact-grid">
       <div class="contact-info">
-        <div class="tagline">Connections</div>
-        <h2>LET'S MAKE SOMETHING <br><span class="highlight-red">BRUTAL TOGETHER?</span></h2>
-        <p>I am always open to new editing projects, event aftermovies, long-term contracts or commercial partnerships. Send me your idea!</p>
+        <div class="tagline">Conexões</div>
+        <h2>VAMOS CRIAR ALGO <br><span class="highlight-red">INCRÍVEL JUNTOS?</span></h2>
+        <p>Estou sempre aberto a novos projetos de edição, aftermovies de eventos ou parcerias comerciais. Me envie um e-mail sobre o seu projeto!</p>
         
         <div class="contact-details-list">
           <div class="contact-detail-item">
-            <h5>Professional E-mail</h5>
+            <h5>E-mail Profissional</h5>
             <p><a href="mailto:contato.purered@gmail.com">contato.purered@gmail.com</a></p>
           </div>
           <div class="contact-detail-item">
-            <h5>Phone / WhatsApp</h5>
+            <h5>Telefone / WhatsApp</h5>
             <p><a href="https://wa.me/5511999999999" target="_blank" rel="noopener">+55 (11) 99999-9999</a></p>
           </div>
           <div class="contact-detail-item">
-            <h5>Location</h5>
-            <p>São Paulo, SP - Available for travel</p>
+            <h5>Localização</h5>
+            <p>São Paulo, SP - Disponível para viagens</p>
           </div>
         </div>
         
@@ -229,9 +218,9 @@
       </div>
       
       <div class="contact-cta-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 3rem; text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <h3 style="font-size: 2rem; margin-bottom: 1rem; letter-spacing: -0.5px;">Elevate your brand's visual standard.</h3>
-        <p style="color: var(--text-muted); margin-bottom: 2.5rem; max-width: 400px;">Tell me about your project, the scope, and the references you have in mind. I usually reply within 24 hours.</p>
-        <a href="mailto:kelson.felp@gmail.com?subject=Project%20Inquiry%20-%20PureRed&body=Hello%20Kelson,%0A%0AI%20would%20like%20to%20discuss%20a%20new%20project..." class="btn-brutal" style="width: 100%; max-width: 300px;">Send an E-mail</a>
+        <h3 style="font-size: 2rem; margin-bottom: 1rem; letter-spacing: -0.5px;">Eleve o padrão visual do seu projeto.</h3>
+        <p style="color: var(--text-muted); margin-bottom: 2.5rem; max-width: 400px;">Me conte sobre o seu projeto, os prazos e as referências que você tem em mente. Costumo responder em até 24 horas.</p>
+        <a href="mailto:kelson.felp@gmail.com?subject=Project%20Inquiry%20-%20PureRed&body=Hello%20Kelson,%0A%0AI%20would%20like%20to%20discuss%20a%20new%20project..." class="btn-brutal" style="width: 100%; max-width: 300px;">Enviar E-mail</a>
       </div>
     </div>
   </section>
@@ -243,7 +232,7 @@
         <span class="logo-dot" style="width: 8px; height: 8px;"></span>Pure<span>Red</span>
       </div>
       <div class="footer-copy">
-        &copy; 2026 PureRed. All rights reserved. Designed by <span>Kel-so</span>.
+        &copy; 2026 PureRed. Todos os direitos reservados. Design por <span>Kel-so</span>.
       </div>
       <a href="admin.html" class="admin-link">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">

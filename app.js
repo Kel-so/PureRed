@@ -42,8 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projectsToRender.length === 0) {
       portfolioGrid.innerHTML = `
         <div style="grid-column: span 2; border: 3px dashed var(--border-color-dark); padding: 4rem; text-align: center;">
-          <h3 style="font-family: var(--font-header); text-transform: uppercase; margin-bottom: 1rem;">No projects found</h3>
-          <p style="color: var(--text-muted);">Go to the <a href="admin.html" style="color: var(--primary-red); font-weight: 700;">Control Panel</a> to add new videos.</p>
+          <h3 style="font-family: var(--font-header); text-transform: uppercase; margin-bottom: 1rem;">Nenhum projeto encontrado</h3>
+          <p style="color: var(--text-muted);">Vá para o <a href="admin.html" style="color: var(--primary-red); font-weight: 700;">Painel de Controle</a> para adicionar novos vídeos.</p>
         </div>
       `;
       return;
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ? project.tags.map(tag => `<span class="tag-badge">${tag}</span>`).join('')
         : '';
 
-      const formattedCategory = project.category === 'editing' ? 'Editing' : 'Event';
+      const formattedCategory = project.category === 'editing' ? 'Edição' : 'Evento';
 
       const previewHTML = project.previewUrl 
         ? `<video class="preview-video" src="${project.previewUrl}" autoplay loop muted playsinline></video>` 
@@ -123,18 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set text details
     lightboxTitle.textContent = project.title;
     lightboxDesc.textContent = project.description || '';
-    lightboxClient.textContent = project.client || 'Personal Project';
+    lightboxClient.textContent = project.client || 'Projeto Próprio';
     
     // Format Date
-    let dateStr = project.date || 'Recent';
+    let dateStr = project.date || 'Recente';
     if (dateStr.includes('-')) {
       const [year, month] = dateStr.split('-');
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
       const monthIdx = parseInt(month, 10) - 1;
       dateStr = `${months[monthIdx] || month} ${year}`;
     }
     lightboxDate.textContent = dateStr;
-    lightboxTags.textContent = project.tags ? project.tags.join(', ') : 'Editing';
+    lightboxTags.textContent = project.tags ? project.tags.join(', ') : 'Edição';
 
     // Set Media
     const videoUrl = project.videoUrl;
@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         client: mainReelTrigger.getAttribute('data-client'),
         date: mainReelTrigger.getAttribute('data-date'),
         description: mainReelTrigger.getAttribute('data-description'),
-        tags: ['Showreel', 'Editing', 'Visual Effects', 'Portfolio']
+        tags: ['Destaque', 'Edição', 'Efeitos Visuais', 'Portfólio']
       };
       openLightbox(reelData);
     });
