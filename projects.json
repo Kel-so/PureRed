@@ -1,5 +1,22 @@
 [
   {
+    "id": "podcast-cut-3",
+    "title": "CORTE PODCAST 3",
+    "category": "editing",
+    "orientation": "vertical",
+    "description": "Corte de podcast focado em ritmo e impacto para YouTube Shorts.",
+    "client": "Série de Podcast",
+    "date": "2026-06",
+    "videoUrl": "https://youtube.com/shorts/exOJPs4n0q0",
+    "previewUrl": "assets/previews/podcast3.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1581368135153-a506cf13b1e1?auto=format&fit=crop&w=800&q=80",
+    "tags": [
+      "Vertical",
+      "Podcast",
+      "Shorts"
+    ]
+  },
+  {
     "id": "port-banners",
     "title": "PORTFÓLIO DE BANNERS",
     "category": "editing",
