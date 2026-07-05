@@ -1,9 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
   let projects = [];
 
+  // Subcategory taxonomy: id -> display label. Order here defines section order on the page.
+  const SUBCATEGORIES = [
+    { id: 'gaming', label: 'Gaming & eSports' },
+    { id: 'samedayedit', label: 'Same Day Edit' },
+    { id: 'aftermovie', label: 'Aftermovies & Shows' },
+    { id: 'esportes', label: 'Esportes' },
+    { id: 'podcast', label: 'Cortes de Podcast' },
+    { id: 'motion', label: 'Motion & Branding' },
+    { id: 'automotivo', label: 'Automotivo' },
+    { id: 'moda', label: 'Moda & Marca' },
+    { id: 'outros', label: 'Outros Projetos' }
+  ];
+
   // DOM Elements
-  const portfolioGrid = document.getElementById('portfolio-grid');
-  const filterButtons = document.querySelectorAll('.filter-btn');
+  const featuredGrid = document.getElementById('featured-grid');
+  const portfolioSections = document.getElementById('portfolio-sections');
+  const sectionNav = document.getElementById('section-nav');
   const videoLightbox = document.getElementById('video-lightbox');
   const lightboxClose = document.getElementById('lightbox-close');
   const lightboxTitle = document.getElementById('lightbox-title');
@@ -25,23 +39,87 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fallback static mock if projects.json isn't loaded/found
         projects = getFallbackMockData();
       }
-      renderProjects(projects);
-      setupFilters();
+      // Respect the curated order set in the admin panel (drag-and-drop)
+      projects.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+      renderFeatured();
+      renderPortfolioSections();
     } catch (error) {
       console.error('Error loading projects:', error);
       projects = getFallbackMockData();
-      renderProjects(projects);
+      renderFeatured();
+      renderPortfolioSections();
     }
   }
 
-  // 2. Render Projects in the Grid
-  function renderProjects(projectsToRender) {
-    if (!portfolioGrid) return;
-    portfolioGrid.innerHTML = '';
+  // 2. Build a Single Project Card (shared by the Featured grid and category sections)
+  function createProjectCard(project, options = {}) {
+    const card = document.createElement('article');
+    const orientationClass = project.orientation === 'vertical' ? 'card-vertical' : 'card-horizontal';
+    card.className = `project-card ${orientationClass}`;
+    card.setAttribute('data-category', project.category);
 
-    if (projectsToRender.length === 0) {
-      portfolioGrid.innerHTML = `
-        <div style="grid-column: span 2; border: 3px dashed var(--border-color-dark); padding: 4rem; text-align: center;">
+    const playIcon = `
+      <div class="video-icon-badge">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>`;
+
+    const previewHTML = project.previewUrl
+      ? `<video class="preview-video" src="${project.previewUrl}" autoplay loop muted playsinline></video>`
+      : '';
+
+    const featuredBadgeHTML = options.featured
+      ? `<div class="featured-badge">Destaque</div>`
+      : '';
+
+    card.innerHTML = `
+      <div class="card-image" data-id="${project.id}">
+        <img src="${project.thumbnailUrl || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800'}" alt="${project.title}" loading="lazy" ${project.previewUrl ? 'style="opacity: 0;"' : ''}>
+        ${previewHTML}
+        ${featuredBadgeHTML}
+        ${playIcon}
+      </div>
+      <div class="card-content" style="padding: 1.2rem; align-items: center; justify-content: center; text-align: center;">
+        <h3 style="margin: 0; font-size: 0.95rem;">${project.title}</h3>
+      </div>
+    `;
+
+    const cardImg = card.querySelector('.card-image');
+    cardImg.addEventListener('click', () => {
+      openLightbox(project);
+    });
+
+    return card;
+  }
+
+  // 3. Render the Featured / Destaques Grid
+  function renderFeatured() {
+    if (!featuredGrid) return;
+    const featuredSection = featuredGrid.closest('.featured-section');
+    const featuredProjects = projects.filter(p => p.featured);
+
+    if (featuredProjects.length === 0) {
+      if (featuredSection) featuredSection.style.display = 'none';
+      return;
+    }
+
+    if (featuredSection) featuredSection.style.display = '';
+    featuredGrid.innerHTML = '';
+    featuredProjects.forEach(project => {
+      featuredGrid.appendChild(createProjectCard(project, { featured: true }));
+    });
+  }
+
+  // 4. Render Portfolio Sections (grouped by subcategory, in curated order)
+  function renderPortfolioSections() {
+    if (!portfolioSections) return;
+    portfolioSections.innerHTML = '';
+    if (sectionNav) sectionNav.innerHTML = '';
+
+    if (projects.length === 0) {
+      portfolioSections.innerHTML = `
+        <div style="border: 3px dashed var(--border-color-dark); padding: 4rem; text-align: center;">
           <h3 style="font-family: var(--font-header); text-transform: uppercase; margin-bottom: 1rem;">Nenhum projeto encontrado</h3>
           <p style="color: var(--text-muted);">Vá para o <a href="admin.html" style="color: var(--primary-red); font-weight: 700;">Painel de Controle</a> para adicionar novos vídeos.</p>
         </div>
@@ -49,70 +127,29 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    projectsToRender.forEach(project => {
-      const card = document.createElement('article');
-      const orientationClass = project.orientation === 'vertical' ? 'card-vertical' : 'card-horizontal';
-      card.className = `project-card ${orientationClass}`;
-      card.setAttribute('data-category', project.category);
-      
-      // Video/Play Badge overlay
-      const playIcon = `
-        <div class="video-icon-badge">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        </div>`;
+    SUBCATEGORIES.forEach(sub => {
+      const items = projects.filter(p => (p.subcategory || 'outros') === sub.id);
+      if (items.length === 0) return;
 
-      const tagsHTML = project.tags
-        ? project.tags.map(tag => `<span class="tag-badge">${tag}</span>`).join('')
-        : '';
+      if (sectionNav) {
+        const chip = document.createElement('a');
+        chip.className = 'filter-btn';
+        chip.href = `#sub-${sub.id}`;
+        chip.textContent = sub.label;
+        sectionNav.appendChild(chip);
+      }
 
-      const formattedCategory = project.category === 'editing' ? 'Edição' : 'Evento';
+      const block = document.createElement('div');
+      block.className = 'portfolio-subsection';
+      block.id = `sub-${sub.id}`;
+      block.innerHTML = `<h3 class="subsection-title">${sub.label}</h3>`;
 
-      const previewHTML = project.previewUrl 
-        ? `<video class="preview-video" src="${project.previewUrl}" autoplay loop muted playsinline></video>` 
-        : '';
+      const grid = document.createElement('div');
+      grid.className = 'portfolio-grid';
+      items.forEach(project => grid.appendChild(createProjectCard(project)));
+      block.appendChild(grid);
 
-      card.innerHTML = `
-        <div class="card-image" data-id="${project.id}">
-          <img src="${project.thumbnailUrl || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800'}" alt="${project.title}" loading="lazy" ${project.previewUrl ? 'style="opacity: 0;"' : ''}>
-          ${previewHTML}
-          ${playIcon}
-        </div>
-        <div class="card-content" style="padding: 1.2rem; align-items: center; justify-content: center; text-align: center;">
-          <h3 style="margin: 0; font-size: 0.95rem;">${project.title}</h3>
-        </div>
-      `;
-
-      portfolioGrid.appendChild(card);
-
-      // Event listener for clicking on the card thumbnail to play full video
-      const cardImg = card.querySelector('.card-image');
-      
-      cardImg.addEventListener('click', () => {
-        openLightbox(project);
-      });
-    });
-  }
-
-  // 3. Setup Category Filters
-  function setupFilters() {
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Toggle active button class
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        const filterValue = button.getAttribute('data-filter');
-        
-        // Filter elements
-        if (filterValue === 'all') {
-          renderProjects(projects);
-        } else {
-          const filtered = projects.filter(p => p.category === filterValue);
-          renderProjects(filtered);
-        }
-      });
+      portfolioSections.appendChild(block);
     });
   }
 

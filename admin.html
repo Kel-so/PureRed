@@ -84,14 +84,18 @@
             <h3>Lista de Projetos Ativos</h3>
             <span class="indicator-green">● Atualizado</span>
           </div>
-          
+
+          <p class="help-text" style="margin-bottom: 1rem;">Arraste pelo ícone <strong>⠿</strong> para reordenar. A ordem da lista define a posição dos vídeos no site (de cima para baixo = primeiro para último dentro de cada seção). Clique na estrela para marcar/desmarcar um vídeo como Destaque.</p>
+
           <div class="table-container">
             <table class="admin-table">
               <thead>
                 <tr>
+                  <th style="width: 36px;"></th>
                   <th>Título</th>
                   <th>Categoria</th>
-                  <th>Cliente</th>
+                  <th>Subcategoria</th>
+                  <th style="width: 70px; text-align: center;">Destaque</th>
                   <th style="width: 140px; text-align: center;">Ações</th>
                 </tr>
               </thead>
@@ -131,6 +135,31 @@
                   <option value="horizontal">Widescreen (Horizontal)</option>
                   <option value="vertical">Reels/Shorts (Vertical)</option>
                 </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="project-subcategory">Subcategoria (define em qual seção do site o vídeo aparece)</label>
+                <select id="project-subcategory" required>
+                  <option value="gaming">Gaming & eSports</option>
+                  <option value="samedayedit">Same Day Edit</option>
+                  <option value="aftermovie">Aftermovies & Shows</option>
+                  <option value="esportes">Esportes</option>
+                  <option value="podcast">Cortes de Podcast</option>
+                  <option value="motion">Motion & Branding</option>
+                  <option value="automotivo">Automotivo</option>
+                  <option value="moda">Moda & Marca</option>
+                  <option value="outros">Outros Projetos</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="max-width: 220px; justify-content: center;">
+                <label for="project-featured" style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer;">
+                  <input type="checkbox" id="project-featured" style="width: auto;">
+                  Marcar como Destaque
+                </label>
+                <span class="help-text">Aparece na seção "Melhores Trabalhos" no topo do site.</span>
               </div>
             </div>
 

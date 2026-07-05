@@ -27,12 +27,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const inputTitle = document.getElementById('project-title');
   const inputCategory = document.getElementById('project-category');
   const inputOrientation = document.getElementById('project-orientation');
+  const inputSubcategory = document.getElementById('project-subcategory');
+  const inputFeatured = document.getElementById('project-featured');
   const inputVideoUrl = document.getElementById('project-video-url');
   const inputThumbnailUrl = document.getElementById('project-thumbnail-url');
   const inputClient = document.getElementById('project-client');
   const inputDate = document.getElementById('project-date');
   const inputTags = document.getElementById('project-tags');
   const inputDesc = document.getElementById('project-desc');
+
+  const SUBCATEGORY_LABELS = {
+    gaming: 'Gaming & eSports',
+    samedayedit: 'Same Day Edit',
+    aftermovie: 'Aftermovies & Shows',
+    esportes: 'Esportes',
+    podcast: 'Cortes de Podcast',
+    motion: 'Motion & Branding',
+    automotivo: 'Automotivo',
+    moda: 'Moda & Marca',
+    outros: 'Outros Projetos'
+  };
+
+  let draggedId = null;
 
   // Sync Elements
   const btnExportDb = document.getElementById('btn-export-db');
@@ -94,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
           localStorage.setItem('purered_projects', JSON.stringify(projects));
         }
       }
+      projects.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
       updateStats();
       renderTable();
     } catch (error) {
@@ -124,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projects.length === 0) {
       tableBody.innerHTML = `
         <tr>
-          <td colspan="4" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+          <td colspan="6" style="text-align: center; padding: 3rem; color: var(--text-muted);">
             Nenhum projeto cadastrado no momento. Use o formulário para adicionar!
           </td>
         </tr>
@@ -134,14 +151,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     projects.forEach(project => {
       const tr = document.createElement('tr');
-      
+      tr.setAttribute('draggable', 'true');
+      tr.setAttribute('data-id', project.id);
+      tr.classList.add('draggable-row');
+
       const badgeClass = project.category === 'editing' ? 'cat-edit' : 'cat-event';
       const badgeText = project.category === 'editing' ? 'Edição' : 'Evento';
+      const subcategoryLabel = SUBCATEGORY_LABELS[project.subcategory] || 'Outros Projetos';
+      const isFeatured = !!project.featured;
 
       tr.innerHTML = `
+        <td class="drag-handle-cell" title="Arraste para reordenar">⠿</td>
         <td style="font-weight: 700;">${project.title}</td>
         <td><span class="badge-cat ${badgeClass}">${badgeText}</span></td>
-        <td>${project.client || 'Independente'}</td>
+        <td>${subcategoryLabel}</td>
+        <td style="text-align: center;">
+          <button class="btn-star ${isFeatured ? 'is-featured' : ''}" data-id="${project.id}" title="Marcar/Desmarcar como Destaque">★</button>
+        </td>
         <td style="text-align: center;">
           <button class="btn-action btn-edit" data-id="${project.id}" title="Editar Projeto">
             <svg viewBox="0 0 24 24">
@@ -175,6 +201,80 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteProject(id);
       });
     });
+
+    const starButtons = tableBody.querySelectorAll('.btn-star');
+    starButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        toggleFeatured(id);
+      });
+    });
+
+    setupDragAndDrop();
+  }
+
+  // Toggle the "featured" flag directly from the list without opening the form
+  function toggleFeatured(id) {
+    const project = projects.find(p => p.id === id);
+    if (!project) return;
+    project.featured = !project.featured;
+    localStorage.setItem('purered_projects', JSON.stringify(projects));
+    renderTable();
+  }
+
+  // Drag-and-Drop Reordering
+  function setupDragAndDrop() {
+    const rows = tableBody.querySelectorAll('.draggable-row');
+
+    rows.forEach(row => {
+      row.addEventListener('dragstart', () => {
+        draggedId = row.getAttribute('data-id');
+        row.classList.add('dragging');
+      });
+
+      row.addEventListener('dragend', () => {
+        draggedId = null;
+        row.classList.remove('dragging');
+        tableBody.querySelectorAll('.draggable-row').forEach(r => r.classList.remove('drag-over'));
+      });
+
+      row.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        if (row.getAttribute('data-id') !== draggedId) {
+          row.classList.add('drag-over');
+        }
+      });
+
+      row.addEventListener('dragleave', () => {
+        row.classList.remove('drag-over');
+      });
+
+      row.addEventListener('drop', (e) => {
+        e.preventDefault();
+        row.classList.remove('drag-over');
+        const targetId = row.getAttribute('data-id');
+        if (!draggedId || draggedId === targetId) return;
+        reorderProjects(draggedId, targetId);
+      });
+    });
+  }
+
+  // Move the dragged project to the position of the target project and persist the new order
+  function reorderProjects(draggedProjectId, targetProjectId) {
+    const fromIndex = projects.findIndex(p => p.id === draggedProjectId);
+    const toIndex = projects.findIndex(p => p.id === targetProjectId);
+    if (fromIndex === -1 || toIndex === -1) return;
+
+    const [moved] = projects.splice(fromIndex, 1);
+    projects.splice(toIndex, 0, moved);
+
+    // Recompute the "order" field for every project based on its new position
+    projects.forEach((project, index) => {
+      project.order = index;
+    });
+
+    localStorage.setItem('purered_projects', JSON.stringify(projects));
+    renderTable();
   }
 
   // 3. CRUD Forms Logic
@@ -186,6 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const title = inputTitle.value.trim();
       const category = inputCategory.value;
       const orientation = inputOrientation.value;
+      const subcategory = inputSubcategory.value;
+      const featured = inputFeatured.checked;
       const videoUrl = inputVideoUrl.value.trim();
       const thumbnailUrl = inputThumbnailUrl.value.trim();
       const client = inputClient.value.trim();
@@ -194,19 +296,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const description = inputDesc.value.trim();
 
       if (id) {
-        // Edit Mode
+        // Edit Mode (keep the existing "order" so its position in the list doesn't change)
         const idx = projects.findIndex(p => p.id === id);
         if (idx !== -1) {
-          projects[idx] = { id, title, category, orientation, videoUrl, thumbnailUrl, client, date, tags, description };
+          const existingOrder = projects[idx].order ?? idx;
+          projects[idx] = { id, title, category, orientation, subcategory, featured, order: existingOrder, videoUrl, thumbnailUrl, client, date, tags, description };
           alert('Projeto atualizado com sucesso! (Salvo localmente)');
         }
       } else {
-        // Create Mode
+        // Create Mode (new projects are appended to the end of the order)
         const newProject = {
           id: Date.now().toString(),
           title,
           category,
           orientation,
+          subcategory,
+          featured,
+          order: projects.length,
           videoUrl,
           thumbnailUrl,
           client,
@@ -240,6 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
     inputTitle.value = project.title;
     inputCategory.value = project.category;
     inputOrientation.value = project.orientation || 'horizontal';
+    inputSubcategory.value = project.subcategory || 'outros';
+    inputFeatured.checked = !!project.featured;
     inputVideoUrl.value = project.videoUrl;
     inputThumbnailUrl.value = project.thumbnailUrl || '';
     inputClient.value = project.client || 'Independente';

@@ -55,10 +55,11 @@
     <!-- Hero Section -->
   <section class="hero" id="inicio">
     <div class="container">
-      <div class="hero-content" style="max-width: 900px;">
+      <div class="hero-content">
         <div class="tagline">Editor & Filmmaker</div>
+        <h1>CORTES QUE <span class="highlight-red">IMPACTAM.</span><br>EDIÇÃO <span class="highlight-red">SEM FREIO.</span></h1>
         <!-- Video Feature in Hero -->
-        <div class="showreel-container" id="main-reel-trigger" style="margin-top: 2rem; margin-bottom: 2rem;" data-video="https://youtu.be/vG7LiCzxt3w" data-title="INTRODUÇÃO PURE RED" data-client="Pure Red" data-date="2026-06" data-description="Introdução rápida e com ritmo acelerado. Motion design estruturado para fisgar a atenção nos primeiros segundos, criando a expectativa certa pro conteúdo.">
+        <div class="showreel-container" id="main-reel-trigger" style="margin-top: 1rem; margin-bottom: 0.5rem;" data-video="https://youtu.be/vG7LiCzxt3w" data-title="INTRODUÇÃO PURE RED" data-client="Pure Red" data-date="2026-06" data-description="Introdução rápida e com ritmo acelerado. Motion design estruturado para fisgar a atenção nos primeiros segundos, criando a expectativa certa pro conteúdo.">
           <img src="assets/thumbnails/main_thumb.jpg" alt="Vídeo Destaque">
           <div class="showreel-overlay">
             <div class="play-badge">
@@ -70,9 +71,9 @@
             </div>
           </div>
         </div>
-        
+
         <p style="margin: 0 auto;">Transformo gravações brutas em narrativas audiovisuais dinâmicas. Especializado em edição de vídeo, motion design e projetos com estética urbana e moderna.</p>
-        <div class="hero-actions" style="justify-content: center; margin-top: 2rem;">
+        <div class="hero-actions" style="justify-content: center; margin-top: 1rem;">
           <a href="#trabalhos" class="btn-brutal">Ver Portfólio</a>
           <a href="#contato" class="btn-brutal btn-white">Entrar em Contato</a>
         </div>
@@ -87,23 +88,36 @@
     </div>
   </div>
 
+  <!-- Featured / Destaques Section -->
+  <section id="destaques" class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Melhores <span>Trabalhos</span></h2>
+        <p>Uma seleção curada dos projetos que melhor representam o meu trabalho.</p>
+      </div>
+
+      <!-- Featured Grid (Populated by app.js) -->
+      <div id="featured-grid" class="portfolio-grid featured-grid">
+        <!-- Cards will load dynamically here -->
+      </div>
+    </div>
+  </section>
+
   <!-- Portfolio Section -->
   <section id="trabalhos" class="portfolio-section">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Trabalhos <span>Recentes</span></h2>
       </div>
-      
-      <!-- Categories Filter Menu -->
-      <div class="filter-menu">
-        <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="editing">Edição de Vídeo</button>
-        <button class="filter-btn" data-filter="events">Eventos</button>
+
+      <!-- Quick Navigation Chips (jump to each category section) -->
+      <div class="filter-menu" id="section-nav">
+        <!-- Chips are populated by app.js based on available subcategories -->
       </div>
-      
-      <!-- Portfolio Grid (Populated by app.js) -->
-      <div id="portfolio-grid" class="portfolio-grid">
-        <!-- Cards will load dynamically here -->
+
+      <!-- Portfolio Sections (Populated by app.js, grouped by subcategory) -->
+      <div id="portfolio-sections">
+        <!-- Subsections will load dynamically here -->
       </div>
     </div>
   </section>
@@ -192,9 +206,9 @@
         </div>
       </div>
       
-      <div class="contact-cta-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 3rem; text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <h3 style="font-size: 2rem; margin-bottom: 1rem; letter-spacing: -0.5px;">Eleve o padrão visual do seu projeto.</h3>
-        <p style="color: var(--text-muted); margin-bottom: 2.5rem; max-width: 400px;">Me conte sobre o seu projeto, os prazos e as referências que você tem em mente. Costumo responder em até 24 horas.</p>
+      <div class="contact-cta-card">
+        <h3>Eleve o padrão visual do seu projeto.</h3>
+        <p>Me conte sobre o seu projeto, os prazos e as referências que você tem em mente. Costumo responder em até 24 horas.</p>
         <a href="https://wa.me/5514991223598" class="btn-brutal" style="width: 100%; max-width: 300px;">Enviar E-mail</a>
       </div>
     </div>

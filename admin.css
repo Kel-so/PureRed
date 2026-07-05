@@ -191,6 +191,52 @@
   background-color: rgba(255, 255, 255, 0.02);
 }
 
+/* --- Drag & Drop Reordering --- */
+.draggable-row {
+  cursor: grab;
+}
+
+.drag-handle-cell {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  text-align: center;
+  cursor: grab;
+  user-select: none;
+}
+
+.draggable-row.dragging {
+  opacity: 0.4;
+}
+
+.draggable-row.drag-over td {
+  border-top: 2px solid var(--primary-red);
+}
+
+/* --- Featured Star Toggle --- */
+.btn-star {
+  background: transparent;
+  border: 1px solid var(--border-color-dark);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-star:hover {
+  border-color: var(--primary-red);
+  color: var(--primary-red);
+}
+
+.btn-star.is-featured {
+  background-color: var(--primary-red);
+  border-color: var(--primary-red);
+  color: #ffffff;
+}
+
 .badge-cat {
   display: inline-block;
   padding: 0.2rem 0.5rem;
