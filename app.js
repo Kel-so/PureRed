@@ -327,6 +327,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 7. Contact Choice Modal (WhatsApp or E-mail)
+  const contactModal = document.getElementById('contact-modal');
+  const contactModalTrigger = document.getElementById('contact-modal-trigger');
+  const contactModalClose = document.getElementById('contact-modal-close');
+
+  if (contactModal && contactModalTrigger) {
+    contactModalTrigger.addEventListener('click', () => {
+      contactModal.showModal();
+    });
+
+    if (contactModalClose) {
+      contactModalClose.addEventListener('click', () => contactModal.close());
+    }
+
+    // Close when clicking outside of the modal window (on the backdrop)
+    contactModal.addEventListener('click', (e) => {
+      const dialogDimensions = contactModal.getBoundingClientRect();
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        contactModal.close();
+      }
+    });
+
+    // Close the modal once the visitor picks WhatsApp or E-mail
+    contactModal.querySelectorAll('.contact-option').forEach(option => {
+      option.addEventListener('click', () => {
+        setTimeout(() => contactModal.close(), 150);
+      });
+    });
+  }
+
   // 8. Mobile Navigation Toggle Drawer
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const navMenu = document.getElementById('nav-menu');

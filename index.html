@@ -42,7 +42,7 @@
       </nav>
       
       <a href="index-en.html" class="lang-switch" title="Switch to English">EN</a>
-      <a href="https://wa.me/5514991223598" class="nav-cta">Fale Comigo</a>
+      <button type="button" class="nav-cta" id="contact-modal-trigger">Fale Comigo</button>
 
       <!-- Mobile Nav Trigger -->
       <button class="mobile-nav-toggle" id="mobile-menu-toggle" aria-label="Abrir menu">
@@ -177,7 +177,7 @@
           </div>
           <div class="contact-detail-item">
             <h5>Telefone / WhatsApp</h5>
-            <p><a href="https://wa.me/5511999999999" target="_blank" rel="noopener">+55 (14) 99122-3598</a></p>
+            <p><a href="https://wa.me/5514991223598" target="_blank" rel="noopener">+55 (14) 99122-3598</a></p>
           </div>
           <div class="contact-detail-item">
             <h5>Localização</h5>
@@ -210,7 +210,7 @@
       <div class="contact-cta-card">
         <h3>Eleve o padrão visual do seu projeto.</h3>
         <p>Me conte sobre o seu projeto, os prazos e as referências que você tem em mente. Costumo responder em até 24 horas.</p>
-        <a href="https://wa.me/5514991223598" class="btn-brutal" style="width: 100%; max-width: 300px;">Enviar E-mail</a>
+        <a href="mailto:kelson.felp@gmail.com" class="btn-brutal" style="width: 100%; max-width: 300px;">Enviar E-mail</a>
       </div>
     </div>
   </section>
@@ -265,6 +265,44 @@
           <p id="lightbox-tags">Editing, Sound Design</p>
         </div>
       </div>
+    </div>
+  </dialog>
+
+  <!-- Contact Choice Modal (WhatsApp or E-mail) -->
+  <dialog id="contact-modal" class="contact-modal">
+    <div class="dialog-header">
+      <div class="dialog-title">Como prefere falar comigo?</div>
+      <button class="dialog-close" id="contact-modal-close" aria-label="Fechar">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="contact-modal-options">
+      <a href="https://wa.me/5514991223598" target="_blank" rel="noopener" class="contact-option">
+        <div class="contact-option-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 001.333 4.993L2 22l5.13-1.347a9.96 9.96 0 004.882 1.277h.005c5.505 0 9.989-4.478 9.99-9.985A9.993 9.993 0 0012.012 2zm5.782 14.156c-.247.696-1.203 1.256-1.656 1.302-.454.047-.9-.124-2.879-.9a10.026 10.026 0 01-4.762-4.186c-.534-.712-.855-1.543-.855-2.422 0-1.848 1.455-2.222 1.696-2.222.18 0 .36.009.52.017.18.009.38-.033.58.455.248.605.85 2.073.923 2.222.074.15.124.323.025.52-.1.198-.15.323-.3.497-.15.174-.315.389-.45.522-.165.163-.338.34-.143.68.196.34.87 1.43 1.868 2.316.99.88 1.824 1.15 2.086 1.28.263.132.413.108.57-.074.157-.182.67-.778.85-1.043.18-.265.36-.223.608-.132.247.09 1.572.744 1.84.876.268.132.447.198.513.314.066.115.066.67-.18 1.366z"/>
+          </svg>
+        </div>
+        <div class="contact-option-text">
+          <strong>WhatsApp</strong>
+          <span>Resposta rápida pelo celular</span>
+        </div>
+      </a>
+
+      <a href="mailto:kelson.felp@gmail.com" class="contact-option">
+        <div class="contact-option-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+        </div>
+        <div class="contact-option-text">
+          <strong>E-mail</strong>
+          <span>kelson.felp@gmail.com</span>
+        </div>
+      </a>
     </div>
   </dialog>
 
