@@ -1,18 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
   let projects = [];
 
+  // Language detection: index-en.html sets <html lang="en">, index.html stays pt-BR
+  const LANG = document.documentElement.lang === 'en' ? 'en' : 'pt';
+  const PROJECTS_FILE = LANG === 'en' ? 'projects.en.json' : 'projects.json';
+
   // Subcategory taxonomy: id -> display label. Order here defines section order on the page.
-  const SUBCATEGORIES = [
-    { id: 'gaming', label: 'Gaming & eSports' },
-    { id: 'samedayedit', label: 'Same Day Edit' },
-    { id: 'aftermovie', label: 'Aftermovies & Shows' },
-    { id: 'esportes', label: 'Esportes' },
-    { id: 'podcast', label: 'Cortes de Podcast' },
-    { id: 'motion', label: 'Motion & Branding' },
-    { id: 'automotivo', label: 'Automotivo' },
-    { id: 'moda', label: 'Moda & Marca' },
-    { id: 'outros', label: 'Outros Projetos' }
-  ];
+  const SUBCATEGORIES_BY_LANG = {
+    pt: [
+      { id: 'gaming', label: 'Gaming & eSports' },
+      { id: 'samedayedit', label: 'Same Day Edit' },
+      { id: 'aftermovie', label: 'Aftermovies & Shows' },
+      { id: 'esportes', label: 'Esportes' },
+      { id: 'podcast', label: 'Cortes de Podcast' },
+      { id: 'motion', label: 'Motion & Branding' },
+      { id: 'automotivo', label: 'Automotivo' },
+      { id: 'moda', label: 'Moda & Marca' },
+      { id: 'outros', label: 'Outros Projetos' }
+    ],
+    en: [
+      { id: 'gaming', label: 'Gaming & eSports' },
+      { id: 'samedayedit', label: 'Same Day Edit' },
+      { id: 'aftermovie', label: 'Aftermovies & Shows' },
+      { id: 'esportes', label: 'Sports' },
+      { id: 'podcast', label: 'Podcast Cuts' },
+      { id: 'motion', label: 'Motion & Branding' },
+      { id: 'automotivo', label: 'Automotive' },
+      { id: 'moda', label: 'Fashion & Brand' },
+      { id: 'outros', label: 'Other Projects' }
+    ]
+  };
+  const SUBCATEGORIES = SUBCATEGORIES_BY_LANG[LANG];
+
+  // Static UI strings that the JS injects dynamically (everything else lives in the HTML)
+  const STRINGS_BY_LANG = {
+    pt: {
+      featuredBadge: 'Destaque',
+      emptyTitle: 'Nenhum projeto encontrado',
+      emptyBody: 'Vá para o <a href="admin.html" style="color: var(--primary-red); font-weight: 700;">Painel de Controle</a> para adicionar novos vídeos.',
+      dateFallback: 'Recente',
+      clientFallback: 'Projeto Próprio',
+      tagsFallback: 'Edição',
+      months: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+      reelTags: ['Destaque', 'Edição', 'Efeitos Visuais', 'Portfólio']
+    },
+    en: {
+      featuredBadge: 'Featured',
+      emptyTitle: 'No projects found',
+      emptyBody: 'Go to the <a href="admin.html" style="color: var(--primary-red); font-weight: 700;">Control Panel</a> to add new videos.',
+      dateFallback: 'Recent',
+      clientFallback: 'Personal Project',
+      tagsFallback: 'Editing',
+      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      reelTags: ['Featured', 'Editing', 'Visual Effects', 'Portfolio']
+    }
+  };
+  const STRINGS = STRINGS_BY_LANG[LANG];
 
   // DOM Elements
   const featuredGrid = document.getElementById('featured-grid');
@@ -31,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize and Load Projects
   async function init() {
     try {
-      // Always fetch the freshest projects.json, avoiding cache
-      const response = await fetch('projects.json?t=' + new Date().getTime());
+      // Always fetch the freshest projects data, avoiding cache
+      const response = await fetch(PROJECTS_FILE + '?t=' + new Date().getTime());
       if (response.ok) {
         projects = await response.json();
       } else {
@@ -70,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
       : '';
 
     const featuredBadgeHTML = options.featured
-      ? `<div class="featured-badge">Destaque</div>`
+      ? `<div class="featured-badge">${STRINGS.featuredBadge}</div>`
       : '';
 
     card.innerHTML = `
@@ -120,8 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projects.length === 0) {
       portfolioSections.innerHTML = `
         <div style="border: 3px dashed var(--border-color-dark); padding: 4rem; text-align: center;">
-          <h3 style="font-family: var(--font-header); text-transform: uppercase; margin-bottom: 1rem;">Nenhum projeto encontrado</h3>
-          <p style="color: var(--text-muted);">Vá para o <a href="admin.html" style="color: var(--primary-red); font-weight: 700;">Painel de Controle</a> para adicionar novos vídeos.</p>
+          <h3 style="font-family: var(--font-header); text-transform: uppercase; margin-bottom: 1rem;">${STRINGS.emptyTitle}</h3>
+          <p style="color: var(--text-muted);">${STRINGS.emptyBody}</p>
         </div>
       `;
       return;
@@ -160,18 +203,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set text details
     lightboxTitle.textContent = project.title;
     lightboxDesc.textContent = project.description || '';
-    lightboxClient.textContent = project.client || 'Projeto Próprio';
-    
+    lightboxClient.textContent = project.client || STRINGS.clientFallback;
+
     // Format Date
-    let dateStr = project.date || 'Recente';
+    let dateStr = project.date || STRINGS.dateFallback;
     if (dateStr.includes('-')) {
       const [year, month] = dateStr.split('-');
-      const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
       const monthIdx = parseInt(month, 10) - 1;
-      dateStr = `${months[monthIdx] || month} ${year}`;
+      dateStr = `${STRINGS.months[monthIdx] || month} ${year}`;
     }
     lightboxDate.textContent = dateStr;
-    lightboxTags.textContent = project.tags ? project.tags.join(', ') : 'Edição';
+    lightboxTags.textContent = project.tags ? project.tags.join(', ') : STRINGS.tagsFallback;
 
     // Set Media
     const videoUrl = project.videoUrl;
@@ -279,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         client: mainReelTrigger.getAttribute('data-client'),
         date: mainReelTrigger.getAttribute('data-date'),
         description: mainReelTrigger.getAttribute('data-description'),
-        tags: ['Destaque', 'Edição', 'Efeitos Visuais', 'Portfólio']
+        tags: STRINGS.reelTags
       };
       openLightbox(reelData);
     });
