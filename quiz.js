@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     promo:  { brl: [600, 1500],  usd: [150, 350], plus: true,  days: [5, 7] },
     music:  { brl: [1200, 3000], usd: [300, 700], plus: true,  days: [7, 10] }
   };
-  const VFX_HOUR = { brl: [80, 120], usd: [20, 35] };
+  // Entrega expressa: +30% no valor, prazo de produção cai pela metade
+  const URGENCY_MULTIPLIER = 1.3;
+  const URGENCY_TIME_FACTOR = 0.5;
 
   const T = {
     pt: {
@@ -60,12 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
       },
 
-      vfx: {
-        title: 'Precisa de VFX avançado ou motion graphics?',
-        hint: 'Animação de assets complexos, tracking de tela, 3D ou cenários com IA.',
+      urgency: {
+        title: 'Qual é a urgência da entrega?',
+        hint: 'Entrega expressa fura a fila da minha agenda e corta o prazo pela metade.',
         options: [
-          { id: 'yes', icon: '✨', label: 'Sim, quero o extra', sub: 'Cobrado por hora adicional', price: 'R$ 80–120 /h' },
-          { id: 'no', icon: '➖', label: 'Não, edição padrão', sub: 'O pacote base já inclui o meu acabamento' }
+          { id: 'normal', icon: '🗓️', label: 'Prazo padrão', sub: 'Entra na fila normal de produção' },
+          { id: 'express', icon: '⚡', label: 'Entrega expressa', sub: 'Prioridade total — prazo cai pela metade', price: '+30%' }
         ]
       },
 
@@ -140,8 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
         brandText: 'Projetos de branding são fechados sob medida: direção de arte, estudo tipográfico, paleta estratégica e assets prontos para vídeo e redes. Me manda o resumo e eu respondo com a proposta conceitual em até 24h.',
         sumService: 'Serviço',
         sumQty: 'Quantidade',
-        sumVfx: 'Extra VFX / Motion',
-        sumVfxYes: (p) => `+ ${p} por hora adicional`,
+        sumUrgency: 'Urgência',
+        sumUrgencyExpress: '⚡ Entrega expressa — prazo pela metade',
+        sumUrgencyNormal: 'Prazo padrão',
         sumRecurrence: 'Frequência',
         sumRecSingle: 'Job único',
         sumRecMonthly: 'Recorrente — condição especial no WhatsApp',
@@ -215,12 +218,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
       },
 
-      vfx: {
-        title: 'Need advanced VFX or motion graphics?',
-        hint: 'Complex asset animation, screen tracking, 3D or AI-generated scenery.',
+      urgency: {
+        title: 'How urgent is the delivery?',
+        hint: 'Express delivery skips my production queue and cuts the turnaround in half.',
         options: [
-          { id: 'yes', icon: '✨', label: 'Yes, add the extra', sub: 'Billed per additional hour', price: '$20–35 /h' },
-          { id: 'no', icon: '➖', label: 'No, standard editing', sub: 'The base package already includes my finish' }
+          { id: 'normal', icon: '🗓️', label: 'Standard timeline', sub: 'Joins the normal production queue' },
+          { id: 'express', icon: '⚡', label: 'Express delivery', sub: 'Full priority — turnaround cut in half', price: '+30%' }
         ]
       },
 
@@ -295,8 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
         brandText: 'Branding projects are quoted individually: art direction, typographic study, strategic palette and assets ready for video and social. Send me the summary and I\'ll reply with the concept proposal within 24h.',
         sumService: 'Service',
         sumQty: 'Quantity',
-        sumVfx: 'VFX / Motion extra',
-        sumVfxYes: (p) => `+ ${p} per additional hour`,
+        sumUrgency: 'Urgency',
+        sumUrgencyExpress: '⚡ Express delivery — turnaround cut in half',
+        sumUrgencyNormal: 'Standard timeline',
         sumRecurrence: 'Frequency',
         sumRecSingle: 'One-off job',
         sumRecMonthly: 'Recurring — special conditions on WhatsApp',
@@ -330,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let history = [];
 
   const FLOWS = {
-    edit: ['service', 'qty', 'vfx', 'recurrence', 'name'],
+    edit: ['service', 'qty', 'urgency', 'recurrence', 'name'],
     film: ['filmType', 'filmDuration', 'filmLocation', 'name'],
     brand: ['brandNeed', 'brandStage', 'name']
   };
@@ -513,21 +517,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Tela final ---------- */
 
-  function formatRange(range, plus) {
-    return `${T.money(range[0])} – ${T.money(range[1])}${plus ? '+' : ''}`;
-  }
-
   function editEstimate() {
     const svc = SERVICES[state.service];
     const range = svc[T.currency];
     const qty = state.qty;
-    const min = range[0] * qty;
-    const max = range[1] * qty;
-    // Prazo cresce com o volume
+    const urgent = state.urgency === 'express';
+
+    let min = range[0] * qty;
+    let max = range[1] * qty;
+    if (urgent) {
+      min = Math.round(min * URGENCY_MULTIPLIER);
+      max = Math.round(max * URGENCY_MULTIPLIER);
+    }
+
+    // Prazo cresce com o volume; entrega expressa corta pela metade
     const extraDays = qty >= 10 ? 4 : qty >= 5 ? 2 : 0;
+    let dayMin = svc.days[0] + extraDays;
+    let dayMax = svc.days[1] + extraDays;
+    if (urgent) {
+      dayMin = Math.max(1, Math.ceil(dayMin * URGENCY_TIME_FACTOR));
+      dayMax = Math.max(1, Math.ceil(dayMax * URGENCY_TIME_FACTOR));
+    }
+
     return {
       total: `${T.money(min)} – ${T.money(max)}${svc.plus ? '+' : ''}`,
-      deadline: T.days(svc.days[0] + extraDays, svc.days[1] + extraDays)
+      deadline: T.days(dayMin, dayMax)
     };
   }
 
@@ -557,8 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (state.track === 'edit') {
       const est = editEstimate();
-      const vfxYes = state.vfx === 'yes';
-      const vfxRange = formatRange(VFX_HOUR[T.currency]);
+      const urgent = state.urgency === 'express';
       badge = f.editBadge;
       title = f.editTitle(state.name);
       text = f.editText;
@@ -566,7 +579,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       rows += summaryRow(f.sumService, L[state.service]);
       rows += summaryRow(f.sumQty, L.videos(state.qty));
-      if (vfxYes) rows += summaryRow(f.sumVfx, f.sumVfxYes(vfxRange));
+      rows += summaryRow(f.sumUrgency, urgent ? f.sumUrgencyExpress : f.sumUrgencyNormal);
       rows += summaryRow(f.sumRecurrence, state.recurrence === 'monthly' ? f.sumRecMonthly : f.sumRecSingle);
       rows += summaryRow(f.sumDeadline, est.deadline);
       rows += summaryRow(f.sumTotal, est.total, true);
@@ -574,11 +587,11 @@ document.addEventListener('DOMContentLoaded', () => {
       waLines = [
         `• ${f.sumService}: ${L[state.service]}`,
         `• ${f.sumQty}: ${L.videos(state.qty)}`,
-        vfxYes ? `• ${f.sumVfx}: ${f.sumVfxYes(vfxRange)}` : null,
+        `• ${f.sumUrgency}: ${urgent ? f.sumUrgencyExpress : f.sumUrgencyNormal}`,
         `• ${f.sumRecurrence}: ${state.recurrence === 'monthly' ? f.sumRecMonthly.split(' — ')[0] : f.sumRecSingle}`,
         `• ${f.sumTotal}: ${est.total}`,
         `• ${f.sumDeadline}: ${est.deadline}`
-      ].filter(Boolean);
+      ];
     } else if (state.track === 'film') {
       badge = f.filmBadge;
       title = f.filmTitle(state.name);

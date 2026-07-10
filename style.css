@@ -1514,14 +1514,24 @@ dialog::backdrop {
   color: var(--text-muted);
 }
 
+/* Preço como pílula neutra: legível e sem "alerta de gasto" */
 .quiz-option .opt-price {
   margin-left: auto;
-  font-family: var(--font-title);
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: var(--red);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.07);
+  border: var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.3rem 0.75rem;
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+.quiz-option:hover .opt-price {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 @media (max-width: 640px) {
@@ -1630,7 +1640,7 @@ dialog::backdrop {
 .quiz-summary-row.sum-total .sum-value {
   font-family: var(--font-title);
   font-size: 1.2rem;
-  color: var(--red);
+  color: var(--text);
 }
 
 .quiz-disclaimer {
