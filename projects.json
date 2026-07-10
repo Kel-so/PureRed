@@ -10,7 +10,7 @@
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/exOJPs4n0q0",
     "previewUrl": "assets/previews/podcast3.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1581368135153-a506cf13b1e1?auto=format&fit=crop&w=800&q=80",
+    "thumbnailUrl": "assets/thumbnails/podcast3.jpg",
     "title": {
       "pt": "CORTE PODCAST 3",
       "en": "PODCAST CUT 3"
@@ -20,8 +20,16 @@
       "en": "Podcast cut focused on rhythm and impact for YouTube Shorts."
     },
     "tags": {
-      "pt": ["Vertical", "Podcast", "Shorts"],
-      "en": ["Vertical", "Podcast", "Shorts"]
+      "pt": [
+        "Vertical",
+        "Podcast",
+        "Shorts"
+      ],
+      "en": [
+        "Vertical",
+        "Podcast",
+        "Shorts"
+      ]
     }
   },
   {
@@ -35,7 +43,7 @@
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/gSBYCEqQJ_A",
     "previewUrl": "assets/previews/banners_portfolio.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80",
+    "thumbnailUrl": "assets/thumbnails/banners_portfolio.jpg",
     "title": {
       "pt": "SHOWREEL DE BANNERS",
       "en": "BANNER SHOWREEL"
@@ -45,8 +53,16 @@
       "en": "Video compilation of banners focused on visual impact and conversion. Clean, direct design meant to highlight the visual identity and grab attention right away."
     },
     "tags": {
-      "pt": ["Design", "Motion", "Vertical"],
-      "en": ["Design", "Motion", "Vertical"]
+      "pt": [
+        "Design",
+        "Motion",
+        "Vertical"
+      ],
+      "en": [
+        "Design",
+        "Motion",
+        "Vertical"
+      ]
     }
   },
   {
@@ -60,7 +76,7 @@
     "date": "2026-06",
     "videoUrl": "https://youtu.be/NI4rfyjLqmg",
     "previewUrl": "assets/previews/valorant1.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
+    "thumbnailUrl": "assets/thumbnails/valorant1.jpg",
     "title": {
       "pt": "VALORANT EDIT 1",
       "en": "VALORANT EDIT 1"
@@ -70,8 +86,16 @@
       "en": "Valorant edit with dynamic pacing and locked-in sync. Focused on the flow of the gameplay, with fluid transitions and a rhythm that matches the energy of the plays."
     },
     "tags": {
-      "pt": ["Gaming", "eSports", "Sync"],
-      "en": ["Gaming", "eSports", "Sync"]
+      "pt": [
+        "Gaming",
+        "eSports",
+        "Sync"
+      ],
+      "en": [
+        "Gaming",
+        "eSports",
+        "Sync"
+      ]
     }
   },
   {
@@ -85,7 +109,7 @@
     "date": "2026-06",
     "videoUrl": "https://youtu.be/oAI_3m2g6C4",
     "previewUrl": "assets/previews/valorant2.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
+    "thumbnailUrl": "assets/thumbnails/valorant2.jpg",
     "title": {
       "pt": "VALORANT EDIT 2",
       "en": "VALORANT EDIT 2"
@@ -95,8 +119,16 @@
       "en": "Another Valorant edit, exploring effects and sound design to add weight to the kills while keeping the screen clean so it doesn't hurt gameplay visibility."
     },
     "tags": {
-      "pt": ["Gaming", "Sound Design", "VFX"],
-      "en": ["Gaming", "Sound Design", "VFX"]
+      "pt": [
+        "Gaming",
+        "Sound Design",
+        "VFX"
+      ],
+      "en": [
+        "Gaming",
+        "Sound Design",
+        "VFX"
+      ]
     }
   },
   {
@@ -110,7 +142,7 @@
     "date": "2026-06",
     "videoUrl": "https://youtu.be/vG7LiCzxt3w",
     "previewUrl": "assets/previews/intro.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+    "thumbnailUrl": "assets/thumbnails/intro.jpg",
     "title": {
       "pt": "INTRODUÇÃO",
       "en": "INTRO"
@@ -120,8 +152,16 @@
       "en": "A fast, high-energy intro. Structured motion design built to hook attention in the first few seconds and set up the right expectation for the content."
     },
     "tags": {
-      "pt": ["Motion", "Intro", "Dinâmico"],
-      "en": ["Motion", "Intro", "Dynamic"]
+      "pt": [
+        "Motion",
+        "Intro",
+        "Dinâmico"
+      ],
+      "en": [
+        "Motion",
+        "Intro",
+        "Dynamic"
+      ]
     }
   },
   {
@@ -135,7 +175,7 @@
     "date": "2026-06",
     "videoUrl": "https://youtu.be/BVbdk1nTYLQ",
     "previewUrl": "assets/previews/logo_anim.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    "thumbnailUrl": "assets/thumbnails/logo_anim.jpg",
     "title": {
       "pt": "ANIMAÇÃO DE LOGO",
       "en": "LOGO ANIMATION"
@@ -145,8 +185,16 @@
       "en": "A fluid, straight-to-the-point logo animation. A professional reveal that brings the brand to life in an organic, well-crafted motion piece."
     },
     "tags": {
-      "pt": ["Logo", "Motion", "Branding"],
-      "en": ["Logo", "Motion", "Branding"]
+      "pt": [
+        "Logo",
+        "Motion",
+        "Branding"
+      ],
+      "en": [
+        "Logo",
+        "Motion",
+        "Branding"
+      ]
     }
   },
   {
@@ -160,7 +208,7 @@
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/0yxV8XFZ-AE",
     "previewUrl": "assets/previews/podcast1.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80",
+    "thumbnailUrl": "assets/thumbnails/podcast1.jpg",
     "title": {
       "pt": "CORTE PODCAST 1",
       "en": "PODCAST CUT 1"
@@ -170,8 +218,16 @@
       "en": "Dynamic podcast cut focused on high-retention topics. Vertical format built for YouTube Shorts."
     },
     "tags": {
-      "pt": ["Vertical", "Podcast", "Shorts"],
-      "en": ["Vertical", "Podcast", "Shorts"]
+      "pt": [
+        "Vertical",
+        "Podcast",
+        "Shorts"
+      ],
+      "en": [
+        "Vertical",
+        "Podcast",
+        "Shorts"
+      ]
     }
   },
   {
@@ -185,7 +241,7 @@
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/cZzEg0UpHb4",
     "previewUrl": "assets/previews/podcast2.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1581368135153-a506cf13b1e1?auto=format&fit=crop&w=800&q=80",
+    "thumbnailUrl": "assets/thumbnails/podcast2.jpg",
     "title": {
       "pt": "CORTE PODCAST 2",
       "en": "PODCAST CUT 2"
@@ -195,8 +251,16 @@
       "en": "Dynamic podcast cut focused on high-retention topics. Vertical format built for YouTube Shorts."
     },
     "tags": {
-      "pt": ["Vertical", "Podcast", "Shorts"],
-      "en": ["Vertical", "Podcast", "Shorts"]
+      "pt": [
+        "Vertical",
+        "Podcast",
+        "Shorts"
+      ],
+      "en": [
+        "Vertical",
+        "Podcast",
+        "Shorts"
+      ]
     }
   },
   {
@@ -210,7 +274,7 @@
     "date": "2026-05",
     "videoUrl": "https://youtu.be/-XNmHMceOL8",
     "previewUrl": "assets/previews/sameday04.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=80",
+    "thumbnailUrl": "assets/thumbnails/sameday04.jpg",
     "title": {
       "pt": "SAME DAY EDIT - EVENTO PRINCIPAL",
       "en": "SAME DAY EDIT - MAIN EVENT"
@@ -220,8 +284,16 @@
       "en": "Aftermovie shot, edited and screened on the very same day. High-speed, rhythmic editing to keep the event's energy at its peak."
     },
     "tags": {
-      "pt": ["Same Day Edit", "Aftermovie", "Energia"],
-      "en": ["Same Day Edit", "Aftermovie", "Energy"]
+      "pt": [
+        "Same Day Edit",
+        "Aftermovie",
+        "Energia"
+      ],
+      "en": [
+        "Same Day Edit",
+        "Aftermovie",
+        "Energy"
+      ]
     }
   },
   {
@@ -235,7 +307,7 @@
     "date": "2026-04",
     "videoUrl": "https://youtu.be/_cHcLPJayJI",
     "previewUrl": "assets/previews/futsal01.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&w=1600&q=80",
+    "thumbnailUrl": "assets/thumbnails/futsal01.jpg",
     "title": {
       "pt": "FUTSAL CHAMPIONS HIGHLIGHTS",
       "en": "FUTSAL CHAMPIONS HIGHLIGHTS"
@@ -245,8 +317,16 @@
       "en": "An aggressive teaser for the futsal championship final. The ball's speed dictates the cuts, with heavy sound design and total focus on impact."
     },
     "tags": {
-      "pt": ["Esportes", "Futsal", "Cortes Rápidos"],
-      "en": ["Sports", "Futsal", "Fast Cuts"]
+      "pt": [
+        "Esportes",
+        "Futsal",
+        "Cortes Rápidos"
+      ],
+      "en": [
+        "Sports",
+        "Futsal",
+        "Fast Cuts"
+      ]
     }
   },
   {
@@ -260,7 +340,7 @@
     "date": "2026-03",
     "videoUrl": "https://youtube.com/shorts/oRawt81rJAY",
     "previewUrl": "assets/previews/drift01.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1600&q=80",
+    "thumbnailUrl": "assets/thumbnails/drift01.jpg",
     "title": {
       "pt": "DRIFT CINEMATICS",
       "en": "DRIFT CINEMATICS"
@@ -270,8 +350,16 @@
       "en": "Insane, dynamic editing focused on the drift racing scene. Vertical format built natively for absurd retention on mobile."
     },
     "tags": {
-      "pt": ["Vertical", "Automotivo", "Velocidade"],
-      "en": ["Vertical", "Automotive", "Speed"]
+      "pt": [
+        "Vertical",
+        "Automotivo",
+        "Velocidade"
+      ],
+      "en": [
+        "Vertical",
+        "Automotive",
+        "Speed"
+      ]
     }
   },
   {
@@ -285,7 +373,7 @@
     "date": "2026-02",
     "videoUrl": "https://youtu.be/2a20iJjK7oA",
     "previewUrl": "assets/previews/ldjr01.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1540039155733-d76e6c4849ec?auto=format&fit=crop&w=1600&q=80",
+    "thumbnailUrl": "assets/thumbnails/ldjr01.jpg",
     "title": {
       "pt": "LDJR EXPERIENCE",
       "en": "LDJR EXPERIENCE"
@@ -295,8 +383,16 @@
       "en": "Full immersion into the LDJR event. A widescreen, cinema-format audiovisual journey with cinematic color treatment."
     },
     "tags": {
-      "pt": ["Aftermovie", "Show", "Color Grading"],
-      "en": ["Aftermovie", "Show", "Color Grading"]
+      "pt": [
+        "Aftermovie",
+        "Show",
+        "Color Grading"
+      ],
+      "en": [
+        "Aftermovie",
+        "Show",
+        "Color Grading"
+      ]
     }
   },
   {
@@ -310,7 +406,7 @@
     "date": "2026-01",
     "videoUrl": "https://youtu.be/M9wujVLJ5GI",
     "previewUrl": "assets/previews/sameday01.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1600&q=80",
+    "thumbnailUrl": "assets/thumbnails/sameday01.jpg",
     "title": {
       "pt": "SAME DAY EDIT - DIA 1",
       "en": "SAME DAY EDIT - DAY 1"
@@ -320,8 +416,14 @@
       "en": "Festival opening with cuts synced to the beat. Footage delivered on the same day as the event."
     },
     "tags": {
-      "pt": ["Same Day Edit", "Música"],
-      "en": ["Same Day Edit", "Music"]
+      "pt": [
+        "Same Day Edit",
+        "Música"
+      ],
+      "en": [
+        "Same Day Edit",
+        "Music"
+      ]
     }
   },
   {
@@ -335,7 +437,7 @@
     "date": "2026-01",
     "videoUrl": "https://youtu.be/6o3ANYnXrgE",
     "previewUrl": "assets/previews/sameday02.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1600&q=80",
+    "thumbnailUrl": "assets/thumbnails/sameday02.jpg",
     "title": {
       "pt": "SAME DAY EDIT - DIA 2",
       "en": "SAME DAY EDIT - DAY 2"
@@ -345,8 +447,14 @@
       "en": "Second day of the festival. Peaks of energy matched by an aggressive, modern shot breakdown."
     },
     "tags": {
-      "pt": ["Same Day Edit", "Festivais"],
-      "en": ["Same Day Edit", "Festivals"]
+      "pt": [
+        "Same Day Edit",
+        "Festivais"
+      ],
+      "en": [
+        "Same Day Edit",
+        "Festivals"
+      ]
     }
   },
   {
@@ -360,7 +468,7 @@
     "date": "2026-01",
     "videoUrl": "https://youtu.be/-NOFgKQvNAo",
     "previewUrl": "assets/previews/sameday03.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1533174000255-12dc36a61763?auto=format&fit=crop&w=1600&q=80",
+    "thumbnailUrl": "assets/thumbnails/sameday03.jpg",
     "title": {
       "pt": "SAME DAY EDIT - DIA 3",
       "en": "SAME DAY EDIT - DAY 3"
@@ -370,8 +478,16 @@
       "en": "An explosive closing. On-site capture and editing wrapped up to guarantee real-time impact on social media."
     },
     "tags": {
-      "pt": ["Same Day Edit", "Explosivo", "VFX"],
-      "en": ["Same Day Edit", "Explosive", "VFX"]
+      "pt": [
+        "Same Day Edit",
+        "Explosivo",
+        "VFX"
+      ],
+      "en": [
+        "Same Day Edit",
+        "Explosive",
+        "VFX"
+      ]
     }
   },
   {
@@ -385,7 +501,7 @@
     "date": "2025-12",
     "videoUrl": "https://youtube.com/shorts/kN-DsB2VsO4",
     "previewUrl": "assets/previews/skoria01.mp4",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1552072092-7f9b8d63efcb?auto=format&fit=crop&w=800&q=80",
+    "thumbnailUrl": "assets/thumbnails/skoria01.jpg",
     "title": {
       "pt": "SKORIA SOCIAL TEASER",
       "en": "SKORIA SOCIAL TEASER"
@@ -395,8 +511,16 @@
       "en": "A brutal, fast-paced piece built in mobile format for the Skoria brand. Screen retention driven by micro-cuts."
     },
     "tags": {
-      "pt": ["Vertical", "Moda/Marca", "Social Media"],
-      "en": ["Vertical", "Fashion/Brand", "Social Media"]
+      "pt": [
+        "Vertical",
+        "Moda/Marca",
+        "Social Media"
+      ],
+      "en": [
+        "Vertical",
+        "Fashion/Brand",
+        "Social Media"
+      ]
     }
   },
   {
@@ -419,8 +543,16 @@
       "en": "eSports matchup banner for VCT Americas. Full lineup with cutouts, textures and brutal typography to announce the match on social media."
     },
     "tags": {
-      "pt": ["Banner", "Valorant", "eSports"],
-      "en": ["Banner", "Valorant", "eSports"]
+      "pt": [
+        "Banner",
+        "Valorant",
+        "eSports"
+      ],
+      "en": [
+        "Banner",
+        "Valorant",
+        "eSports"
+      ]
     }
   },
   {
@@ -443,8 +575,16 @@
       "en": "Hat-trick celebration banner with multiple athlete cutouts, handwritten typography and a composition that celebrates the moment of the match."
     },
     "tags": {
-      "pt": ["Banner", "Futebol", "Social Media"],
-      "en": ["Banner", "Football", "Social Media"]
+      "pt": [
+        "Banner",
+        "Futebol",
+        "Social Media"
+      ],
+      "en": [
+        "Banner",
+        "Football",
+        "Social Media"
+      ]
     }
   },
   {
@@ -467,8 +607,16 @@
       "en": "Champions League matchday highlight banner with vibrant color treatment, double exposure and handwritten typography over the scene."
     },
     "tags": {
-      "pt": ["Banner", "Futebol", "Design"],
-      "en": ["Banner", "Football", "Design"]
+      "pt": [
+        "Banner",
+        "Futebol",
+        "Design"
+      ],
+      "en": [
+        "Banner",
+        "Football",
+        "Design"
+      ]
     }
   },
   {
@@ -491,8 +639,16 @@
       "en": "Gameday banner for an American football team. Heavy atmosphere, typographic graffiti and matchup info built right into the layout."
     },
     "tags": {
-      "pt": ["Banner", "Futebol Americano", "Gameday"],
-      "en": ["Banner", "American Football", "Gameday"]
+      "pt": [
+        "Banner",
+        "Futebol Americano",
+        "Gameday"
+      ],
+      "en": [
+        "Banner",
+        "American Football",
+        "Gameday"
+      ]
     }
   },
   {
@@ -515,8 +671,16 @@
       "en": "Volleyball athlete banner with multiple cutouts, a light palette and textures that bring movement to the composition."
     },
     "tags": {
-      "pt": ["Banner", "Vôlei", "Atleta"],
-      "en": ["Banner", "Volleyball", "Athlete"]
+      "pt": [
+        "Banner",
+        "Vôlei",
+        "Atleta"
+      ],
+      "en": [
+        "Banner",
+        "Volleyball",
+        "Athlete"
+      ]
     }
   },
   {
@@ -539,8 +703,16 @@
       "en": "Individual highlight banner for a futsal athlete, with double exposure, light effects and a palette cohesive with the club's identity."
     },
     "tags": {
-      "pt": ["Banner", "Futsal", "Atleta"],
-      "en": ["Banner", "Futsal", "Athlete"]
+      "pt": [
+        "Banner",
+        "Futsal",
+        "Atleta"
+      ],
+      "en": [
+        "Banner",
+        "Futsal",
+        "Athlete"
+      ]
     }
   },
   {
@@ -563,8 +735,16 @@
       "en": "Swimming athlete banner freezing the dive, with layered cutouts and high contrast for maximum impact on the feed."
     },
     "tags": {
-      "pt": ["Banner", "Natação", "Atleta"],
-      "en": ["Banner", "Swimming", "Athlete"]
+      "pt": [
+        "Banner",
+        "Natação",
+        "Atleta"
+      ],
+      "en": [
+        "Banner",
+        "Swimming",
+        "Athlete"
+      ]
     }
   }
 ]
