@@ -3,248 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PureRed | Painel Administrativo</title>
-  
+  <title>PureRed | Painel Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a0a0c%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23FF003C%22/></svg>">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2308080a%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23FF003C%22/></svg>">
 
-  <!-- Core and Admin Stylesheets -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin.css?v=3">
 </head>
-<body class="admin-body">
+<body>
 
-  <!-- LOGIN CONTAINER -->
-  <div class="login-wrapper" id="login-screen">
-    <div class="login-card">
-      <div class="logo" style="margin-bottom: 2rem; justify-content: center;">
-        <span class="logo-dot"></span>Pure<span>Red</span>
-      </div>
-      <h2 style="font-family: var(--font-header); text-transform: uppercase; font-size: 1.5rem; text-align: center; margin-bottom: 1.5rem;">Acesso ao Painel Admin</h2>
-      
-      <form id="login-form">
-        <div class="form-group" style="margin-bottom: 1.5rem;">
-          <label for="passcode">Digite a Senha de Acesso</label>
-          <input type="password" id="passcode" placeholder="Ex: purered2026" required style="border: 2px solid var(--border-color); text-align: center; font-size: 1.2rem; letter-spacing: 4px;">
-          <span class="error-msg" id="login-error">Senha incorreta. Tente novamente!</span>
-        </div>
-        <button type="submit" class="btn-brutal" style="width: 100%; box-shadow: 4px 4px 0px #ffffff;">Entrar no Console</button>
-      </form>
-      <div style="margin-top: 1.5rem; text-align: center;">
-        <a href="index.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">&larr; Voltar para o Site</a>
-      </div>
-    </div>
+  <!-- ===== Tela de Login ===== -->
+  <div id="login-screen" class="login-screen">
+    <form id="login-form" class="login-card">
+      <div class="login-logo"><span class="logo-dot"></span>Pure<span>Red</span></div>
+      <h1>Painel Admin</h1>
+      <p>Digite a senha para gerenciar o portfólio.</p>
+      <input type="password" id="passcode" placeholder="Senha" autocomplete="current-password" required>
+      <p id="login-error" class="login-error">Senha incorreta. Tente novamente.</p>
+      <button type="submit" class="btn btn-red btn-full">Entrar</button>
+      <a href="index.html" class="login-back">← Voltar para o site</a>
+    </form>
   </div>
 
-  <!-- DASHBOARD CONTAINER (Hidden by default) -->
-  <div class="dashboard-wrapper hidden" id="dashboard-screen">
-    
-    <!-- Admin Header -->
+  <!-- ===== Dashboard ===== -->
+  <div id="dashboard-screen" class="dashboard hidden">
+
     <header class="admin-header">
-      <div class="container nav-container" style="max-width: 100%; padding: 0 3rem;">
-        <a href="index.html" class="logo">
-          <span class="logo-dot"></span>Pure<span>Red</span> <span class="badge-admin">Admin</span>
-        </a>
-        <div style="display: flex; align-items: center; gap: 2rem;">
-          <a href="index.html" class="nav-cta" style="border-color: #ffffff; font-size: 0.85rem;">Ver Site Principal &rarr;</a>
-          <button class="btn-logout" id="btn-logout">Sair do Painel 🔒</button>
+      <div class="admin-header-inner">
+        <div class="login-logo"><span class="logo-dot"></span>Pure<span>Red</span> <em>Admin</em></div>
+        <div class="admin-header-actions">
+          <a href="index.html" target="_blank" class="btn btn-ghost">Ver site ↗</a>
+          <button type="button" id="btn-logout" class="btn btn-ghost">Sair</button>
         </div>
       </div>
     </header>
 
-    <!-- Main Admin Workspace -->
-    <main class="container admin-main" style="max-width: 100%; padding: 3rem;">
-      
-      <!-- Stats Board -->
-      <section class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-num" id="stat-total">0</div>
-          <div class="stat-label">Projetos Totais</div>
+    <!-- Barra de status de publicação -->
+    <div id="sync-bar" class="sync-bar">
+      <div class="sync-bar-inner">
+        <div id="sync-status" class="sync-status">
+          <span class="sync-icon" id="sync-icon">●</span>
+          <span id="sync-text">Carregando…</span>
         </div>
-        <div class="stat-card">
-          <div class="stat-num" id="stat-editing">0</div>
-          <div class="stat-label">Edições de Vídeo</div>
+        <div class="sync-actions">
+          <button type="button" id="btn-export" class="btn btn-red">⬇ Baixar projects.json</button>
+          <button type="button" id="btn-import" class="btn btn-ghost" title="Carregar um projects.json do seu computador">Importar</button>
+          <button type="button" id="btn-discard" class="btn btn-ghost hidden" title="Descartar alterações locais e voltar ao arquivo publicado">Descartar alterações</button>
+          <input type="file" id="import-file-input" accept=".json,application/json" hidden>
         </div>
-        <div class="stat-card">
-          <div class="stat-num" id="stat-events">0</div>
-          <div class="stat-label">Aftermovies / Eventos</div>
-        </div>
-        <div class="stat-card" style="border-color: var(--primary-red); box-shadow: 4px 4px 0px var(--primary-red);">
-          <div class="stat-num" style="color: var(--primary-red);">LOCAL</div>
-          <div class="stat-label">Modo Banco de Dados</div>
-        </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- Workspace Division -->
-      <div class="workspace-grid">
-        
-        <!-- Left: Database List -->
-        <section class="list-section">
-          <div class="workspace-header">
-            <h3>Lista de Projetos Ativos</h3>
-            <span class="indicator-green">● Atualizado</span>
-          </div>
+    <main class="admin-main">
 
-          <p class="help-text" style="margin-bottom: 1rem;">Arraste pelo ícone <strong>⠿</strong> para reordenar. A ordem da lista define a posição dos vídeos no site (de cima para baixo = primeiro para último dentro de cada seção). Clique na estrela para marcar/desmarcar um vídeo como Destaque.</p>
-
-          <div class="table-container">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th style="width: 36px;"></th>
-                  <th>Título</th>
-                  <th>Categoria</th>
-                  <th>Subcategoria</th>
-                  <th style="width: 70px; text-align: center;">Destaque</th>
-                  <th style="width: 140px; text-align: center;">Ações</th>
-                </tr>
-              </thead>
-              <tbody id="projects-table-body">
-                <!-- Loaded dynamically -->
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- Right: CRUD Form -->
-        <section class="form-section">
-          <div class="workspace-header">
-            <h3 id="form-action-title">Adicionar Novo Projeto</h3>
-          </div>
-          
-          <form class="admin-form" id="project-form">
-            <input type="hidden" id="project-id">
-            
-            <div class="form-row">
-              <div class="form-group">
-                <label for="project-title">Título do Projeto</label>
-                <input type="text" id="project-title" placeholder="Ex: Nike Speedway - Comercial" required>
-              </div>
-              
-              <div class="form-group" style="max-width: 200px;">
-                <label for="project-category">Categoria</label>
-                <select id="project-category" required>
-                  <option value="editing">Edição de Vídeo</option>
-                  <option value="events">Eventos</option>
-                </select>
-              </div>
-
-              <div class="form-group" style="max-width: 200px;">
-                <label for="project-orientation">Orientação</label>
-                <select id="project-orientation" required>
-                  <option value="horizontal">Widescreen (Horizontal)</option>
-                  <option value="vertical">Reels/Shorts (Vertical)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="project-subcategory">Subcategoria (define em qual seção do site o vídeo aparece)</label>
-                <select id="project-subcategory" required>
-                  <option value="gaming">Gaming & eSports</option>
-                  <option value="samedayedit">Same Day Edit</option>
-                  <option value="aftermovie">Aftermovies & Shows</option>
-                  <option value="esportes">Esportes</option>
-                  <option value="podcast">Cortes de Podcast</option>
-                  <option value="motion">Motion & Branding</option>
-                  <option value="automotivo">Automotivo</option>
-                  <option value="moda">Moda & Marca</option>
-                  <option value="outros">Outros Projetos</option>
-                </select>
-              </div>
-
-              <div class="form-group" style="max-width: 220px; justify-content: center;">
-                <label for="project-featured" style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer;">
-                  <input type="checkbox" id="project-featured" style="width: auto;">
-                  Marcar como Destaque
-                </label>
-                <span class="help-text">Aparece na seção "Melhores Trabalhos" no topo do site.</span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="project-video-url">URL do Vídeo (Direct MP4, YouTube ou Vimeo)</label>
-              <input type="url" id="project-video-url" placeholder="Ex: videos/corrida.mp4 ou https://youtube.com/watch?v=..." required>
-              <span class="help-text">Para link direto (GitHub), faça o upload do vídeo na pasta do projeto e use a URL relativa, ou use links externos de vídeos (MP4, YouTube, Vimeo).</span>
-            </div>
-
-            <div class="form-group">
-              <label for="project-thumbnail-url">URL da Capa (Thumbnail)</label>
-              <input type="url" id="project-thumbnail-url" placeholder="Ex: https://images.unsplash.com/photo-..." required>
-              <span class="help-text">Insira um link de imagem do Unsplash, Imgur ou uma imagem local da pasta do seu projeto.</span>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="project-client">Cliente</label>
-                <input type="text" id="project-client" placeholder="Ex: Nike Brasil" required>
-              </div>
-              
-              <div class="form-group">
-                <label for="project-date">Data de Conclusão</label>
-                <input type="month" id="project-date" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="project-tags">Tags (separadas por vírgula)</label>
-              <input type="text" id="project-tags" placeholder="Ex: Comercial, Cortes Rápidos, Sound Design" required>
-            </div>
-
-            <div class="form-group">
-              <label for="project-desc">Descrição Detalhada do Trabalho</label>
-              <textarea id="project-desc" rows="4" placeholder="Descreva o que você fez neste projeto. Cortes de alta velocidade, sincronia de trilha sonora, etc." required></textarea>
-            </div>
-
-            <div style="display: flex; gap: 1.5rem; margin-top: 1rem;">
-              <button type="submit" class="btn-brutal" id="btn-save-project" style="flex-grow: 1;">Salvar Projeto</button>
-              <button type="button" class="btn-brutal btn-white" id="btn-cancel-edit" style="display: none;">Cancelar</button>
-            </div>
-          </form>
-        </section>
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <button type="button" id="btn-new" class="btn btn-red btn-lg">+ Novo Projeto</button>
+        <input type="search" id="search-input" placeholder="Buscar projeto…">
+        <div class="stats" id="stats"></div>
       </div>
 
-      <!-- Bottom Panel: JSON Sync for GitHub Pages -->
-      <section class="sync-panel">
-        <div class="sync-info">
-          <h4>🚀 Como publicar suas alterações no GitHub Pages?</h4>
-          <p>Como o seu site roda estático de graça no GitHub Pages, você não tem um banco de dados hospedado em nuvem. Nosso sistema resolve isso de forma genial:</p>
-          <ol>
-            <li>Use o painel acima para <strong>Adicionar, Editar ou Excluir</strong> seus vídeos. Suas edições salvam instantaneamente localmente!</li>
-            <li>Quando terminar todas as alterações, clique no botão <strong>"Exportar Banco de Dados (JSON)"</strong> ao lado para baixar seu arquivo <code>projects.json</code>.</li>
-            <li>Substitua o arquivo <code>projects.json</code> existente na pasta do seu projeto por este que você acabou de baixar.</li>
-            <li>Abra o terminal na pasta do projeto e rode:
-              <pre><code>git add projects.json
-git commit -m "atualizacao de portfolio de videos"
-git push</code></pre>
-            </li>
-            <li>Pronto! Em segundos o seu site público estará atualizado com os novos vídeos e alterações!</li>
-          </ol>
-        </div>
-        
-        <div class="sync-actions">
-          <button class="btn-sync-export" id="btn-export-db">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-              <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-            </svg>
-            Exportar Banco de Dados (JSON)
-          </button>
-          
-          <div style="width: 100%; border-top: 1px solid var(--border-color-dark); margin: 1.5rem 0;"></div>
-          
-          <h5 style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; margin-bottom: 0.6rem; color: var(--text-muted);">Já tem um backup ou quer recarregar o JSON existente?</h5>
-          <input type="file" id="import-file-input" accept=".json" style="display: none;">
-          <button class="btn-sync-import" id="btn-import-db">
-            Importar Arquivo JSON
-          </button>
-        </div>
-      </section>
+      <!-- Lista de projetos -->
+      <div id="projects-list" class="projects-list"></div>
 
+      <!-- Como publicar -->
+      <div class="help-card">
+        <h3>Como publicar as alterações</h3>
+        <ol>
+          <li>Faça as alterações aqui no painel (elas ficam salvas neste navegador).</li>
+          <li>Clique em <strong>⬇ Baixar projects.json</strong> lá em cima.</li>
+          <li>Substitua o arquivo <code>projects.json</code> na pasta do projeto pelo arquivo baixado.</li>
+          <li>Envie para o GitHub: <code>git add projects.json && git commit -m "atualiza portfolio" && git push</code></li>
+        </ol>
+        <p>Dica: para adicionar um banner (imagem), coloque o arquivo em <code>assets/banners/full/</code> e use esse caminho no campo "URL da imagem".</p>
+      </div>
     </main>
   </div>
 
-  <!-- JS Logic for Dashboard -->
-  <script src="admin.js"></script>
+  <!-- ===== Formulário (modal) ===== -->
+  <dialog id="project-dialog" class="project-dialog">
+    <form id="project-form" method="dialog">
+      <div class="dialog-top">
+        <h2 id="form-title">Novo Projeto</h2>
+        <button type="button" class="btn-close" id="btn-close-form" aria-label="Fechar">✕</button>
+      </div>
+
+      <input type="hidden" id="f-id">
+
+      <div class="form-body">
+
+        <!-- Tipo -->
+        <div class="field">
+          <label>Tipo de projeto</label>
+          <div class="type-toggle">
+            <label class="type-option">
+              <input type="radio" name="f-type" value="video" checked>
+              <span>🎬 Vídeo</span>
+            </label>
+            <label class="type-option">
+              <input type="radio" name="f-type" value="image">
+              <span>🖼 Banner / Imagem</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-title-pt">Título (Português) *</label>
+            <input type="text" id="f-title-pt" required placeholder="Ex: VALORANT EDIT 3">
+          </div>
+          <div class="field">
+            <label for="f-title-en">Título (Inglês)</label>
+            <input type="text" id="f-title-en" placeholder="Se vazio, usa o título em português">
+          </div>
+
+          <div class="field">
+            <label for="f-subcategory">Categoria *</label>
+            <select id="f-subcategory"></select>
+          </div>
+
+          <div class="field" data-only="video">
+            <label for="f-orientation">Formato do vídeo</label>
+            <select id="f-orientation">
+              <option value="horizontal">Horizontal (16:9)</option>
+              <option value="vertical">Vertical (9:16 — Shorts/Reels)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="f-client">Cliente</label>
+            <input type="text" id="f-client" placeholder="Ex: Festival XYZ">
+          </div>
+
+          <div class="field">
+            <label for="f-date">Data</label>
+            <input type="month" id="f-date">
+          </div>
+        </div>
+
+        <!-- Campos de vídeo -->
+        <div class="form-grid" data-only="video">
+          <div class="field span-2">
+            <label for="f-video-url">Link do vídeo * <small>(YouTube, Shorts, Vimeo ou .mp4)</small></label>
+            <input type="url" id="f-video-url" placeholder="https://youtu.be/…">
+          </div>
+          <div class="field span-2">
+            <label for="f-preview-url">Preview em loop <small>(opcional — mp4 curto que toca no card, ex: assets/previews/nome.mp4)</small></label>
+            <input type="text" id="f-preview-url" placeholder="assets/previews/meu-video.mp4">
+          </div>
+        </div>
+
+        <!-- Campos de imagem -->
+        <div class="form-grid" data-only="image">
+          <div class="field span-2">
+            <label for="f-image-url">URL da imagem * <small>(ex: assets/banners/full/meu-banner.jpg)</small></label>
+            <input type="text" id="f-image-url" placeholder="assets/banners/full/meu-banner.jpg">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field span-2">
+            <label for="f-thumbnail-url">Capa / Thumbnail <small>(opcional — para banners, se vazio usa a própria imagem)</small></label>
+            <input type="text" id="f-thumbnail-url" placeholder="https://… ou assets/…">
+          </div>
+        </div>
+
+        <div id="thumb-preview" class="thumb-preview hidden">
+          <img id="thumb-preview-img" alt="Pré-visualização da capa">
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-tags-pt">Tags (Português) <small>separadas por vírgula</small></label>
+            <input type="text" id="f-tags-pt" placeholder="Gaming, Sound Design">
+          </div>
+          <div class="field">
+            <label for="f-tags-en">Tags (Inglês)</label>
+            <input type="text" id="f-tags-en" placeholder="Gaming, Sound Design">
+          </div>
+
+          <div class="field span-2">
+            <label for="f-desc-pt">Descrição (Português)</label>
+            <textarea id="f-desc-pt" rows="3" placeholder="Descrição que aparece ao abrir o projeto"></textarea>
+          </div>
+          <div class="field span-2">
+            <label for="f-desc-en">Descrição (Inglês)</label>
+            <textarea id="f-desc-en" rows="3" placeholder="Se vazio, usa a descrição em português"></textarea>
+          </div>
+        </div>
+
+        <label class="featured-check">
+          <input type="checkbox" id="f-featured">
+          <span>⭐ Mostrar na seção "Melhores Trabalhos"</span>
+        </label>
+      </div>
+
+      <div class="dialog-bottom">
+        <button type="button" class="btn btn-ghost" id="btn-cancel-form">Cancelar</button>
+        <button type="submit" class="btn btn-red" id="btn-save">Salvar Projeto</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="admin.js?v=3"></script>
 </body>
 </html>

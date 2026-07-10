@@ -1,319 +1,570 @@
 [
   {
     "id": "podcast-cut-3",
-    "title": "CORTE PODCAST 3",
-    "category": "editing",
+    "type": "video",
     "subcategory": "podcast",
     "orientation": "vertical",
     "featured": true,
     "order": 0,
-    "description": "Corte de podcast focado em ritmo e impacto para YouTube Shorts.",
     "client": "Série de Podcast",
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/exOJPs4n0q0",
     "previewUrl": "assets/previews/podcast3.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1581368135153-a506cf13b1e1?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Vertical",
-      "Podcast",
-      "Shorts"
-    ]
+    "title": {
+      "pt": "CORTE PODCAST 3",
+      "en": "PODCAST CUT 3"
+    },
+    "description": {
+      "pt": "Corte de podcast focado em ritmo e impacto para YouTube Shorts.",
+      "en": "Podcast cut focused on rhythm and impact for YouTube Shorts."
+    },
+    "tags": {
+      "pt": ["Vertical", "Podcast", "Shorts"],
+      "en": ["Vertical", "Podcast", "Shorts"]
+    }
   },
   {
     "id": "port-banners",
-    "title": "PORTFÓLIO DE BANNERS",
-    "category": "editing",
-    "subcategory": "motion",
+    "type": "video",
+    "subcategory": "design",
     "orientation": "vertical",
     "featured": false,
     "order": 1,
-    "description": "Compilado de banners focados em impacto visual e conversão. Design limpo e direto, pensado para destacar a identidade visual e reter a atenção logo de cara.",
     "client": "Portfólio",
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/gSBYCEqQJ_A",
     "previewUrl": "assets/previews/banners_portfolio.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Design",
-      "Motion",
-      "Vertical"
-    ]
+    "title": {
+      "pt": "SHOWREEL DE BANNERS",
+      "en": "BANNER SHOWREEL"
+    },
+    "description": {
+      "pt": "Compilado em vídeo dos banners focados em impacto visual e conversão. Design limpo e direto, pensado para destacar a identidade visual e reter a atenção logo de cara.",
+      "en": "Video compilation of banners focused on visual impact and conversion. Clean, direct design meant to highlight the visual identity and grab attention right away."
+    },
+    "tags": {
+      "pt": ["Design", "Motion", "Vertical"],
+      "en": ["Design", "Motion", "Vertical"]
+    }
   },
   {
     "id": "valorant-1",
-    "title": "VALORANT EDIT 1",
-    "category": "editing",
+    "type": "video",
     "subcategory": "gaming",
     "orientation": "horizontal",
     "featured": true,
     "order": 2,
-    "description": "Edit de Valorant com pacing dinâmico e sync cravado. Foco no flow da gameplay, com transições fluidas e um ritmo que acompanha a energia das plays.",
     "client": "Gaming",
     "date": "2026-06",
     "videoUrl": "https://youtu.be/NI4rfyjLqmg",
     "previewUrl": "assets/previews/valorant1.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Gaming",
-      "eSports",
-      "Sync"
-    ]
+    "title": {
+      "pt": "VALORANT EDIT 1",
+      "en": "VALORANT EDIT 1"
+    },
+    "description": {
+      "pt": "Edit de Valorant com pacing dinâmico e sync cravado. Foco no flow da gameplay, com transições fluidas e um ritmo que acompanha a energia das plays.",
+      "en": "Valorant edit with dynamic pacing and locked-in sync. Focused on the flow of the gameplay, with fluid transitions and a rhythm that matches the energy of the plays."
+    },
+    "tags": {
+      "pt": ["Gaming", "eSports", "Sync"],
+      "en": ["Gaming", "eSports", "Sync"]
+    }
   },
   {
     "id": "valorant-2",
-    "title": "VALORANT EDIT 2",
-    "category": "editing",
+    "type": "video",
     "subcategory": "gaming",
     "orientation": "horizontal",
     "featured": false,
     "order": 3,
-    "description": "Mais uma edição de Valorant, explorando efeitos e sound design para dar aquele peso nas kills, mas mantendo a tela limpa pra não estragar a visibilidade da jogada.",
     "client": "Gaming",
     "date": "2026-06",
     "videoUrl": "https://youtu.be/oAI_3m2g6C4",
     "previewUrl": "assets/previews/valorant2.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Gaming",
-      "Sound Design",
-      "VFX"
-    ]
+    "title": {
+      "pt": "VALORANT EDIT 2",
+      "en": "VALORANT EDIT 2"
+    },
+    "description": {
+      "pt": "Mais uma edição de Valorant, explorando efeitos e sound design para dar peso nas kills, mantendo a tela limpa pra não atrapalhar a visibilidade da jogada.",
+      "en": "Another Valorant edit, exploring effects and sound design to add weight to the kills while keeping the screen clean so it doesn't hurt gameplay visibility."
+    },
+    "tags": {
+      "pt": ["Gaming", "Sound Design", "VFX"],
+      "en": ["Gaming", "Sound Design", "VFX"]
+    }
   },
   {
     "id": "intro-red",
-    "title": "INTRODUÇÃO",
-    "category": "editing",
+    "type": "video",
     "subcategory": "motion",
     "orientation": "horizontal",
     "featured": false,
     "order": 4,
-    "description": "Introdução rápida e com ritmo acelerado. Motion design estruturado para fisgar a atenção nos primeiros segundos, criando a expectativa certa pro conteúdo.",
     "client": "Pure Red",
     "date": "2026-06",
     "videoUrl": "https://youtu.be/vG7LiCzxt3w",
     "previewUrl": "assets/previews/intro.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Motion",
-      "Intro",
-      "Dinâmico"
-    ]
+    "title": {
+      "pt": "INTRODUÇÃO",
+      "en": "INTRO"
+    },
+    "description": {
+      "pt": "Introdução rápida e com ritmo acelerado. Motion design estruturado para fisgar a atenção nos primeiros segundos, criando a expectativa certa pro conteúdo.",
+      "en": "A fast, high-energy intro. Structured motion design built to hook attention in the first few seconds and set up the right expectation for the content."
+    },
+    "tags": {
+      "pt": ["Motion", "Intro", "Dinâmico"],
+      "en": ["Motion", "Intro", "Dynamic"]
+    }
   },
   {
     "id": "anim-logo",
-    "title": "ANIMAÇÃO DE LOGO",
-    "category": "editing",
+    "type": "video",
     "subcategory": "motion",
     "orientation": "horizontal",
     "featured": false,
     "order": 5,
-    "description": "Animação de logo fluida e direta ao ponto. Uma revelação profissional que dá vida à marca de forma orgânica e bem resolvida no motion.",
     "client": "Marca Própria",
     "date": "2026-06",
     "videoUrl": "https://youtu.be/BVbdk1nTYLQ",
     "previewUrl": "assets/previews/logo_anim.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Logo",
-      "Motion",
-      "Branding"
-    ]
+    "title": {
+      "pt": "ANIMAÇÃO DE LOGO",
+      "en": "LOGO ANIMATION"
+    },
+    "description": {
+      "pt": "Animação de logo fluida e direta ao ponto. Uma revelação profissional que dá vida à marca de forma orgânica e bem resolvida no motion.",
+      "en": "A fluid, straight-to-the-point logo animation. A professional reveal that brings the brand to life in an organic, well-crafted motion piece."
+    },
+    "tags": {
+      "pt": ["Logo", "Motion", "Branding"],
+      "en": ["Logo", "Motion", "Branding"]
+    }
   },
   {
     "id": "podcast-cut-1",
-    "title": "CORTE PODCAST 1",
-    "category": "editing",
+    "type": "video",
     "subcategory": "podcast",
     "orientation": "vertical",
     "featured": false,
     "order": 6,
-    "description": "Corte de podcast dinâmico focado em tópicos de alta retenção. Formato vertical pensado para YouTube Shorts.",
     "client": "Série de Podcast",
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/0yxV8XFZ-AE",
     "previewUrl": "assets/previews/podcast1.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Vertical",
-      "Podcast",
-      "Shorts"
-    ]
+    "title": {
+      "pt": "CORTE PODCAST 1",
+      "en": "PODCAST CUT 1"
+    },
+    "description": {
+      "pt": "Corte de podcast dinâmico focado em tópicos de alta retenção. Formato vertical pensado para YouTube Shorts.",
+      "en": "Dynamic podcast cut focused on high-retention topics. Vertical format built for YouTube Shorts."
+    },
+    "tags": {
+      "pt": ["Vertical", "Podcast", "Shorts"],
+      "en": ["Vertical", "Podcast", "Shorts"]
+    }
   },
   {
     "id": "podcast-cut-2",
-    "title": "CORTE PODCAST 2",
-    "category": "editing",
+    "type": "video",
     "subcategory": "podcast",
     "orientation": "vertical",
     "featured": false,
     "order": 7,
-    "description": "Corte de podcast dinâmico focado em tópicos de alta retenção. Formato vertical pensado para YouTube Shorts.",
     "client": "Série de Podcast",
     "date": "2026-06",
     "videoUrl": "https://youtube.com/shorts/cZzEg0UpHb4",
     "previewUrl": "assets/previews/podcast2.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1581368135153-a506cf13b1e1?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Vertical",
-      "Podcast",
-      "Shorts"
-    ]
+    "title": {
+      "pt": "CORTE PODCAST 2",
+      "en": "PODCAST CUT 2"
+    },
+    "description": {
+      "pt": "Corte de podcast dinâmico focado em tópicos de alta retenção. Formato vertical pensado para YouTube Shorts.",
+      "en": "Dynamic podcast cut focused on high-retention topics. Vertical format built for YouTube Shorts."
+    },
+    "tags": {
+      "pt": ["Vertical", "Podcast", "Shorts"],
+      "en": ["Vertical", "Podcast", "Shorts"]
+    }
   },
   {
     "id": "sameday04",
-    "title": "SAME DAY EDIT - EVENTO PRINCIPAL",
-    "category": "events",
+    "type": "video",
     "subcategory": "samedayedit",
-    "featured": false,
+    "orientation": "horizontal",
+    "featured": true,
     "order": 8,
-    "description": "Aftermovie gravado, editado e exibido no mesmo dia. Edição ritmada de altíssima velocidade para manter a energia do evento no topo.",
     "client": "Evento Principal",
     "date": "2026-05",
     "videoUrl": "https://youtu.be/-XNmHMceOL8",
     "previewUrl": "assets/previews/sameday04.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=80",
-    "tags": [
-      "Same Day Edit",
-      "Aftermovie",
-      "Energia",
-      "Widescreen"
-    ]
+    "title": {
+      "pt": "SAME DAY EDIT - EVENTO PRINCIPAL",
+      "en": "SAME DAY EDIT - MAIN EVENT"
+    },
+    "description": {
+      "pt": "Aftermovie gravado, editado e exibido no mesmo dia. Edição ritmada de altíssima velocidade para manter a energia do evento no topo.",
+      "en": "Aftermovie shot, edited and screened on the very same day. High-speed, rhythmic editing to keep the event's energy at its peak."
+    },
+    "tags": {
+      "pt": ["Same Day Edit", "Aftermovie", "Energia"],
+      "en": ["Same Day Edit", "Aftermovie", "Energy"]
+    }
   },
   {
     "id": "futsal01",
-    "title": "FUTSAL CHAMPIONS HIGHLIGHTS",
-    "category": "events",
+    "type": "video",
     "subcategory": "esportes",
+    "orientation": "horizontal",
     "featured": false,
     "order": 9,
-    "description": "Teaser agressivo para a final do campeonato de futsal. Velocidade da bola ditando os cortes, sound design pesado e foco total no impacto.",
     "client": "Futsal League",
     "date": "2026-04",
     "videoUrl": "https://youtu.be/_cHcLPJayJI",
     "previewUrl": "assets/previews/futsal01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&w=1600&q=80",
-    "tags": [
-      "Esportes",
-      "Futsal",
-      "Cortes Rápidos",
-      "Sound Design"
-    ]
+    "title": {
+      "pt": "FUTSAL CHAMPIONS HIGHLIGHTS",
+      "en": "FUTSAL CHAMPIONS HIGHLIGHTS"
+    },
+    "description": {
+      "pt": "Teaser agressivo para a final do campeonato de futsal. Velocidade da bola ditando os cortes, sound design pesado e foco total no impacto.",
+      "en": "An aggressive teaser for the futsal championship final. The ball's speed dictates the cuts, with heavy sound design and total focus on impact."
+    },
+    "tags": {
+      "pt": ["Esportes", "Futsal", "Cortes Rápidos"],
+      "en": ["Sports", "Futsal", "Fast Cuts"]
+    }
   },
   {
     "id": "drift01",
-    "title": "DRIFT CINEMATICS",
-    "category": "editing",
+    "type": "video",
     "subcategory": "automotivo",
     "orientation": "vertical",
     "featured": true,
     "order": 10,
-    "description": "Edição insana e dinâmica focada no cenário automobilístico de Drift. Formato vertical pensado nativamente para retenção absurda no mobile.",
     "client": "Drift Series",
     "date": "2026-03",
     "videoUrl": "https://youtube.com/shorts/oRawt81rJAY",
     "previewUrl": "assets/previews/drift01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1600&q=80",
-    "tags": [
-      "Vertical",
-      "Automotivo",
-      "Velocidade",
-      "Mobile"
-    ]
+    "title": {
+      "pt": "DRIFT CINEMATICS",
+      "en": "DRIFT CINEMATICS"
+    },
+    "description": {
+      "pt": "Edição insana e dinâmica focada no cenário automobilístico de Drift. Formato vertical pensado nativamente para retenção absurda no mobile.",
+      "en": "Insane, dynamic editing focused on the drift racing scene. Vertical format built natively for absurd retention on mobile."
+    },
+    "tags": {
+      "pt": ["Vertical", "Automotivo", "Velocidade"],
+      "en": ["Vertical", "Automotive", "Speed"]
+    }
   },
   {
     "id": "ldjr01",
-    "title": "LDJR EXPERIENCE",
-    "category": "events",
+    "type": "video",
     "subcategory": "aftermovie",
+    "orientation": "horizontal",
     "featured": false,
     "order": 11,
-    "description": "Imersão completa no evento LDJR. Uma jornada audiovisual em formato widescreen de cinema com tratamento de cor cinematográfico.",
     "client": "LDJR Tour",
     "date": "2026-02",
     "videoUrl": "https://youtu.be/2a20iJjK7oA",
     "previewUrl": "assets/previews/ldjr01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1540039155733-d76e6c4849ec?auto=format&fit=crop&w=1600&q=80",
-    "tags": [
-      "Aftermovie",
-      "Show",
-      "Cinematográfico",
-      "Color Grading"
-    ]
+    "title": {
+      "pt": "LDJR EXPERIENCE",
+      "en": "LDJR EXPERIENCE"
+    },
+    "description": {
+      "pt": "Imersão completa no evento LDJR. Uma jornada audiovisual em formato widescreen de cinema com tratamento de cor cinematográfico.",
+      "en": "Full immersion into the LDJR event. A widescreen, cinema-format audiovisual journey with cinematic color treatment."
+    },
+    "tags": {
+      "pt": ["Aftermovie", "Show", "Color Grading"],
+      "en": ["Aftermovie", "Show", "Color Grading"]
+    }
   },
   {
     "id": "sameday01",
-    "title": "SAME DAY EDIT - DIA 1",
-    "category": "events",
+    "type": "video",
     "subcategory": "samedayedit",
+    "orientation": "horizontal",
     "featured": false,
     "order": 12,
-    "description": "Abertura do festival com cortes sincronizados no beat. Material entregue no mesmo dia do evento.",
     "client": "Festival Dia 1",
     "date": "2026-01",
     "videoUrl": "https://youtu.be/M9wujVLJ5GI",
     "previewUrl": "assets/previews/sameday01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1600&q=80",
-    "tags": [
-      "Same Day Edit",
-      "Música"
-    ]
+    "title": {
+      "pt": "SAME DAY EDIT - DIA 1",
+      "en": "SAME DAY EDIT - DAY 1"
+    },
+    "description": {
+      "pt": "Abertura do festival com cortes sincronizados no beat. Material entregue no mesmo dia do evento.",
+      "en": "Festival opening with cuts synced to the beat. Footage delivered on the same day as the event."
+    },
+    "tags": {
+      "pt": ["Same Day Edit", "Música"],
+      "en": ["Same Day Edit", "Music"]
+    }
   },
   {
     "id": "sameday02",
-    "title": "SAME DAY EDIT - DIA 2",
-    "category": "events",
+    "type": "video",
     "subcategory": "samedayedit",
+    "orientation": "horizontal",
     "featured": false,
     "order": 13,
-    "description": "Segundo dia de festival. Picos de energia acompanhados de uma decupagem agressiva e moderna.",
     "client": "Festival Dia 2",
     "date": "2026-01",
     "videoUrl": "https://youtu.be/6o3ANYnXrgE",
     "previewUrl": "assets/previews/sameday02.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1600&q=80",
-    "tags": [
-      "Same Day Edit",
-      "Festivais"
-    ]
+    "title": {
+      "pt": "SAME DAY EDIT - DIA 2",
+      "en": "SAME DAY EDIT - DAY 2"
+    },
+    "description": {
+      "pt": "Segundo dia de festival. Picos de energia acompanhados de uma decupagem agressiva e moderna.",
+      "en": "Second day of the festival. Peaks of energy matched by an aggressive, modern shot breakdown."
+    },
+    "tags": {
+      "pt": ["Same Day Edit", "Festivais"],
+      "en": ["Same Day Edit", "Festivals"]
+    }
   },
   {
     "id": "sameday03",
-    "title": "SAME DAY EDIT - DIA 3",
-    "category": "events",
+    "type": "video",
     "subcategory": "samedayedit",
+    "orientation": "horizontal",
     "featured": false,
     "order": 14,
-    "description": "Encerramento explosivo. Fechamento do material captação/edição in-loco garantindo impacto nas redes em tempo real.",
     "client": "Festival Dia 3",
     "date": "2026-01",
     "videoUrl": "https://youtu.be/-NOFgKQvNAo",
     "previewUrl": "assets/previews/sameday03.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1533174000255-12dc36a61763?auto=format&fit=crop&w=1600&q=80",
-    "tags": [
-      "Same Day Edit",
-      "Explosivo",
-      "VFX"
-    ]
+    "title": {
+      "pt": "SAME DAY EDIT - DIA 3",
+      "en": "SAME DAY EDIT - DAY 3"
+    },
+    "description": {
+      "pt": "Encerramento explosivo. Fechamento do material com captação e edição in-loco garantindo impacto nas redes em tempo real.",
+      "en": "An explosive closing. On-site capture and editing wrapped up to guarantee real-time impact on social media."
+    },
+    "tags": {
+      "pt": ["Same Day Edit", "Explosivo", "VFX"],
+      "en": ["Same Day Edit", "Explosive", "VFX"]
+    }
   },
   {
     "id": "skoria01",
-    "title": "SKORIA SOCIAL TEASER",
-    "category": "editing",
+    "type": "video",
     "subcategory": "moda",
     "orientation": "vertical",
     "featured": false,
     "order": 15,
-    "description": "Peça brutal e veloz montada no formato mobile para a marca Skoria. Retenção de tela baseada em microcortes.",
     "client": "Skoria",
     "date": "2025-12",
     "videoUrl": "https://youtube.com/shorts/kN-DsB2VsO4",
     "previewUrl": "assets/previews/skoria01.mp4",
     "thumbnailUrl": "https://images.unsplash.com/photo-1552072092-7f9b8d63efcb?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Vertical",
-      "Moda/Marca",
-      "Social Media",
-      "Mobile"
-    ]
+    "title": {
+      "pt": "SKORIA SOCIAL TEASER",
+      "en": "SKORIA SOCIAL TEASER"
+    },
+    "description": {
+      "pt": "Peça brutal e veloz montada no formato mobile para a marca Skoria. Retenção de tela baseada em microcortes.",
+      "en": "A brutal, fast-paced piece built in mobile format for the Skoria brand. Screen retention driven by micro-cuts."
+    },
+    "tags": {
+      "pt": ["Vertical", "Moda/Marca", "Social Media"],
+      "en": ["Vertical", "Fashion/Brand", "Social Media"]
+    }
+  },
+  {
+    "id": "banner-duelo",
+    "type": "image",
+    "subcategory": "design",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 16,
+    "client": "eSports",
+    "date": "2024-02",
+    "imageUrl": "assets/banners/full/duelo.jpg",
+    "thumbnailUrl": "assets/banners/thumbs/duelo.jpg",
+    "title": {
+      "pt": "FINAL BOSS — VCT",
+      "en": "FINAL BOSS — VCT"
+    },
+    "description": {
+      "pt": "Banner de confronto de eSports para o VCT Americas. Lineup completo com recortes, texturas e tipografia brutal para anunciar a partida nas redes.",
+      "en": "eSports matchup banner for VCT Americas. Full lineup with cutouts, textures and brutal typography to announce the match on social media."
+    },
+    "tags": {
+      "pt": ["Banner", "Valorant", "eSports"],
+      "en": ["Banner", "Valorant", "eSports"]
+    }
+  },
+  {
+    "id": "banner-vini",
+    "type": "image",
+    "subcategory": "design",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 17,
+    "client": "Futebol",
+    "date": "2024-01",
+    "imageUrl": "assets/banners/full/vini-jr.jpg",
+    "thumbnailUrl": "assets/banners/thumbs/vini-jr.jpg",
+    "title": {
+      "pt": "VINI JR. — HAT-TRICK",
+      "en": "VINI JR. — HAT-TRICK"
+    },
+    "description": {
+      "pt": "Banner comemorativo de hat-trick com múltiplos recortes do atleta, tipografia manuscrita e composição que celebra o momento do jogo.",
+      "en": "Hat-trick celebration banner with multiple athlete cutouts, handwritten typography and a composition that celebrates the moment of the match."
+    },
+    "tags": {
+      "pt": ["Banner", "Futebol", "Social Media"],
+      "en": ["Banner", "Football", "Social Media"]
+    }
+  },
+  {
+    "id": "banner-yamal",
+    "type": "image",
+    "subcategory": "design",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 18,
+    "client": "Futebol",
+    "date": "2026-04",
+    "imageUrl": "assets/banners/full/lamine-yamal.jpg",
+    "thumbnailUrl": "assets/banners/thumbs/lamine-yamal.jpg",
+    "title": {
+      "pt": "LAMINE YAMAL",
+      "en": "LAMINE YAMAL"
+    },
+    "description": {
+      "pt": "Banner de destaque de jogo da Champions League com tratamento de cor vibrante, dupla exposição e tipografia manuscrita sobre a cena.",
+      "en": "Champions League matchday highlight banner with vibrant color treatment, double exposure and handwritten typography over the scene."
+    },
+    "tags": {
+      "pt": ["Banner", "Futebol", "Design"],
+      "en": ["Banner", "Football", "Design"]
+    }
+  },
+  {
+    "id": "banner-wolves",
+    "type": "image",
+    "subcategory": "design",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 19,
+    "client": "Futebol Americano",
+    "date": "2023-10",
+    "imageUrl": "assets/banners/full/wolves.jpg",
+    "thumbnailUrl": "assets/banners/thumbs/wolves.jpg",
+    "title": {
+      "pt": "WOLVES — GAMEDAY",
+      "en": "WOLVES — GAMEDAY"
+    },
+    "description": {
+      "pt": "Banner de gameday para time de futebol americano. Atmosfera pesada, grafite tipográfico e informações do confronto direto no layout.",
+      "en": "Gameday banner for an American football team. Heavy atmosphere, typographic graffiti and matchup info built right into the layout."
+    },
+    "tags": {
+      "pt": ["Banner", "Futebol Americano", "Gameday"],
+      "en": ["Banner", "American Football", "Gameday"]
+    }
+  },
+  {
+    "id": "banner-brunno",
+    "type": "image",
+    "subcategory": "design",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 20,
+    "client": "Vôlei",
+    "date": "2024-01",
+    "imageUrl": "assets/banners/full/brunno.jpg",
+    "thumbnailUrl": "assets/banners/thumbs/brunno.jpg",
+    "title": {
+      "pt": "BRUNNO — VÔLEI",
+      "en": "BRUNNO — VOLLEYBALL"
+    },
+    "description": {
+      "pt": "Banner de atleta de vôlei com múltiplos recortes, paleta clara e texturas que dão movimento à composição.",
+      "en": "Volleyball athlete banner with multiple cutouts, a light palette and textures that bring movement to the composition."
+    },
+    "tags": {
+      "pt": ["Banner", "Vôlei", "Atleta"],
+      "en": ["Banner", "Volleyball", "Athlete"]
+    }
+  },
+  {
+    "id": "banner-joao-pedro",
+    "type": "image",
+    "subcategory": "design",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 21,
+    "client": "Futsal",
+    "date": "2024-01",
+    "imageUrl": "assets/banners/full/joao-pedro.jpg",
+    "thumbnailUrl": "assets/banners/thumbs/joao-pedro.jpg",
+    "title": {
+      "pt": "JOÃO PEDRO — FUTSAL",
+      "en": "JOÃO PEDRO — FUTSAL"
+    },
+    "description": {
+      "pt": "Banner de destaque individual de atleta de futsal, com dupla exposição, efeitos de luz e paleta coesa com a identidade do clube.",
+      "en": "Individual highlight banner for a futsal athlete, with double exposure, light effects and a palette cohesive with the club's identity."
+    },
+    "tags": {
+      "pt": ["Banner", "Futsal", "Atleta"],
+      "en": ["Banner", "Futsal", "Athlete"]
+    }
+  },
+  {
+    "id": "banner-lucas",
+    "type": "image",
+    "subcategory": "design",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 22,
+    "client": "Natação",
+    "date": "2024-02",
+    "imageUrl": "assets/banners/full/lucas.jpg",
+    "thumbnailUrl": "assets/banners/thumbs/lucas.jpg",
+    "title": {
+      "pt": "LUCAS — NATAÇÃO",
+      "en": "LUCAS — SWIMMING"
+    },
+    "description": {
+      "pt": "Banner de atleta de natação congelando o momento do salto, com recortes sobrepostos e alto contraste para máximo impacto no feed.",
+      "en": "Swimming athlete banner freezing the dive, with layered cutouts and high contrast for maximum impact on the feed."
+    },
+    "tags": {
+      "pt": ["Banner", "Natação", "Atleta"],
+      "en": ["Banner", "Swimming", "Athlete"]
+    }
   }
 ]

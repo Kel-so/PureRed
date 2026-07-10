@@ -3,65 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#121318">
+  <meta name="theme-color" content="#08080a">
   <meta name="format-detection" content="telephone=no">
-  
-  <!-- SEO Meta Tags -->
-  <title>PureRed | Editor & Filmmaker Portfolio</title>
-  <meta name="description" content="Professional portfolio of Kel-so (Kelson Felipe). High-energy video editor, eSports teasers, commercial, sound design and event aftermovie production.">
-  <meta name="keywords" content="edição de vídeo, video editor, aftermovie, eSports, teaser, sound design, premiere pro, after effects, eventos, portfólio">
-  <meta name="author" content="Kelson Felipe">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a0a0c%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23FF003C%22/></svg>">
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=2">
+  <!-- SEO -->
+  <title>PureRed — Kelson Budin | Editor de Vídeo & Motion Designer</title>
+  <meta name="description" content="Portfólio de Kelson Budin (PureRed). Edição de vídeo de alta energia: gaming e eSports, aftermovies de eventos, Same Day Edit, cortes de podcast, motion design e banners esportivos.">
+  <meta name="keywords" content="edição de vídeo, video editor, aftermovie, eSports, gaming, same day edit, cortes de podcast, motion design, banners esportivos, premiere pro, after effects">
+  <meta name="author" content="Kelson Budin">
+  <meta property="og:title" content="PureRed — Kelson Budin | Editor de Vídeo & Motion Designer">
+  <meta property="og:description" content="Edição de vídeo de alta energia: gaming, eventos, podcast, motion design e banners esportivos.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2308080a%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23FF003C%22/></svg>">
+
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
-  <!-- Cyber Glow Background -->
-  <div class="bg-glow-container">
+  <!-- Background glow -->
+  <div class="bg-glow-container" aria-hidden="true">
     <div class="bg-glow-1"></div>
     <div class="bg-glow-2"></div>
   </div>
 
-  <!-- Header -->
+  <!-- ===== Header ===== -->
   <header>
     <div class="container nav-container">
       <a href="#" class="logo" id="logo">
         <span class="logo-dot"></span>Pure<span>Red</span>
       </a>
-      
+
       <nav id="nav-menu">
         <ul>
+          <li><a href="#servicos">Serviços</a></li>
           <li><a href="#trabalhos">Trabalhos</a></li>
-          <li><a href="#sobre">Sobre Mim</a></li>
+          <li><a href="valores.html">Valores</a></li>
+          <li><a href="projetos-especiais.html">Projetos Especiais</a></li>
+          <li><a href="#sobre">Sobre</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
       </nav>
-      
-      <a href="index-en.html" class="lang-switch" title="Switch to English">EN</a>
-      <button type="button" class="nav-cta" id="contact-modal-trigger">Fale Comigo</button>
 
-      <!-- Mobile Nav Trigger -->
+      <div class="nav-actions">
+        <a href="index-en.html" class="lang-switch" title="Switch to English">EN</a>
+        <button type="button" class="nav-cta" id="contact-modal-trigger">Fale Comigo</button>
+      </div>
+
       <button class="mobile-nav-toggle" id="mobile-menu-toggle" aria-label="Abrir menu">
-        <svg viewBox="0 0 24 24">
-          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
       </button>
     </div>
   </header>
 
-    <!-- Hero Section -->
+  <!-- ===== Hero ===== -->
   <section class="hero" id="inicio">
-    <div class="container">
+    <div class="container hero-grid">
       <div class="hero-content">
-        <div class="tagline">Editor & Filmmaker</div>
-        <h1>CORTES QUE <span class="highlight-red">IMPACTAM.</span><br>EDIÇÃO <span class="highlight-red">SEM FREIO.</span></h1>
-        <!-- Video Feature in Hero -->
-        <div class="showreel-container" id="main-reel-trigger" style="margin-top: 1rem; margin-bottom: 0.5rem;" data-video="https://youtu.be/-XNmHMceOL8" data-title="SAME DAY EDIT - EVENTO PRINCIPAL" data-client="Evento Principal" data-date="2026-05" data-description="Aftermovie gravado, editado e exibido no mesmo dia. Edição ritmada de altíssima velocidade para manter a energia do evento no topo.">
-          <img src="assets/thumbnails/main_thumb.jpg" alt="Vídeo Destaque">
+        <div class="hero-kicker">
+          <span class="kicker-dot"></span> Kelson Budin — Editor de Vídeo &amp; Motion Designer
+        </div>
+        <h1>EDIÇÃO QUE <span class="highlight-red">PRENDE</span>.<br>DO PRIMEIRO AO <span class="highlight-red">ÚLTIMO SEGUNDO</span>.</h1>
+        <p class="hero-sub">Transformo material bruto em vídeos com ritmo agressivo, sound design cravado e identidade visual forte — para gaming, eventos, podcasts e marcas que precisam se destacar no feed.</p>
+
+        <div class="hero-actions">
+          <a href="#trabalhos" class="btn-brutal">Ver Portfólio</a>
+          <a href="projetos-especiais.html" class="btn-brutal btn-white">Pedir Orçamento</a>
+        </div>
+
+        <ul class="hero-facts">
+          <li><strong>Same Day Edit</strong><span>vídeo entregue no dia do evento</span></li>
+          <li><strong>PT / EN</strong><span>atendimento em dois idiomas</span></li>
+          <li><strong>Resposta em 24h</strong><span>briefing direto, sem enrolação</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-reel">
+        <div class="showreel-container" id="main-reel-trigger"
+             data-video="https://youtu.be/-XNmHMceOL8"
+             data-title="SAME DAY EDIT - EVENTO PRINCIPAL"
+             data-client="Evento Principal"
+             data-date="2026-05"
+             data-description="Aftermovie gravado, editado e exibido no mesmo dia. Edição ritmada de altíssima velocidade para manter a energia do evento no topo.">
+          <img src="assets/thumbnails/main_thumb.jpg" alt="Vídeo em destaque — Same Day Edit">
           <div class="showreel-overlay">
             <div class="play-badge">
               <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -72,219 +97,283 @@
             </div>
           </div>
         </div>
-
-        <p style="margin: 0 auto;">Transformo gravações brutas em narrativas audiovisuais dinâmicas. Especializado em edição de vídeo, motion design e projetos com estética urbana e moderna.</p>
-        <div class="hero-actions" style="justify-content: center; margin-top: 1rem;">
-          <a href="#trabalhos" class="btn-brutal">Ver Portfólio</a>
-          <a href="#contato" class="btn-brutal btn-white">Entrar em Contato</a>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Marquee Text Ribbon -->
-  <div class="marquee-container">
+  <!-- ===== Marquee ===== -->
+  <div class="marquee-container" aria-hidden="true">
     <div class="marquee-content">
-      CORTE BRUTAL • EDIÇÃO DE ALTA ENERGIA • SOUND DESIGN AGRESSIVO • AFTERMOVIES • ESPORTS TEASERS <span>PURE RED STUDIO</span> CORTE BRUTAL • EDIÇÃO DE ALTA ENERGIA • SOUND DESIGN AGRESSIVO • AFTERMOVIES • ESPORTS TEASERS <span>PURE RED STUDIO</span>
+      GAMING &amp; ESPORTS • AFTERMOVIES • SAME DAY EDIT • CORTES DE PODCAST • MOTION DESIGN • BANNERS ESPORTIVOS <span>PURE RED</span> GAMING &amp; ESPORTS • AFTERMOVIES • SAME DAY EDIT • CORTES DE PODCAST • MOTION DESIGN • BANNERS ESPORTIVOS <span>PURE RED</span>
     </div>
   </div>
 
-  <!-- Featured / Destaques Section -->
+  <!-- ===== Destaques ===== -->
   <section id="destaques" class="featured-section">
     <div class="container">
       <div class="section-header">
+        <div class="section-tag">Seleção curada</div>
         <h2 class="section-title">Melhores <span>Trabalhos</span></h2>
-        <p>Uma seleção curada dos projetos que melhor representam o meu trabalho.</p>
+        <p>Os projetos que melhor representam o meu padrão de entrega.</p>
       </div>
 
-      <!-- Featured Grid (Populated by app.js) -->
-      <div id="featured-grid" class="portfolio-grid featured-grid">
-        <!-- Cards will load dynamically here -->
+      <div id="featured-grid" class="portfolio-grid featured-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===== Serviços / Áreas de Foco ===== -->
+  <section id="servicos" class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">O que eu faço</div>
+        <h2 class="section-title">Áreas de <span>Foco</span></h2>
+        <p>Quatro frentes, um mesmo padrão: retenção, ritmo e acabamento profissional.</p>
+      </div>
+
+      <div class="services-grid">
+        <a class="service-card" href="#sub-gaming">
+          <div class="service-num">01</div>
+          <h3>Gaming &amp; eSports</h3>
+          <p>Edits de gameplay, montagens de highlights e teasers de campeonato com sync cravado na música e VFX que valorizam a play.</p>
+          <ul>
+            <li>Valorant, CS e FPS em geral</li>
+            <li>Highlights de times e streamers</li>
+            <li>Teasers de campeonato</li>
+          </ul>
+          <span class="service-link">Ver projetos →</span>
+        </a>
+
+        <a class="service-card" href="#sub-samedayedit">
+          <div class="service-num">02</div>
+          <h3>Eventos &amp; Aftermovies</h3>
+          <p>Cobertura de festivais, shows e eventos esportivos — incluindo Same Day Edit: o vídeo pronto e exibido no mesmo dia do evento.</p>
+          <ul>
+            <li>Same Day Edit</li>
+            <li>Aftermovies cinematográficos</li>
+            <li>Teasers de divulgação</li>
+          </ul>
+          <span class="service-link">Ver projetos →</span>
+        </a>
+
+        <a class="service-card" href="#sub-podcast">
+          <div class="service-num">03</div>
+          <h3>Social &amp; Podcast</h3>
+          <p>Cortes verticais pensados para retenção: legendas dinâmicas, zooms, sound design e ritmo calibrado para Shorts, Reels e TikTok.</p>
+          <ul>
+            <li>Cortes de podcast</li>
+            <li>Conteúdo vertical para marcas</li>
+            <li>Formato nativo mobile</li>
+          </ul>
+          <span class="service-link">Ver projetos →</span>
+        </a>
+
+        <a class="service-card" href="#sub-design">
+          <div class="service-num">04</div>
+          <h3>Motion &amp; Design</h3>
+          <p>Intros, animações de logo e banners esportivos com recorte, tratamento de cor e tipografia de impacto para as redes do seu time ou marca.</p>
+          <ul>
+            <li>Banners esportivos e matchday</li>
+            <li>Animação de logo e intros</li>
+            <li>Identidade visual para conteúdo</li>
+          </ul>
+          <span class="service-link">Ver projetos →</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Portfolio Section -->
+  <!-- ===== Trabalhos ===== -->
   <section id="trabalhos" class="portfolio-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Trabalhos <span>Recentes</span></h2>
+        <div class="section-tag">Portfólio completo</div>
+        <h2 class="section-title">Trabalhos por <span>Categoria</span></h2>
+        <p>Passe o mouse para pré-visualizar. Clique para assistir com som.</p>
       </div>
 
-      <!-- Quick Navigation Chips (jump to each category section) -->
-      <div class="filter-menu" id="section-nav">
-        <!-- Chips are populated by app.js based on available subcategories -->
-      </div>
-
-      <!-- Portfolio Sections (Populated by app.js, grouped by subcategory) -->
-      <div id="portfolio-sections">
-        <!-- Subsections will load dynamically here -->
-      </div>
+      <div class="filter-menu" id="section-nav"></div>
+      <div id="portfolio-sections"></div>
     </div>
   </section>
 
-  <!-- About / Experience Section -->
+  <!-- ===== Sobre ===== -->
   <section id="sobre" class="about-section">
     <div class="container about-grid">
       <div class="about-text">
-        <div class="tagline" style="transform: rotate(1deg);">Minha Jornada</div>
-        <h2>CRIANDO HISTÓRIAS EM <span class="highlight-red">ALTA VELOCIDADE.</span></h2>
-        <p>Sou um editor de vídeo e filmmaker focado em narrativas modernas e dinâmicas que capturam a atenção instantaneamente. Minhas influências vêm do cinema independente, cultura urbana e estética contemporânea.</p>
-        <p>Trabalho transformando material bruto em peças de comunicação com ritmo agressivo, sound design impecável e color grading vibrante. Seja um teaser de 30 segundos ou um aftermovie de 10 minutos, o objetivo é o mesmo: prender a atenção e causar impacto visual.</p>
-        
-        
+        <div class="section-tag">Quem edita</div>
+        <h2>KELSON <span class="highlight-red">BUDIN</span></h2>
+        <p class="about-lead">Editor de vídeo e motion designer, criando conteúdo de alta energia para gaming, eventos e marcas.</p>
+        <p>Meu trabalho é transformar material bruto em vídeos que seguram a atenção do início ao fim: ritmo agressivo quando o conteúdo pede velocidade, respiro quando a história precisa de peso. Sound design, color grading e motion fazem parte de toda entrega — não são extras.</p>
+        <p>Atendo clientes no Brasil e no exterior, em português e inglês, com comunicação direta e prazos claros. Se o seu conteúdo precisa competir por atenção, é exatamente aí que eu trabalho.</p>
+
+        <div class="about-cta">
+          <button type="button" class="btn-brutal" id="about-contact-trigger">Vamos conversar</button>
+        </div>
       </div>
-      
+
       <div class="skills-container">
-        <!-- Skill categories -->
         <div class="skills-category">
-          <h4>Ferramentas Principais</h4>
+          <h4>Ferramentas</h4>
           <div class="skills-list">
             <div class="skill-tag">Adobe Premiere Pro</div>
             <div class="skill-tag">Adobe After Effects</div>
             <div class="skill-tag">DaVinci Resolve</div>
             <div class="skill-tag">Adobe Photoshop</div>
-            <div class="skill-tag">Audition (Sound Design)</div>
+            <div class="skill-tag">Adobe Audition</div>
           </div>
         </div>
-        
+
         <div class="skills-category">
-          <h4>Especialidades Criativas</h4>
+          <h4>Especialidades</h4>
           <div class="skills-list">
             <div class="skill-tag">Cortes Dinâmicos</div>
-            <div class="skill-tag">Sound Design Avançado</div>
+            <div class="skill-tag">Sound Design</div>
             <div class="skill-tag">Color Grading</div>
-            <div class="skill-tag">Aftermovies de Eventos</div>
-            <div class="skill-tag">Teasers Comerciais</div>
-            <div class="skill-tag">Direção Rítmica</div>
+            <div class="skill-tag">Same Day Edit</div>
+            <div class="skill-tag">Motion Design</div>
+            <div class="skill-tag">Design para Esportes</div>
           </div>
         </div>
+
+        <div class="skills-category">
+          <h4>Atendimento</h4>
+          <div class="skills-list">
+            <div class="skill-tag">Português &amp; Inglês</div>
+            <div class="skill-tag">Remoto (Brasil e exterior)</div>
+            <div class="skill-tag">Presencial para eventos</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
+  <!-- ===== Processo ===== -->
+  <section id="processo" class="process-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Como funciona</div>
+        <h2 class="section-title">Do briefing à <span>Entrega</span></h2>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h3>Briefing</h3>
+          <p>Você me conta o objetivo, o prazo e manda as referências. Eu respondo em até 24h com as perguntas certas.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h3>Proposta</h3>
+          <p>Escopo, prazo e valor fechados por escrito. Sem surpresa no meio do caminho.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h3>Produção</h3>
+          <p>Edição com preview para você acompanhar e rodadas de ajuste combinadas no escopo.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <h3>Entrega</h3>
+          <p>Arquivo final em todos os formatos que você precisa: horizontal, vertical, versões para cada rede.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contato ===== -->
   <section id="contato" class="contact-section">
     <div class="container contact-grid">
       <div class="contact-info">
-        <div class="tagline">Conexões</div>
+        <div class="section-tag">Contato</div>
         <h2>VAMOS CRIAR ALGO <br><span class="highlight-red">INCRÍVEL JUNTOS?</span></h2>
-        <p>Estou sempre aberto a novos projetos de edição, aftermovies de eventos ou parcerias comerciais. Me envie um e-mail sobre o seu projeto!</p>
-        
+        <p>Me conte sobre o seu projeto, prazos e referências. Respondo em até 24 horas — geralmente bem antes.</p>
+
         <div class="contact-details-list">
           <div class="contact-detail-item">
-            <h5>E-mail Profissional</h5>
-            <p><a href="mailto:kelson.felp@gmail.com">kelson.felp@gmail.com</a></p>
-          </div>
-          <div class="contact-detail-item">
-            <h5>Telefone / WhatsApp</h5>
+            <h5>WhatsApp</h5>
             <p><a href="https://wa.me/5514991223598" target="_blank" rel="noopener">+55 (14) 99122-3598</a></p>
           </div>
           <div class="contact-detail-item">
-            <h5>Localização</h5>
-            <p>Londrina, PR - Disponível para viagens</p>
+            <h5>E-mail</h5>
+            <p><a href="mailto:kelson.felp@gmail.com">kelson.felp@gmail.com</a></p>
+          </div>
+          <div class="contact-detail-item">
+            <h5>Base</h5>
+            <p>Londrina, PR — Brasil (disponível para viagens)</p>
           </div>
         </div>
-        
-        <div class="social-links">
-          <!-- WhatsApp Icon -->
-          <a href="#" class="social-btn" title="WhatsApp">
-            <svg viewBox="0 0 24 24">
-              <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 001.333 4.993L2 22l5.13-1.347a9.96 9.96 0 004.882 1.277h.005c5.505 0 9.989-4.478 9.99-9.985A9.993 9.993 0 0012.012 2zm5.782 14.156c-.247.696-1.203 1.256-1.656 1.302-.454.047-.9-.124-2.879-.9a10.026 10.026 0 01-4.762-4.186c-.534-.712-.855-1.543-.855-2.422 0-1.848 1.455-2.222 1.696-2.222.18 0 .36.009.52.017.18.009.38-.033.58.455.248.605.85 2.073.923 2.222.074.15.124.323.025.52-.1.198-.15.323-.3.497-.15.174-.315.389-.45.522-.165.163-.338.34-.143.68.196.34.87 1.43 1.868 2.316.99.88 1.824 1.15 2.086 1.28.263.132.413.108.57-.074.157-.182.67-.778.85-1.043.18-.265.36-.223.608-.132.247.09 1.572.744 1.84.876.268.132.447.198.513.314.066.115.066.67-.18 1.366z"/>
-            </svg>
-          </a>
-          <!-- Instagram Icon -->
-          <a href="#" class="social-btn" title="Instagram">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-            </svg>
-          </a>
-          <!-- YouTube Icon -->
-          <a href="#" class="social-btn" title="YouTube">
-            <svg viewBox="0 0 24 24">
-              <path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.002 3.002 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-          </a>
-        </div>
       </div>
-      
+
       <div class="contact-cta-card">
-        <h3>Eleve o padrão visual do seu projeto.</h3>
-        <p>Me conte sobre o seu projeto, os prazos e as referências que você tem em mente. Costumo responder em até 24 horas.</p>
-        <a href="mailto:kelson.felp@gmail.com" class="btn-brutal" style="width: 100%; max-width: 300px;">Enviar E-mail</a>
+        <h3>Pronto para elevar o padrão do seu conteúdo?</h3>
+        <p>Chega mais rápido quem manda: objetivo do vídeo, prazo e uma referência do estilo que você curte.</p>
+        <a href="projetos-especiais.html" class="btn-brutal btn-block">Montar Orçamento Online</a>
+        <a href="https://wa.me/5514991223598?text=Oi%20Kelson!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" class="btn-brutal btn-white btn-block">Chamar no WhatsApp</a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ===== Footer ===== -->
   <footer>
     <div class="container footer-container">
-      <div class="logo" style="font-size: 1.4rem;">
-        <span class="logo-dot" style="width: 8px; height: 8px;"></span>Pure<span>Red</span>
+      <div class="logo footer-logo">
+        <span class="logo-dot"></span>Pure<span>Red</span>
       </div>
       <div class="footer-copy">
-        &copy; 2026 PureRed. Todos os direitos reservados. Design por <span>Kel-so</span>.
+        &copy; 2026 PureRed — Kelson Budin. Todos os direitos reservados.
       </div>
-      <a href="admin.html" class="admin-link">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+      <a href="admin.html" class="admin-link" title="Área administrativa">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
           <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
         </svg>
-        Admin Panel
+        Admin
       </a>
     </div>
   </footer>
 
-  <!-- Universal Lightbox Dialog Component -->
+  <!-- ===== Lightbox (vídeo e imagem) ===== -->
   <dialog id="video-lightbox" class="video-dialog">
     <div class="dialog-header">
-      <div class="dialog-title" id="lightbox-title">Project Title</div>
-      <button class="dialog-close" id="lightbox-close" aria-label="Close modal">
-        <svg viewBox="0 0 24 24">
-          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-        </svg>
+      <div class="dialog-title" id="lightbox-title"></div>
+      <button class="dialog-close" id="lightbox-close" aria-label="Fechar">
+        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
       </button>
     </div>
-    
-    <div class="dialog-body" id="lightbox-media-container">
-      <!-- Media will load here (iframe or native video) -->
-    </div>
-    
+
+    <div class="dialog-body" id="lightbox-media-container"></div>
+
     <div class="dialog-details">
-      <p id="lightbox-desc">Project description...</p>
-      
+      <p id="lightbox-desc"></p>
       <div class="dialog-meta-grid">
         <div class="dialog-meta-item">
-          <h5>Client</h5>
-          <p id="lightbox-client">Client Name</p>
+          <h5>Cliente</h5>
+          <p id="lightbox-client"></p>
         </div>
         <div class="dialog-meta-item">
-          <h5>Project Date</h5>
-          <p id="lightbox-date">January 2026</p>
+          <h5>Data</h5>
+          <p id="lightbox-date"></p>
         </div>
         <div class="dialog-meta-item">
           <h5>Tags</h5>
-          <p id="lightbox-tags">Editing, Sound Design</p>
+          <p id="lightbox-tags"></p>
         </div>
       </div>
     </div>
   </dialog>
 
-  <!-- Contact Choice Modal (WhatsApp or E-mail) -->
+  <!-- ===== Modal de contato (WhatsApp ou E-mail) ===== -->
   <dialog id="contact-modal" class="contact-modal">
     <div class="dialog-header">
       <div class="dialog-title">Como prefere falar comigo?</div>
       <button class="dialog-close" id="contact-modal-close" aria-label="Fechar">
-        <svg viewBox="0 0 24 24">
-          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
       </button>
     </div>
 
     <div class="contact-modal-options">
       <a href="https://wa.me/5514991223598" target="_blank" rel="noopener" class="contact-option">
         <div class="contact-option-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 001.333 4.993L2 22l5.13-1.347a9.96 9.96 0 004.882 1.277h.005c5.505 0 9.989-4.478 9.99-9.985A9.993 9.993 0 0012.012 2zm5.782 14.156c-.247.696-1.203 1.256-1.656 1.302-.454.047-.9-.124-2.879-.9a10.026 10.026 0 01-4.762-4.186c-.534-.712-.855-1.543-.855-2.422 0-1.848 1.455-2.222 1.696-2.222.18 0 .36.009.52.017.18.009.38-.033.58.455.248.605.85 2.073.923 2.222.074.15.124.323.025.52-.1.198-.15.323-.3.497-.15.174-.315.389-.45.522-.165.163-.338.34-.143.68.196.34.87 1.43 1.868 2.316.99.88 1.824 1.15 2.086 1.28.263.132.413.108.57-.074.157-.182.67-.778.85-1.043.18-.265.36-.223.608-.132.247.09 1.572.744 1.84.876.268.132.447.198.513.314.066.115.066.67-.18 1.366z"/>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 001.333 4.993L2 22l5.13-1.347a9.96 9.96 0 004.882 1.277h.005c5.505 0 9.989-4.478 9.99-9.985A9.993 9.993 0 0012.012 2zm5.782 14.156c-.247.696-1.203 1.256-1.656 1.302-.454.047-.9-.124-2.879-.9a10.026 10.026 0 01-4.762-4.186c-.534-.712-.855-1.543-.855-2.422 0-1.848 1.455-2.222 1.696-2.222.18 0 .36.009.52.017.18.009.38-.033.58.455.248.605.85 2.073.923 2.222.074.15.124.323.025.52-.1.198-.15.323-.3.497-.15.174-.315.389-.45.522-.165.163-.338.34-.143.68.196.34.87 1.43 1.868 2.316.99.88 1.824 1.15 2.086 1.28.263.132.413.108.57-.074.157-.182.67-.778.85-1.043.18-.265.36-.223.608-.132.247.09 1.572.744 1.84.876.268.132.447.198.513.314.066.115.066.67-.18 1.366z"/></svg>
         </div>
         <div class="contact-option-text">
           <strong>WhatsApp</strong>
@@ -294,9 +383,7 @@
 
       <a href="mailto:kelson.felp@gmail.com" class="contact-option">
         <div class="contact-option-icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-          </svg>
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
         <div class="contact-option-text">
           <strong>E-mail</strong>
@@ -306,7 +393,6 @@
     </div>
   </dialog>
 
-  <!-- Dynamic Logic JavaScript -->
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
