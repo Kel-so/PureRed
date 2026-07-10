@@ -624,15 +624,21 @@ section {
   border-bottom: var(--border);
 }
 
-/* Masonry por colunas: cards verticais e horizontais se encaixam
-   sem deixar buracos na grade */
+/* Masonry controlado por JS (app.js): os cards são distribuídos em
+   colunas de altura balanceada, preenchendo da esquerda para a direita
+   sem deixar buracos entre cards verticais e horizontais */
 .portfolio-grid {
-  columns: 230px 4;
-  column-gap: 1.2rem;
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
 }
 
-.featured-grid {
-  columns: 260px 3;
+.masonry-col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .project-card {
@@ -641,8 +647,6 @@ section {
   border-radius: var(--radius-md);
   overflow: hidden;
   transition: all 0.25s;
-  break-inside: avoid;
-  margin-bottom: 1.2rem;
 }
 
 .project-card:hover {
@@ -1725,13 +1729,11 @@ dialog::backdrop {
 
   .hero-facts { gap: 1rem 1.6rem; }
 
-  .portfolio-grid,
-  .featured-grid {
-    columns: 2;
-    column-gap: 0.9rem;
+  .portfolio-grid {
+    gap: 0.9rem;
   }
 
-  .project-card { margin-bottom: 0.9rem; }
+  .masonry-col { gap: 0.9rem; }
 
   .card-content { padding: 0.75rem 0.6rem; }
   .card-content h3 { font-size: 0.78rem; }

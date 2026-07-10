@@ -97,6 +97,70 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { rootMargin: '100px' })
     : null;
 
+  // Masonry: distribui os cards em colunas balanceadas pela altura estimada
+  // (conhecida pela proporção de cada card), preenchendo da esquerda para a
+  // direita — sem os buracos que um grid comum deixa entre cards verticais
+  // e horizontais.
+  const masonryRegistry = [];
+
+  function cardAspect(card) {
+    if (card.classList.contains('card-vertical')) return 9 / 16;
+    if (card.classList.contains('card-banner')) return 4 / 5;
+    return 16 / 9;
+  }
+
+  function layoutMasonry(gridEl, cards, maxCols) {
+    const gap = parseFloat(getComputedStyle(gridEl).gap) || 19;
+    const width = gridEl.clientWidth;
+    if (!width) return;
+
+    const colCount = Math.max(2, Math.min(maxCols, Math.floor(width / 250)));
+    const colWidth = (width - gap * (colCount - 1)) / colCount;
+    const captionHeight = 64;
+
+    gridEl.innerHTML = '';
+    const cols = [];
+    for (let i = 0; i < colCount; i++) {
+      const col = document.createElement('div');
+      col.className = 'masonry-col';
+      gridEl.appendChild(col);
+      cols.push({ el: col, h: 0 });
+    }
+
+    // Distribui os cards mais altos primeiro (LPT): colunas terminam com
+    // alturas parecidas. Empates preservam a ordem curada (sort estável).
+    const measured = cards.map(card => ({
+      card,
+      estHeight: colWidth / cardAspect(card) + captionHeight + gap
+    }));
+    measured.sort((a, b) => b.estHeight - a.estHeight);
+
+    measured.forEach(({ card, estHeight }) => {
+      const shortest = cols.reduce((a, b) => (b.h < a.h ? b : a));
+      shortest.el.appendChild(card);
+      shortest.h += estHeight;
+    });
+  }
+
+  function mountMasonry(gridEl, cards, maxCols) {
+    const existing = masonryRegistry.find(m => m.gridEl === gridEl);
+    if (existing) {
+      existing.cards = cards;
+      existing.maxCols = maxCols;
+    } else {
+      masonryRegistry.push({ gridEl, cards, maxCols });
+    }
+    layoutMasonry(gridEl, cards, maxCols);
+  }
+
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      masonryRegistry.forEach(m => layoutMasonry(m.gridEl, m.cards, m.maxCols));
+    }, 200);
+  });
+
   // 1. Load projects
   async function init() {
     try {
@@ -172,10 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (featuredSection) featuredSection.style.display = '';
-    featuredGrid.innerHTML = '';
-    featuredProjects.forEach(project => {
-      featuredGrid.appendChild(createProjectCard(project, { featured: true }));
-    });
+    const cards = featuredProjects.map(project => createProjectCard(project, { featured: true }));
+    mountMasonry(featuredGrid, cards, 3);
   }
 
   // 4. Portfolio sections grouped by subcategory
@@ -213,10 +275,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const grid = document.createElement('div');
       grid.className = 'portfolio-grid';
-      items.forEach(project => grid.appendChild(createProjectCard(project)));
       block.appendChild(grid);
-
       portfolioSections.appendChild(block);
+
+      // O grid precisa estar no DOM para ter largura antes do masonry
+      const cards = items.map(project => createProjectCard(project));
+      mountMasonry(grid, cards, 4);
     });
   }
 
