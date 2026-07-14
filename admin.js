@@ -2,7 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Senha simples para edição local do portfólio (sem dados sensíveis).
   const PASSCODE = 'mGxppt54';
   const DRAFT_KEY = 'purered_admin_draft';
+  const PRICING_DRAFT_KEY = 'purered_pricing_draft';
   const AUTH_KEY = 'purered_auth';
+
+  // Serviços do pricing.json (valores da tabela e do quiz)
+  const PRICING_SERVICES = [
+    { id: 'edu', label: 'Vídeos Educativos / Infoprodutos', note: 'por aula de 10–15 min' },
+    { id: 'shorts', label: 'Shorts / Reels / TikToks', note: 'por vídeo de até 1 min' },
+    { id: 'promo', label: 'Promo / Teaser Comercial', note: 'vídeos de 30s a 1 min' },
+    { id: 'music', label: 'Music Video / Clipes', note: 'por clipe completo' },
+    { id: 'vfx', label: 'VFX Avançado / Motion Graphics', note: 'valor por hora adicional (só na tabela)' }
+  ];
 
   const SUBCATEGORIES = [
     { id: 'gaming', label: 'Gaming & eSports' },
@@ -19,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let projects = [];      // estado atual (rascunho)
   let published = null;   // conteúdo do projects.json publicado
+  let pricing = null;           // estado atual dos valores (rascunho)
+  let publishedPricing = null;  // conteúdo do pricing.json publicado
   let draggedId = null;
 
   /* ---------- Elementos ---------- */
@@ -101,12 +113,49 @@ document.addEventListener('DOMContentLoaded', () => {
       projects = published.slice();
     }
 
+    await loadPricingData();
+
     normalizeOrder();
+    renderPricingEditor();
     render();
   }
 
-  function isDirty() {
+  async function loadPricingData() {
+    try {
+      const res = await fetch('pricing.json?t=' + Date.now());
+      publishedPricing = res.ok ? await res.json() : {};
+    } catch {
+      publishedPricing = {};
+    }
+
+    const draft = localStorage.getItem(PRICING_DRAFT_KEY);
+    if (draft) {
+      try {
+        const parsed = JSON.parse(draft);
+        if (JSON.stringify(parsed) === JSON.stringify(publishedPricing)) {
+          localStorage.removeItem(PRICING_DRAFT_KEY);
+          pricing = structuredClone(publishedPricing);
+        } else {
+          pricing = parsed;
+        }
+      } catch {
+        pricing = structuredClone(publishedPricing);
+      }
+    } else {
+      pricing = structuredClone(publishedPricing);
+    }
+  }
+
+  function isProjectsDirty() {
     return JSON.stringify(projects) !== JSON.stringify(published);
+  }
+
+  function isPricingDirty() {
+    return JSON.stringify(pricing) !== JSON.stringify(publishedPricing);
+  }
+
+  function isDirty() {
+    return isProjectsDirty() || isPricingDirty();
   }
 
   function saveDraft() {
@@ -123,18 +172,28 @@ document.addEventListener('DOMContentLoaded', () => {
     syncBar.classList.toggle('is-dirty', dirty);
     syncBar.classList.toggle('is-synced', !dirty);
     btnDiscard.classList.toggle('hidden', !dirty);
-    syncText.textContent = dirty
-      ? 'Alterações não publicadas — baixe o projects.json e substitua no projeto'
-      : 'Tudo sincronizado com o site publicado';
+
+    if (dirty) {
+      const files = [];
+      if (isProjectsDirty()) files.push('projects.json');
+      if (isPricingDirty()) files.push('pricing.json');
+      syncText.textContent = `Alterações não publicadas — baixe e substitua: ${files.join(' e ')}`;
+    } else {
+      syncText.textContent = 'Tudo sincronizado com o site publicado';
+    }
+  }
+
+  function downloadJson(data, filename) {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
   }
 
   btnExport.addEventListener('click', () => {
-    const blob = new Blob([JSON.stringify(projects, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'projects.json';
-    link.click();
-    URL.revokeObjectURL(link.href);
+    downloadJson(projects, 'projects.json');
   });
 
   btnImport.addEventListener('click', () => importInput.click());
@@ -159,13 +218,77 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnDiscard.addEventListener('click', () => {
-    if (confirm('Descartar todas as alterações locais e voltar ao que está publicado no site?')) {
+    if (confirm('Descartar todas as alterações locais (projetos e valores) e voltar ao que está publicado no site?')) {
       localStorage.removeItem(DRAFT_KEY);
+      localStorage.removeItem(PRICING_DRAFT_KEY);
       projects = published.slice();
+      pricing = structuredClone(publishedPricing);
       normalizeOrder();
+      renderPricingEditor();
       render();
     }
   });
+
+  /* ---------- Editor de valores (pricing.json) ---------- */
+
+  const pricingRows = $('pricing-rows');
+  const btnExportPricing = $('btn-export-pricing');
+
+  function priceGroup(svcId, currency, symbol) {
+    const range = (pricing[svcId] && pricing[svcId][currency]) || [0, 0];
+    return `
+      <div class="price-group">
+        <span class="cur">${symbol}</span>
+        <input type="number" min="0" step="5" value="${range[0]}" data-svc="${svcId}" data-cur="${currency}" data-idx="0" aria-label="${symbol} mínimo">
+        <span class="dash">–</span>
+        <input type="number" min="0" step="5" value="${range[1]}" data-svc="${svcId}" data-cur="${currency}" data-idx="1" aria-label="${symbol} máximo">
+      </div>
+    `;
+  }
+
+  // Monta as linhas uma vez; digitar nos inputs só atualiza o estado
+  // (sem re-render, para não perder o foco)
+  function renderPricingEditor() {
+    if (!pricingRows || !pricing) return;
+    pricingRows.innerHTML = '';
+
+    PRICING_SERVICES.forEach(svc => {
+      if (!pricing[svc.id]) {
+        pricing[svc.id] = { brl: [0, 0], usd: [0, 0], plus: false };
+      }
+      const row = document.createElement('div');
+      row.className = 'pricing-admin-row';
+      row.innerHTML = `
+        <div class="svc-name">${svc.label}<small>${svc.note}</small></div>
+        ${priceGroup(svc.id, 'brl', 'R$')}
+        ${priceGroup(svc.id, 'usd', 'US$')}
+      `;
+      pricingRows.appendChild(row);
+    });
+  }
+
+  if (pricingRows) {
+    pricingRows.addEventListener('input', (e) => {
+      const input = e.target;
+      if (!input.matches('input[data-svc]')) return;
+      const { svc, cur, idx } = input.dataset;
+      const value = Math.max(0, parseInt(input.value, 10) || 0);
+      pricing[svc][cur][Number(idx)] = value;
+
+      if (isPricingDirty()) {
+        localStorage.setItem(PRICING_DRAFT_KEY, JSON.stringify(pricing));
+      } else {
+        localStorage.removeItem(PRICING_DRAFT_KEY);
+      }
+      updateSyncBar();
+    });
+  }
+
+  if (btnExportPricing) {
+    btnExportPricing.addEventListener('click', () => {
+      downloadJson(pricing, 'pricing.json');
+    });
+  }
 
   /* ---------- Helpers ---------- */
 

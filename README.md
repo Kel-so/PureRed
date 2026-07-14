@@ -10,7 +10,8 @@ Portfólio audiovisual de **Kelson Budin** (PureRed): edição de vídeo de alta
 | `index-en.html` | Site em Inglês |
 | `valores.html` / `pricing.html` | Tabela fixa de valores (PT / EN) |
 | `projetos-especiais.html` / `special-projects.html` | Quiz de orçamento "Projetos Especiais" (PT / EN) |
-| `quiz.js` | Lógica do quiz — trilhas, textos e **valores** (só os da tabela) ficam aqui |
+| `quiz.js` | Lógica do quiz — trilhas, textos e prazos ficam aqui |
+| `pricing.json` | **Valores dos serviços** (R$ e US$) — alimenta a tabela de valores e o quiz; editável pelo admin |
 | `projects.json` | **Banco de dados único** dos projetos (títulos, descrições e tags em PT e EN no mesmo arquivo) |
 | `app.js` / `style.css` | Lógica e visual do site |
 | `admin.html` / `admin.js` / `admin.css` | Painel admin para gerenciar os projetos |
@@ -22,7 +23,7 @@ Portfólio audiovisual de **Kelson Budin** (PureRed): edição de vídeo de alta
 - **Trilha Edição** usa os valores da tabela (`SERVICES` no topo do `quiz.js`) e calcula estimativa por quantidade; prazos também são editáveis lá (`days`).
 - **Trilhas Filmmaker e Branding** não mostram valor fixo — terminam em "orçamento personalizado" com resumo enviado pro seu WhatsApp.
 - Toda tela final gera um link do WhatsApp com o resumo do diagnóstico preenchido.
-- Para mudar preços: edite `valores.html`/`pricing.html` (texto) **e** `quiz.js` (constante `SERVICES`/`VFX_HOUR`).
+- **Para mudar preços**: use a seção "💰 Valores dos Serviços" no admin, baixe o `pricing.json` e substitua no projeto — tabela e quiz atualizam sozinhos nas duas línguas. (Os números no HTML e no `quiz.js` são só fallback.)
 
 ## Seções do site
 

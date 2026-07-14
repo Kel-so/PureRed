@@ -61,7 +61,7 @@
     <div class="container">
       <div class="pricing-list">
 
-        <div class="pricing-row">
+        <div class="pricing-row" data-svc="edu">
           <div class="pricing-name">
             <h3>Educational Videos / Info Products</h3>
             <span>Classes, training, courses</span>
@@ -76,7 +76,7 @@
           </div>
         </div>
 
-        <div class="pricing-row">
+        <div class="pricing-row" data-svc="shorts">
           <div class="pricing-name">
             <h3>Dynamic Shorts / Reels / TikToks</h3>
             <span>High-Energy</span>
@@ -91,7 +91,7 @@
           </div>
         </div>
 
-        <div class="pricing-row">
+        <div class="pricing-row" data-svc="promo">
           <div class="pricing-name">
             <h3>Promo / Commercial Teaser</h3>
             <span>Streetwear / Automotive</span>
@@ -106,7 +106,7 @@
           </div>
         </div>
 
-        <div class="pricing-row">
+        <div class="pricing-row" data-svc="music">
           <div class="pricing-name">
             <h3>Music Videos</h3>
             <span>Rap, Trap, Drift</span>
@@ -121,7 +121,7 @@
           </div>
         </div>
 
-        <div class="pricing-row">
+        <div class="pricing-row" data-svc="vfx">
           <div class="pricing-name">
             <h3>Advanced VFX / Motion Graphics</h3>
             <span>Add-on — extra hourly rate</span>
@@ -173,6 +173,24 @@
     if (toggle && menu) {
       toggle.addEventListener('click', () => menu.classList.toggle('mobile-active'));
     }
+
+    // Prices come from pricing.json (editable via admin); HTML is the fallback
+    fetch('pricing.json?t=' + Date.now())
+      .then(r => r.ok ? r.json() : null)
+      .then(p => {
+        if (!p) return;
+        const br = n => n.toLocaleString('pt-BR');
+        const us = n => n.toLocaleString('en-US');
+        document.querySelectorAll('.pricing-row[data-svc]').forEach(row => {
+          const s = p[row.dataset.svc];
+          if (!s) return;
+          const plus = s.plus ? '+' : '';
+          const hourly = row.dataset.svc === 'vfx' ? ' / hour' : '';
+          row.querySelector('.price-main').textContent = `$${us(s.usd[0])} – ${us(s.usd[1])}${plus}`;
+          row.querySelector('.price-alt').textContent = `BRL R$ ${br(s.brl[0])} – ${br(s.brl[1])}${plus}${hourly}`;
+        });
+      })
+      .catch(() => {});
   </script>
 </body>
 </html>

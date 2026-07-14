@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const WHATSAPP = '5514991223598';
 
   // Valores de edição — únicos números do quiz, vindos da tabela de valores.
+  // Os valores abaixo são fallback: o pricing.json (editável pelo admin)
+  // sobrescreve brl/usd/plus no carregamento da página.
   // Filmmaker e Branding fecham sem valor fixo (orçamento personalizado).
   const SERVICES = {
     edu:    { brl: [150, 300],   usd: [40, 80],   plus: false, days: [3, 5] },
@@ -10,6 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
     promo:  { brl: [600, 1500],  usd: [150, 350], plus: true,  days: [5, 7] },
     music:  { brl: [1200, 3000], usd: [300, 700], plus: true,  days: [7, 10] }
   };
+
+  async function loadPricing() {
+    try {
+      const res = await fetch('pricing.json?t=' + Date.now());
+      if (!res.ok) return;
+      const data = await res.json();
+      Object.keys(SERVICES).forEach(key => {
+        const p = data[key];
+        if (p && Array.isArray(p.brl) && Array.isArray(p.usd)) {
+          SERVICES[key].brl = p.brl;
+          SERVICES[key].usd = p.usd;
+          SERVICES[key].plus = !!p.plus;
+        }
+      });
+    } catch (e) {
+      console.warn('pricing.json não carregado, usando valores padrão', e);
+    }
+  }
   // Entrega expressa: +30% no valor, prazo de produção cai pela metade
   const URGENCY_MULTIPLIER = 1.3;
   const URGENCY_TIME_FACTOR = 0.5;
@@ -27,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nameHint: 'Só para personalizar a proposta. Pode pular se preferir.',
       nameBtn: 'Ver meu diagnóstico →',
       currency: 'brl',
+      locale: 'pt-BR',
       money: (n) => 'R$ ' + n.toLocaleString('pt-BR'),
       days: (a, b) => `${a}–${b} dias úteis`,
 
@@ -44,10 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
         title: 'Que tipo de vídeo vamos editar?',
         hint: 'Valores base da tabela oficial — o diagnóstico final considera o seu volume.',
         options: [
-          { id: 'edu', icon: '🎓', label: 'Educativo / Infoproduto', sub: 'Aulas, treinamentos, cursos (10–15 min)', price: 'R$ 150–300 /aula' },
-          { id: 'shorts', icon: '⚡', label: 'Short / Reel / TikTok', sub: 'Vertical high-energy de até 1 min', price: 'R$ 80–150 /vídeo' },
-          { id: 'promo', icon: '🔥', label: 'Promo / Teaser Comercial', sub: '30s a 1 min, focado em conversão', price: 'R$ 600–1.500+' },
-          { id: 'music', icon: '🎵', label: 'Music Video / Clipe', sub: 'Rap, trap, drift — sync fino com o beat', price: 'R$ 1.200–3.000+' }
+          { id: 'edu', icon: '🎓', label: 'Educativo / Infoproduto', sub: 'Aulas, treinamentos, cursos (10–15 min)', unit: '/aula' },
+          { id: 'shorts', icon: '⚡', label: 'Short / Reel / TikTok', sub: 'Vertical high-energy de até 1 min', unit: '/vídeo' },
+          { id: 'promo', icon: '🔥', label: 'Promo / Teaser Comercial', sub: '30s a 1 min, focado em conversão', unit: '' },
+          { id: 'music', icon: '🎵', label: 'Music Video / Clipe', sub: 'Rap, trap, drift — sync fino com o beat', unit: '' }
         ]
       },
 
@@ -183,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nameHint: 'Just to personalize the proposal. Feel free to skip.',
       nameBtn: 'See my diagnosis →',
       currency: 'usd',
+      locale: 'en-US',
       money: (n) => '$' + n.toLocaleString('en-US'),
       days: (a, b) => `${a}–${b} business days`,
 
@@ -200,10 +222,10 @@ document.addEventListener('DOMContentLoaded', () => {
         title: 'What kind of video are we editing?',
         hint: 'Base rates from the official price list — the final diagnosis factors in your volume.',
         options: [
-          { id: 'edu', icon: '🎓', label: 'Educational / Info Product', sub: 'Classes, training, courses (10–15 min)', price: '$40–80 /class' },
-          { id: 'shorts', icon: '⚡', label: 'Short / Reel / TikTok', sub: 'High-energy vertical up to 1 min', price: '$20–40 /video' },
-          { id: 'promo', icon: '🔥', label: 'Promo / Commercial Teaser', sub: '30s to 1 min, built for conversion', price: '$150–350+' },
-          { id: 'music', icon: '🎵', label: 'Music Video', sub: 'Rap, trap, drift — fine sync with the beat', price: '$300–700+' }
+          { id: 'edu', icon: '🎓', label: 'Educational / Info Product', sub: 'Classes, training, courses (10–15 min)', unit: '/class' },
+          { id: 'shorts', icon: '⚡', label: 'Short / Reel / TikTok', sub: 'High-energy vertical up to 1 min', unit: '/video' },
+          { id: 'promo', icon: '🔥', label: 'Promo / Commercial Teaser', sub: '30s to 1 min, built for conversion', unit: '' },
+          { id: 'music', icon: '🎵', label: 'Music Video', sub: 'Rap, trap, drift — fine sync with the beat', unit: '' }
         ]
       },
 
@@ -371,6 +393,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return btn;
   }
 
+  // Rótulo de preço da opção de serviço, montado a partir do pricing.json
+  // já carregado em SERVICES (ex: "R$ 150–300 /aula")
+  function servicePriceLabel(id, unit) {
+    const svc = SERVICES[id];
+    if (!svc) return '';
+    const range = svc[T.currency];
+    const max = range[1].toLocaleString(T.locale);
+    return `${T.money(range[0])}–${max}${svc.plus ? '+' : ''}${unit ? ' ' + unit : ''}`;
+  }
+
   function renderQuestion(stepId) {
     const q = T[stepId];
     card.innerHTML = '';
@@ -392,7 +424,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const opts = document.createElement('div');
     opts.className = 'quiz-options';
     q.options.forEach(opt => {
-      opts.appendChild(optionButton(opt, (value) => {
+      const withPrice = stepId === 'service'
+        ? { ...opt, price: servicePriceLabel(opt.id, opt.unit) }
+        : opt;
+      opts.appendChild(optionButton(withPrice, (value) => {
         state[stepId] = value;
         history.push(stepId);
         next();
@@ -656,5 +691,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle.addEventListener('click', () => menu.classList.toggle('mobile-active'));
   }
 
-  renderTrack();
+  // Carrega os valores do pricing.json antes da primeira tela
+  loadPricing().then(renderTrack);
 });
