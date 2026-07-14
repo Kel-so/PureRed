@@ -334,9 +334,91 @@ nav a:hover { color: var(--text); }
   color: var(--text-dim);
 }
 
-/* Showreel */
+/* Showreel + elementos decorativos em volta */
+.hero-reel {
+  position: relative;
+}
+
+.reel-stack {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.stack-card {
+  position: absolute;
+  width: 128px;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 14px;
+  border: var(--border-strong);
+  opacity: 0.5;
+  filter: saturate(0.85);
+  box-shadow: var(--shadow-md);
+}
+
+.stack-1 {
+  top: -40px;
+  right: -26px;
+  transform: rotate(8deg);
+}
+
+.stack-2 {
+  bottom: -36px;
+  left: -24px;
+  transform: rotate(-8deg);
+}
+
+.rec-chip,
+.tc-chip {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(5, 5, 6, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-pill);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  padding: 0.38rem 0.9rem;
+  pointer-events: none;
+}
+
+.rec-chip {
+  top: -14px;
+  left: 26px;
+  border: var(--border-red);
+}
+
+.rec-chip span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 10px var(--red-glow-heavy);
+  animation: pulse-dot 1.6s infinite;
+}
+
+.tc-chip {
+  bottom: -14px;
+  right: 26px;
+  border: var(--border-strong);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 960px) {
+  .reel-stack,
+  .rec-chip,
+  .tc-chip { display: none; }
+}
+
 .showreel-container {
   position: relative;
+  z-index: 1;
   border-radius: var(--radius-lg);
   overflow: hidden;
   cursor: pointer;
@@ -709,8 +791,8 @@ section {
 
 .views-badge {
   position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
+  bottom: 0.7rem;
+  left: 0.7rem;
   display: inline-flex;
   align-items: center;
   gap: 0.32rem;

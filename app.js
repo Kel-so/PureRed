@@ -112,11 +112,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function layoutMasonry(gridEl, cards, maxCols) {
+    if (cards.length === 0) return;
+
     const gap = parseFloat(getComputedStyle(gridEl).gap) || 19;
-    const width = gridEl.clientWidth;
+    gridEl.style.maxWidth = '';
+    const width = gridEl.clientWidth || gridEl.parentElement.clientWidth;
     if (!width) return;
 
-    const colCount = Math.max(2, Math.min(maxCols, Math.floor(width / 250)));
+    // Nunca mais colunas do que cards: seção pequena vira grade menor e
+    // centralizada, sem sobrar espaço morto na direita
+    let colCount = Math.max(2, Math.min(maxCols, Math.floor(width / 250)));
+    colCount = Math.min(colCount, cards.length);
+
+    // Grade uniforme (todos os cards com a mesma proporção): prefere um
+    // número de colunas que divida os itens por igual — fileiras completas,
+    // sem coluna manca (ex: 6 reels viram 3 colunas de 2)
+    const aspects = cards.map(cardAspect);
+    const uniform = aspects.every(a => a === aspects[0]);
+    if (uniform && cards.length % colCount !== 0) {
+      for (let c = colCount - 1; c >= 2; c--) {
+        if (cards.length % c === 0) {
+          colCount = c;
+          break;
+        }
+      }
+    }
+
     const colWidth = (width - gap * (colCount - 1)) / colCount;
     const captionHeight = 64;
 
@@ -126,22 +147,82 @@ document.addEventListener('DOMContentLoaded', () => {
       const col = document.createElement('div');
       col.className = 'masonry-col';
       gridEl.appendChild(col);
-      cols.push({ el: col, h: 0 });
+      cols.push({ el: col, h: 0, invAspectSum: 0, n: 0, hasWide: false });
     }
 
     // Distribui os cards mais altos primeiro (LPT): colunas terminam com
     // alturas parecidas. Empates preservam a ordem curada (sort estável).
-    const measured = cards.map(card => ({
-      card,
-      estHeight: colWidth / cardAspect(card) + captionHeight + gap
-    }));
+    const measured = cards.map(card => {
+      const aspect = cardAspect(card);
+      return { card, aspect, estHeight: colWidth / aspect + captionHeight + gap };
+    });
     measured.sort((a, b) => b.estHeight - a.estHeight);
 
-    measured.forEach(({ card, estHeight }) => {
+    measured.forEach(({ card, aspect, estHeight }) => {
       const shortest = cols.reduce((a, b) => (b.h < a.h ? b : a));
       shortest.el.appendChild(card);
       shortest.h += estHeight;
+      shortest.invAspectSum += 1 / aspect;
+      shortest.n += 1;
+      shortest.hasWide = shortest.hasWide || aspect >= 1;
     });
+
+    // Ajuste de simetria vertical: resolve as larguras das colunas para que
+    // todas terminem com a MESMA altura (ex: coluna com vídeos horizontais
+    // fica mais larga para emparelhar com um vertical ao lado).
+    // Altura da coluna: h_i = w_i * s_i + b_i, com todas h_i = T e Σw_i fixo:
+    // T = (W + Σ b_i/s_i) / (Σ 1/s_i)
+    if (colCount > 1) {
+      const availWidth = width - gap * (colCount - 1);
+      const sumInv = cols.reduce((acc, c) => acc + 1 / c.invAspectSum, 0);
+      const sumFixed = cols.reduce((acc, c) => acc + (c.n * (captionHeight + gap)) / c.invAspectSum, 0);
+      const target = (availWidth + sumFixed) / sumInv;
+
+      // Limita a variação de largura entre colunas para nenhuma ficar
+      // esmagada nem gigante em relação às vizinhas. Em telas estreitas o
+      // limite é mais apertado: largura consistente vale mais que a altura.
+      const narrow = width < 700;
+      const minF = narrow ? 0.85 : 0.7;
+      const maxF = narrow ? 1.18 : 1.6;
+      const avg = availWidth / colCount;
+      cols.forEach(c => {
+        const ideal = (target - c.n * (captionHeight + gap)) / c.invAspectSum;
+        c.idealWidth = Math.min(Math.max(ideal, avg * minF, 100), avg * maxF);
+        c.el.style.flex = `${c.idealWidth} 1 0px`;
+      });
+    } else {
+      cols[0].idealWidth = colWidth;
+    }
+
+    // Centralização adaptada: limita a largura total para os cards não
+    // ficarem gigantes nem escorados na esquerda quando há poucos itens
+    const capTotal = cols.reduce((sum, c) => sum + Math.min(c.hasWide ? 460 : 310, c.idealWidth * 1.6), 0) + gap * (colCount - 1);
+    if (capTotal < width) {
+      gridEl.style.maxWidth = Math.round(capTotal) + 'px';
+    }
+    gridEl.style.marginLeft = 'auto';
+    gridEl.style.marginRight = 'auto';
+
+    // Segunda passada: mede as alturas reais renderizadas (títulos de 1 ou
+    // 2 linhas mudam a conta) e refina as larguras para fechar certinho
+    if (colCount > 1) {
+      const narrow = width < 700;
+      const minF = narrow ? 0.85 : 0.7;
+      const maxF = narrow ? 1.18 : 1.6;
+      const realWidth = cols.reduce((sum, c) => sum + c.el.getBoundingClientRect().width, 0);
+      const avg = realWidth / colCount;
+      cols.forEach(c => {
+        const r = c.el.getBoundingClientRect();
+        c.fixedReal = r.height - r.width * c.invAspectSum; // captions + gaps reais
+      });
+      const sumInv = cols.reduce((acc, c) => acc + 1 / c.invAspectSum, 0);
+      const sumFixed = cols.reduce((acc, c) => acc + c.fixedReal / c.invAspectSum, 0);
+      const target = (realWidth + sumFixed) / sumInv;
+      cols.forEach(c => {
+        const ideal = (target - c.fixedReal) / c.invAspectSum;
+        c.el.style.flex = `${Math.min(Math.max(ideal, avg * minF, 100), avg * maxF)} 1 0px`;
+      });
+    }
   }
 
   function mountMasonry(gridEl, cards, maxCols) {

@@ -30,7 +30,8 @@
         "Podcast",
         "Shorts"
       ]
-    }
+    },
+    "views": 4700
   },
   {
     "id": "port-banners",
@@ -63,7 +64,8 @@
         "Motion",
         "Vertical"
       ]
-    }
+    },
+    "views": 1500
   },
   {
     "id": "valorant-1",
@@ -228,7 +230,8 @@
         "Podcast",
         "Shorts"
       ]
-    }
+    },
+    "views": 3200
   },
   {
     "id": "podcast-cut-2",
@@ -261,7 +264,8 @@
         "Podcast",
         "Shorts"
       ]
-    }
+    },
+    "views": 1800
   },
   {
     "id": "sameday04",
@@ -301,7 +305,7 @@
     "type": "video",
     "subcategory": "esportes",
     "orientation": "horizontal",
-    "featured": false,
+    "featured": true,
     "order": 9,
     "client": "Futsal League",
     "date": "2026-04",
@@ -360,7 +364,8 @@
         "Automotive",
         "Speed"
       ]
-    }
+    },
+    "views": 3900
   },
   {
     "id": "ldjr01",
@@ -521,7 +526,8 @@
         "Fashion/Brand",
         "Social Media"
       ]
-    }
+    },
+    "views": 2400
   },
   {
     "id": "banner-duelo",

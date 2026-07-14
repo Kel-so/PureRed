@@ -18,7 +18,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2308080a%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23FF003C%22/></svg>">
 
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 
@@ -80,6 +80,14 @@
       </div>
 
       <div class="hero-reel">
+        <!-- Decorative cards behind the main reel -->
+        <div class="reel-stack" aria-hidden="true">
+          <img src="assets/thumbnails/podcast3.jpg" class="stack-card stack-1" alt="">
+          <img src="assets/thumbnails/drift01.jpg" class="stack-card stack-2" alt="">
+        </div>
+        <div class="rec-chip" aria-hidden="true"><span></span>REC</div>
+        <div class="tc-chip" aria-hidden="true">00:00:24:12</div>
+
         <div class="showreel-container" id="main-reel-trigger"
              data-video="https://youtu.be/-XNmHMceOL8"
              data-title="SAME DAY EDIT - MAIN EVENT"
@@ -393,6 +401,6 @@
     </div>
   </dialog>
 
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=11"></script>
 </body>
 </html>
