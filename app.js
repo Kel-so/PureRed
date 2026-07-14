@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const STRINGS_BY_LANG = {
     pt: {
+      reelsLabel: 'Reels & Shorts',
       featuredBadge: 'Destaque',
       emptyTitle: 'Nenhum projeto encontrado',
       emptyBody: 'Vá para o <a href="admin.html">Painel Admin</a> para adicionar novos projetos.',
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       reelTags: ['Destaque', 'Edição', 'Portfólio']
     },
     en: {
+      reelsLabel: 'Reels & Shorts',
       featuredBadge: 'Featured',
       emptyTitle: 'No projects found',
       emptyBody: 'Go to the <a href="admin.html">Admin Panel</a> to add new projects.',
@@ -175,6 +177,16 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPortfolioSections();
   }
 
+  // Formata views no estilo das redes: 1.2M / 45K (EN) — 1,2 mi / 45 mil (PT)
+  function formatViews(n) {
+    if (!n || n <= 0) return '';
+    const locale = LANG === 'en' ? 'en-US' : 'pt-BR';
+    const fmt = (v) => v.toLocaleString(locale, { maximumFractionDigits: 1 });
+    if (n >= 1e6) return fmt(n / 1e6) + (LANG === 'en' ? 'M' : ' mi');
+    if (n >= 1e3) return fmt(n / 1e3) + (LANG === 'en' ? 'K' : ' mil');
+    return n.toLocaleString(locale);
+  }
+
   // 2. Build a single project card
   function createProjectCard(project, options = {}) {
     const card = document.createElement('article');
@@ -196,6 +208,14 @@ document.addEventListener('DOMContentLoaded', () => {
       ? `<div class="featured-badge">${STRINGS.featuredBadge}</div>`
       : '';
 
+    const viewsLabel = formatViews(project.views);
+    const viewsBadgeHTML = viewsLabel
+      ? `<div class="views-badge">
+           <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+           ${viewsLabel}
+         </div>`
+      : '';
+
     const title = t(project.title);
 
     card.innerHTML = `
@@ -203,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${project.thumbnailUrl || 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800'}" alt="${title}" loading="lazy">
         ${previewHTML}
         ${featuredBadgeHTML}
+        ${viewsBadgeHTML}
         <div class="video-icon-badge">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">${iconPath}</svg>
         </div>
@@ -256,22 +277,36 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    SUBCATEGORIES.forEach(sub => {
-      const items = projects.filter(p => (p.subcategory || 'outros') === sub.id);
-      if (items.length === 0) return;
+    // Todos os vídeos verticais (Reels/Shorts/TikTok) ficam juntos numa
+    // seção única no topo; as categorias seguem com o restante.
+    const isReel = (p) => (p.type || 'video') === 'video' && p.orientation === 'vertical';
 
+    const sections = [];
+    const reelsItems = projects.filter(isReel);
+    if (reelsItems.length > 0) {
+      sections.push({ id: 'reels', label: STRINGS.reelsLabel, items: reelsItems });
+    }
+
+    SUBCATEGORIES.forEach(sub => {
+      const items = projects.filter(p => (p.subcategory || 'outros') === sub.id && !isReel(p));
+      if (items.length > 0) {
+        sections.push({ id: sub.id, label: sub.label, items });
+      }
+    });
+
+    sections.forEach(sec => {
       if (sectionNav) {
         const chip = document.createElement('a');
         chip.className = 'filter-btn';
-        chip.href = `#sub-${sub.id}`;
-        chip.textContent = sub.label;
+        chip.href = `#sub-${sec.id}`;
+        chip.textContent = sec.label;
         sectionNav.appendChild(chip);
       }
 
       const block = document.createElement('div');
       block.className = 'portfolio-subsection';
-      block.id = `sub-${sub.id}`;
-      block.innerHTML = `<h3 class="subsection-title">${sub.label}</h3>`;
+      block.id = `sub-${sec.id}`;
+      block.innerHTML = `<h3 class="subsection-title">${sec.label}</h3>`;
 
       const grid = document.createElement('div');
       grid.className = 'portfolio-grid';
@@ -279,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
       portfolioSections.appendChild(block);
 
       // O grid precisa estar no DOM para ter largura antes do masonry
-      const cards = items.map(project => createProjectCard(project));
+      const cards = sec.items.map(project => createProjectCard(project));
       mountMasonry(grid, cards, 4);
     });
   }

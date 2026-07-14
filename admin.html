@@ -9,7 +9,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2308080a%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23FF003C%22/></svg>">
 
-  <link rel="stylesheet" href="admin.css?v=5">
+  <link rel="stylesheet" href="admin.css?v=6">
 </head>
 <body>
 
@@ -47,9 +47,11 @@
           <span id="sync-text">Carregando…</span>
         </div>
         <div class="sync-actions">
-          <button type="button" id="btn-export" class="btn btn-red">⬇ Baixar projects.json</button>
+          <button type="button" id="btn-publish" class="btn btn-red hidden">🚀 Publicar no site</button>
+          <button type="button" id="btn-export" class="btn btn-ghost" title="Baixar projects.json (modo manual)">⬇ projects.json</button>
           <button type="button" id="btn-import" class="btn btn-ghost" title="Carregar um projects.json do seu computador">Importar</button>
-          <button type="button" id="btn-discard" class="btn btn-ghost hidden" title="Descartar alterações locais e voltar ao arquivo publicado">Descartar alterações</button>
+          <button type="button" id="btn-discard" class="btn btn-ghost hidden" title="Descartar alterações locais e voltar ao arquivo publicado">Descartar</button>
+          <button type="button" id="btn-token" class="btn btn-ghost" title="Configurar publicação direta">⚙</button>
           <input type="file" id="import-file-input" accept=".json,application/json" hidden>
         </div>
       </div>
@@ -80,12 +82,8 @@
       <!-- Como publicar -->
       <div class="help-card">
         <h3>Como publicar as alterações</h3>
-        <ol>
-          <li>Faça as alterações aqui no painel (elas ficam salvas neste navegador).</li>
-          <li>Baixe o arquivo alterado: <strong>⬇ Baixar projects.json</strong> (projetos) e/ou <strong>⬇ Baixar pricing.json</strong> (valores).</li>
-          <li>Substitua o(s) arquivo(s) na pasta do projeto pelos baixados.</li>
-          <li>Envie para o GitHub: <code>git add -A && git commit -m "atualiza portfolio" && git push</code></li>
-        </ol>
+        <p style="margin-top: 0;"><strong>Modo direto (recomendado):</strong> configure uma vez o token do GitHub no botão <strong>⚙</strong> lá em cima. Depois, é só clicar em <strong>🚀 Publicar no site</strong> quando houver alterações — o painel envia os arquivos direto para o GitHub e o site atualiza em ~1 minuto.</p>
+        <p><strong>Modo manual (sem token):</strong> baixe o arquivo alterado (⬇ projects.json / ⬇ pricing.json), substitua na pasta do projeto e envie: <code>git add -A && git commit -m "atualiza portfolio" && git push</code></p>
         <p>Dica: para adicionar um banner (imagem), coloque o arquivo em <code>assets/banners/full/</code> e use esse caminho no campo "URL da imagem".</p>
       </div>
     </main>
@@ -162,6 +160,10 @@
             <label for="f-preview-url">Preview em loop <small>(opcional — mp4 curto que toca no card, ex: assets/previews/nome.mp4)</small></label>
             <input type="text" id="f-preview-url" placeholder="assets/previews/meu-video.mp4">
           </div>
+          <div class="field span-2">
+            <label for="f-views">Views <small>(opcional — número puro, ex: 1200000 vira "1,2 mi" no card)</small></label>
+            <input type="number" id="f-views" min="0" placeholder="Ex: 250000">
+          </div>
         </div>
 
         <!-- Campos de imagem -->
@@ -216,6 +218,32 @@
     </form>
   </dialog>
 
-  <script src="admin.js?v=4"></script>
+  <!-- ===== Token do GitHub (publicação direta) ===== -->
+  <dialog id="token-dialog" class="project-dialog">
+    <div class="dialog-top">
+      <h2>⚙ Publicação Direta</h2>
+      <button type="button" class="btn-close" id="btn-close-token" aria-label="Fechar">✕</button>
+    </div>
+    <div class="form-body">
+      <p style="color: var(--muted); font-size: 0.92rem;">Com um token do GitHub salvo <strong>neste navegador</strong>, o botão "🚀 Publicar no site" envia o projects.json e o pricing.json direto para o repositório — sem baixar e substituir arquivo. Como criar (uma vez só):</p>
+      <ol style="color: var(--muted); font-size: 0.9rem; margin-left: 1.2rem; display: flex; flex-direction: column; gap: 0.3rem;">
+        <li>No GitHub: <strong>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</strong></li>
+        <li>Em <strong>Repository access</strong>, escolha "Only select repositories" e selecione <code>Kel-so/PureRed</code></li>
+        <li>Em <strong>Permissions → Repository permissions → Contents</strong>, marque <strong>Read and write</strong></li>
+        <li>Gere, copie o token e cole abaixo</li>
+      </ol>
+      <div class="field">
+        <label for="token-input">Token</label>
+        <input type="password" id="token-input" placeholder="github_pat_…" autocomplete="off">
+      </div>
+      <p id="token-status" style="color: var(--dim); font-size: 0.85rem;"></p>
+    </div>
+    <div class="dialog-bottom">
+      <button type="button" class="btn btn-ghost" id="btn-remove-token">Remover token</button>
+      <button type="button" class="btn btn-red" id="btn-save-token">Salvar token</button>
+    </div>
+  </dialog>
+
+  <script src="admin.js?v=5"></script>
 </body>
 </html>

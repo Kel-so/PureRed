@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const PRICING_DRAFT_KEY = 'purered_pricing_draft';
   const AUTH_KEY = 'purered_auth';
 
+  // Publicação direta: commit via API do GitHub com token pessoal
+  // (fine-grained, só Contents:write no repo) salvo apenas neste navegador.
+  const GH_TOKEN_KEY = 'purered_gh_token';
+  const GH = { owner: 'Kel-so', repo: 'PureRed', branch: 'main' };
+
   // Serviços do pricing.json (valores da tabela e do quiz)
   const PRICING_SERVICES = [
     { id: 'edu', label: 'Vídeos Educativos / Infoprodutos', note: 'por aula de 10–15 min' },
@@ -172,12 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
     syncBar.classList.toggle('is-dirty', dirty);
     syncBar.classList.toggle('is-synced', !dirty);
     btnDiscard.classList.toggle('hidden', !dirty);
+    btnPublish.classList.toggle('hidden', !dirty);
 
     if (dirty) {
       const files = [];
       if (isProjectsDirty()) files.push('projects.json');
       if (isPricingDirty()) files.push('pricing.json');
-      syncText.textContent = `Alterações não publicadas — baixe e substitua: ${files.join(' e ')}`;
+      syncText.textContent = getGhToken()
+        ? `Alterações em ${files.join(' e ')} — clique em 🚀 Publicar no site`
+        : `Alterações não publicadas — baixe e substitua: ${files.join(' e ')}`;
     } else {
       syncText.textContent = 'Tudo sincronizado com o site publicado';
     }
@@ -227,6 +235,123 @@ document.addEventListener('DOMContentLoaded', () => {
       renderPricingEditor();
       render();
     }
+  });
+
+  /* ---------- Publicação direta (API do GitHub) ---------- */
+
+  const btnPublish = $('btn-publish');
+  const tokenDialog = $('token-dialog');
+  const tokenInput = $('token-input');
+  const tokenStatus = $('token-status');
+
+  function getGhToken() {
+    return localStorage.getItem(GH_TOKEN_KEY) || '';
+  }
+
+  function b64EncodeUtf8(str) {
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    bytes.forEach(b => { bin += String.fromCharCode(b); });
+    return btoa(bin);
+  }
+
+  async function ghPutFile(path, contentStr, message, token) {
+    const url = `https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${path}`;
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github+json'
+    };
+
+    // sha atual do arquivo (obrigatório para atualizar)
+    let sha = null;
+    const getRes = await fetch(`${url}?ref=${GH.branch}&t=${Date.now()}`, { headers });
+    if (getRes.ok) {
+      sha = (await getRes.json()).sha;
+    } else if (getRes.status === 401 || getRes.status === 403) {
+      throw new Error('token sem acesso ao repositório (verifique permissão Contents: Read and write)');
+    }
+
+    const body = {
+      message,
+      branch: GH.branch,
+      content: b64EncodeUtf8(contentStr)
+    };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(url, {
+      method: 'PUT',
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!putRes.ok) {
+      const detail = await putRes.json().catch(() => ({}));
+      throw new Error(`${path}: ${detail.message || 'HTTP ' + putRes.status}`);
+    }
+  }
+
+  async function publishToGitHub() {
+    const token = getGhToken();
+    if (!token) {
+      openTokenDialog();
+      return;
+    }
+
+    const originalText = btnPublish.textContent;
+    btnPublish.disabled = true;
+    btnPublish.textContent = 'Publicando…';
+
+    try {
+      if (isProjectsDirty()) {
+        await ghPutFile('projects.json', JSON.stringify(projects, null, 2) + '\n', 'admin: atualiza projetos', token);
+        published = JSON.parse(JSON.stringify(projects));
+        localStorage.removeItem(DRAFT_KEY);
+      }
+      if (isPricingDirty()) {
+        await ghPutFile('pricing.json', JSON.stringify(pricing, null, 2) + '\n', 'admin: atualiza valores', token);
+        publishedPricing = structuredClone(pricing);
+        localStorage.removeItem(PRICING_DRAFT_KEY);
+      }
+      updateSyncBar();
+      alert('Publicado! 🚀\n\nO GitHub Pages atualiza o site em ~1 minuto.');
+    } catch (err) {
+      alert('Falha ao publicar: ' + err.message + '\n\nConfira o token no botão ⚙ ou use o modo manual (baixar JSON).');
+    } finally {
+      btnPublish.disabled = false;
+      btnPublish.textContent = originalText;
+    }
+  }
+
+  function openTokenDialog() {
+    tokenInput.value = getGhToken();
+    tokenStatus.textContent = getGhToken()
+      ? '✔ Já existe um token salvo neste navegador.'
+      : 'Nenhum token salvo ainda — o botão Publicar usa o modo manual.';
+    tokenDialog.showModal();
+  }
+
+  if (btnPublish) btnPublish.addEventListener('click', publishToGitHub);
+  $('btn-token').addEventListener('click', openTokenDialog);
+  $('btn-close-token').addEventListener('click', () => tokenDialog.close());
+
+  $('btn-save-token').addEventListener('click', () => {
+    const value = tokenInput.value.trim();
+    if (!value) {
+      tokenStatus.textContent = 'Cole o token antes de salvar.';
+      return;
+    }
+    localStorage.setItem(GH_TOKEN_KEY, value);
+    tokenDialog.close();
+    updateSyncBar();
+    if (isDirty() && confirm('Token salvo! Publicar as alterações pendentes agora?')) {
+      publishToGitHub();
+    }
+  });
+
+  $('btn-remove-token').addEventListener('click', () => {
+    localStorage.removeItem(GH_TOKEN_KEY);
+    tokenInput.value = '';
+    tokenStatus.textContent = 'Token removido deste navegador.';
+    updateSyncBar();
   });
 
   /* ---------- Editor de valores (pricing.json) ---------- */
@@ -532,6 +657,7 @@ document.addEventListener('DOMContentLoaded', () => {
       $('f-date').value = project.date || '';
       $('f-video-url').value = project.videoUrl || '';
       $('f-preview-url').value = project.previewUrl || '';
+      $('f-views').value = project.views || '';
       $('f-image-url').value = project.imageUrl || '';
       $('f-thumbnail-url').value = project.thumbnailUrl || '';
       $('f-tags-pt').value = (langField(project.tags, 'pt') || []).join(', ');
@@ -613,6 +739,8 @@ document.addEventListener('DOMContentLoaded', () => {
       data.videoUrl = videoUrl;
       if ($('f-preview-url').value.trim()) data.previewUrl = $('f-preview-url').value.trim();
       if ($('f-thumbnail-url').value.trim()) data.thumbnailUrl = $('f-thumbnail-url').value.trim();
+      const views = parseInt($('f-views').value, 10);
+      if (views > 0) data.views = views;
     } else {
       data.imageUrl = imageUrl;
       data.thumbnailUrl = $('f-thumbnail-url').value.trim() || imageUrl;

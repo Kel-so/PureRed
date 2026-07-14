@@ -46,18 +46,21 @@ No painel você pode:
 
 - **➕ Adicionar projeto** — vídeo (YouTube/Shorts/Vimeo/.mp4) ou banner (imagem), com campos PT e EN lado a lado (se deixar o inglês vazio, ele usa o português).
 - **✎ Editar / 🗑 Excluir / ★ Destacar** cada projeto direto na lista.
+- **Views** — campo opcional nos vídeos; aparece como badge no card (ex: 1250000 → "1,2 mi"). Todos os vídeos verticais são agrupados automaticamente na seção **Reels & Shorts** do site.
 - **Arrastar** as linhas para reordenar como aparecem no site.
 - **Buscar** por título, cliente ou categoria.
 
-### Publicar as alterações (1 minuto)
+### Publicar as alterações
 
-As mudanças ficam salvas no navegador (a barra amarela mostra "Alterações não publicadas"). Para publicar:
+**Modo direto (recomendado):** configure uma vez um token do GitHub no botão **⚙** do painel (fine-grained, só o repo PureRed, permissão Contents: Read and write — o token fica salvo apenas no seu navegador). Depois, com alterações pendentes, clique em **🚀 Publicar no site**: o painel commita o `projects.json`/`pricing.json` direto no repositório e o GitHub Pages atualiza em ~1 minuto. Funciona inclusive acessando o admin pelo site publicado, sem precisar do projeto no computador.
 
-1. Clique em **⬇ Baixar projects.json**.
-2. Substitua o `projects.json` da pasta do projeto pelo arquivo baixado.
-3. `git add projects.json && git commit -m "atualiza portfolio" && git push`
+**Modo manual (sem token):**
 
-O GitHub Pages atualiza o site em segundos. Quando o arquivo publicado ficar igual ao rascunho, a barra volta a mostrar "Tudo sincronizado".
+1. Baixe o arquivo alterado (**⬇ projects.json** / **⬇ pricing.json**).
+2. Substitua na pasta do projeto.
+3. `git add -A && git commit -m "atualiza portfolio" && git push`
+
+Quando o arquivo publicado ficar igual ao rascunho, a barra volta a mostrar "Tudo sincronizado".
 
 ### Adicionar um banner novo
 

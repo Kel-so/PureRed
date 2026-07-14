@@ -707,6 +707,24 @@ section {
   border-color: var(--red);
 }
 
+.views-badge {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  background: rgba(5, 5, 6, 0.72);
+  backdrop-filter: blur(8px);
+  border: var(--border);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.28rem 0.6rem;
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+}
+
 .featured-badge {
   position: absolute;
   top: 0.7rem;
