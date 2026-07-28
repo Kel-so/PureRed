@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const STRINGS_BY_LANG = {
     pt: {
+      allLabel: 'Todos',
       reelsLabel: 'Reels & Shorts',
       featuredBadge: 'Destaque',
       emptyTitle: 'Nenhum projeto encontrado',
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
       reelTags: ['Destaque', 'Edição', 'Portfólio']
     },
     en: {
+      allLabel: 'All',
       reelsLabel: 'Reels & Shorts',
       featuredBadge: 'Featured',
       emptyTitle: 'No projects found',
@@ -71,8 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const STRINGS = STRINGS_BY_LANG[LANG];
 
   // DOM elements
-  const featuredGrid = document.getElementById('featured-grid');
-  const portfolioSections = document.getElementById('portfolio-sections');
+  const portfolioGrid = document.getElementById('portfolio-grid');
   const sectionNav = document.getElementById('section-nav');
   const videoLightbox = document.getElementById('video-lightbox');
   const lightboxClose = document.getElementById('lightbox-close');
@@ -152,11 +153,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Distribui os cards mais altos primeiro (LPT): colunas terminam com
     // alturas parecidas. Empates preservam a ordem curada (sort estável).
+    // Banners (card-banner) são sempre processados por último, então
+    // afundam para a parte de baixo da grade em vez de se espalharem.
     const measured = cards.map(card => {
       const aspect = cardAspect(card);
       return { card, aspect, estHeight: colWidth / aspect + captionHeight + gap };
     });
-    measured.sort((a, b) => b.estHeight - a.estHeight);
+    measured.sort((a, b) => {
+      const bannerDiff = (a.card.classList.contains('card-banner') ? 1 : 0) - (b.card.classList.contains('card-banner') ? 1 : 0);
+      return bannerDiff !== 0 ? bannerDiff : b.estHeight - a.estHeight;
+    });
 
     measured.forEach(({ card, aspect, estHeight }) => {
       const shortest = cols.reduce((a, b) => (b.h < a.h ? b : a));
@@ -254,8 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
       projects = [];
     }
     projects.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-    renderFeatured();
-    renderPortfolioSections();
+    renderPortfolio();
   }
 
   // Formata views no estilo das redes: 1.2M / 45K (EN) — 1,2 mi / 45 mil (PT)
@@ -326,30 +331,58 @@ document.addEventListener('DOMContentLoaded', () => {
     return card;
   }
 
-  // 3. Featured grid
-  function renderFeatured() {
-    if (!featuredGrid) return;
-    const featuredSection = featuredGrid.closest('.featured-section');
-    const featuredProjects = projects.filter(p => p.featured);
+  // Vídeos verticais (Reels/Shorts/TikTok) contam como estilo "Reels & Shorts"
+  // no filtro, independente da subcategoria a que pertencem.
+  const isReel = (p) => (p.type || 'video') === 'video' && p.orientation === 'vertical';
 
-    if (featuredProjects.length === 0) {
-      if (featuredSection) featuredSection.style.display = 'none';
-      return;
-    }
+  let activeFilter = 'all';
 
-    if (featuredSection) featuredSection.style.display = '';
-    const cards = featuredProjects.map(project => createProjectCard(project, { featured: true }));
-    mountMasonry(featuredGrid, cards, 3);
+  function projectsForFilter(filterId) {
+    if (filterId === 'all') return projects;
+    if (filterId === 'reels') return projects.filter(isReel);
+    return projects.filter(p => (p.subcategory || 'outros') === filterId);
   }
 
-  // 4. Portfolio sections grouped by subcategory
-  function renderPortfolioSections() {
-    if (!portfolioSections) return;
-    portfolioSections.innerHTML = '';
-    if (sectionNav) sectionNav.innerHTML = '';
+  // Na visão "Todos" o projects.json vem agrupado por categoria (vários
+  // podcast cuts seguidos, vários valorant seguidos, etc.), o que forma
+  // blocos visuais no grid. Intercalar por categoria (round-robin, mantendo
+  // a ordem curada dentro de cada uma) deixa a mistura mais orgânica.
+  // Banners (cards de imagem) ficam de fora da mistura e vão sempre por
+  // último, mantendo a ordem curada entre eles.
+  function interleaveByCategory(items) {
+    const isBanner = (p) => p.type === 'image';
+    const banners = items.filter(isBanner);
+    const rest = items.filter(p => !isBanner(p));
+
+    const groupKey = (p) => isReel(p) ? 'reels' : (p.subcategory || 'outros');
+    const groups = new Map();
+    rest.forEach(p => {
+      const key = groupKey(p);
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(p);
+    });
+    const queues = Array.from(groups.values());
+    const result = [];
+    let hasMore = true;
+    while (hasMore) {
+      hasMore = false;
+      for (const q of queues) {
+        if (q.length) {
+          result.push(q.shift());
+          hasMore = true;
+        }
+      }
+    }
+    return result.concat(banners);
+  }
+
+  // 3-4. Grid único estilo Pinterest, com filtro por estilo/categoria
+  function renderPortfolio() {
+    if (!portfolioGrid) return;
 
     if (projects.length === 0) {
-      portfolioSections.innerHTML = `
+      if (sectionNav) sectionNav.innerHTML = '';
+      portfolioGrid.innerHTML = `
         <div class="empty-state">
           <h3>${STRINGS.emptyTitle}</h3>
           <p>${STRINGS.emptyBody}</p>
@@ -358,47 +391,43 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Todos os vídeos verticais (Reels/Shorts/TikTok) ficam juntos numa
-    // seção única no topo; as categorias seguem com o restante.
-    const isReel = (p) => (p.type || 'video') === 'video' && p.orientation === 'vertical';
+    const filters = [{ id: 'all', label: STRINGS.allLabel }];
+    if (projects.some(isReel)) filters.push({ id: 'reels', label: STRINGS.reelsLabel });
+    SUBCATEGORIES.forEach(sub => {
+      if (projects.some(p => (p.subcategory || 'outros') === sub.id)) {
+        filters.push({ id: sub.id, label: sub.label });
+      }
+    });
 
-    const sections = [];
-    const reelsItems = projects.filter(isReel);
-    if (reelsItems.length > 0) {
-      sections.push({ id: 'reels', label: STRINGS.reelsLabel, items: reelsItems });
+    if (sectionNav) {
+      sectionNav.innerHTML = '';
+      filters.forEach(f => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'filter-btn' + (f.id === activeFilter ? ' active' : '');
+        chip.textContent = f.label;
+        chip.addEventListener('click', () => {
+          if (activeFilter === f.id) return;
+          activeFilter = f.id;
+          renderPortfolio();
+        });
+        sectionNav.appendChild(chip);
+      });
     }
 
-    SUBCATEGORIES.forEach(sub => {
-      const items = projects.filter(p => (p.subcategory || 'outros') === sub.id && !isReel(p));
-      if (items.length > 0) {
-        sections.push({ id: sub.id, label: sub.label, items });
-      }
-    });
-
-    sections.forEach(sec => {
-      if (sectionNav) {
-        const chip = document.createElement('a');
-        chip.className = 'filter-btn';
-        chip.href = `#sub-${sec.id}`;
-        chip.textContent = sec.label;
-        sectionNav.appendChild(chip);
-      }
-
-      const block = document.createElement('div');
-      block.className = 'portfolio-subsection';
-      block.id = `sub-${sec.id}`;
-      block.innerHTML = `<h3 class="subsection-title">${sec.label}</h3>`;
-
-      const grid = document.createElement('div');
-      grid.className = 'portfolio-grid';
-      block.appendChild(grid);
-      portfolioSections.appendChild(block);
-
-      // O grid precisa estar no DOM para ter largura antes do masonry
-      const cards = sec.items.map(project => createProjectCard(project));
-      mountMasonry(grid, cards, 4);
-    });
+    const filtered = projectsForFilter(activeFilter);
+    const displayProjects = activeFilter === 'all' ? interleaveByCategory(filtered) : filtered;
+    const cards = displayProjects.map(project => createProjectCard(project, { featured: !!project.featured }));
+    mountMasonry(portfolioGrid, cards, 4);
   }
+
+  // Cards de "Áreas de Foco" abrem o grid já filtrado no estilo certo
+  document.querySelectorAll('.service-card[data-filter]').forEach(card => {
+    card.addEventListener('click', () => {
+      activeFilter = card.getAttribute('data-filter');
+      renderPortfolio();
+    });
+  });
 
   // 5. Lightbox (native video, YouTube, Vimeo, Instagram, image)
   function openLightbox(project) {

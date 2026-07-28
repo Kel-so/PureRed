@@ -18,7 +18,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2308080a%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23FF003C%22/></svg>">
 
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
 
@@ -116,16 +116,17 @@
     </div>
   </div>
 
-  <!-- ===== Destaques ===== -->
-  <section id="destaques" class="featured-section">
+  <!-- ===== Trabalhos ===== -->
+  <section id="trabalhos" class="portfolio-section">
     <div class="container">
       <div class="section-header">
-        <div class="section-tag">Seleção curada</div>
-        <h2 class="section-title">Melhores <span>Trabalhos</span></h2>
-        <p>Os projetos que melhor representam o meu padrão de entrega.</p>
+        <div class="section-tag">Portfólio completo</div>
+        <h2 class="section-title">Meus <span>Trabalhos</span></h2>
+        <p>Passe o mouse para pré-visualizar. Clique para assistir com som. Filtre por estilo abaixo.</p>
       </div>
 
-      <div id="featured-grid" class="portfolio-grid featured-grid"></div>
+      <div class="filter-menu" id="section-nav"></div>
+      <div id="portfolio-grid" class="portfolio-grid"></div>
     </div>
   </section>
 
@@ -139,7 +140,7 @@
       </div>
 
       <div class="services-grid">
-        <a class="service-card" href="#sub-gaming">
+        <a class="service-card" href="#trabalhos" data-filter="gaming">
           <div class="service-num">01</div>
           <h3>Gaming &amp; eSports</h3>
           <p>Edits de gameplay, montagens de highlights e teasers de campeonato com sync cravado na música e VFX que valorizam a play.</p>
@@ -151,7 +152,7 @@
           <span class="service-link">Ver projetos →</span>
         </a>
 
-        <a class="service-card" href="#sub-samedayedit">
+        <a class="service-card" href="#trabalhos" data-filter="samedayedit">
           <div class="service-num">02</div>
           <h3>Eventos &amp; Aftermovies</h3>
           <p>Cobertura de festivais, shows e eventos esportivos — incluindo Same Day Edit: o vídeo pronto e exibido no mesmo dia do evento.</p>
@@ -163,7 +164,7 @@
           <span class="service-link">Ver projetos →</span>
         </a>
 
-        <a class="service-card" href="#sub-podcast">
+        <a class="service-card" href="#trabalhos" data-filter="podcast">
           <div class="service-num">03</div>
           <h3>Social &amp; Podcast</h3>
           <p>Cortes verticais pensados para retenção: legendas dinâmicas, zooms, sound design e ritmo calibrado para Shorts, Reels e TikTok.</p>
@@ -175,7 +176,7 @@
           <span class="service-link">Ver projetos →</span>
         </a>
 
-        <a class="service-card" href="#sub-design">
+        <a class="service-card" href="#trabalhos" data-filter="design">
           <div class="service-num">04</div>
           <h3>Motion &amp; Design</h3>
           <p>Intros, animações de logo e banners esportivos com recorte, tratamento de cor e tipografia de impacto para as redes do seu time ou marca.</p>
@@ -187,20 +188,6 @@
           <span class="service-link">Ver projetos →</span>
         </a>
       </div>
-    </div>
-  </section>
-
-  <!-- ===== Trabalhos ===== -->
-  <section id="trabalhos" class="portfolio-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-tag">Portfólio completo</div>
-        <h2 class="section-title">Trabalhos por <span>Categoria</span></h2>
-        <p>Passe o mouse para pré-visualizar. Clique para assistir com som.</p>
-      </div>
-
-      <div class="filter-menu" id="section-nav"></div>
-      <div id="portfolio-sections"></div>
     </div>
   </section>
 
@@ -401,6 +388,6 @@
     </div>
   </dialog>
 
-  <script src="app.js?v=11"></script>
+  <script src="app.js?v=13"></script>
 </body>
 </html>

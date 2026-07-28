@@ -700,12 +700,6 @@ section {
    Portfolio grids and cards
    ============================================================ */
 
-.featured-section {
-  background: var(--bg-raised);
-  border-top: var(--border);
-  border-bottom: var(--border);
-}
-
 /* Masonry controlado por JS (app.js): os cards são distribuídos em
    colunas de altura balanceada, preenchendo da esquerda para a direita
    sem deixar buracos entre cards verticais e horizontais */
@@ -836,22 +830,6 @@ section {
   margin: 0;
 }
 
-/* Category subsections */
-.portfolio-subsection {
-  margin-bottom: 3rem;
-  scroll-margin-top: 90px;
-}
-
-.subsection-title {
-  font-family: var(--font-title);
-  font-size: 1.25rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  margin-bottom: 1.2rem;
-  padding-left: 0.9rem;
-  border-left: 4px solid var(--red);
-}
-
 .filter-menu {
   display: flex;
   flex-wrap: wrap;
@@ -863,6 +841,8 @@ section {
   background: var(--bg-card);
   border: var(--border);
   color: var(--text-muted);
+  font-family: inherit;
+  cursor: pointer;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.85rem;
@@ -875,6 +855,12 @@ section {
   color: #fff;
   border-color: var(--red);
   background: var(--red-soft-bg);
+}
+
+.filter-btn.active {
+  color: #fff;
+  border-color: var(--red);
+  background: var(--red);
 }
 
 /* ============================================================
