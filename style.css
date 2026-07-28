@@ -1110,6 +1110,7 @@ dialog {
   background: var(--bg-raised);
   color: var(--text);
   padding: 0;
+  margin: auto;
   max-width: min(920px, 94vw);
   width: 100%;
   box-shadow: var(--shadow-lg);

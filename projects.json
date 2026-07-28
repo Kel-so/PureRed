@@ -752,5 +752,170 @@
         "Athlete"
       ]
     }
+  },
+  {
+    "id": "motion-inception3d",
+    "type": "video",
+    "subcategory": "motion",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 23,
+    "client": "Inception 3D",
+    "date": "2026-07",
+    "videoUrl": "assets/videos/inception3d.mp4",
+    "previewUrl": "assets/previews/inception3d.mp4",
+    "thumbnailUrl": "assets/thumbnails/inception3d.jpg",
+    "title": {
+      "pt": "INCEPTION 3D — SITE REVEAL",
+      "en": "INCEPTION 3D — SITE REVEAL"
+    },
+    "description": {
+      "pt": "Motion de apresentação do site institucional da Inception 3D. Mockup animado com transições limpas para valorizar a identidade da marca.",
+      "en": "Motion showcase for Inception 3D's website. Animated mockup with clean transitions to highlight the brand's identity."
+    },
+    "tags": {
+      "pt": [
+        "Motion",
+        "Web Design",
+        "Mockup"
+      ],
+      "en": [
+        "Motion",
+        "Web Design",
+        "Mockup"
+      ]
+    }
+  },
+  {
+    "id": "motion-brick",
+    "type": "video",
+    "subcategory": "motion",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 24,
+    "client": "Brick Engenharia",
+    "date": "2026-07",
+    "videoUrl": "assets/videos/brick-site.mp4",
+    "previewUrl": "assets/previews/brick-site.mp4",
+    "thumbnailUrl": "assets/thumbnails/brick-site.jpg",
+    "title": {
+      "pt": "BRICK — SITE REVEAL",
+      "en": "BRICK — SITE REVEAL"
+    },
+    "description": {
+      "pt": "Apresentação em motion do site da Brick, empresa júnior de engenharia civil. Scroll animado revelando as seções do site com ritmo suave.",
+      "en": "Motion showcase for Brick's website, a civil engineering junior company. Animated scroll revealing the site's sections with a smooth pace."
+    },
+    "tags": {
+      "pt": [
+        "Motion",
+        "Web Design",
+        "Mockup"
+      ],
+      "en": [
+        "Motion",
+        "Web Design",
+        "Mockup"
+      ]
+    }
+  },
+  {
+    "id": "motion-webdesign-portfolio",
+    "type": "video",
+    "subcategory": "motion",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 25,
+    "client": "Portfólio Próprio",
+    "date": "2026-07",
+    "videoUrl": "assets/videos/webdesign-portfolio.mp4",
+    "previewUrl": "assets/previews/webdesign-portfolio.mp4",
+    "thumbnailUrl": "assets/thumbnails/webdesign-portfolio.jpg",
+    "title": {
+      "pt": "PORTFÓLIO WEB DESIGN",
+      "en": "WEB DESIGN PORTFOLIO"
+    },
+    "description": {
+      "pt": "Compilado em motion de projetos de web design, com mockups animados lado a lado mostrando o alcance dos sites entregues.",
+      "en": "A motion compilation of web design projects, with animated mockups side by side showing the range of delivered sites."
+    },
+    "tags": {
+      "pt": [
+        "Motion",
+        "Web Design",
+        "Portfólio"
+      ],
+      "en": [
+        "Motion",
+        "Web Design",
+        "Portfolio"
+      ]
+    }
+  },
+  {
+    "id": "motion-cotton",
+    "type": "video",
+    "subcategory": "motion",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 26,
+    "client": "Cotton Consultoria",
+    "date": "2026-07",
+    "videoUrl": "assets/videos/cotton-consultoria.mp4",
+    "previewUrl": "assets/previews/cotton-consultoria.mp4",
+    "thumbnailUrl": "assets/thumbnails/cotton-consultoria.jpg",
+    "title": {
+      "pt": "COTTON CONSULTORIA — SITE REVEAL",
+      "en": "COTTON CONSULTORIA — SITE REVEAL"
+    },
+    "description": {
+      "pt": "Motion de apresentação do site da Cotton Consultoria. Transições dinâmicas guiando o olhar pelas seções principais da página.",
+      "en": "Motion showcase for the Cotton Consultoria website. Dynamic transitions guiding the eye through the page's main sections."
+    },
+    "tags": {
+      "pt": [
+        "Motion",
+        "Web Design",
+        "Mockup"
+      ],
+      "en": [
+        "Motion",
+        "Web Design",
+        "Mockup"
+      ]
+    }
+  },
+  {
+    "id": "moda-camisa-skoria",
+    "type": "video",
+    "subcategory": "moda",
+    "orientation": "vertical",
+    "featured": false,
+    "order": 27,
+    "client": "Skoria",
+    "date": "2026-07",
+    "videoUrl": "assets/videos/camisa-skoria.mp4",
+    "previewUrl": "assets/previews/camisa-skoria.mp4",
+    "thumbnailUrl": "assets/thumbnails/camisa-skoria.jpg",
+    "title": {
+      "pt": "SKORIA — CAMISA",
+      "en": "SKORIA — SHIRT"
+    },
+    "description": {
+      "pt": "Peça em preto e branco pra Skoria, clima de rua à noite valorizando a camisa. Edição crua e atmosférica, seguindo a identidade da marca.",
+      "en": "A black-and-white piece for Skoria, night street mood highlighting the shirt. Raw, atmospheric edit following the brand's identity."
+    },
+    "tags": {
+      "pt": [
+        "Vertical",
+        "Moda/Marca",
+        "Produto"
+      ],
+      "en": [
+        "Vertical",
+        "Fashion/Brand",
+        "Product"
+      ]
+    }
   }
 ]
