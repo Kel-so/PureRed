@@ -14,6 +14,8 @@ Portfólio audiovisual de **Kelson Budin** (PureRed): edição de vídeo de alta
 | `pricing.json` | **Valores dos serviços** (R$ e US$) — alimenta a tabela de valores e o quiz; editável pelo admin |
 | `projects.json` | **Banco de dados único** dos projetos (títulos, descrições e tags em PT e EN no mesmo arquivo) |
 | `app.js` / `style.css` | Lógica e visual do site |
+| `filmmaker.html`, `shorts.html`, `games.html`, `esportes.html`, `motion.html`, `fotografia.html` | **Páginas de nicho** — mini-portfólios para enviar a clientes (fora do menu e do Google) |
+| `niches.json` / `niche.js` / `niche.css` | Textos, lógica e os 4 estilos visuais das páginas de nicho |
 | `admin.html` / `admin.js` / `admin.css` | Painel admin para gerenciar os projetos |
 | `assets/previews/` | Vídeos curtos em loop que tocam nos cards |
 | `assets/banners/full/` e `assets/banners/thumbs/` | Banners (imagem cheia + miniatura) |
@@ -28,6 +30,22 @@ Portfólio audiovisual de **Kelson Budin** (PureRed): edição de vídeo de alta
 ## Seções do site
 
 Hero com destaque → Áreas de Foco (Gaming & eSports, Eventos & Aftermovies, Social & Podcast, Motion & Design) → Melhores Trabalhos → Trabalhos por Categoria → Sobre (Kelson Budin) → Processo → Contato (WhatsApp/E-mail).
+
+## Páginas de nicho
+
+Seis links para mandar a clientes, cada um com estilo próprio e só os trabalhos daquele nicho. Não têm preço: todos os botões levam pro WhatsApp com uma mensagem pronta.
+
+| Link | Estilo |
+|---|---|
+| `filmmaker.html` · `shorts.html` | **Rolo** — minimalista, cinema |
+| `games.html` · `esportes.html` | **Broadcast** — gameplay no centro, com luz |
+| `motion.html` | **Estúdio** — tipografia animada + logo antes/depois |
+| `fotografia.html` | **Galeria** — exposição de fotos |
+
+- **Quais trabalhos aparecem:** no admin, edite o projeto e marque os nichos (campo `niches` no `projects.json`). Um trabalho pode estar em várias páginas.
+- **Links:** seção "🔗 Páginas de Nicho" no admin → *Copiar link PT* / *Copiar link EN* (inglês = `?lang=en`).
+- **Textos, serviços e vídeo de destaque** de cada página ficam no `niches.json` (campo `hero` = id do projeto em destaque).
+- **Fotografia:** fotos são projetos do tipo *Banner / Foto* na categoria *Fotografia*; a primeira tag vira filtro da galeria.
 
 ## Rodar localmente
 

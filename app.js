@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 'design', label: 'Banners & Design' },
       { id: 'automotivo', label: 'Automotivo' },
       { id: 'moda', label: 'Moda & Marca' },
+      { id: 'fotografia', label: 'Fotografia' },
       { id: 'outros', label: 'Outros Projetos' }
     ],
     en: [
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 'design', label: 'Banners & Design' },
       { id: 'automotivo', label: 'Automotive' },
       { id: 'moda', label: 'Fashion & Brand' },
+      { id: 'fotografia', label: 'Photography' },
       { id: 'outros', label: 'Other Projects' }
     ]
   };

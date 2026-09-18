@@ -1,0 +1,152 @@
+{
+  "filmmaker": {
+    "style": "rolo",
+    "page": "filmmaker.html",
+    "label": { "pt": "Filmmaker", "en": "Filmmaker" },
+    "autoSubcategories": ["samedayedit", "aftermovie", "automotivo", "moda"],
+    "hero": ["sameday01"],
+    "primary": "horizontal",
+    "title": { "pt": "Filmes de evento e de marca.", "en": "Event and brand films." },
+    "titleMuted": { "pt": "Gravados de dia, entregues na mesma noite.", "en": "Shot by day, delivered the same night." },
+    "lede": {
+      "pt": "Same Day Edit, aftermovie, moda e automotivo — e os cortes verticais que levam tudo isso pras redes.",
+      "en": "Same Day Edit, aftermovies, fashion and automotive — plus the vertical cuts that take it all to social."
+    },
+    "services": [
+      { "name": { "pt": "Same Day Edit", "en": "Same Day Edit" }, "desc": { "pt": "Filme do evento editado e exibido no mesmo dia.", "en": "The event film, edited and screened the same day." } },
+      { "name": { "pt": "Aftermovie", "en": "Aftermovie" }, "desc": { "pt": "O resumo do evento com ritmo de filme.", "en": "The event recap, paced like a film." } },
+      { "name": { "pt": "Filme de marca", "en": "Brand film" }, "desc": { "pt": "Moda, produto e automotivo com cara de campanha.", "en": "Fashion, product and automotive with a campaign feel." } },
+      { "name": { "pt": "Cortes para redes", "en": "Social cuts" }, "desc": { "pt": "Versões verticais prontas pra Reels, TikTok e Shorts.", "en": "Vertical versions ready for Reels, TikTok and Shorts." } }
+    ],
+    "cta": { "pt": "Tem uma data em vista?", "en": "Have a date in mind?" },
+    "ctaButton": { "pt": "Consultar disponibilidade", "en": "Check availability" },
+    "whatsapp": {
+      "pt": "Oi Kelson! Vi sua página de Filmmaker e quero consultar uma data.",
+      "en": "Hi Kelson! I saw your Filmmaker page and want to check a date."
+    }
+  },
+  "shorts": {
+    "style": "rolo",
+    "page": "shorts.html",
+    "label": { "pt": "Short Form", "en": "Short Form" },
+    "autoSubcategories": ["podcast"],
+    "hero": ["podcast-cut-1", "skoria01", "drift01"],
+    "primary": "vertical",
+    "title": { "pt": "Vídeos curtos que seguram o dedo.", "en": "Short videos that stop the scroll." },
+    "titleMuted": { "pt": "Gancho nos primeiros segundos, ritmo até o fim.", "en": "A hook in the first seconds, rhythm to the end." },
+    "lede": {
+      "pt": "Cortes de podcast, reels de marca e vídeos verticais pra TikTok, Reels e Shorts — com legenda, sound design e formato pronto pra postar.",
+      "en": "Podcast cuts, brand reels and vertical videos for TikTok, Reels and Shorts — with captions, sound design and ready-to-post formats."
+    },
+    "services": [
+      { "name": { "pt": "Cortes de podcast", "en": "Podcast cuts" }, "desc": { "pt": "Os melhores momentos do episódio, com gancho na abertura.", "en": "The episode's best moments, with a hook up front." } },
+      { "name": { "pt": "Reels e TikToks", "en": "Reels & TikToks" }, "desc": { "pt": "Vídeos de marca pensados pro feed vertical.", "en": "Brand videos made for the vertical feed." } },
+      { "name": { "pt": "Legendas animadas", "en": "Animated captions" }, "desc": { "pt": "Texto na tela no ritmo da fala.", "en": "On-screen text timed to the speech." } },
+      { "name": { "pt": "Adaptação 9:16", "en": "9:16 reframing" }, "desc": { "pt": "Vídeo horizontal reenquadrado para vertical.", "en": "Horizontal footage reframed for vertical." } }
+    ],
+    "cta": { "pt": "Quer cortes toda semana?", "en": "Want cuts every week?" },
+    "ctaButton": { "pt": "Falar no WhatsApp", "en": "Message on WhatsApp" },
+    "whatsapp": {
+      "pt": "Oi Kelson! Vi sua página de Short Form e quero um orçamento de vídeos curtos.",
+      "en": "Hi Kelson! I saw your Short Form page and want a quote for short videos."
+    }
+  },
+  "games": {
+    "style": "broadcast",
+    "page": "games.html",
+    "label": { "pt": "Games", "en": "Games" },
+    "autoSubcategories": ["gaming"],
+    "hero": ["valorant-1"],
+    "title": { "pt": "Gameplay editada no", "en": "Gameplay edited to the" },
+    "titleAccent": { "pt": "ritmo de uma transmissão.", "en": "pace of a broadcast." },
+    "lede": {
+      "pt": "Montagens, highlights de campeonato e clipes para redes, com sync no beat e sound design. Pra streamers, orgs e times de eSports.",
+      "en": "Montages, tournament highlights and social clips, synced to the beat with sound design. For streamers, orgs and eSports teams."
+    },
+    "services": [
+      { "name": { "pt": "Montagens", "en": "Montages" }, "desc": { "pt": "Edits de gameplay com sync, VFX e color.", "en": "Gameplay edits with sync, VFX and color." } },
+      { "name": { "pt": "Highlights", "en": "Highlights" }, "desc": { "pt": "Melhores jogadas de campeonato e de live.", "en": "Best plays from tournaments and streams." } },
+      { "name": { "pt": "Clipes para redes", "en": "Social clips" }, "desc": { "pt": "Cortes verticais para TikTok, Reels e Shorts.", "en": "Vertical cuts for TikTok, Reels and Shorts." } },
+      { "name": { "pt": "Artes de matchday", "en": "Matchday art" }, "desc": { "pt": "Banners de confronto, escalação e resultado.", "en": "Matchup, lineup and result banners." } }
+    ],
+    "cta": { "pt": "Tem clipes parados no HD?", "en": "Got clips sitting on your drive?" },
+    "ctaButton": { "pt": "Falar no WhatsApp", "en": "Message on WhatsApp" },
+    "whatsapp": {
+      "pt": "Oi Kelson! Vi sua página de Games e quero um orçamento de edição.",
+      "en": "Hi Kelson! I saw your Games page and want a quote for editing."
+    }
+  },
+  "esportes": {
+    "style": "broadcast",
+    "page": "esportes.html",
+    "label": { "pt": "Esportes", "en": "Sports" },
+    "autoSubcategories": ["esportes"],
+    "hero": ["futsal01"],
+    "title": { "pt": "Do apito final", "en": "From the final whistle" },
+    "titleAccent": { "pt": "direto pro feed.", "en": "straight to the feed." },
+    "lede": {
+      "pt": "Highlights de jogo, artes de matchday e conteúdo de atleta para clubes, ligas e marcas esportivas.",
+      "en": "Game highlights, matchday art and athlete content for clubs, leagues and sports brands."
+    },
+    "services": [
+      { "name": { "pt": "Highlights de jogo", "en": "Game highlights" }, "desc": { "pt": "Os lances da partida editados com ritmo de TV.", "en": "The match's key plays, cut at TV pace." } },
+      { "name": { "pt": "Artes de matchday", "en": "Matchday art" }, "desc": { "pt": "Confronto, escalação, placar e destaque do jogo.", "en": "Matchup, lineup, score and player of the match." } },
+      { "name": { "pt": "Conteúdo de atleta", "en": "Athlete content" }, "desc": { "pt": "Banners e vídeos para o perfil do atleta.", "en": "Banners and videos for an athlete's profile." } },
+      { "name": { "pt": "Clipes para redes", "en": "Social clips" }, "desc": { "pt": "Cortes verticais do jogo pra postar no mesmo dia.", "en": "Vertical game clips to post the same day." } }
+    ],
+    "cta": { "pt": "Próximo jogo já tem data?", "en": "Is the next game on the calendar?" },
+    "ctaButton": { "pt": "Falar no WhatsApp", "en": "Message on WhatsApp" },
+    "whatsapp": {
+      "pt": "Oi Kelson! Vi sua página de Esportes e quero um orçamento.",
+      "en": "Hi Kelson! I saw your Sports page and want a quote."
+    }
+  },
+  "motion": {
+    "style": "studio",
+    "page": "motion.html",
+    "label": { "pt": "Motion", "en": "Motion" },
+    "autoSubcategories": ["motion"],
+    "hero": ["anim-logo"],
+    "kinetic": { "pt": "MOVIMENTO", "en": "MOTION" },
+    "lede": {
+      "pt": "Logo que respira, intro que prende e interface que ganha vida. Motion pra marca parar de ficar parada.",
+      "en": "A logo that breathes, an intro that hooks, an interface that comes alive. Motion so your brand stops standing still."
+    },
+    "heroButton": { "pt": "Animar minha marca", "en": "Animate my brand" },
+    "before": { "pt": "Logo estático", "en": "Static logo" },
+    "after": { "pt": "Logo animado", "en": "Animated logo" },
+    "afterNote": { "pt": "Pronto pra vinheta, reels e site", "en": "Ready for intros, reels and web" },
+    "services": [
+      { "name": { "pt": "Logo animado", "en": "Logo animation" }, "desc": { "pt": "A sua marca ganhando vida em poucos segundos.", "en": "Your brand coming to life in a few seconds." } },
+      { "name": { "pt": "Intro e vinheta", "en": "Intros & stings" }, "desc": { "pt": "Abertura pra canal, evento ou apresentação.", "en": "Openers for channels, events or presentations." } },
+      { "name": { "pt": "Site reveal", "en": "Site reveal" }, "desc": { "pt": "Vídeo mostrando o seu site ou app em movimento.", "en": "A video showcasing your site or app in motion." } },
+      { "name": { "pt": "Motion para redes", "en": "Social motion" }, "desc": { "pt": "Posts e reels animados com a identidade da marca.", "en": "Animated posts and reels in your brand identity." } }
+    ],
+    "cta": { "pt": "Sua marca ainda está parada?", "en": "Is your brand still standing still?" },
+    "ctaButton": { "pt": "Falar no WhatsApp", "en": "Message on WhatsApp" },
+    "whatsapp": {
+      "pt": "Oi Kelson! Vi sua página de Motion e quero animar minha marca.",
+      "en": "Hi Kelson! I saw your Motion page and want to animate my brand."
+    }
+  },
+  "fotografia": {
+    "style": "galeria",
+    "page": "fotografia.html",
+    "label": { "pt": "Fotografia", "en": "Photography" },
+    "autoSubcategories": ["fotografia"],
+    "hero": [],
+    "title": { "pt": "Luz,", "en": "Light," },
+    "titleItalic": { "pt": "pausada.", "en": "held still." },
+    "lede": {
+      "pt": "Retrato, evento, produto e esporte. Cada ensaio chega tratado e selecionado — você recebe as melhores fotos, não centenas de arquivos.",
+      "en": "Portrait, event, product and sports. Every shoot arrives edited and curated — you get the best photos, not hundreds of files."
+    },
+    "empty": { "pt": "As fotos desta galeria estão sendo preparadas.", "en": "The photos for this gallery are being prepared." },
+    "cta": { "pt": "Vamos marcar um ensaio?", "en": "Shall we book a shoot?" },
+    "ctaButton": { "pt": "Agendar pelo WhatsApp", "en": "Book on WhatsApp" },
+    "whatsapp": {
+      "pt": "Oi Kelson! Vi sua página de Fotografia e quero agendar um ensaio.",
+      "en": "Hi Kelson! I saw your Photography page and want to book a shoot."
+    }
+  }
+}

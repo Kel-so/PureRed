@@ -9,7 +9,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2308080a%22/><circle cx=%2250%22 cy=%2250%22 r=%2235%22 fill=%22%23FF003C%22/></svg>">
 
-  <link rel="stylesheet" href="admin.css?v=6">
+  <link rel="stylesheet" href="admin.css?v=7">
 </head>
 <body>
 
@@ -69,6 +69,15 @@
       <!-- Lista de projetos -->
       <div id="projects-list" class="projects-list"></div>
 
+      <!-- Páginas de nicho (links para enviar a clientes) -->
+      <div class="niches-admin">
+        <div class="pricing-admin-head">
+          <h3>🔗 Páginas de Nicho</h3>
+          <p>Mini-portfólios com estilo próprio para enviar a clientes. Eles não aparecem no menu do site nem no Google — só quem recebe o link chega neles. Para escolher os trabalhos de cada página, edite o projeto (✎) e marque os nichos. Sem preços: o botão final leva direto pro seu WhatsApp.</p>
+        </div>
+        <div id="niches-rows" class="niches-rows"></div>
+      </div>
+
       <!-- Valores dos serviços -->
       <div class="pricing-admin">
         <div class="pricing-admin-head">
@@ -85,6 +94,7 @@
         <p style="margin-top: 0;"><strong>Modo direto (recomendado):</strong> configure uma vez o token do GitHub no botão <strong>⚙</strong> lá em cima. Depois, é só clicar em <strong>🚀 Publicar no site</strong> quando houver alterações — o painel envia os arquivos direto para o GitHub e o site atualiza em ~1 minuto.</p>
         <p><strong>Modo manual (sem token):</strong> baixe o arquivo alterado (⬇ projects.json / ⬇ pricing.json), substitua na pasta do projeto e envie: <code>git add -A && git commit -m "atualiza portfolio" && git push</code></p>
         <p>Dica: para adicionar um banner (imagem), coloque o arquivo em <code>assets/banners/full/</code> e use esse caminho no campo "URL da imagem".</p>
+        <p>Fotos: coloque a foto em <code>assets/fotos/full/</code> (e uma versão menor em <code>assets/fotos/thumbs/</code>), crie um projeto do tipo <strong>Banner / Foto</strong> na categoria <strong>Fotografia</strong> e marque o nicho Fotografia. A primeira tag (ex: Retrato, Evento) vira filtro na galeria.</p>
       </div>
     </main>
   </div>
@@ -111,7 +121,7 @@
             </label>
             <label class="type-option">
               <input type="radio" name="f-type" value="image">
-              <span>🖼 Banner / Imagem</span>
+              <span>🖼 Banner / Foto</span>
             </label>
           </div>
         </div>
@@ -205,6 +215,11 @@
           </div>
         </div>
 
+        <div class="field">
+          <label>Páginas de nicho <small>(em quais links para clientes este trabalho aparece)</small></label>
+          <div id="f-niches" class="niche-checks"></div>
+        </div>
+
         <label class="featured-check">
           <input type="checkbox" id="f-featured">
           <span>⭐ Mostrar na seção "Melhores Trabalhos"</span>
@@ -244,6 +259,6 @@
     </div>
   </dialog>
 
-  <script src="admin.js?v=5"></script>
+  <script src="admin.js?v=6"></script>
 </body>
 </html>

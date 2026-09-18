@@ -212,10 +212,12 @@ textarea { resize: vertical; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem;
   padding: 0.9rem 0;
 }
 
-.admin-header-actions { display: flex; gap: 0.6rem; }
+.admin-header-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
 .sync-bar {
   border-bottom: var(--border);
@@ -502,6 +504,96 @@ textarea { resize: vertical; }
   .pricing-admin-row { grid-template-columns: 1fr; }
   .price-group { min-width: 0; }
   .price-group input { flex: 1 1 0; width: auto; }
+}
+
+/* ============ Páginas de nicho ============ */
+
+.niches-admin {
+  margin-top: 2.2rem;
+  background: var(--bg-card);
+  border: var(--border);
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem;
+}
+
+.niches-admin .pricing-admin-head h3 { margin-bottom: 0.5rem; }
+
+.niches-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
+
+.niche-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.8rem 1rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: var(--border);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+}
+
+.niche-swatch {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.niche-swatch.style-rolo { background: linear-gradient(135deg, #0e0e0d 50%, #f2f0ec 50%); }
+.niche-swatch.style-broadcast { background: linear-gradient(135deg, #070a13 45%, #38d9ff 45%, #8a6bff); }
+.niche-swatch.style-studio { background: linear-gradient(135deg, #e6e8ec 50%, #2438ff 50%); }
+.niche-swatch.style-galeria { background: linear-gradient(135deg, #f3f3f1 50%, #1a1a19 50%); }
+
+.niche-info { min-width: 0; }
+.niche-info strong { display: block; font-size: 0.95rem; }
+.niche-info span {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.niche-info .niche-warn { color: var(--yellow); }
+
+.niche-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: flex-end; }
+.niche-actions .btn { padding: 0.45rem 0.8rem; font-size: 0.82rem; }
+.niche-actions .btn.copied { border-color: var(--green); color: var(--green); }
+
+.niche-checks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.niche-checks label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text);
+  background: var(--bg-card);
+  border: var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+}
+
+.niche-checks input { width: 16px; height: 16px; accent-color: var(--red); }
+
+.badge-niche { background: rgba(255, 255, 255, 0.07); color: var(--muted); }
+
+@media (max-width: 720px) {
+  .niche-row { grid-template-columns: auto minmax(0, 1fr); }
+  .niche-actions { grid-column: 1 / -1; justify-content: flex-start; }
+  .niche-checks { grid-template-columns: 1fr 1fr; }
 }
 
 /* ============ Help card ============ */

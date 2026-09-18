@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'design', label: 'Banners & Design' },
     { id: 'automotivo', label: 'Automotivo' },
     { id: 'moda', label: 'Moda & Marca' },
+    { id: 'fotografia', label: 'Fotografia' },
     { id: 'outros', label: 'Outros Projetos' }
   ];
 
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let pricing = null;           // estado atual dos valores (rascunho)
   let publishedPricing = null;  // conteúdo do pricing.json publicado
   let draggedId = null;
+  let niches = {};              // niches.json: páginas de nicho (só leitura)
 
   /* ---------- Elementos ---------- */
   const $ = (id) => document.getElementById(id);
@@ -120,8 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     await loadPricingData();
 
+    try {
+      const res = await fetch('niches.json?t=' + Date.now());
+      niches = res.ok ? await res.json() : {};
+    } catch {
+      niches = {};
+    }
+
     normalizeOrder();
     renderPricingEditor();
+    renderNicheChecks();
     render();
   }
 
@@ -458,7 +468,95 @@ document.addEventListener('DOMContentLoaded', () => {
   function render() {
     renderList();
     renderStats();
+    renderNiches();
     updateSyncBar();
+  }
+
+  /* ---------- Páginas de nicho ---------- */
+
+  // Projetos antigos sem o campo `niches` caem nas páginas pela subcategoria
+  // (mesma regra do niche.js)
+  function projectNiches(p) {
+    if (Array.isArray(p.niches)) return p.niches;
+    return Object.keys(niches).filter(id => (niches[id].autoSubcategories || []).includes(p.subcategory));
+  }
+
+  function nicheUrl(id, lang) {
+    const url = new URL(niches[id].page, location.href);
+    if (lang === 'en') url.searchParams.set('lang', 'en');
+    return url.href;
+  }
+
+  const STYLE_LABELS = { rolo: 'Rolo', broadcast: 'Broadcast', studio: 'Estúdio', galeria: 'Galeria' };
+
+  function renderNiches() {
+    const rows = $('niches-rows');
+    if (!rows) return;
+    rows.innerHTML = '';
+
+    Object.entries(niches).forEach(([id, cfg]) => {
+      const count = projects.filter(p => projectNiches(p).includes(id)).length;
+      const noun = cfg.style === 'galeria' ? (count === 1 ? 'foto' : 'fotos') : (count === 1 ? 'trabalho' : 'trabalhos');
+      const row = document.createElement('div');
+      row.className = 'niche-row';
+      row.innerHTML = `
+        <span class="niche-swatch style-${cfg.style}"></span>
+        <div class="niche-info">
+          <strong>${cfg.label.pt} · estilo ${STYLE_LABELS[cfg.style] || cfg.style}</strong>
+          <span class="${count ? '' : 'niche-warn'}">${count ? `${count} ${noun}` : (cfg.style === 'galeria' ? 'Nenhuma foto marcada ainda' : 'Nenhum trabalho marcado ainda')} · ${cfg.page}</span>
+        </div>
+        <div class="niche-actions">
+          <button type="button" class="btn btn-ghost" data-copy="${id}" data-lang="pt">Copiar link PT</button>
+          <button type="button" class="btn btn-ghost" data-copy="${id}" data-lang="en">Copiar link EN</button>
+          <a class="btn btn-ghost" href="${nicheUrl(id, 'pt')}" target="_blank" rel="noopener">Abrir ↗</a>
+        </div>
+      `;
+      rows.appendChild(row);
+    });
+  }
+
+  const nichesRowsEl = $('niches-rows');
+  if (nichesRowsEl) {
+    nichesRowsEl.addEventListener('click', async (e) => {
+      const btn = e.target.closest('[data-copy]');
+      if (!btn) return;
+      const url = nicheUrl(btn.dataset.copy, btn.dataset.lang);
+      try {
+        await navigator.clipboard.writeText(url);
+      } catch {
+        prompt('Copie o link:', url);
+        return;
+      }
+      const original = btn.textContent;
+      btn.textContent = 'Copiado ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1600);
+    });
+  }
+
+  // Checkboxes de nicho no formulário
+  let nicheChecksTouched = false;
+
+  function renderNicheChecks() {
+    const box = $('f-niches');
+    if (!box) return;
+    box.innerHTML = Object.entries(niches).map(([id, cfg]) => `
+      <label><input type="checkbox" value="${id}"> ${cfg.label.pt}</label>
+    `).join('');
+    box.addEventListener('change', () => { nicheChecksTouched = true; });
+  }
+
+  function setNicheChecks(list) {
+    document.querySelectorAll('#f-niches input').forEach(input => {
+      input.checked = list.includes(input.value);
+    });
+  }
+
+  function getNicheChecks() {
+    return Array.from(document.querySelectorAll('#f-niches input:checked')).map(input => input.value);
   }
 
   function renderStats() {
@@ -515,6 +613,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="row-meta">
             ${typeBadge}
             <span class="row-badge badge-cat">${catLabel(p.subcategory)}</span>
+            ${projectNiches(p).map(id => niches[id] ? `<span class="row-badge badge-niche">${niches[id].label.pt}</span>` : '').join('')}
             <span>${p.client || ''}</span>
           </div>
         </div>
@@ -606,6 +705,12 @@ document.addEventListener('DOMContentLoaded', () => {
     subcatSelect.appendChild(opt);
   });
 
+  subcatSelect.addEventListener('change', () => {
+    if (!$('f-id').value && !nicheChecksTouched) {
+      setNicheChecks(projectNiches({ subcategory: subcatSelect.value }));
+    }
+  });
+
   function currentType() {
     return form.querySelector('input[name="f-type"]:checked').value;
   }
@@ -667,6 +772,10 @@ document.addEventListener('DOMContentLoaded', () => {
       $('f-featured').checked = !!project.featured;
     }
 
+    // Projeto novo: sugere os nichos pela categoria até o usuário mexer
+    nicheChecksTouched = false;
+    setNicheChecks(project ? projectNiches(project) : projectNiches({ subcategory: $('f-subcategory').value }));
+
     applyTypeVisibility();
     updateThumbPreview();
     dialog.showModal();
@@ -718,6 +827,7 @@ document.addEventListener('DOMContentLoaded', () => {
       subcategory: $('f-subcategory').value,
       orientation: type === 'image' ? 'vertical' : $('f-orientation').value,
       featured: $('f-featured').checked,
+      niches: getNicheChecks(),
       order: existing ? existing.order : projects.length,
       client: $('f-client').value.trim(),
       date: $('f-date').value,

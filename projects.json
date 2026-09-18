@@ -5,6 +5,9 @@
     "subcategory": "podcast",
     "orientation": "vertical",
     "featured": true,
+    "niches": [
+      "shorts"
+    ],
     "order": 0,
     "client": "Série de Podcast",
     "date": "2026-06",
@@ -39,6 +42,9 @@
     "subcategory": "design",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "motion"
+    ],
     "order": 1,
     "client": "Portfólio",
     "date": "2026-06",
@@ -73,6 +79,9 @@
     "subcategory": "gaming",
     "orientation": "horizontal",
     "featured": true,
+    "niches": [
+      "games"
+    ],
     "order": 2,
     "client": "Gaming",
     "date": "2026-06",
@@ -106,6 +115,9 @@
     "subcategory": "gaming",
     "orientation": "horizontal",
     "featured": false,
+    "niches": [
+      "games"
+    ],
     "order": 3,
     "client": "Gaming",
     "date": "2026-06",
@@ -139,6 +151,9 @@
     "subcategory": "motion",
     "orientation": "horizontal",
     "featured": false,
+    "niches": [
+      "motion"
+    ],
     "order": 4,
     "client": "Pure Red",
     "date": "2026-06",
@@ -172,6 +187,9 @@
     "subcategory": "motion",
     "orientation": "horizontal",
     "featured": false,
+    "niches": [
+      "motion"
+    ],
     "order": 5,
     "client": "Marca Própria",
     "date": "2026-06",
@@ -205,6 +223,9 @@
     "subcategory": "podcast",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "shorts"
+    ],
     "order": 6,
     "client": "Série de Podcast",
     "date": "2026-06",
@@ -239,6 +260,9 @@
     "subcategory": "podcast",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "shorts"
+    ],
     "order": 7,
     "client": "Série de Podcast",
     "date": "2026-06",
@@ -273,6 +297,9 @@
     "subcategory": "samedayedit",
     "orientation": "horizontal",
     "featured": true,
+    "niches": [
+      "filmmaker"
+    ],
     "order": 8,
     "client": "Evento Principal",
     "date": "2026-05",
@@ -306,6 +333,10 @@
     "subcategory": "esportes",
     "orientation": "horizontal",
     "featured": true,
+    "niches": [
+      "filmmaker",
+      "esportes"
+    ],
     "order": 9,
     "client": "Futsal League",
     "date": "2026-04",
@@ -339,6 +370,10 @@
     "subcategory": "automotivo",
     "orientation": "vertical",
     "featured": true,
+    "niches": [
+      "filmmaker",
+      "shorts"
+    ],
     "order": 10,
     "client": "Drift Series",
     "date": "2026-03",
@@ -373,6 +408,9 @@
     "subcategory": "aftermovie",
     "orientation": "horizontal",
     "featured": false,
+    "niches": [
+      "filmmaker"
+    ],
     "order": 11,
     "client": "LDJR Tour",
     "date": "2026-02",
@@ -406,6 +444,9 @@
     "subcategory": "samedayedit",
     "orientation": "horizontal",
     "featured": false,
+    "niches": [
+      "filmmaker"
+    ],
     "order": 12,
     "client": "Festival Dia 1",
     "date": "2026-01",
@@ -437,6 +478,9 @@
     "subcategory": "samedayedit",
     "orientation": "horizontal",
     "featured": false,
+    "niches": [
+      "filmmaker"
+    ],
     "order": 13,
     "client": "Festival Dia 2",
     "date": "2026-01",
@@ -468,6 +512,9 @@
     "subcategory": "samedayedit",
     "orientation": "horizontal",
     "featured": false,
+    "niches": [
+      "filmmaker"
+    ],
     "order": 14,
     "client": "Festival Dia 3",
     "date": "2026-01",
@@ -501,6 +548,10 @@
     "subcategory": "moda",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "filmmaker",
+      "shorts"
+    ],
     "order": 15,
     "client": "Skoria",
     "date": "2025-12",
@@ -535,6 +586,9 @@
     "subcategory": "design",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "games"
+    ],
     "order": 16,
     "client": "eSports",
     "date": "2024-02",
@@ -567,6 +621,9 @@
     "subcategory": "design",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "esportes"
+    ],
     "order": 17,
     "client": "Futebol",
     "date": "2024-01",
@@ -599,6 +656,9 @@
     "subcategory": "design",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "esportes"
+    ],
     "order": 18,
     "client": "Futebol",
     "date": "2026-04",
@@ -631,6 +691,9 @@
     "subcategory": "design",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "esportes"
+    ],
     "order": 19,
     "client": "Futebol Americano",
     "date": "2023-10",
@@ -663,6 +726,9 @@
     "subcategory": "design",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "esportes"
+    ],
     "order": 20,
     "client": "Vôlei",
     "date": "2024-01",
@@ -695,6 +761,9 @@
     "subcategory": "design",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "esportes"
+    ],
     "order": 21,
     "client": "Futsal",
     "date": "2024-01",
@@ -727,6 +796,9 @@
     "subcategory": "design",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "esportes"
+    ],
     "order": 22,
     "client": "Natação",
     "date": "2024-02",
@@ -759,6 +831,9 @@
     "subcategory": "motion",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "motion"
+    ],
     "order": 23,
     "client": "Inception 3D",
     "date": "2026-07",
@@ -792,6 +867,9 @@
     "subcategory": "motion",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "motion"
+    ],
     "order": 24,
     "client": "Brick Engenharia",
     "date": "2026-07",
@@ -825,6 +903,9 @@
     "subcategory": "motion",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "motion"
+    ],
     "order": 25,
     "client": "Portfólio Próprio",
     "date": "2026-07",
@@ -858,6 +939,9 @@
     "subcategory": "motion",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "motion"
+    ],
     "order": 26,
     "client": "Cotton Consultoria",
     "date": "2026-07",
@@ -891,6 +975,10 @@
     "subcategory": "moda",
     "orientation": "vertical",
     "featured": false,
+    "niches": [
+      "filmmaker",
+      "shorts"
+    ],
     "order": 27,
     "client": "Skoria",
     "date": "2026-07",
