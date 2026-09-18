@@ -6,7 +6,7 @@
     "orientation": "vertical",
     "featured": true,
     "niches": [
-      "shorts"
+      "filmmaker"
     ],
     "order": 0,
     "client": "Série de Podcast",
@@ -224,7 +224,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "shorts"
+      "filmmaker"
     ],
     "order": 6,
     "client": "Série de Podcast",
@@ -261,7 +261,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "shorts"
+      "filmmaker"
     ],
     "order": 7,
     "client": "Série de Podcast",
@@ -335,7 +335,7 @@
     "featured": true,
     "niches": [
       "filmmaker",
-      "esportes"
+      "games"
     ],
     "order": 9,
     "client": "Futsal League",
@@ -371,8 +371,7 @@
     "orientation": "vertical",
     "featured": true,
     "niches": [
-      "filmmaker",
-      "shorts"
+      "filmmaker"
     ],
     "order": 10,
     "client": "Drift Series",
@@ -549,8 +548,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "filmmaker",
-      "shorts"
+      "filmmaker"
     ],
     "order": 15,
     "client": "Skoria",
@@ -622,7 +620,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "esportes"
+      "games"
     ],
     "order": 17,
     "client": "Futebol",
@@ -657,7 +655,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "esportes"
+      "games"
     ],
     "order": 18,
     "client": "Futebol",
@@ -692,7 +690,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "esportes"
+      "games"
     ],
     "order": 19,
     "client": "Futebol Americano",
@@ -727,7 +725,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "esportes"
+      "games"
     ],
     "order": 20,
     "client": "Vôlei",
@@ -762,7 +760,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "esportes"
+      "games"
     ],
     "order": 21,
     "client": "Futsal",
@@ -797,7 +795,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "esportes"
+      "games"
     ],
     "order": 22,
     "client": "Natação",
@@ -976,8 +974,7 @@
     "orientation": "vertical",
     "featured": false,
     "niches": [
-      "filmmaker",
-      "shorts"
+      "filmmaker"
     ],
     "order": 27,
     "client": "Skoria",

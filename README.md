@@ -14,7 +14,7 @@ Portfólio audiovisual de **Kelson Budin** (PureRed): edição de vídeo de alta
 | `pricing.json` | **Valores dos serviços** (R$ e US$) — alimenta a tabela de valores e o quiz; editável pelo admin |
 | `projects.json` | **Banco de dados único** dos projetos (títulos, descrições e tags em PT e EN no mesmo arquivo) |
 | `app.js` / `style.css` | Lógica e visual do site |
-| `filmmaker.html`, `shorts.html`, `games.html`, `esportes.html`, `motion.html`, `fotografia.html` | **Páginas de nicho** — mini-portfólios para enviar a clientes (fora do menu e do Google) |
+| `filmmaker.html`, `games.html`, `motion.html`, `fotografia.html` | **Páginas de nicho** — mini-portfólios para enviar a clientes (fora do menu e do Google). `shorts.html` e `esportes.html` só redirecionam (links antigos) |
 | `niches.json` / `niche.js` / `niche.css` | Textos, lógica e os 4 estilos visuais das páginas de nicho |
 | `admin.html` / `admin.js` / `admin.css` | Painel admin para gerenciar os projetos |
 | `assets/previews/` | Vídeos curtos em loop que tocam nos cards |
@@ -33,12 +33,12 @@ Hero com destaque → Áreas de Foco (Gaming & eSports, Eventos & Aftermovies, S
 
 ## Páginas de nicho
 
-Seis links para mandar a clientes, cada um com estilo próprio e só os trabalhos daquele nicho. Não têm preço: todos os botões levam pro WhatsApp com uma mensagem pronta.
+Quatro links para mandar a clientes, cada um com estilo próprio e só os trabalhos daquele nicho. Não têm preço: todos os botões levam pro WhatsApp com uma mensagem pronta.
 
 | Link | Estilo |
 |---|---|
-| `filmmaker.html` · `shorts.html` | **Rolo** — minimalista, cinema |
-| `games.html` · `esportes.html` | **Broadcast** — gameplay no centro, com luz |
+| `filmmaker.html` (Filmmaker & Short Form) | **Rolo** — minimalista, cinema |
+| `games.html` (Games & Esportes) | **Broadcast** — gameplay no centro, com luz |
 | `motion.html` | **Estúdio** — tipografia animada + logo antes/depois |
 | `fotografia.html` | **Galeria** — exposição de fotos |
 
