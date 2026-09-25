@@ -1,0 +1,13 @@
+# Old URLs from the previous site
+/index-en.html            /                 301
+/pricing.html             /#rates           301
+/valores.html             /?lang=pt#rates   301
+/special-projects.html    /#contact         301
+/projetos-especiais.html  /?lang=pt#contact 301
+/filmmaker.html           /                 301
+/games.html               /                 301
+/motion.html              /                 301
+/fotografia.html          /                 301
+/shorts.html              /                 301
+/esportes.html            /                 301
+/pt                       /?lang=pt         302

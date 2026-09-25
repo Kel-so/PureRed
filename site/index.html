@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kelson Budin — Video Editor</title>
+  <meta name="description" content="Kelson Budin (PureRed) — video editor for podcasts, YouTube and brands. Podcast clips, long-form edits, brand video. Remote, UTC−3.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="Kelson Budin — Video Editor">
+  <meta property="og:description" content="Podcast clips, long-form YouTube and brand edits. Remote, UTC−3.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="media/work/reel/poster.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <div class="holo" aria-hidden="true"></div>
+
+  <header class="bar">
+    <a class="brand" href="#top" aria-label="PureRed — top"><span class="rec"></span>PURERED</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#process" data-i18n="nav.process">Process</a>
+      <a href="#rates" data-i18n="nav.rates">Rates</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="bar-end">
+      <button class="lang" type="button" data-lang-toggle aria-label="Switch language">PT</button>
+      <a class="btn btn-ink" data-cta href="#contact" data-i18n="cta.callShort">Book a call</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero grid">
+      <div class="hero-copy">
+        <p class="mono kicker"><span data-i18n="hero.kicker">Video editor</span> / <span data-i18n="hero.remote">Remote</span> / <span data-tz>UTC−3</span></p>
+        <h1 class="display">Kelson Budin</h1>
+        <p class="hero-lede" data-i18n="hero.lede">I edit podcasts, YouTube videos and brand content. You send the footage, I send back clips and episodes ready to post.</p>
+        <ul class="facts mono">
+          <li><b>&lt;24h</b> <span data-i18n="fact.reply">reply to every brief</span></li>
+          <li><b>±1h</b> <span data-i18n="fact.tz">from US Eastern working hours</span></li>
+          <li><b>EN / PT</b> <span data-i18n="fact.lang">fluent in both</span></li>
+        </ul>
+        <div class="hero-cta">
+          <a class="btn btn-ink" data-cta href="#contact" data-i18n="cta.call">Book a 15-min call</a>
+          <a class="btn" href="#work" data-i18n="cta.work">See the work ↓</a>
+        </div>
+      </div>
+      <figure class="reel" id="reel"></figure>
+    </section>
+
+    <section id="work" class="work" aria-label="Work"></section>
+
+    <section class="proof grid" id="proof" hidden></section>
+
+    <section id="process" class="block grid">
+      <header class="block-head">
+        <span class="idx mono">04</span>
+        <h2 class="h2" data-i18n="process.title">How it works</h2>
+      </header>
+      <ol class="steps">
+        <li><span class="mono">01</span><h3 data-i18n="step1.t">Brief</h3><p data-i18n="step1.d">You send the goal, the deadline and a reference you like. I reply within 24h with the questions that matter.</p></li>
+        <li><span class="mono">02</span><h3 data-i18n="step2.t">Scope</h3><p data-i18n="step2.d">Deliverables, schedule and price in writing before anything starts.</p></li>
+        <li><span class="mono">03</span><h3 data-i18n="step3.t">Edit</h3><p data-i18n="step3.d">You review cuts on a timestamped link. Revision rounds are defined up front.</p></li>
+        <li><span class="mono">04</span><h3 data-i18n="step4.t">Delivery</h3><p data-i18n="step4.d">Every format you need: 16:9, 9:16, 1:1, captions burned in or as SRT.</p></li>
+      </ol>
+    </section>
+
+    <section id="rates" class="block grid">
+      <header class="block-head">
+        <span class="idx mono">05</span>
+        <h2 class="h2" data-i18n="rates.title">Ways to work together</h2>
+        <p class="lede" data-i18n="rates.lede">Monthly packages, priced per scope. No per-video bidding.</p>
+      </header>
+      <div class="rates" id="rates-list"></div>
+    </section>
+
+    <section id="contact" class="contact grid">
+      <p class="mono kicker" data-i18n="contact.kicker">Contact</p>
+      <a class="contact-mail display" id="contact-mail" href="mailto:kelson.felp@gmail.com">kelson.felp@gmail.com</a>
+      <p class="contact-note" data-i18n="contact.note">Send the goal, the deadline and one video you like. Reply within 24h.</p>
+      <div class="hero-cta">
+        <a class="btn btn-ink" data-cta href="mailto:kelson.felp@gmail.com" data-i18n="cta.call">Book a 15-min call</a>
+        <a class="btn" id="contact-wa" href="#" hidden>WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot mono">
+    <span>© <span data-year>2026</span> PureRed — Kelson Budin</span>
+    <span data-tz-foot>Brazil · UTC−3</span>
+    <span class="foot-links" id="foot-links"></span>
+  </footer>
+
+  <dialog class="player" id="player" aria-label="Video player">
+    <div class="player-bar mono">
+      <span id="player-title"></span>
+      <span class="player-nav">
+        <button type="button" data-player="prev" aria-label="Previous">←</button>
+        <button type="button" data-player="next" aria-label="Next">→</button>
+        <button type="button" data-player="close" aria-label="Close">✕</button>
+      </span>
+    </div>
+    <div class="player-stage" id="player-stage"></div>
+  </dialog>
+
+  <noscript><p class="noscript">This site needs JavaScript to play the work. Email <a href="mailto:kelson.felp@gmail.com">kelson.felp@gmail.com</a>.</p></noscript>
+  <script src="assets/site.js" defer></script>
+</body>
+</html>

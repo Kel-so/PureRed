@@ -1,93 +1,69 @@
-# 🔴 PureRed — Portfólio de Kelson Budin
+# PureRed — portfólio de Kelson Budin
 
-Portfólio audiovisual de **Kelson Budin** (PureRed): edição de vídeo de alta energia, motion design e banners esportivos. Site estático bilíngue (PT/EN), com estética dark + vermelho `#FF003C` no estilo dos vídeos.
+Portfólio de **editor de vídeo**. O site existe para uma coisa: quem chega por um cold email assiste ao trabalho em 30 segundos e marca uma call.
+
+- Uma página, EN por padrão, PT com `?lang=pt` (ou automático para navegador em português).
+- Design editorial/brutalista: tinta preta sobre branco, com o reflexo iridescente de fundo de CD.
+- Todo vídeo roda em loop mudo quando entra na tela (inclusive no celular) e abre com som no player.
+- Um CTA: **Book a call** (Cal.com/Calendly quando configurado, senão e-mail pré-preenchido). WhatsApp só aparece na versão PT.
 
 ## Estrutura
 
-| Arquivo | O que é |
-|---|---|
-| `index.html` | Site em Português |
-| `index-en.html` | Site em Inglês |
-| `valores.html` / `pricing.html` | Tabela fixa de valores (PT / EN) |
-| `projetos-especiais.html` / `special-projects.html` | Quiz de orçamento "Projetos Especiais" (PT / EN) |
-| `quiz.js` | Lógica do quiz — trilhas, textos e prazos ficam aqui |
-| `pricing.json` | **Valores dos serviços** (R$ e US$) — alimenta a tabela de valores e o quiz; editável pelo admin |
-| `projects.json` | **Banco de dados único** dos projetos (títulos, descrições e tags em PT e EN no mesmo arquivo) |
-| `app.js` / `style.css` | Lógica e visual do site |
-| `filmmaker.html`, `games.html`, `motion.html`, `fotografia.html` | **Páginas de nicho** — mini-portfólios para enviar a clientes (fora do menu e do Google). `shorts.html` e `esportes.html` só redirecionam (links antigos) |
-| `niches.json` / `niche.js` / `niche.css` | Textos, lógica e os 4 estilos visuais das páginas de nicho |
-| `admin.html` / `admin.js` / `admin.css` | Painel admin para gerenciar os projetos |
-| `assets/previews/` | Vídeos curtos em loop que tocam nos cards |
-| `assets/banners/full/` e `assets/banners/thumbs/` | Banners (imagem cheia + miniatura) |
+```
+site/                  ← tudo que é publicado (Cloudflare Pages, output dir = site)
+  index.html
+  assets/site.css, site.js
+  data/site.json       contato, link de agendamento, clientes, depoimentos, pacotes
+  data/work.json       seções e vídeos
+  media/               placeholders temporários (saem daqui quando o B2 estiver no ar)
+  _headers, _redirects
+scripts/
+  encode.sh            vídeo final → full.mp4 + loop.mp4 + poster.jpg (com hash no nome)
+  upload.sh            envia para o Backblaze B2
+  b2-setup.sh          cria bucket e chave de upload (uma vez)
+  cloudflare-setup.sh  DNS + regras de rewrite/cache/headers para media.seudominio.com (uma vez)
+  set-media-host.sh    aponta o site para o B2
+docs/
+  SHOTLIST.md          quais vídeos mandar: quantos de cada, formato, duração, o que mostrar
+  HOSTING.md           passo a passo Cloudflare + B2
+```
 
-### Quiz "Projetos Especiais"
+## Editar o conteúdo
 
-- **Trilha Edição** usa os valores da tabela (`SERVICES` no topo do `quiz.js`) e calcula estimativa por quantidade; prazos também são editáveis lá (`days`).
-- **Trilhas Filmmaker e Branding** não mostram valor fixo — terminam em "orçamento personalizado" com resumo enviado pro seu WhatsApp.
-- Toda tela final gera um link do WhatsApp com o resumo do diagnóstico preenchido.
-- **Para mudar preços**: use a seção "💰 Valores dos Serviços" no admin, baixe o `pricing.json` e substitua no projeto — tabela e quiz atualizam sozinhos nas duas línguas. (Os números no HTML e no `quiz.js` são só fallback.)
+**Vídeos** — `site/data/work.json`. Cada item:
 
-## Seções do site
+```json
+{
+  "id": "podcast-ep42-clip3",
+  "section": "clips",                    // clips | before-after | longform | brand | rhythm
+  "title": { "en": "…", "pt": "…" },
+  "client": "The X Podcast",
+  "year": 2026,
+  "format": "9:16",                      // 9:16 | 16:9 | 1:1
+  "duration": "0:48",
+  "role": { "en": "Cut, captions, sound", "pt": "Corte, legenda, som" },
+  "metrics": [{ "value": "120K", "label": { "en": "views", "pt": "views" } }],
+  "media": { "loop": "work/…/loop.x.mp4", "poster": "work/…/poster.x.jpg", "full": "work/…/full.x.mp4" },
+  "youtube": "https://youtu.be/…"        // usado no player se não houver "full"; senão vira link "vídeo completo"
+}
+```
 
-Hero com destaque → Áreas de Foco (Gaming & eSports, Eventos & Aftermovies, Social & Podcast, Motion & Design) → Melhores Trabalhos → Trabalhos por Categoria → Sobre (Kelson Budin) → Processo → Contato (WhatsApp/E-mail).
+- A ordem no arquivo é a ordem no site. Seção sem item não aparece.
+- Item de `before-after` leva também `"before": { "loop", "poster", "full" }` (o bruto).
+- O vídeo do topo é `reel` no mesmo arquivo.
 
-## Páginas de nicho
+**Contato, pacotes, depoimentos** — `site/data/site.json`. `booking`, `price`, `clients` e `testimonials` vazios simplesmente não aparecem.
 
-Quatro links para mandar a clientes, cada um com estilo próprio e só os trabalhos daquele nicho. Não têm preço: todos os botões levam pro WhatsApp com uma mensagem pronta.
-
-| Link | Estilo |
-|---|---|
-| `filmmaker.html` (Filmmaker & Short Form) | **Rolo** — minimalista, cinema |
-| `games.html` (Games & Esportes) | **Broadcast** — gameplay no centro, com luz |
-| `motion.html` | **Estúdio** — tipografia animada + logo antes/depois |
-| `fotografia.html` | **Galeria** — exposição de fotos |
-
-- **Quais trabalhos aparecem:** no admin, edite o projeto e marque os nichos (campo `niches` no `projects.json`). Um trabalho pode estar em várias páginas.
-- **Links:** seção "🔗 Páginas de Nicho" no admin → *Copiar link PT* / *Copiar link EN* (inglês = `?lang=en`).
-- **Textos, serviços e vídeo de destaque** de cada página ficam no `niches.json` (campo `hero` = id do projeto em destaque).
-- **Fotografia:** fotos são projetos do tipo *Banner / Foto* na categoria *Fotografia*; a primeira tag vira filtro da galeria.
+Não há mais painel admin: o conteúdo é esse JSON, versionado no git.
 
 ## Rodar localmente
 
 ```bash
-cd PureRed
-python3 -m http.server 8000
+python3 -m http.server 8000 --directory site
 ```
 
-Acesse `http://localhost:8000` (o servidor é necessário para carregar o `projects.json`).
+## O que mudou em relação ao site anterior
 
-## Painel Admin
+**Reaproveitado:** os 3 cortes de podcast (com views), Skoria, Drift, Futsal, LDJR e Valorant — como placeholders até chegarem os vídeos da [coletânea](docs/SHOTLIST.md); o processo em 4 etapas; resposta em 24h; bilinguismo; fuso UTC−3 (agora no topo, como "±1h do horário comercial da costa leste").
 
-Acesse `/admin.html` e entre com a senha **`mGxppt54`** (definida em `admin.js`, constante `PASSCODE` — é só uma trava simples de edição, sem dados sensíveis).
-
-No painel você pode:
-
-- **➕ Adicionar projeto** — vídeo (YouTube/Shorts/Vimeo/.mp4) ou banner (imagem), com campos PT e EN lado a lado (se deixar o inglês vazio, ele usa o português).
-- **✎ Editar / 🗑 Excluir / ★ Destacar** cada projeto direto na lista.
-- **Views** — campo opcional nos vídeos; aparece como badge no card (ex: 1250000 → "1,2 mi"). Todos os vídeos verticais são agrupados automaticamente na seção **Reels & Shorts** do site.
-- **Arrastar** as linhas para reordenar como aparecem no site.
-- **Buscar** por título, cliente ou categoria.
-
-### Publicar as alterações
-
-**Modo direto (recomendado):** configure uma vez um token do GitHub no botão **⚙** do painel (fine-grained, só o repo PureRed, permissão Contents: Read and write — o token fica salvo apenas no seu navegador). Depois, com alterações pendentes, clique em **🚀 Publicar no site**: o painel commita o `projects.json`/`pricing.json` direto no repositório e o GitHub Pages atualiza em ~1 minuto. Funciona inclusive acessando o admin pelo site publicado, sem precisar do projeto no computador.
-
-**Modo manual (sem token):**
-
-1. Baixe o arquivo alterado (**⬇ projects.json** / **⬇ pricing.json**).
-2. Substitua na pasta do projeto.
-3. `git add -A && git commit -m "atualiza portfolio" && git push`
-
-Quando o arquivo publicado ficar igual ao rascunho, a barra volta a mostrar "Tudo sincronizado".
-
-### Adicionar um banner novo
-
-1. Coloque a imagem em `assets/banners/full/` (e opcionalmente uma miniatura menor em `assets/banners/thumbs/`).
-2. No admin, crie um projeto do tipo **🖼 Banner / Imagem** apontando para esse caminho.
-
-### Adicionar um preview em loop (vídeo no card)
-
-Exporte um mp4 curto (5–8s, sem áudio, ~720p), salve em `assets/previews/` e informe o caminho no campo "Preview em loop".
-
----
-*Design e edição por **Kelson Budin** © 2026.*
+**Removido:** admin público (e a senha que estava neste README), tabela de preços por vídeo em BRL/USD, quiz de orçamento, páginas de nicho, banners/fotografia, motion de sites, Same Day Edit como destaque, listas de ferramentas/especialidades, WhatsApp como canal principal na versão EN.

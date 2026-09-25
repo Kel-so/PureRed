@@ -1,0 +1,74 @@
+{
+  "mediaBase": "media/",
+  "name": "Kelson Budin",
+  "brand": "PureRed",
+  "email": "kelson.felp@gmail.com",
+  "booking": null,
+  "whatsapp": "5514991223598",
+  "timezone": "UTC−3",
+  "links": [],
+  "clients": [],
+  "testimonials": [],
+  "rates": [
+    {
+      "id": "clips",
+      "price": null,
+      "title": {
+        "en": "Clip retainer",
+        "pt": "Pacote mensal de cortes"
+      },
+      "scope": {
+        "en": [
+          "8–16 vertical clips per month",
+          "Captions, reframing, sound design",
+          "Hook-first structure, delivered in weekly batches"
+        ],
+        "pt": [
+          "8 a 16 cortes verticais por mês",
+          "Legendas, reenquadramento, sound design",
+          "Estrutura com gancho no início, entregas em lotes semanais"
+        ]
+      }
+    },
+    {
+      "id": "episode",
+      "price": null,
+      "title": {
+        "en": "Episode package",
+        "pt": "Pacote por episódio"
+      },
+      "scope": {
+        "en": [
+          "Full episode edit for YouTube",
+          "4–6 clips cut from the same episode",
+          "Thumbnail frame + chapter markers"
+        ],
+        "pt": [
+          "Episódio completo editado para o YouTube",
+          "4 a 6 cortes do mesmo episódio",
+          "Frame de thumbnail + capítulos"
+        ]
+      }
+    },
+    {
+      "id": "project",
+      "price": null,
+      "title": {
+        "en": "Single project",
+        "pt": "Projeto avulso"
+      },
+      "scope": {
+        "en": [
+          "Brand film, launch video or event recap",
+          "You send the footage, I deliver every format",
+          "Revision rounds defined up front"
+        ],
+        "pt": [
+          "Filme de marca, lançamento ou recap de evento",
+          "Você manda o material, eu entrego todos os formatos",
+          "Rodadas de revisão definidas no escopo"
+        ]
+      }
+    }
+  ]
+}

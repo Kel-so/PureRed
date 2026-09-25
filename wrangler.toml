@@ -1,0 +1,6 @@
+# Cloudflare Pages project for the site (HTML/CSS/JS only — videos live on Backblaze B2).
+# Deploy manually:  npx wrangler pages deploy
+# Or connect the GitHub repo in the Cloudflare dashboard: build command empty, output directory "site".
+name = "purered"
+pages_build_output_dir = "site"
+compatibility_date = "2026-09-01"

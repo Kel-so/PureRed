@@ -1,0 +1,159 @@
+{
+  "sections": [
+    {
+      "id": "clips",
+      "slots": 4,
+      "format": "9:16",
+      "title": { "en": "Podcast clips", "pt": "Cortes de podcast" },
+      "lede": {
+        "en": "Long conversations cut into vertical clips for Shorts, Reels and TikTok. Hook first, captions, reframing, sound.",
+        "pt": "Conversas longas transformadas em cortes verticais para Shorts, Reels e TikTok. Gancho primeiro, legenda, reenquadramento, som."
+      }
+    },
+    {
+      "id": "before-after",
+      "slots": 1,
+      "format": "16:9",
+      "title": { "en": "Raw vs. edit", "pt": "Bruto vs. editado" },
+      "lede": {
+        "en": "The same moment before and after the edit. Drag the line.",
+        "pt": "O mesmo trecho antes e depois da edição. Arraste a linha."
+      }
+    },
+    {
+      "id": "longform",
+      "slots": 2,
+      "format": "16:9",
+      "title": { "en": "Long-form YouTube", "pt": "YouTube longo" },
+      "lede": {
+        "en": "Full episodes and videos edited for watch time: pacing, b-roll, graphics, chapters.",
+        "pt": "Episódios e vídeos completos editados para tempo de exibição: ritmo, b-roll, grafismo, capítulos."
+      }
+    },
+    {
+      "id": "brand",
+      "slots": 2,
+      "format": "9:16",
+      "title": { "en": "Brand & social", "pt": "Marca & social" },
+      "lede": {
+        "en": "Short vertical pieces for brands, built from client footage.",
+        "pt": "Peças verticais curtas para marcas, montadas a partir do material do cliente."
+      }
+    },
+    {
+      "id": "rhythm",
+      "slots": 3,
+      "format": "16:9",
+      "title": { "en": "Music-driven edits", "pt": "Edições no ritmo" },
+      "lede": {
+        "en": "Sports, gaming and events. Cuts timed to the track, sound design on every hit.",
+        "pt": "Esporte, games e eventos. Cortes no tempo da música, sound design em cada impacto."
+      }
+    }
+  ],
+  "reel": {
+    "id": "reel",
+    "title": { "en": "Reel 2026", "pt": "Reel 2026" },
+    "format": "16:9",
+    "media": { "loop": "work/reel/loop.mp4", "poster": "work/reel/poster.jpg", "full": null },
+    "youtube": null
+  },
+  "items": [
+    {
+      "id": "podcast-cut-3",
+      "section": "clips",
+      "title": { "en": "Podcast clip 03", "pt": "Corte de podcast 03" },
+      "client": "Podcast series",
+      "year": 2026,
+      "format": "9:16",
+      "role": { "en": "Cut, captions, grade, sound", "pt": "Corte, legenda, cor, som" },
+      "metrics": [{ "value": "4.7K", "label": { "en": "views", "pt": "views" } }],
+      "media": { "loop": "work/podcast-cut-3/loop.mp4", "poster": "work/podcast-cut-3/poster.jpg", "full": null },
+      "youtube": "https://youtube.com/shorts/exOJPs4n0q0"
+    },
+    {
+      "id": "podcast-cut-1",
+      "section": "clips",
+      "title": { "en": "Podcast clip 01", "pt": "Corte de podcast 01" },
+      "client": "Podcast series",
+      "year": 2026,
+      "format": "9:16",
+      "role": { "en": "Cut, captions, sound", "pt": "Corte, legenda, som" },
+      "metrics": [{ "value": "3.2K", "label": { "en": "views", "pt": "views" } }],
+      "media": { "loop": "work/podcast-cut-1/loop.mp4", "poster": "work/podcast-cut-1/poster.jpg", "full": null },
+      "youtube": "https://youtube.com/shorts/0yxV8XFZ-AE"
+    },
+    {
+      "id": "podcast-cut-2",
+      "section": "clips",
+      "title": { "en": "Podcast clip 02", "pt": "Corte de podcast 02" },
+      "client": "Podcast series",
+      "year": 2026,
+      "format": "9:16",
+      "role": { "en": "Cut, captions, sound", "pt": "Corte, legenda, som" },
+      "metrics": [{ "value": "1.8K", "label": { "en": "views", "pt": "views" } }],
+      "media": { "loop": "work/podcast-cut-2/loop.mp4", "poster": "work/podcast-cut-2/poster.jpg", "full": null },
+      "youtube": "https://youtube.com/shorts/cZzEg0UpHb4"
+    },
+    {
+      "id": "skoria-teaser",
+      "section": "brand",
+      "title": { "en": "Skoria — social teaser", "pt": "Skoria — teaser social" },
+      "client": "Skoria",
+      "year": 2025,
+      "format": "9:16",
+      "role": { "en": "Edit, micro-cuts, sound", "pt": "Edição, microcortes, som" },
+      "metrics": [{ "value": "2.4K", "label": { "en": "views", "pt": "views" } }],
+      "media": { "loop": "work/skoria-teaser/loop.mp4", "poster": "work/skoria-teaser/poster.jpg", "full": null },
+      "youtube": "https://youtube.com/shorts/kN-DsB2VsO4"
+    },
+    {
+      "id": "drift-cinematics",
+      "section": "brand",
+      "title": { "en": "Drift cinematics", "pt": "Drift cinematics" },
+      "client": "Drift Series",
+      "year": 2026,
+      "format": "9:16",
+      "role": { "en": "Edit, speed ramps, sound", "pt": "Edição, speed ramp, som" },
+      "metrics": [{ "value": "3.9K", "label": { "en": "views", "pt": "views" } }],
+      "media": { "loop": "work/drift-cinematics/loop.mp4", "poster": "work/drift-cinematics/poster.jpg", "full": null },
+      "youtube": "https://youtube.com/shorts/oRawt81rJAY"
+    },
+    {
+      "id": "futsal-final",
+      "section": "rhythm",
+      "title": { "en": "Futsal — championship final", "pt": "Futsal — final do campeonato" },
+      "client": "Futsal League",
+      "year": 2026,
+      "format": "16:9",
+      "role": { "en": "Edit, sound design", "pt": "Edição, sound design" },
+      "metrics": [],
+      "media": { "loop": "work/futsal-final/loop.mp4", "poster": "work/futsal-final/poster.jpg", "full": null },
+      "youtube": "https://youtu.be/_cHcLPJayJI"
+    },
+    {
+      "id": "ldjr-experience",
+      "section": "rhythm",
+      "title": { "en": "LDJR — event film", "pt": "LDJR — filme do evento" },
+      "client": "LDJR Tour",
+      "year": 2026,
+      "format": "16:9",
+      "role": { "en": "Edit, color, subtitles", "pt": "Edição, cor, legendas" },
+      "metrics": [],
+      "media": { "loop": "work/ldjr-experience/loop.mp4", "poster": "work/ldjr-experience/poster.jpg", "full": null },
+      "youtube": "https://youtu.be/2a20iJjK7oA"
+    },
+    {
+      "id": "valorant-edit",
+      "section": "rhythm",
+      "title": { "en": "Valorant — montage", "pt": "Valorant — montagem" },
+      "client": "Gaming",
+      "year": 2026,
+      "format": "16:9",
+      "role": { "en": "Edit, sync, VFX", "pt": "Edição, sync, VFX" },
+      "metrics": [],
+      "media": { "loop": "work/valorant-edit/loop.mp4", "poster": "work/valorant-edit/poster.jpg", "full": null },
+      "youtube": "https://youtu.be/NI4rfyjLqmg"
+    }
+  ]
+}
