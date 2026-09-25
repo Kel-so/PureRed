@@ -10,7 +10,7 @@ Portfólio de **editor de vídeo**. O site existe para uma coisa: quem chega por
 ## Estrutura
 
 ```
-site/                  ← tudo que é publicado (Cloudflare Pages, output dir = site)
+site/                  ← tudo que é publicado (Vercel via vercel.json, ou Cloudflare Pages)
   index.html
   assets/site.css, site.js
   data/site.json       contato, link de agendamento, clientes, depoimentos, pacotes
@@ -25,7 +25,8 @@ scripts/
   set-media-host.sh    aponta o site para o B2
 docs/
   SHOTLIST.md          quais vídeos mandar: quantos de cada, formato, duração, o que mostrar
-  HOSTING.md           passo a passo Cloudflare + B2
+  HOSTING.md           passo a passo: site na Vercel/Pages, vídeos no B2 + Cloudflare
+vercel.json            publica site/ na Vercel + redirects dos links antigos
 ```
 
 ## Editar o conteúdo

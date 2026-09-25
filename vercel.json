@@ -1,0 +1,29 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "site",
+  "redirects": [
+    { "source": "/index-en.html", "destination": "/", "permanent": true },
+    { "source": "/pricing.html", "destination": "/#rates", "permanent": true },
+    { "source": "/valores.html", "destination": "/?lang=pt#rates", "permanent": true },
+    { "source": "/special-projects.html", "destination": "/#contact", "permanent": true },
+    { "source": "/projetos-especiais.html", "destination": "/?lang=pt#contact", "permanent": true },
+    { "source": "/(filmmaker|games|motion|fotografia|shorts|esportes).html", "destination": "/", "permanent": true },
+    { "source": "/(_headers|_redirects)", "destination": "/", "permanent": false },
+    { "source": "/pt", "destination": "/?lang=pt", "permanent": false }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "X-Frame-Options", "value": "DENY" }
+      ]
+    },
+    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }] },
+    { "source": "/data/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }] },
+    { "source": "/media/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] }
+  ]
+}
