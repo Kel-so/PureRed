@@ -43,13 +43,13 @@ fit() { echo "scale='if(gte(iw,ih),min($1,iw),-2)':'if(gte(iw,ih),-2,min($1,ih))
 echo "→ full"
 "$FFMPEG" -hide_banner -loglevel error -y -i "$IN" \
   -map 0:v:0 -map '0:a:0?' -vf "$(fit 1920)" \
-  -c:v libx264 -preset slow -crf 20 -profile:v high -pix_fmt yuv420p -maxrate 10M -bufsize 20M \
+  -c:v libx264 -preset "${PRESET:-slow}" -crf 20 -profile:v high -pix_fmt yuv420p -maxrate 10M -bufsize 20M \
   -c:a aac -b:a 160k -ac 2 -movflags +faststart "$TMP/full.mp4"
 
 echo "→ loop (${LEN}s from ${AT}s)"
 "$FFMPEG" -hide_banner -loglevel error -y -ss "$AT" -t "$LEN" -i "$IN" \
   -an -vf "$(fit 960),fps=30" \
-  -c:v libx264 -preset slow -crf 26 -profile:v high -pix_fmt yuv420p -movflags +faststart "$TMP/loop.mp4"
+  -c:v libx264 -preset "${PRESET:-slow}" -crf 26 -profile:v high -pix_fmt yuv420p -movflags +faststart "$TMP/loop.mp4"
 
 echo "→ poster"
 "$FFMPEG" -hide_banner -loglevel error -y -i "$TMP/loop.mp4" -frames:v 1 -q:v 3 "$TMP/poster.jpg"
