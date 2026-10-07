@@ -220,23 +220,61 @@
       if (!items.length) continue;
       n++;
       const isBA = sec.id === "before-after";
-      const vertical = !isBA && items.every((i) => i.format === "9:16");
       const count = items.length;
-      const side = vertical && count <= 2;
+      const formats = [...new Set(items.map((i) => i.format))].join(" · ");
       const head = el("header", { class: "sec-head" },
         el("span", { class: "idx mono", text: String(n).padStart(2, "0") }),
         el("h2", { class: "h2", text: L(sec.title) }),
         el("p", { class: "lede", text: L(sec.lede) }),
         el("div", { class: "count mono" },
           el("span", { text: `${String(count).padStart(2, "0")} ${count === 1 ? t("tile.video") : t("tile.videos")}` }),
-          el("span", { text: sec.format }))
+          el("span", { text: formats }))
       );
       const body = isBA
         ? beforeAfter(items[0])
-        : el("div", { class: `tiles ${vertical ? "v" : "h"} n${count}` }, items.map((i) => tile(i)));
-      host.append(el("section", { class: `sec grid${side ? " side" : ""}`, id: `work-${sec.id}`, "aria-label": L(sec.title) }, head, body));
+        : justified(items.map((i) => [i, tile(i)]));
+      host.append(el("section", { class: "sec grid", id: `work-${sec.id}`, "aria-label": L(sec.title) }, head, body));
     }
   }
+
+  // ---------- justified rows: every row fills the width, height near a target ----------
+  const ratio = (item) => (item.format === "9:16" ? 9 / 16 : item.format === "1:1" ? 1 : 16 / 9);
+  const rowsHosts = new Set();
+
+  function justified(pairs) {
+    const host = el("div", { class: "rows" });
+    host._pairs = pairs;
+    rowsHosts.add(host);
+    return host;
+  }
+
+  function layoutRows(host) {
+    const W = host.clientWidth;
+    if (!W) return;
+    const gap = parseFloat(getComputedStyle(host).getPropertyValue("--row-gap")) || 16;
+    // ~260px rows on desktop, shorter on small screens so verticals pair up
+    const target = W >= 1000 ? 260 : W >= 600 ? 220 : 190;
+    const rows = [];
+    let row = [];
+    const width = (r, h) => r.reduce((s, [it]) => s + ratio(it) * h, 0) + gap * (r.length - 1);
+    for (const p of host._pairs) {
+      row.push(p);
+      if (width(row, target) >= W) { rows.push([row, false]); row = []; }
+    }
+    if (row.length) rows.push([row, true]);
+    host.replaceChildren(...rows.map(([r, last]) => {
+      const sum = r.reduce((s, [it]) => s + ratio(it), 0);
+      // full rows stretch to the edge; the last row keeps the target height unless that overflows
+      const h = last ? Math.min(target, (W - gap * (r.length - 1)) / sum) : (W - gap * (r.length - 1)) / sum;
+      return el("div", { class: "row" }, r.map(([it, node]) => { node.style.width = `${ratio(it) * h}px`; return node; }));
+    }));
+  }
+
+  const relayout = () => rowsHosts.forEach((h) => (h.isConnected ? layoutRows(h) : rowsHosts.delete(h)));
+  if ("ResizeObserver" in window) {
+    let last = 0;
+    new ResizeObserver(() => { const w = $("#work").clientWidth; if (w !== last) { last = w; relayout(); } }).observe($("#work"));
+  } else addEventListener("resize", relayout);
 
   function renderProof() {
     const host = $("#proof");
@@ -304,7 +342,9 @@
     loopObserver && loopObserver.disconnect();
     applyStatic();
     renderReel();
+    rowsHosts.clear();
     renderWork();
+    relayout();
     renderProof();
     renderRates();
     wireContact();
