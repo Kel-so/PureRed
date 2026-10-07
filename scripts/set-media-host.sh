@@ -4,7 +4,7 @@
 #   scripts/set-media-host.sh local        serves from site/media/ again
 set -euo pipefail
 . "$(dirname "$0")/_env.sh"
-if [ "${1:-}" = local ]; then BASE="media/"; else need MEDIA_HOST; BASE="https://${1:-$MEDIA_HOST}/"; fi
+if [ "${1:-}" = local ]; then BASE="media/"; else [ -n "${1:-}" ] || need MEDIA_HOST; BASE="https://${1:-$MEDIA_HOST}/"; fi
 python3 - "$ROOT/site/data/site.json" "$BASE" <<'PY'
 import json, sys
 p, base = sys.argv[1], sys.argv[2]
