@@ -16,6 +16,8 @@ Tudo abaixo é feito uma vez só. Os passos que dependem de conta/cartão são m
 
 ---
 
+> **Status (out/2026):** já configurado pelo painel — domínio `kelsonfilms.xyz` ativo na Cloudflare, site no Worker `purered`, bucket público `kelsonfilms-media`, `media.kelsonfilms.xyz` com URL Rewrite + Cache Rule, SSL Full (strict). Os passos 1–3 abaixo ficam como referência. Vídeo novo: `scripts/encode.sh` (com `MEDIA_HOST` no `.env` ele já gera URLs `https://media.kelsonfilms.xyz/...`) e suba a pasta `media-out/work/<id>` para `work/<id>/` no bucket (pelo site da Backblaze ou `scripts/upload.sh`).
+
 ## 0. Pré-requisitos (no seu Mac)
 
 ```bash
@@ -53,7 +55,7 @@ cp .env.example .env     # o .env nunca vai pro git
 scripts/b2-setup.sh
 ```
 
-Ele cria o bucket `purered-media` (público, com CORS e limpeza automática de versões antigas) e uma **chave só de upload**. Troque a master key no `.env` por essa chave nova e coloque o `B2_DOWNLOAD_HOST` que ele imprimir.
+Ele cria o bucket `kelsonfilms-media` (público, com CORS e limpeza automática de versões antigas) e uma **chave só de upload**. Troque a master key no `.env` por essa chave nova e coloque o `B2_DOWNLOAD_HOST` que ele imprimir.
 
 ## 3. Cloudflare na frente do B2
 
@@ -71,7 +73,7 @@ Coloque em `CF_API_TOKEN` e rode:
 scripts/cloudflare-setup.sh
 ```
 
-Ele cria o `CNAME media → B2` (proxied), a regra que reescreve `/work/...` para `/file/purered-media/work/...`, a regra de cache (30 dias na borda, 1 ano no navegador) e remove os headers `x-bz-*`. Pode rodar de novo sem medo: só mexe nas regras `purered_media_*`.
+Ele cria o `CNAME media → B2` (proxied), a regra que reescreve `/work/...` para `/file/kelsonfilms-media/work/...`, a regra de cache (30 dias na borda, 1 ano no navegador) e remove os headers `x-bz-*`. Pode rodar de novo sem medo: só mexe nas regras `purered_media_*`.
 
 **SSL:** em *SSL/TLS → Overview*, deixe **Full (strict)**.
 
@@ -121,7 +123,7 @@ Domínio próprio: *Project → Settings → Domains → Add* → `seudominio.co
 
 ### Sem domínio ainda?
 
-Dá para começar servindo direto do B2, sem Cloudflare: `scripts/set-media-host.sh f004.backblazeb2.com/file/purered-media` (use o seu `B2_DOWNLOAD_HOST`). Funciona, mas sem cache e com tráfego grátis só até 3× o que está armazenado por mês. Com o domínio na Cloudflare, rode o passo 3 e `scripts/set-media-host.sh` de novo.
+Dá para começar servindo direto do B2, sem Cloudflare: `scripts/set-media-host.sh f004.backblazeb2.com/file/kelsonfilms-media` (use o seu `B2_DOWNLOAD_HOST`). Funciona, mas sem cache e com tráfego grátis só até 3× o que está armazenado por mês. Com o domínio na Cloudflare, rode o passo 3 e `scripts/set-media-host.sh` de novo.
 
 ## Custos esperados
 

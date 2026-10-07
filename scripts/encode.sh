@@ -58,8 +58,13 @@ echo "→ poster"
 put() { local h; h="$(shasum -a 1 "$TMP/$1.$2" 2>/dev/null || sha1sum "$TMP/$1.$2")"; h="${h:0:8}"
         mv "$TMP/$1.$2" "$OUT/$PREFIX$1.$h.$2"; echo "work/$ID/$PREFIX$1.$h.$2"; }
 FULL="$(put full mp4)"; LOOP="$(put loop mp4)"; POSTER="$(put poster jpg)"
+LOCAL_FULL="$FULL"
+# with MEDIA_HOST set, work.json gets full URLs → this video loads from B2 while older ones stay local
+if [ -n "${MEDIA_HOST:-}" ]; then
+  FULL="https://$MEDIA_HOST/$FULL"; LOOP="https://$MEDIA_HOST/$LOOP"; POSTER="https://$MEDIA_HOST/$POSTER"
+fi
 
-read -r W H < <("$FFPROBE" -v error -select_streams v:0 -show_entries stream=width,height -of default=nw=1:nk=1 "$ROOT/media-out/$FULL" | paste -sd' ' -)
+read -r W H < <("$FFPROBE" -v error -select_streams v:0 -show_entries stream=width,height -of default=nw=1:nk=1 "$ROOT/media-out/$LOCAL_FULL" | paste -sd' ' -)
 DUR="$("$FFPROBE" -v error -show_entries format=duration -of default=nw=1:nk=1 "$IN")"
 FORMAT="$(awk -v w="$W" -v h="$H" 'BEGIN{r=w/h; print (r>1.2?"16:9":(r<0.8?"9:16":"1:1"))}')"
 DURTXT="$(awk -v d="$DUR" 'BEGIN{d=int(d+.5); printf "%d:%02d", d/60, d%60}')"
