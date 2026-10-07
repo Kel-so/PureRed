@@ -2,158 +2,498 @@
   "sections": [
     {
       "id": "clips",
-      "slots": 4,
-      "format": "9:16",
-      "title": { "en": "Podcast clips", "pt": "Cortes de podcast" },
+      "title": {
+        "en": "Podcast clips",
+        "pt": "Cortes de podcast"
+      },
       "lede": {
         "en": "Long conversations cut into vertical clips for Shorts, Reels and TikTok. Hook first, captions, reframing, sound.",
         "pt": "Conversas longas transformadas em cortes verticais para Shorts, Reels e TikTok. Gancho primeiro, legenda, reenquadramento, som."
       }
     },
     {
-      "id": "before-after",
-      "slots": 1,
-      "format": "16:9",
-      "title": { "en": "Raw vs. edit", "pt": "Bruto vs. editado" },
+      "id": "social",
+      "title": {
+        "en": "Brand & social",
+        "pt": "Marca & social"
+      },
       "lede": {
-        "en": "The same moment before and after the edit. Drag the line.",
-        "pt": "O mesmo trecho antes e depois da edição. Arraste a linha."
+        "en": "Launches, teasers and product films for brands, built for the feed.",
+        "pt": "Lançamentos, teasers e filmes de produto para marcas, feitos para o feed."
       }
     },
     {
-      "id": "longform",
-      "slots": 2,
-      "format": "16:9",
-      "title": { "en": "Long-form YouTube", "pt": "YouTube longo" },
+      "id": "events",
+      "title": {
+        "en": "Events & sports",
+        "pt": "Eventos & esporte"
+      },
       "lede": {
-        "en": "Full episodes and videos edited for watch time: pacing, b-roll, graphics, chapters.",
-        "pt": "Episódios e vídeos completos editados para tempo de exibição: ritmo, b-roll, grafismo, capítulos."
+        "en": "Event films and same-day edits. Cuts timed to the track, the energy of the room kept intact.",
+        "pt": "Filmes de evento e same day edits. Cortes no tempo da música, a energia do lugar preservada."
       }
     },
     {
-      "id": "brand",
-      "slots": 2,
-      "format": "9:16",
-      "title": { "en": "Brand & social", "pt": "Marca & social" },
+      "id": "gaming",
+      "title": {
+        "en": "Gaming",
+        "pt": "Games"
+      },
       "lede": {
-        "en": "Short vertical pieces for brands, built from client footage.",
-        "pt": "Peças verticais curtas para marcas, montadas a partir do material do cliente."
+        "en": "Montages with beat-locked sync and effects that stay out of the way of the play.",
+        "pt": "Montagens com sync na batida e efeitos que não atrapalham a jogada."
       }
     },
     {
-      "id": "rhythm",
-      "slots": 3,
-      "format": "16:9",
-      "title": { "en": "Music-driven edits", "pt": "Edições no ritmo" },
+      "id": "motion",
+      "title": {
+        "en": "Motion",
+        "pt": "Motion"
+      },
       "lede": {
-        "en": "Sports, gaming and events. Cuts timed to the track, sound design on every hit.",
-        "pt": "Esporte, games e eventos. Cortes no tempo da música, sound design em cada impacto."
+        "en": "Intros and logo animations for brands and courses.",
+        "pt": "Intros e animações de logo para marcas e cursos."
       }
     }
   ],
   "reel": {
-    "id": "reel",
-    "title": { "en": "Reel 2026", "pt": "Reel 2026" },
+    "id": "voodoo-lounge-vinyl-night",
+    "title": {
+      "en": "Voodoo Lounge — vinyl night",
+      "pt": "Voodoo Lounge — noite dos discos"
+    },
+    "client": "Voodoo Lounge",
     "format": "16:9",
-    "media": { "loop": "work/reel/loop.mp4", "poster": "work/reel/poster.jpg", "full": null },
+    "duration": "1:06",
+    "media": {
+      "loop": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/loop.5bf6d075.mp4",
+      "poster": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/poster.96ed5dab.jpg",
+      "full": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/full.8e5a4b7a.mp4"
+    },
     "youtube": null
   },
   "items": [
     {
-      "id": "podcast-cut-3",
+      "id": "granja360-aline-viott",
       "section": "clips",
-      "title": { "en": "Podcast clip 03", "pt": "Corte de podcast 03" },
-      "client": "Podcast series",
+      "title": {
+        "en": "Aline Viott — trailer",
+        "pt": "Aline Viott — trailer"
+      },
+      "client": "Granja360",
       "year": 2026,
       "format": "9:16",
-      "role": { "en": "Cut, captions, grade, sound", "pt": "Corte, legenda, cor, som" },
-      "metrics": [{ "value": "4.7K", "label": { "en": "views", "pt": "views" } }],
-      "media": { "loop": "work/podcast-cut-3/loop.mp4", "poster": "work/podcast-cut-3/poster.jpg", "full": null },
-      "youtube": "https://youtube.com/shorts/exOJPs4n0q0"
+      "duration": "0:55",
+      "role": {
+        "en": "Cut, captions, motion",
+        "pt": "Corte, legenda, motion"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/granja360-aline-viott/loop.91082ebd.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/granja360-aline-viott/poster.8b088f95.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/granja360-aline-viott/full.6601a96c.mp4"
+      },
+      "youtube": null
     },
     {
-      "id": "podcast-cut-1",
+      "id": "granja360-corte-01",
       "section": "clips",
-      "title": { "en": "Podcast clip 01", "pt": "Corte de podcast 01" },
-      "client": "Podcast series",
+      "title": {
+        "en": "Granja360 — clip 01",
+        "pt": "Granja360 — corte 01"
+      },
+      "client": "Granja360",
       "year": 2026,
       "format": "9:16",
-      "role": { "en": "Cut, captions, sound", "pt": "Corte, legenda, som" },
-      "metrics": [{ "value": "3.2K", "label": { "en": "views", "pt": "views" } }],
-      "media": { "loop": "work/podcast-cut-1/loop.mp4", "poster": "work/podcast-cut-1/poster.jpg", "full": null },
-      "youtube": "https://youtube.com/shorts/0yxV8XFZ-AE"
+      "duration": "0:57",
+      "role": {
+        "en": "Cut, captions, sound",
+        "pt": "Corte, legenda, som"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/granja360-corte-01/loop.d04e5284.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/granja360-corte-01/poster.8a58f935.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/granja360-corte-01/full.333a068f.mp4"
+      },
+      "youtube": null
     },
     {
-      "id": "podcast-cut-2",
+      "id": "granja360-corte-02",
       "section": "clips",
-      "title": { "en": "Podcast clip 02", "pt": "Corte de podcast 02" },
-      "client": "Podcast series",
+      "title": {
+        "en": "Granja360 — clip 02",
+        "pt": "Granja360 — corte 02"
+      },
+      "client": "Granja360",
       "year": 2026,
       "format": "9:16",
-      "role": { "en": "Cut, captions, sound", "pt": "Corte, legenda, som" },
-      "metrics": [{ "value": "1.8K", "label": { "en": "views", "pt": "views" } }],
-      "media": { "loop": "work/podcast-cut-2/loop.mp4", "poster": "work/podcast-cut-2/poster.jpg", "full": null },
-      "youtube": "https://youtube.com/shorts/cZzEg0UpHb4"
+      "duration": "0:55",
+      "role": {
+        "en": "Cut, captions, sound",
+        "pt": "Corte, legenda, som"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/granja360-corte-02/loop.db256309.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/granja360-corte-02/poster.64dbccf6.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/granja360-corte-02/full.fc8f9470.mp4"
+      },
+      "youtube": null
     },
     {
-      "id": "skoria-teaser",
-      "section": "brand",
-      "title": { "en": "Skoria — social teaser", "pt": "Skoria — teaser social" },
+      "id": "granja360-corte-03",
+      "section": "clips",
+      "title": {
+        "en": "Granja360 — clip 03",
+        "pt": "Granja360 — corte 03"
+      },
+      "client": "Granja360",
+      "year": 2026,
+      "format": "9:16",
+      "duration": "1:19",
+      "role": {
+        "en": "Cut, captions, sound",
+        "pt": "Corte, legenda, som"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/granja360-corte-03/loop.5171bec4.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/granja360-corte-03/poster.5204f60d.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/granja360-corte-03/full.51348a4e.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "skoria-o-sequestro",
+      "section": "social",
+      "title": {
+        "en": "Skoria — O Sequestro",
+        "pt": "Skoria — O Sequestro"
+      },
       "client": "Skoria",
-      "year": 2025,
-      "format": "9:16",
-      "role": { "en": "Edit, micro-cuts, sound", "pt": "Edição, microcortes, som" },
-      "metrics": [{ "value": "2.4K", "label": { "en": "views", "pt": "views" } }],
-      "media": { "loop": "work/skoria-teaser/loop.mp4", "poster": "work/skoria-teaser/poster.jpg", "full": null },
-      "youtube": "https://youtube.com/shorts/kN-DsB2VsO4"
-    },
-    {
-      "id": "drift-cinematics",
-      "section": "brand",
-      "title": { "en": "Drift cinematics", "pt": "Drift cinematics" },
-      "client": "Drift Series",
       "year": 2026,
       "format": "9:16",
-      "role": { "en": "Edit, speed ramps, sound", "pt": "Edição, speed ramp, som" },
-      "metrics": [{ "value": "3.9K", "label": { "en": "views", "pt": "views" } }],
-      "media": { "loop": "work/drift-cinematics/loop.mp4", "poster": "work/drift-cinematics/poster.jpg", "full": null },
-      "youtube": "https://youtube.com/shorts/oRawt81rJAY"
+      "duration": "0:32",
+      "role": {
+        "en": "Edit, animation, sound",
+        "pt": "Edição, animação, som"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/skoria-o-sequestro/loop.159e21cf.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/skoria-o-sequestro/poster.a2073897.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/skoria-o-sequestro/full.4ac1c3e1.mp4"
+      },
+      "youtube": null
     },
     {
-      "id": "futsal-final",
-      "section": "rhythm",
-      "title": { "en": "Futsal — championship final", "pt": "Futsal — final do campeonato" },
+      "id": "skoria-a-vinganca",
+      "section": "social",
+      "title": {
+        "en": "Skoria — A Vingança",
+        "pt": "Skoria — A Vingança"
+      },
+      "client": "Skoria",
+      "year": 2026,
+      "format": "9:16",
+      "duration": "0:26",
+      "role": {
+        "en": "Edit, micro-cuts, sound",
+        "pt": "Edição, microcortes, som"
+      },
+      "metrics": [
+        {
+          "value": "2.4K",
+          "label": {
+            "en": "views",
+            "pt": "views"
+          }
+        }
+      ],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/skoria-a-vinganca/loop.0835b302.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/skoria-a-vinganca/poster.ad7acb53.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/skoria-a-vinganca/full.4582b3f4.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "franchi-cookies",
+      "section": "social",
+      "title": {
+        "en": "Franchi — cookies",
+        "pt": "Franchi — cookies"
+      },
+      "client": "Franchi",
+      "year": 2026,
+      "format": "9:16",
+      "duration": "0:22",
+      "role": {
+        "en": "Edit, color",
+        "pt": "Edição, cor"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/franchi-cookies/loop.eb053b7b.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/franchi-cookies/poster.89b8077f.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/franchi-cookies/full.d2c9a641.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "franchi-coffee",
+      "section": "social",
+      "title": {
+        "en": "Franchi — coffee",
+        "pt": "Franchi — café"
+      },
+      "client": "Franchi",
+      "year": 2026,
+      "format": "9:16",
+      "duration": "0:21",
+      "role": {
+        "en": "Edit, color",
+        "pt": "Edição, cor"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/franchi-coffee/loop.0cd46910.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/franchi-coffee/poster.d446126d.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/franchi-coffee/full.2b89723e.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "unect-promo",
+      "section": "social",
+      "title": {
+        "en": "Unect Jr — promo",
+        "pt": "Unect Jr — promo"
+      },
+      "client": "Unect Jr",
+      "year": 2026,
+      "format": "9:16",
+      "duration": "0:18",
+      "role": {
+        "en": "Motion, edit",
+        "pt": "Motion, edição"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/unect-promo/loop.5d17aa87.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/unect-promo/poster.fd8bd1c2.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/unect-promo/full.d781616f.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "futsal-championship",
+      "section": "events",
+      "title": {
+        "en": "Futsal — championship",
+        "pt": "Futsal — campeonato"
+      },
       "client": "Futsal League",
       "year": 2026,
       "format": "16:9",
-      "role": { "en": "Edit, sound design", "pt": "Edição, sound design" },
+      "duration": "1:47",
+      "role": {
+        "en": "Edit, sound design",
+        "pt": "Edição, sound design"
+      },
       "metrics": [],
-      "media": { "loop": "work/futsal-final/loop.mp4", "poster": "work/futsal-final/poster.jpg", "full": null },
-      "youtube": "https://youtu.be/_cHcLPJayJI"
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/futsal-championship/loop.0f9052fa.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/futsal-championship/poster.215484cd.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/futsal-championship/full.83c95098.mp4"
+      },
+      "youtube": null
     },
     {
-      "id": "ldjr-experience",
-      "section": "rhythm",
-      "title": { "en": "LDJR — event film", "pt": "LDJR — filme do evento" },
-      "client": "LDJR Tour",
+      "id": "sameday-odisseia-04",
+      "section": "events",
+      "title": {
+        "en": "Same Day Edit — main event",
+        "pt": "Same Day Edit — evento principal"
+      },
+      "client": "Festival",
       "year": 2026,
       "format": "16:9",
-      "role": { "en": "Edit, color, subtitles", "pt": "Edição, cor, legendas" },
+      "duration": "3:41",
+      "role": {
+        "en": "Same-day edit",
+        "pt": "Edição no mesmo dia"
+      },
       "metrics": [],
-      "media": { "loop": "work/ldjr-experience/loop.mp4", "poster": "work/ldjr-experience/poster.jpg", "full": null },
-      "youtube": "https://youtu.be/2a20iJjK7oA"
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/sameday-odisseia-04/loop.2a992907.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/sameday-odisseia-04/poster.a74b137a.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-04/full.e483d76d.mp4"
+      },
+      "youtube": null
     },
     {
-      "id": "valorant-edit",
-      "section": "rhythm",
-      "title": { "en": "Valorant — montage", "pt": "Valorant — montagem" },
+      "id": "sameday-odisseia-01",
+      "section": "events",
+      "title": {
+        "en": "Same Day Edit — day 1",
+        "pt": "Same Day Edit — dia 1"
+      },
+      "client": "Festival",
+      "year": 2026,
+      "format": "16:9",
+      "duration": "2:19",
+      "role": {
+        "en": "Same-day edit",
+        "pt": "Edição no mesmo dia"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/sameday-odisseia-01/loop.81c4eb61.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/sameday-odisseia-01/poster.25f69b7b.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-01/full.6d275767.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "sameday-odisseia-02",
+      "section": "events",
+      "title": {
+        "en": "Same Day Edit — day 2",
+        "pt": "Same Day Edit — dia 2"
+      },
+      "client": "Festival",
+      "year": 2026,
+      "format": "16:9",
+      "duration": "2:10",
+      "role": {
+        "en": "Same-day edit",
+        "pt": "Edição no mesmo dia"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/sameday-odisseia-02/loop.8a09bd91.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/sameday-odisseia-02/poster.3e42602c.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-02/full.3b72587c.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "sameday-odisseia-03",
+      "section": "events",
+      "title": {
+        "en": "Same Day Edit — day 3",
+        "pt": "Same Day Edit — dia 3"
+      },
+      "client": "Festival",
+      "year": 2026,
+      "format": "16:9",
+      "duration": "2:10",
+      "role": {
+        "en": "Same-day edit",
+        "pt": "Edição no mesmo dia"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/sameday-odisseia-03/loop.5eb168ca.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/sameday-odisseia-03/poster.04a7420e.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-03/full.c3805767.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "valorant-mickey",
+      "section": "gaming",
+      "title": {
+        "en": "Valorant — Mickey",
+        "pt": "Valorant — Mickey"
+      },
       "client": "Gaming",
       "year": 2026,
       "format": "16:9",
-      "role": { "en": "Edit, sync, VFX", "pt": "Edição, sync, VFX" },
+      "duration": "0:14",
+      "role": {
+        "en": "Edit, sync, VFX",
+        "pt": "Edição, sync, VFX"
+      },
       "metrics": [],
-      "media": { "loop": "work/valorant-edit/loop.mp4", "poster": "work/valorant-edit/poster.jpg", "full": null },
-      "youtube": "https://youtu.be/NI4rfyjLqmg"
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/valorant-mickey/loop.a47febb9.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/valorant-mickey/poster.2fd422cf.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/valorant-mickey/full.994991b1.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "valorant-minute",
+      "section": "gaming",
+      "title": {
+        "en": "Valorant — minute",
+        "pt": "Valorant — minute"
+      },
+      "client": "Gaming",
+      "year": 2026,
+      "format": "16:9",
+      "duration": "0:06",
+      "role": {
+        "en": "Edit, sync",
+        "pt": "Edição, sync"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/valorant-minute/loop.c5e81163.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/valorant-minute/poster.8dad5e38.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/valorant-minute/full.140a8808.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "saber-gestao-intro",
+      "section": "motion",
+      "title": {
+        "en": "Saber Gestão — course intro",
+        "pt": "Saber Gestão — intro de curso"
+      },
+      "client": "Saber Gestão",
+      "year": 2026,
+      "format": "16:9",
+      "duration": "0:10",
+      "role": {
+        "en": "Motion design",
+        "pt": "Motion design"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/saber-gestao-intro/loop.abfa0a76.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/saber-gestao-intro/poster.72b28860.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/saber-gestao-intro/full.1ad01d74.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "saber-pdi-logo",
+      "section": "motion",
+      "title": {
+        "en": "Saber PDI — logo animation",
+        "pt": "Saber PDI — animação de logo"
+      },
+      "client": "Saber Gestão",
+      "year": 2026,
+      "format": "16:9",
+      "duration": "0:10",
+      "role": {
+        "en": "Motion design",
+        "pt": "Motion design"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/saber-pdi-logo/loop.44455dc1.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/saber-pdi-logo/poster.275d4045.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/saber-pdi-logo/full.70a7b703.mp4"
+      },
+      "youtube": null
     }
   ]
 }
