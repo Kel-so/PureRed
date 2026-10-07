@@ -1,6 +1,9 @@
-# Cloudflare Pages project for the site (HTML/CSS/JS only — videos live on Backblaze B2).
-# Deploy manually:  npx wrangler pages deploy
-# Or connect the GitHub repo in the Cloudflare dashboard: build command empty, output directory "site".
+# Cloudflare Workers (static assets) — publishes only the site/ folder.
+# Videos live on Backblaze B2 (see docs/HOSTING.md).
+# In Workers & Pages → your project → Settings → Build: build command empty,
+# deploy command "npx wrangler deploy". The name below must match the project name.
 name = "purered"
-pages_build_output_dir = "site"
 compatibility_date = "2026-09-01"
+
+[assets]
+directory = "./site"
