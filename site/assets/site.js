@@ -16,7 +16,7 @@
       "rates.title": "Ways to work together", "rates.lede": "Monthly packages, priced per scope. No per-video bidding.",
       "rates.onCall": "Priced on the call", "rates.from": "From",
       "contact.kicker": "Contact", "contact.note": "Send the goal, the deadline and one video you like. Reply within 24h.",
-      "tile.play": "▶ Play with sound", "tile.full": "Full video on YouTube ↗", "tile.videos": "videos", "tile.video": "video",
+      "work.title": "Work", "work.all": "All", "work.lede": "Podcast clips, brand films, events and gaming. Tap any video to watch it with sound.", "tile.play": "▶ Play with sound", "tile.full": "Full video on YouTube ↗", "tile.videos": "videos", "tile.video": "video",
       "ba.before": "Raw", "ba.after": "Edit", "ba.sound": "Play with sound", "ba.hint": "Drag to compare",
       "proof.title": "Clients & feedback",
       "foot.tz": "Brazil · UTC−3",
@@ -38,7 +38,7 @@
       "rates.title": "Formatos de trabalho", "rates.lede": "Pacotes mensais com valor por escopo. Sem cobrança por vídeo avulso.",
       "rates.onCall": "Valor combinado na conversa", "rates.from": "A partir de",
       "contact.kicker": "Contato", "contact.note": "Mande o objetivo, o prazo e um vídeo que você curte. Respondo em até 24h.",
-      "tile.play": "▶ Assistir com som", "tile.full": "Vídeo completo no YouTube ↗", "tile.videos": "vídeos", "tile.video": "vídeo",
+      "work.title": "Trabalhos", "work.all": "Tudo", "work.lede": "Cortes de podcast, filmes de marca, eventos e games. Toque em qualquer vídeo para assistir com som.", "tile.play": "▶ Assistir com som", "tile.full": "Vídeo completo no YouTube ↗", "tile.videos": "vídeos", "tile.video": "vídeo",
       "ba.before": "Bruto", "ba.after": "Editado", "ba.sound": "Assistir com som", "ba.hint": "Arraste para comparar",
       "proof.title": "Clientes & depoimentos",
       "foot.tz": "Brasil · UTC−3",
@@ -157,6 +157,7 @@
 
   function renderReel() {
     const r = work.reel;
+    reelItem = r;
     const host = $("#reel");
     host.replaceChildren();
     if (!r || !r.media?.loop) { host.hidden = true; return; }
@@ -211,66 +212,124 @@
       el("div", { class: "ba-bar mono" }, el("span", { text: `${L(item.title)}${meta ? " — " + meta : ""}` }), soundBtn));
   }
 
+  // ---------- work: one organic mosaic + category filter ----------
+  const ratio = (item) => (item.format === "9:16" ? 9 / 16 : item.format === "1:1" ? 1 : 16 / 9);
+  let filter = "all";
+  let mosaic = null;
+  let reelItem = null;
+
+  function mosaicTile(item) {
+    const v = loopVideo(media(item.media?.loop), media(item.media?.poster));
+    const canPlay = playable(item);
+    const metric = (item.metrics || [])[0];
+    const box = el(canPlay ? "button" : "div", {
+      class: "tile-media",
+      type: canPlay ? "button" : null,
+      "data-static": canPlay ? null : true,
+      "aria-label": canPlay ? `${t("tile.play")} — ${L(item.title)}` : L(item.title)
+    },
+      v,
+      el("div", { class: "hud hud-top" },
+        el("span", { text: item.format || "" }),
+        el("span", { text: metric ? `${metric.value} ${L(metric.label)}` : item.duration || "" })),
+      el("span", { class: "cap" },
+        el("b", { text: (canPlay ? "▶ " : "") + L(item.title) }),
+        el("small", { text: [item.client, L(item.role)].filter(Boolean).join(" · ") }))
+    );
+    if (canPlay) box.addEventListener("click", () => openPlayer(playlist.indexOf(item)));
+    const node = el("article", { class: "mtile", "data-sec": item.section }, box);
+    node._item = item;
+    return node;
+  }
+
+  // round-robin across categories so verticals and horizontals interleave in "All"
+  function mixed(items) {
+    const groups = work.sections.map((s) => items.filter((i) => i.section === s.id)).filter((g) => g.length);
+    const out = [];
+    for (let i = 0; groups.some((g) => i < g.length); i++) for (const g of groups) if (g[i]) out.push(g[i]);
+    return out;
+  }
+
   function renderWork() {
     const host = $("#work");
     host.replaceChildren();
-    let n = 0;
-    for (const sec of work.sections) {
-      const items = work.items.filter((i) => i.section === sec.id);
-      if (!items.length) continue;
-      n++;
-      const isBA = sec.id === "before-after";
-      const count = items.length;
-      const formats = [...new Set(items.map((i) => i.format))].join(" · ");
-      const head = el("header", { class: "sec-head" },
-        el("span", { class: "idx mono", text: String(n).padStart(2, "0") }),
-        el("h2", { class: "h2", text: L(sec.title) }),
-        el("p", { class: "lede", text: L(sec.lede) }),
-        el("div", { class: "count mono" },
-          el("span", { text: `${String(count).padStart(2, "0")} ${count === 1 ? t("tile.video") : t("tile.videos")}` }),
-          el("span", { text: formats }))
-      );
-      const body = isBA
-        ? beforeAfter(items[0])
-        : justified(items.map((i) => [i, tile(i)]));
-      host.append(el("section", { class: "sec grid", id: `work-${sec.id}`, "aria-label": L(sec.title) }, head, body));
+    const gridItems = work.items.filter((i) => i.section !== "before-after");
+    const cats = work.sections.filter((s) => s.id !== "before-after" && gridItems.some((i) => i.section === s.id));
+    const lede = el("p", { class: "lede" });
+    const setLede = () => {
+      const sec = cats.find((c) => c.id === filter);
+      lede.textContent = sec ? L(sec.lede) : t("work.lede");
+    };
+    const chips = el("div", { class: "chips", role: "tablist" },
+      [{ id: "all", title: { en: t("work.all") }, n: gridItems.length }, ...cats.map((c) => ({ ...c, n: gridItems.filter((i) => i.section === c.id).length }))]
+        .map((c) => {
+          const b = el("button", { class: "chip mono", type: "button", role: "tab", "aria-selected": String(filter === c.id) },
+            L(c.title), el("small", { text: String(c.n).padStart(2, "0") }));
+          b.addEventListener("click", () => {
+            filter = c.id;
+            for (const x of chips.children) x.setAttribute("aria-selected", String(x === b));
+            setLede();
+            layoutMosaic();
+          });
+          return b;
+        }));
+    setLede();
+    mosaic = el("div", { class: "mosaic" }, mixed(gridItems).map(mosaicTile));
+    host.append(el("section", { class: "sec grid", id: "work-all", "aria-label": t("work.title") },
+      el("header", { class: "sec-head" },
+        el("span", { class: "idx mono", text: "01" }),
+        el("h2", { class: "h2", text: t("work.title") }),
+        lede),
+      chips,
+      mosaic));
+
+    const ba = work.items.find((i) => i.section === "before-after");
+    const baSec = work.sections.find((s) => s.id === "before-after");
+    if (ba && baSec) {
+      host.append(el("section", { class: "sec grid", id: "work-before-after", "aria-label": L(baSec.title) },
+        el("header", { class: "sec-head" },
+          el("span", { class: "idx mono", text: "02" }),
+          el("h2", { class: "h2", text: L(baSec.title) }),
+          el("p", { class: "lede", text: L(baSec.lede) })),
+        beforeAfter(ba)));
     }
   }
 
-  // ---------- justified rows: every row fills the width, height near a target ----------
-  const ratio = (item) => (item.format === "9:16" ? 9 / 16 : item.format === "1:1" ? 1 : 16 / 9);
-  const rowsHosts = new Set();
-
-  function justified(pairs) {
-    const host = el("div", { class: "rows" });
-    host._pairs = pairs;
-    rowsHosts.add(host);
-    return host;
-  }
-
-  function layoutRows(host) {
-    const W = host.clientWidth;
+  // column masonry: verticals take 1 column, horizontals 2; each tile drops into the
+  // lowest spot that fits, so the grid packs tight without fixed rows
+  function layoutMosaic() {
+    if (!mosaic || !mosaic.isConnected) return;
+    const W = mosaic.clientWidth;
     if (!W) return;
-    const gap = parseFloat(getComputedStyle(host).getPropertyValue("--row-gap")) || 16;
-    // ~260px rows on desktop, shorter on small screens so verticals pair up
-    const target = W >= 1000 ? 260 : W >= 600 ? 220 : 190;
-    const rows = [];
-    let row = [];
-    const width = (r, h) => r.reduce((s, [it]) => s + ratio(it) * h, 0) + gap * (r.length - 1);
-    for (const p of host._pairs) {
-      row.push(p);
-      if (width(row, target) >= W) { rows.push([row, false]); row = []; }
+    const cols = W >= 1100 ? 6 : W >= 700 ? 4 : 2;
+    const gap = W >= 700 ? 8 : 6;
+    const colW = (W - gap * (cols - 1)) / cols;
+    const heights = new Array(cols).fill(0);
+    const visible = [];
+    for (const node of mosaic.children) {
+      const item = node._item;
+      const show = filter === "all" || item.section === filter;
+      node.hidden = !show;
+      if (!show) continue;
+      visible.push(item);
+      const span = ratio(item) > 1 ? Math.min(2, cols) : 1;
+      let best = 0, bestTop = Infinity;
+      for (let c = 0; c <= cols - span; c++) {
+        const top = Math.max(...heights.slice(c, c + span));
+        if (top < bestTop - 0.5) { best = c; bestTop = top; }
+      }
+      const w = colW * span + gap * (span - 1);
+      const h = w / ratio(item);
+      node.style.width = `${w}px`;
+      node.style.height = `${h}px`;
+      node.style.transform = `translate(${best * (colW + gap)}px, ${bestTop}px)`;
+      for (let c = best; c < best + span; c++) heights[c] = bestTop + h + gap;
     }
-    if (row.length) rows.push([row, true]);
-    host.replaceChildren(...rows.map(([r, last]) => {
-      const sum = r.reduce((s, [it]) => s + ratio(it), 0);
-      // full rows stretch to the edge; the last row keeps the target height unless that overflows
-      const h = last ? Math.min(target, (W - gap * (r.length - 1)) / sum) : (W - gap * (r.length - 1)) / sum;
-      return el("div", { class: "row" }, r.map(([it, node]) => { node.style.width = `${ratio(it) * h}px`; return node; }));
-    }));
+    mosaic.style.height = `${Math.max(0, ...heights) - gap}px`;
+    playlist = (reelItem && playable(reelItem) ? [reelItem] : []).concat(visible);
   }
 
-  const relayout = () => rowsHosts.forEach((h) => (h.isConnected ? layoutRows(h) : rowsHosts.delete(h)));
+  const relayout = () => layoutMosaic();
   if ("ResizeObserver" in window) {
     let last = 0;
     new ResizeObserver(() => { const w = $("#work").clientWidth; if (w !== last) { last = w; relayout(); } }).observe($("#work"));
@@ -342,7 +401,6 @@
     loopObserver && loopObserver.disconnect();
     applyStatic();
     renderReel();
-    rowsHosts.clear();
     renderWork();
     relayout();
     renderProof();
