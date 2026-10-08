@@ -5,7 +5,7 @@
   X-Frame-Options: DENY
 
 /assets/*
-  Cache-Control: public, max-age=3600, must-revalidate
+  Cache-Control: public, max-age=0, must-revalidate
 
 /data/*
   Cache-Control: public, max-age=0, must-revalidate
