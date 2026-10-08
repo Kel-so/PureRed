@@ -297,6 +297,92 @@
 
   // column masonry: verticals take 1 column, horizontals 2; each tile drops into the
   // lowest spot that fits, so the grid packs tight without fixed rows
+  function place(order, cols, colW, gap, wide) {
+    const heights = new Array(cols).fill(0);
+    return order.map((item) => {
+      const span = ratio(item) > 1 || wide.has(item) ? Math.min(2, cols) : 1;
+      let c0 = 0, top = Infinity;
+      for (let c = 0; c <= cols - span; c++) {
+        const t = Math.max(...heights.slice(c, c + span));
+        if (t < top - 0.5) { c0 = c; top = t; }
+      }
+      const w = colW * span + gap * (span - 1);
+      const h = wide.has(item) ? colW * 16 / 9 : w / ratio(item);
+      for (let c = c0; c < c0 + span; c++) heights[c] = top + h + gap;
+      return { item, c: c0, span, top, w, h };
+    });
+  }
+
+  // make every column end on the same line: find the run of tiles at the bottom of each
+  // column and stretch it (video crops a little via object-fit) to a shared baseline.
+  // Returns the worst stretch factor (as |log|), or null when columns can't be separated.
+  function balance(tiles, cols, gap) {
+    const covers = (t, c) => c >= t.c && c < t.c + t.span;
+    const above = (t, c) => {
+      let best = null;
+      for (const o of tiles) if (o !== t && covers(o, c) && o.top < t.top && (!best || o.top > best.top)) best = o;
+      return best;
+    };
+    const tail = [];
+    for (let c = 0; c < cols; c++) {
+      for (const t of tiles) if (covers(t, c) && (!tail[c] || t.top > tail[c].top)) tail[c] = t;
+      if (!tail[c]) return null;
+    }
+    const chains = [];
+    for (const t of new Set(tail)) {
+      for (let c = t.c; c < t.c + t.span; c++) if (tail[c] !== t) return null;
+      const chain = [t];
+      for (;;) {
+        const head = chain[0];
+        const p = above(head, head.c);
+        if (!p || p.c !== head.c || p.span !== head.span) break;
+        let same = true;
+        for (let c = head.c + 1; c < head.c + head.span; c++) if (above(head, c) !== p) same = false;
+        if (!same) break;
+        chain.unshift(p);
+      }
+      const a = chain[0].top + gap * (chain.length - 1);
+      const b = chain.reduce((x, o) => x + o.h, 0);
+      chains.push({ chain, a, b });
+    }
+    const err = (T) => Math.max(...chains.map(({ a, b }) => Math.abs(Math.log((T - a) / b))));
+    const ends = chains.map(({ a, b }) => a + b);
+    let lo = Math.min(...ends), hi = Math.max(...ends), T = hi, e = err(hi);
+    for (let i = 0; i <= 60; i++) {
+      const x = lo + ((hi - lo) * i) / 60, ex = err(x);
+      if (ex < e) { e = ex; T = x; }
+    }
+    return { e, T, chains };
+  }
+
+  function applyBalance(res, gap) {
+    for (const { chain, a, b } of res.chains) {
+      const k = (res.T - a) / b;
+      let y = chain[0].top;
+      for (const o of chain) { o.top = y; o.h *= k; y += o.h + gap; }
+    }
+  }
+
+  // phones: keep verticals in pairs so no half-row is left empty
+  function pairUp(order, wide) {
+    const out = [], held = [];
+    let open = null;
+    for (const it of order) {
+      if (ratio(it) > 1) { (open ? held : out).push(it); continue; }
+      out.push(it);
+      open = open ? null : it;
+      if (!open && held.length) out.push(...held.splice(0));
+    }
+    if (open) wide.add(open);
+    return out.concat(held);
+  }
+
+  function* permutations(arr) {
+    if (arr.length <= 1) { yield arr; return; }
+    for (let i = 0; i < arr.length; i++)
+      for (const rest of permutations(arr.slice(0, i).concat(arr.slice(i + 1)))) yield [arr[i], ...rest];
+  }
+
   function layoutMosaic() {
     if (!mosaic || !mosaic.isConnected) return;
     const W = mosaic.clientWidth;
@@ -304,29 +390,39 @@
     const cols = W >= 1100 ? 6 : W >= 700 ? 4 : 2;
     const gap = W >= 700 ? 8 : 6;
     const colW = (W - gap * (cols - 1)) / cols;
-    const heights = new Array(cols).fill(0);
-    const visible = [];
+    const nodes = new Map();
+    let order = [];
     for (const node of mosaic.children) {
-      const item = node._item;
-      const show = filter === "all" || item.section === filter;
+      const show = filter === "all" || node._item.section === filter;
       node.hidden = !show;
-      if (!show) continue;
-      visible.push(item);
-      const span = ratio(item) > 1 ? Math.min(2, cols) : 1;
-      let best = 0, bestTop = Infinity;
-      for (let c = 0; c <= cols - span; c++) {
-        const top = Math.max(...heights.slice(c, c + span));
-        if (top < bestTop - 0.5) { best = c; bestTop = top; }
-      }
-      const w = colW * span + gap * (span - 1);
-      const h = w / ratio(item);
-      node.style.width = `${w}px`;
-      node.style.height = `${h}px`;
-      node.style.transform = `translate(${best * (colW + gap)}px, ${bestTop}px)`;
-      for (let c = best; c < best + span; c++) heights[c] = bestTop + h + gap;
+      if (show) { order.push(node._item); nodes.set(node._item, node); }
     }
-    mosaic.style.height = `${Math.max(0, ...heights) - gap}px`;
-    playlist = (reelItem && playable(reelItem) ? [reelItem] : []).concat(visible);
+    const wide = new Set();
+    if (cols === 2) order = pairUp(order, wide);
+
+    // try a few orders for the last tiles and keep the one that needs the least stretching
+    let best = null;
+    const K = Math.min(5, order.length);
+    const head = order.slice(0, order.length - K);
+    for (const tailOrder of permutations(order.slice(order.length - K))) {
+      const tiles = place(head.concat(tailOrder), cols, colW, gap, wide);
+      const res = balance(tiles, cols, gap);
+      if (res && (!best || res.e < best.res.e - 1e-6)) best = { tiles, res };
+      if (best && best.res.e < 1e-3) break;
+    }
+    const tiles = best ? best.tiles : place(order, cols, colW, gap, wide);
+    if (best) applyBalance(best.res, gap);
+
+    let bottom = 0;
+    for (const t of tiles) {
+      const node = nodes.get(t.item);
+      node.style.width = `${t.w}px`;
+      node.style.height = `${t.h}px`;
+      node.style.transform = `translate(${t.c * (colW + gap)}px, ${t.top}px)`;
+      bottom = Math.max(bottom, t.top + t.h);
+    }
+    mosaic.style.height = `${bottom}px`;
+    playlist = (reelItem && playable(reelItem) ? [reelItem] : []).concat(tiles.map((t) => t.item));
   }
 
   const relayout = () => layoutMosaic();

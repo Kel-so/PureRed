@@ -189,6 +189,37 @@
       "youtube": null
     },
     {
+      "id": "drift-night",
+      "section": "social",
+      "title": {
+        "en": "Drift — night event",
+        "pt": "Drift — evento noturno"
+      },
+      "client": "Drift Series",
+      "year": 2026,
+      "format": "9:16",
+      "duration": "0:21",
+      "role": {
+        "en": "Edit, speed ramps, sound",
+        "pt": "Edição, speed ramp, som"
+      },
+      "metrics": [
+        {
+          "value": "3.9K",
+          "label": {
+            "en": "views",
+            "pt": "views"
+          }
+        }
+      ],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/drift-night/loop.34a7a9ce.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/drift-night/poster.2736c814.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/drift-night/full.48aabd47.mp4"
+      },
+      "youtube": null
+    },
+    {
       "id": "skoria-a-vinganca",
       "section": "social",
       "title": {
