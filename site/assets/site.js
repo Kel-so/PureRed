@@ -608,7 +608,7 @@
   const intro = $("#intro");
   let dataReady;
   let heroReady = Promise.resolve();
-  // loader on every visit: stays at least 4s (shorter read as a glitch), then slides up once the wall is ready (max 6.5s)
+  // loader on every visit: stays at least 2s (shorter read as a glitch), then slides up once the wall is ready (max 5s)
   const introDone = new Promise((resolve) => {
     if (!intro) return resolve();
     let gone = false;
@@ -622,7 +622,7 @@
     intro.addEventListener("click", finish, { once: true });
     // dataReady is assigned further down in this same script, so read it on the next tick
     const ready = Promise.resolve().then(() => dataReady).catch(() => {}).then(() => heroReady);
-    Promise.race([Promise.all([at(4000), ready]), at(6500)]).then(finish);
+    Promise.race([Promise.all([at(2000), ready]), at(5000)]).then(finish);
   });
 
   dataReady = Promise.all([
