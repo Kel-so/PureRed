@@ -608,21 +608,21 @@
   const intro = $("#intro");
   let dataReady;
   let heroReady = Promise.resolve();
-  // light loader on every visit: it leaves as soon as the data and the wall's posters are in (min .7s, max 5s)
+  // loader on every visit: stays at least 4s (shorter read as a glitch), then slides up once the wall is ready (max 6.5s)
   const introDone = new Promise((resolve) => {
     if (!intro) return resolve();
     let gone = false;
     const finish = () => {
       if (gone) return; gone = true;
       intro.classList.add("is-out");
-      setTimeout(() => intro.remove(), 500);
+      setTimeout(() => intro.remove(), 800);
       resolve();
     };
     const at = (ms) => new Promise((r) => setTimeout(r, Math.max(0, ms - performance.now())));
     intro.addEventListener("click", finish, { once: true });
     // dataReady is assigned further down in this same script, so read it on the next tick
     const ready = Promise.resolve().then(() => dataReady).catch(() => {}).then(() => heroReady);
-    Promise.race([Promise.all([at(700), ready]), at(5000)]).then(finish);
+    Promise.race([Promise.all([at(4000), ready]), at(6500)]).then(finish);
   });
 
   dataReady = Promise.all([
