@@ -604,31 +604,26 @@
     render();
   });
 
-  // ---------- intro: "Kelson" gets tagged, then the wall lights up ----------
+  // ---------- loader ----------
   const intro = $("#intro");
-  const TAG_FONT = '400 100px "Most Wasted"';
-  // true only when the self-hosted file actually loaded (fonts.check() also says yes for a failed face)
-  const tagFont = ("fonts" in document ? document.fonts.load(TAG_FONT) : Promise.resolve()).catch(() => {})
-    .then(() => "fonts" in document && [...document.fonts].some((f) => f.family.replace(/["']/g, "") === "Most Wasted" && f.status === "loaded"));
   let dataReady;
   let heroReady = Promise.resolve();
-  // the intro plays on every visit; it leaves once the tag is drawn and the wall behind it is ready
+  // light loader on every visit: it leaves as soon as the data and the wall's posters are in (min .7s, max 5s)
   const introDone = new Promise((resolve) => {
-    if (!intro || document.documentElement.classList.contains("no-intro")) { intro && intro.remove(); return resolve(); }
+    if (!intro) return resolve();
     let gone = false;
     const finish = () => {
       if (gone) return; gone = true;
       intro.classList.add("is-out");
-      setTimeout(() => intro.remove(), 800);
+      setTimeout(() => intro.remove(), 500);
       resolve();
     };
     const at = (ms) => new Promise((r) => setTimeout(r, Math.max(0, ms - performance.now())));
     intro.addEventListener("click", finish, { once: true });
     // dataReady is assigned further down in this same script, so read it on the next tick
     const ready = Promise.resolve().then(() => dataReady).catch(() => {}).then(() => heroReady);
-    Promise.race([Promise.all([at(3500), ready]), at(5600)]).then(finish);
+    Promise.race([Promise.all([at(700), ready]), at(5000)]).then(finish);
   });
-  tagFont.then((ok) => ok && document.documentElement.classList.add("has-tag"));
 
   dataReady = Promise.all([
     fetch("data/site.json").then((r) => r.json()),

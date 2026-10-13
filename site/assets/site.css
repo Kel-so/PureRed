@@ -98,16 +98,6 @@ button { font: inherit; color: inherit; }
 .btn-ink:hover { background: var(--paper); color: var(--ink); }
 .bar .btn { height: 34px; padding: 0 14px; }
 
-/* ---------- street tag (Most Wasted, self-hosted) ---------- */
-@font-face { font-family: "Most Wasted"; src: url("fonts/mostwasted.woff2") format("woff2"); font-display: block; }
-.sig { display: none; }
-.has-tag .sig {
-  display: block; position: absolute; right: clamp(14px, 2vw, 30px); top: clamp(10px, 1.6vw, 22px); z-index: 2;
-  font: 400 clamp(54px, 6vw, 96px)/1 "Most Wasted", cursive; color: var(--ink); transform: rotate(-7deg); pointer-events: none;
-}
-.has-tag .panel { padding-top: 84px; }
-@media (min-width: 761px) { .has-tag .panel { padding-top: clamp(18px, 2.2vw, 36px); } }
-
 /* ---------- hero: wall of monitors ---------- */
 .hero { border-bottom: var(--line); }
 .wall { display: grid; gap: 4px; padding: 4px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
