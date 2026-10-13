@@ -75,19 +75,27 @@
   "featured": "sameday-day-2",
   "wall": [
     {
-      "area": "a",
-      "id": "voodoo-lounge-vinyl-night",
-      "label": {
-        "en": "Event film",
-        "pt": "Filme de evento"
-      }
-    },
-    {
       "area": "b",
       "id": "granja360-aline-viott",
       "label": {
         "en": "Podcast clip",
         "pt": "Corte de podcast"
+      }
+    },
+    {
+      "area": "e",
+      "id": "drift-night",
+      "label": {
+        "en": "Reels",
+        "pt": "Reels"
+      }
+    },
+    {
+      "area": "a",
+      "id": "voodoo-lounge-vinyl-night",
+      "label": {
+        "en": "Event film",
+        "pt": "Filme de evento"
       }
     },
     {
@@ -99,27 +107,11 @@
       }
     },
     {
-      "area": "c2",
-      "id": "futsal-championship",
-      "label": {
-        "en": "Sports",
-        "pt": "Esporte"
-      }
-    },
-    {
       "area": "d",
       "id": "franchi-cookies",
       "label": {
         "en": "Brand",
         "pt": "Marca"
-      }
-    },
-    {
-      "area": "e",
-      "id": "drift-night",
-      "label": {
-        "en": "Reels",
-        "pt": "Reels"
       }
     }
   ],
