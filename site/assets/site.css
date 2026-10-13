@@ -347,6 +347,11 @@ button { font: inherit; color: inherit; }
   .steps li:nth-child(3) { padding-left: 0; border-left: 0; }
 }
 @media (max-width: 760px) {
+  /* featured case goes edge to edge and taller on phones */
+  .case { grid-column: 1 / -1; margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); }
+  .case-eyebrow, .case-title, .case-sub { padding: 0 var(--gutter); }
+  .case-media { aspect-ratio: 4 / 5; border-left: 0; border-right: 0; }
+  .case-play { left: var(--gutter); bottom: 16px; }
   .nav { display: none; }
   .bar { gap: 12px; }
   .sec-head, .block-head { row-gap: 14px; }
