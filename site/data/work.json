@@ -72,7 +72,7 @@
     },
     "youtube": null
   },
-  "featured": "sameday-ascensao-final",
+  "featured": "sameday-day-2",
   "wall": [
     {
       "area": "a",
@@ -92,7 +92,7 @@
     },
     {
       "area": "c1",
-      "id": "sameday-day-2",
+      "id": "sameday-ascensao-final",
       "label": {
         "en": "Same day edit",
         "pt": "Same day edit"
