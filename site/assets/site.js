@@ -94,9 +94,18 @@
       }, { rootMargin: "200px 0px", threshold: 0.25 })
     : null;
 
-  function loopVideo(src, poster) {
-    const v = el("video", { muted: true, loop: true, playsinline: true, preload: "none", poster, "aria-hidden": "true", disablepictureinpicture: true });
+  // posters below the fold wait until they are near the viewport, so the hero gets the bandwidth first
+  const posterObserver = "IntersectionObserver" in window
+    ? new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.poster = e.target.dataset.poster; posterObserver.unobserve(e.target); }
+      }, { rootMargin: "700px 0px" })
+    : null;
+
+  function loopVideo(src, poster, { eager = false } = {}) {
+    const lazy = !eager && posterObserver && poster;
+    const v = el("video", { muted: true, loop: true, playsinline: true, preload: "none", poster: lazy ? null : poster, "aria-hidden": "true", disablepictureinpicture: true });
     v.muted = true;
+    if (lazy) { v.dataset.poster = poster; posterObserver.observe(v); }
     if (!src) return v;
     if (loopObserver) { v.dataset.src = src; loopObserver.observe(v); }
     else { v.src = src; if (autoplayLoops) v.autoplay = true; }
@@ -128,7 +137,7 @@
         style: `--i:${n}`,
         "aria-label": canPlay ? `${t("tile.play")} — ${L(item.title)}` : L(item.title)
       },
-        loopVideo(media(item.media?.loop), media(item.media?.poster)),
+        loopVideo(media(item.media?.loop), media(item.media?.poster), { eager: true }),
         el("span", { class: "monitor-label mono", text: L(slot.label) }));
       if (canPlay) m.addEventListener("click", () => openItem(item));
       wall.append(m);
@@ -591,7 +600,33 @@
     render();
   });
 
-  Promise.all([
+  // ---------- intro: "Kelson" gets tagged, then the wall lights up ----------
+  const intro = $("#intro");
+  const TAG_FONT = '400 100px "Most Wasted"';
+  // true only when the self-hosted file actually loaded (fonts.check() also says yes for a failed face)
+  const tagFont = ("fonts" in document ? document.fonts.load(TAG_FONT) : Promise.resolve()).catch(() => {})
+    .then(() => "fonts" in document && [...document.fonts].some((f) => f.family.replace(/["']/g, "") === "Most Wasted" && f.status === "loaded"));
+  let dataReady;
+  const introDone = new Promise((resolve) => {
+    if (!intro || document.documentElement.classList.contains("no-intro")) { intro && intro.remove(); return resolve(); }
+    const finish = () => {
+      intro.classList.add("is-out");
+      try { sessionStorage.setItem("intro", "1"); } catch (e) {}
+      setTimeout(() => { intro.remove(); }, 700);
+      resolve();
+    };
+    // only play when the tag font is really there; otherwise get out of the way at once
+    Promise.race([tagFont, new Promise((r) => setTimeout(() => r(false), 900))]).then((ok) => {
+      if (!ok) { intro.remove(); document.documentElement.classList.add("no-intro"); return resolve(); }
+      document.documentElement.classList.add("has-tag");
+      intro.classList.add("is-on");
+      intro.addEventListener("click", finish, { once: true });
+      Promise.all([new Promise((r) => setTimeout(r, 1650)), dataReady.catch(() => {})]).then(finish);
+    });
+  });
+  tagFont.then((ok) => ok && document.documentElement.classList.add("has-tag"));
+
+  dataReady = Promise.all([
     fetch("data/site.json").then((r) => r.json()),
     fetch("data/work.json").then((r) => r.json())
   ]).then(([s, w]) => {
@@ -599,7 +634,8 @@
     site.mediaBase = site.mediaBase ? site.mediaBase.replace(/\/?$/, "/") : "";
     work = w;
     render();
-  }).catch((err) => {
+  });
+  dataReady.catch((err) => {
     console.error(err);
     applyStatic();
   });

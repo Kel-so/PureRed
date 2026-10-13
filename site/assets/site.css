@@ -98,6 +98,23 @@ button { font: inherit; color: inherit; }
 .btn-ink:hover { background: var(--paper); color: var(--ink); }
 .bar .btn { height: 34px; padding: 0 14px; }
 
+/* ---------- street tag (Most Wasted, self-hosted) ---------- */
+@font-face { font-family: "Most Wasted"; src: url("fonts/mostwasted.woff2") format("woff2"); font-display: block; }
+#intro .intro-tag {
+  font: 400 clamp(120px, 24vw, 380px)/1 "Most Wasted", cursive; color: var(--ink);
+  transform: rotate(-7deg); clip-path: inset(-20% 100% -20% -5%); padding: 0 .1em;
+}
+#intro.is-on .intro-tag { visibility: visible; animation: tag-write 1.05s cubic-bezier(.55,.1,.35,1) .1s forwards; }
+#intro.is-out { transform: translateY(-100%); transition: transform .65s cubic-bezier(.7,0,.2,1); }
+@keyframes tag-write { to { clip-path: inset(-20% -5% -20% -5%); } }
+.sig { display: none; }
+.has-tag .sig {
+  display: block; position: absolute; right: clamp(14px, 2vw, 30px); top: clamp(10px, 1.6vw, 22px); z-index: 2;
+  font: 400 clamp(54px, 6vw, 96px)/1 "Most Wasted", cursive; color: var(--ink); transform: rotate(-7deg); pointer-events: none;
+}
+.has-tag .panel { padding-top: 84px; }
+@media (min-width: 761px) { .has-tag .panel { padding-top: clamp(18px, 2.2vw, 36px); } }
+
 /* ---------- hero: wall of monitors ---------- */
 .hero { border-bottom: var(--line); }
 .wall { display: grid; gap: 4px; padding: 4px; grid-template-columns: repeat(2, minmax(0, 1fr)); }

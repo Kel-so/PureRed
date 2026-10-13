@@ -12,12 +12,30 @@
   <meta property="og:image" content="https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/poster.96ed5dab.jpg">
   <link rel="canonical" href="https://kelsonfilms.xyz/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="data/work.json" as="fetch" crossorigin>
+  <link rel="preload" href="data/site.json" as="fetch" crossorigin>
+  <link rel="preload" href="assets/fonts/mostwasted.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://media.kelsonfilms.xyz">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/site.css?v=4ad52cc1">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+  <style>
+    /* intro: painted before anything else loads; site.js decides whether it plays */
+    #intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: #fff; animation: intro-failsafe 0s 4s forwards; }
+    @keyframes intro-failsafe { to { visibility: hidden; pointer-events: none; } }
+    #intro .intro-tag { visibility: hidden; }
+    html.no-intro #intro { display: none; }
+  </style>
+  <script>
+    // skip the intro on repeat visits in the same tab session and for reduced motion
+    try { if (sessionStorage.getItem("intro") || matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("no-intro"); } catch (e) {}
+  </script>
+  <noscript><style>#intro { display: none !important; }</style></noscript>
+  <link rel="stylesheet" href="assets/site.css?v=0989a740">
 </head>
 <body>
+  <div id="intro" aria-hidden="true"><span class="intro-tag">Kelson</span></div>
   <div class="holo" aria-hidden="true"></div>
 
   <header class="bar">
@@ -40,6 +58,7 @@
         <div class="panel">
           <p class="mono kicker"><span data-i18n="hero.kicker">Video editor</span> — <span data-i18n="hero.remote">Remote</span> / <span data-tz>UTC−3</span></p>
           <h1 class="hero-title" data-i18n="hero.title">Podcast clips, event films &amp; brand edits</h1>
+          <span class="sig" aria-hidden="true">Kelson</span>
           <div class="panel-foot">
             <a class="btn btn-ink" data-cta href="#contact"><span data-i18n="cta.call">Book a 15-min call</span>&nbsp;↗</a>
             <a class="btn" href="#work" data-i18n="cta.work">See the work ↓</a>
@@ -109,6 +128,6 @@
   </dialog>
 
   <noscript><p class="noscript">This site needs JavaScript to play the work. Email <a href="mailto:kelsonfilms.contact@gmail.com">kelsonfilms.contact@gmail.com</a>.</p></noscript>
-  <script src="assets/site.js?v=cf067c50" defer></script>
+  <script src="assets/site.js?v=0eb08dfc" defer></script>
 </body>
 </html>
