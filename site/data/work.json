@@ -72,6 +72,57 @@
     },
     "youtube": null
   },
+  "featured": "sameday-ascensao-final",
+  "wall": [
+    {
+      "area": "a",
+      "id": "voodoo-lounge-vinyl-night",
+      "label": {
+        "en": "Event film",
+        "pt": "Filme de evento"
+      }
+    },
+    {
+      "area": "b",
+      "id": "granja360-aline-viott",
+      "label": {
+        "en": "Podcast clip",
+        "pt": "Corte de podcast"
+      }
+    },
+    {
+      "area": "c1",
+      "id": "sameday-day-2",
+      "label": {
+        "en": "Same day edit",
+        "pt": "Same day edit"
+      }
+    },
+    {
+      "area": "c2",
+      "id": "futsal-championship",
+      "label": {
+        "en": "Sports",
+        "pt": "Esporte"
+      }
+    },
+    {
+      "area": "d",
+      "id": "franchi-cookies",
+      "label": {
+        "en": "Brand",
+        "pt": "Marca"
+      }
+    },
+    {
+      "area": "e",
+      "id": "drift-night",
+      "label": {
+        "en": "Reels",
+        "pt": "Reels"
+      }
+    }
+  ],
   "items": [
     {
       "id": "granja360-aline-viott",
@@ -320,6 +371,29 @@
       "youtube": null
     },
     {
+      "id": "sameday-ascensao-final",
+      "section": "events",
+      "title": {
+        "en": "Same Day Edit — final",
+        "pt": "Same Day Edit — final"
+      },
+      "client": "Ascensão",
+      "year": 2026,
+      "format": "16:9",
+      "duration": "2:34",
+      "role": {
+        "en": "Same-day edit · event film",
+        "pt": "Edição no mesmo dia · filme do evento"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/loop.81551522.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/poster.bc9caf6d.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/full.1cd6f555.mp4"
+      },
+      "youtube": null
+    },
+    {
       "id": "futsal-championship",
       "section": "events",
       "title": {
@@ -343,25 +417,25 @@
       "youtube": null
     },
     {
-      "id": "sameday-odisseia-04",
+      "id": "sameday-day-2",
       "section": "events",
       "title": {
-        "en": "Same Day Edit — main event",
-        "pt": "Same Day Edit — evento principal"
+        "en": "Same Day Edit — day 2",
+        "pt": "Same Day Edit — dia 2"
       },
       "client": "Festival",
       "year": 2026,
       "format": "16:9",
-      "duration": "3:41",
+      "duration": "3:48",
       "role": {
         "en": "Same-day edit",
         "pt": "Edição no mesmo dia"
       },
       "metrics": [],
       "media": {
-        "loop": "https://media.kelsonfilms.xyz/work/sameday-odisseia-04/loop.2a992907.mp4",
-        "poster": "https://media.kelsonfilms.xyz/work/sameday-odisseia-04/poster.a74b137a.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-04/full.e483d76d.mp4"
+        "loop": "https://media.kelsonfilms.xyz/work/sameday-day-2/loop.014d1460.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/sameday-day-2/poster.6e2df9b7.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/sameday-day-2/full.95c1dda0.mp4"
       },
       "youtube": null
     },
@@ -392,8 +466,8 @@
       "id": "sameday-odisseia-02",
       "section": "events",
       "title": {
-        "en": "Same Day Edit — day 2",
-        "pt": "Same Day Edit — dia 2"
+        "en": "Same Day Edit — highlights",
+        "pt": "Same Day Edit — melhores momentos"
       },
       "client": "Festival",
       "year": 2026,

@@ -23,6 +23,7 @@ scripts/
   b2-setup.sh          cria bucket e chave de upload (uma vez)
   cloudflare-setup.sh  DNS + regras de rewrite/cache/headers para media.seudominio.com (uma vez)
   set-media-host.sh    aponta o site para o B2
+  bust-cache.sh        carimba a versão do CSS/JS no index.html (rodar após mexer em site/assets)
 docs/
   SHOTLIST.md          quais vídeos mandar: quantos de cada, formato, duração, o que mostrar
   HOSTING.md           passo a passo: site na Vercel/Pages, vídeos no B2 + Cloudflare

@@ -5,7 +5,7 @@
     en: {
       "nav.work": "Work", "nav.process": "Process", "nav.rates": "Rates", "nav.contact": "Contact",
       "cta.call": "Book a 15-min call", "cta.callShort": "Book a call", "cta.work": "See the work ↓", "cta.email": "Email me",
-      "hero.kicker": "Video editor", "hero.remote": "Remote",
+      "hero.kicker": "Video editor", "hero.remote": "Remote", "hero.title": "Podcast clips, event films & brand edits", "scene": "Scene", "case.eyebrow": "Case in focus", "case.watch": "▶ Watch with sound", "work.other": "Other work",
       "hero.lede": "I edit podcasts, YouTube videos and brand content. You send the footage, I send back clips and episodes ready to post.",
       "fact.reply": "reply to every brief", "fact.tz": "from US Eastern working hours", "fact.lang": "fluent in both",
       "process.title": "How it works",
@@ -27,7 +27,7 @@
     pt: {
       "nav.work": "Trabalhos", "nav.process": "Processo", "nav.rates": "Formatos", "nav.contact": "Contato",
       "cta.call": "Agendar conversa de 15 min", "cta.callShort": "Agendar", "cta.work": "Ver trabalhos ↓", "cta.email": "Mandar e-mail",
-      "hero.kicker": "Editor de vídeo", "hero.remote": "Remoto",
+      "hero.kicker": "Editor de vídeo", "hero.remote": "Remoto", "hero.title": "Cortes de podcast, filmes de evento e vídeos de marca", "scene": "Cena", "case.eyebrow": "Case em destaque", "case.watch": "▶ Assistir com som", "work.other": "Outros trabalhos",
       "hero.lede": "Edito podcasts, vídeos de YouTube e conteúdo de marca. Você manda o material bruto, eu devolvo cortes e episódios prontos pra postar.",
       "fact.reply": "resposta a todo briefing", "fact.tz": "do horário comercial da costa leste dos EUA", "fact.lang": "fluente nos dois",
       "process.title": "Como funciona",
@@ -103,71 +103,50 @@
     return v;
   }
 
-  // ---------- timecode HUD, driven by the actual playhead ----------
-  const tcNodes = new Map();
-  const tc = (s) => {
-    const f = Math.floor((s % 1) * 24), x = Math.floor(s);
-    const p = (n) => String(n).padStart(2, "0");
-    return `${p(Math.floor(x / 3600))}:${p(Math.floor(x / 60) % 60)}:${p(x % 60)}:${p(f)}`;
-  };
-  (function tick() {
-    for (const [v, node] of tcNodes) if (!v.paused) node.textContent = tc(v.currentTime);
-    requestAnimationFrame(tick);
-  })();
-
-  // ---------- tiles ----------
+  const LOOPS = ".tile-media video, .monitor video, .case-media video";
   function playable(item) { return !!(item.media?.full || item.youtube); }
+  const byId = (id) => [work.reel, ...work.items].find((i) => i && i.id === id);
 
-  function tile(item, { reel = false } = {}) {
-    const ar = item.format === "9:16" ? "ar-916" : item.format === "1:1" ? "ar-11" : "ar-169";
-    const v = loopVideo(media(item.media?.loop), media(item.media?.poster));
-    const tcNode = el("span", { text: "00:00:00:00" });
-    tcNodes.set(v, tcNode);
-    const canPlay = playable(item);
-    const box = el(canPlay ? "button" : "div", {
-      class: `tile-media ${ar}`,
-      type: canPlay ? "button" : null,
-      "data-static": canPlay ? null : true,
-      "aria-label": canPlay ? `${t("tile.play")} — ${L(item.title)}` : null
-    },
-      v,
-      el("div", { class: "hud hud-top" }, el("span", { text: item.format || "" }), tcNode),
-      canPlay ? el("span", { class: "play-chip", text: t("tile.play") }) : null
-    );
-    if (canPlay) {
-      const idx = playlist.push(item) - 1;
-      box.addEventListener("click", () => openPlayer(idx));
-    }
-    if (reel) return box;
-
-    const metric = (item.metrics || [])[0];
-    const sub = [item.client, L(item.role), item.year, item.duration].filter(Boolean).join(" · ");
-    return el("article", { class: "tile" },
-      box,
-      el("div", { class: "tile-meta" },
-        el("h3", { class: "tile-title", text: L(item.title) }),
-        metric ? el("span", { class: "tile-metric" }, metric.value, el("small", { text: L(metric.label) })) : el("span"),
-        el("p", { class: "tile-sub", text: sub }),
-        item.media?.full && item.youtube
-          ? el("a", { class: "tile-link mono", href: item.youtube, target: "_blank", rel: "noopener", text: t("tile.full") })
-          : null
-      )
-    );
+  // open any item in the player, even if it isn't in the current mosaic filter
+  function openItem(item) {
+    let i = playlist.indexOf(item);
+    if (i < 0) { playlist.unshift(item); i = 0; }
+    openPlayer(i);
   }
 
-  function renderReel() {
-    const r = work.reel;
-    reelItem = r;
-    const host = $("#reel");
-    host.replaceChildren();
-    if (!r || !r.media?.loop) { host.hidden = true; return; }
-    host.hidden = false;
-    host.append(
-      el("div", { class: "frame" }, tile(r, { reel: true })),
-      el("figcaption", { class: "reel-cap mono" },
-        el("span", { text: L(r.title) }),
-        el("span", { text: playable(r) ? t("tile.play") : r.format }))
-    );
+  // ---------- hero: a wall of looping monitors around the title panel ----------
+  function renderWall() {
+    const wall = $("#wall");
+    for (const m of wall.querySelectorAll(".monitor")) m.remove();
+    (work.wall || []).forEach((slot, n) => {
+      const item = byId(slot.id);
+      if (!item) return;
+      const canPlay = playable(item);
+      const m = el(canPlay ? "button" : "div", {
+        class: `monitor monitor--${slot.area}`,
+        type: canPlay ? "button" : null,
+        style: `--i:${n}`,
+        "aria-label": canPlay ? `${t("tile.play")} — ${L(item.title)}` : L(item.title)
+      },
+        loopVideo(media(item.media?.loop), media(item.media?.poster)),
+        el("span", { class: "monitor-label mono", text: L(slot.label) }));
+      if (canPlay) m.addEventListener("click", () => openItem(item));
+      wall.append(m);
+    });
+  }
+
+  // ---------- featured case, big and centred above the mosaic ----------
+  function caseBlock(item) {
+    const canPlay = playable(item);
+    const box = el(canPlay ? "button" : "div", { class: "case-media", type: canPlay ? "button" : null, "aria-label": `${t("case.watch")} — ${L(item.title)}` },
+      loopVideo(media(item.media?.loop), media(item.media?.poster)),
+      canPlay ? el("span", { class: "case-play mono", text: t("case.watch") }) : null);
+    if (canPlay) box.addEventListener("click", () => openItem(item));
+    return el("div", { class: "case" },
+      el("p", { class: "mono case-eyebrow", text: t("case.eyebrow") }),
+      el("h3", { class: "case-title", text: L(item.title) }),
+      el("p", { class: "mono case-sub", text: [item.client, L(item.role), item.duration].filter(Boolean).join(" · ") }),
+      box);
   }
 
   function beforeAfter(item) {
@@ -216,7 +195,7 @@
   const ratio = (item) => (item.format === "9:16" ? 9 / 16 : item.format === "1:1" ? 1 : 16 / 9);
   let filter = "all";
   let mosaic = null;
-  let reelItem = null;
+  let featuredItem = null;
 
   function mosaicTile(item) {
     const v = loopVideo(media(item.media?.loop), media(item.media?.poster));
@@ -253,7 +232,8 @@
   function renderWork() {
     const host = $("#work");
     host.replaceChildren();
-    const gridItems = work.items.filter((i) => i.section !== "before-after");
+    featuredItem = work.featured ? byId(work.featured) : null;
+    const gridItems = work.items.filter((i) => i.section !== "before-after" && i !== featuredItem);
     const cats = work.sections.filter((s) => s.id !== "before-after" && gridItems.some((i) => i.section === s.id));
     const lede = el("p", { class: "lede" });
     const setLede = () => {
@@ -277,10 +257,11 @@
     mosaic = el("div", { class: "mosaic" }, mixed(gridItems).map(mosaicTile));
     host.append(el("section", { class: "sec grid", id: "work-all", "aria-label": t("work.title") },
       el("header", { class: "sec-head" },
-        el("span", { class: "idx mono", text: "01" }),
+        el("span", { class: "idx mono", "data-scene": t("nav.work") }),
         el("h2", { class: "h2", text: t("work.title") }),
         lede),
-      chips,
+      featuredItem ? caseBlock(featuredItem) : null,
+      el("div", { class: "other" }, el("span", { class: "mono other-label", text: t("work.other") }), chips),
       mosaic));
 
     const ba = work.items.find((i) => i.section === "before-after");
@@ -288,7 +269,7 @@
     if (ba && baSec) {
       host.append(el("section", { class: "sec grid", id: "work-before-after", "aria-label": L(baSec.title) },
         el("header", { class: "sec-head" },
-          el("span", { class: "idx mono", text: "02" }),
+          el("span", { class: "idx mono", "data-scene": L(baSec.title) }),
           el("h2", { class: "h2", text: L(baSec.title) }),
           el("p", { class: "lede", text: L(baSec.lede) })),
         beforeAfter(ba)));
@@ -422,7 +403,7 @@
       bottom = Math.max(bottom, t.top + t.h);
     }
     mosaic.style.height = `${bottom}px`;
-    playlist = (reelItem && playable(reelItem) ? [reelItem] : []).concat(tiles.map((t) => t.item));
+    playlist = (featuredItem && playable(featuredItem) ? [featuredItem] : []).concat(tiles.map((t) => t.item));
   }
 
   const relayout = () => layoutMosaic();
@@ -493,22 +474,51 @@
 
   function render() {
     playlist = [];
-    tcNodes.clear();
     loopObserver && loopObserver.disconnect();
     applyStatic();
-    renderReel();
+    renderWall();
     renderWork();
     relayout();
     renderProof();
     renderRates();
     wireContact();
-    let n = document.querySelectorAll("#work .sec").length;
-    for (const id of ["proof", "process", "rates"]) {
-      const sec = document.getElementById(id);
-      const idx = sec && !sec.hidden && sec.querySelector(".block-head .idx");
-      if (idx) idx.textContent = String(++n).padStart(2, "0");
+    // "Scene 01 — Work", "Scene 02 — How it works"… across every section head
+    const heads = [...document.querySelectorAll("#work .idx, #proof .idx, #process .idx, #rates .idx, #contact .idx")]
+      .filter((x) => !x.closest("[hidden]"));
+    heads.forEach((x, i) => {
+      const label = x.dataset.scene || x.closest("section").querySelector(".h2, .kicker")?.textContent || "";
+      x.textContent = `${t("scene")} ${String(i + 1).padStart(2, "0")} — ${label}`;
+    });
+    reveal();
+  }
+
+  // ---------- fade sections in as they enter the viewport ----------
+  const revealObserver = "IntersectionObserver" in window && !reduceMotion
+    ? new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add("is-in"); revealObserver.unobserve(e.target); }
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 })
+    : null;
+  function reveal() {
+    const targets = document.querySelectorAll(".sec-head, .block-head, .case, .other, .mosaic, .steps, .rates, .contact > *, .proof > *");
+    for (const n of targets) {
+      if (!revealObserver) { n.classList.add("is-in"); continue; }
+      n.setAttribute("data-reveal", "");
+      revealObserver.observe(n);
     }
   }
+
+  // ---------- top bar hides while scrolling down, comes back on the way up ----------
+  {
+    const bar = $(".bar");
+    let lastY = scrollY;
+    addEventListener("scroll", () => {
+      const y = scrollY;
+      if (Math.abs(y - lastY) < 6) return;
+      bar.classList.toggle("is-hidden", y > lastY && y > 140);
+      lastY = y;
+    }, { passive: true });
+  }
+
 
   // ---------- player ----------
   const dlg = $("#player");
@@ -541,7 +551,7 @@
       });
     }
     stage.replaceChildren(node);
-    for (const v of document.querySelectorAll(".tile-media video")) v.pause();
+    for (const v of document.querySelectorAll(LOOPS)) v.pause();
     if (!dlg.open) dlg.showModal();
   }
 
@@ -553,7 +563,7 @@
   dlg.addEventListener("close", () => {
     $("#player-stage").replaceChildren();
     // resume visible loops
-    if (autoplayLoops) for (const v of document.querySelectorAll(".tile-media video")) {
+    if (autoplayLoops) for (const v of document.querySelectorAll(LOOPS)) {
       const r = v.getBoundingClientRect();
       if (v.src && r.bottom > 0 && r.top < innerHeight) v.play().catch(() => {});
     }
