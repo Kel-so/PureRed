@@ -21,21 +21,53 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
   <style>
-    /* intro: painted before anything else loads; site.js decides whether it plays */
-    #intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: #fff; animation: intro-failsafe 0s 4s forwards; }
+    /* intro: "Kelson" is drawn letter by letter, filled, then a glint passes — all before site.css/JS arrive */
+    #intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: #fff;
+             animation: intro-failsafe 0s 7s forwards; transition: transform .75s cubic-bezier(.7,0,.2,1); }
+    #intro.is-out { transform: translateY(-100%); }
     @keyframes intro-failsafe { to { visibility: hidden; pointer-events: none; } }
-    #intro .intro-tag { visibility: hidden; }
+    .intro-tag { width: min(86vw, 940px); height: auto; overflow: visible; transform: rotate(-7deg); }
+    .intro-tag .kl path {
+      fill: #0a0a0a; fill-opacity: 0; stroke: #0a0a0a; stroke-width: 16; stroke-linejoin: round;
+      stroke-dasharray: 1; stroke-dashoffset: 1;
+      animation: k-draw .62s cubic-bezier(.45,0,.25,1) calc(.3s + var(--i) * .27s) forwards,
+                 k-fill .38s ease-out calc(.74s + var(--i) * .27s) forwards;
+    }
+    .intro-tag .kshine { animation: k-shine .95s cubic-bezier(.45,0,.2,1) 2.35s forwards; }
+    @keyframes k-draw { to { stroke-dashoffset: 0; } }
+    @keyframes k-fill { to { fill-opacity: 1; } }
+    @keyframes k-shine { to { transform: translateX(8539px); } }
     html.no-intro #intro { display: none; }
   </style>
   <script>
-    // skip the intro on repeat visits in the same tab session and for reduced motion
-    try { if (sessionStorage.getItem("intro") || matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("no-intro"); } catch (e) {}
+    // reduced motion: no intro at all
+    try { if (matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("no-intro"); } catch (e) {}
   </script>
   <noscript><style>#intro { display: none !important; }</style></noscript>
-  <link rel="stylesheet" href="assets/site.css?v=0aef787d">
+  <link rel="stylesheet" href="assets/site.css?v=f96eab71">
 </head>
 <body>
-  <div id="intro" aria-hidden="true"><span class="intro-tag">Kelson</span></div>
+  <div id="intro" aria-hidden="true">
+    <svg class="intro-tag" viewBox="-199 -1511 5739 1960">
+      <defs>
+        <clipPath id="kclip"><path d="M324 -436 326 -379V-253L266 -251L259 -249L251 -256Q164 -232 130 -208V-214L122 -221L110 -325L114 -361L106 -366L108 -408V-416L100 -422L105 -443Q99 -503 92 -560L42 -896Q22 -1000 -1 -1090Q-52 -1348 -108 -1415L-109 -1421L-30 -1416Q123 -1425 127 -1377Q231 -1090 279 -835V-839Q472 -1015 533 -1060Q585 -1047 655 -964Q652 -935 652 -903Q514 -814 370 -688Q439 -579 557 -436Q686 -276 793 -181Q790 -150 777 -118L554 -122Q467 -254 324 -436Z"/><path d="M1783 -533Q1435 -487 1162 -292L1061 -205L880 -224Q867 -225 869 -247L877 -252Q893 -510 842 -515L784 -563L785 -571Q786 -581 844 -599L845 -613Q848 -634 790 -752L719 -745L709 -782L717 -787L718 -795L717 -858L718 -864L734 -877L740 -869Q855 -856 1197 -946Q1496 -1051 1528 -1100L1599 -980L1598 -966Q1320 -800 960 -769L959 -754L1005 -666L1019 -664Q1379 -794 1460 -785L1528 -708V-701Q1521 -690 1319 -654L1037 -571Q1044 -512 1071 -435Q1302 -573 1709 -632L1822 -648Q1893 -631 1876 -548L1822 -536Z"/><path d="M1712 -540 1677 -878Q1662 -983 1643 -1074Q1621 -1218 1568 -1287V-1293L1646 -1285Q1800 -1287 1801 -1239Q1910 -949 1931 -611L1939 -590L1932 -589L1941 -563L1937 -527V-520L1944 -513L1939 -472L1937 -349L1932 -223H1872L1865 -222L1857 -229Q1769 -209 1734 -187V-193L1726 -200L1719 -304L1725 -340L1717 -346L1721 -387V-395L1714 -402L1720 -423Q1716 -483 1712 -540Z"/><path d="M3164 -1197 3016 -920 2906 -743 2629 -716 2624 -723 2625 -737Q2731 -828 2839 -1036L2847 -1043Q2898 -1162 2925 -1188ZM3197 192Q3003 294 2983 359L2969 357L2772 301L2774 288L2771 245Q2871 34 2888 -120Q2899 -227 2835 -337L2753 -366V-360L2733 -369L2735 -389Q2736 -400 2958 -449Q3070 -407 3118 -306Q3136 -215 3126 -123Q3113 -4 3036 127Q3161 59 3337 -122Q3640 -408 3682 -540L3684 -547Q3677 -575 3623 -581L3589 -585L3546 -583L3541 -590L3534 -591Q3077 -549 2708 -463Q2029 -220 1864 -237Q1804 -244 1785 -281L1777 -283L1785 -352L1803 -391Q1826 -462 1905 -556Q1918 -608 2204 -859Q2562 -1171 2587 -1169L2841 -1184L2839 -1162Q2771 -1152 2387 -869Q2076 -611 1989 -490L1988 -476Q1992 -455 2026 -451Q2161 -437 2324 -482L2330 -475L2337 -474Q3111 -629 3424 -672L3661 -668L3696 -665L3798 -640Q3903 -577 3906 -467Q3875 -287 3197 192Z"/><path d="M3862 -345Q3721 -360 3653 -550Q3637 -598 3645 -669Q3656 -766 3754 -841L3761 -839Q3873 -777 3869 -730L3814 -616Q3804 -518 3902 -453Q3959 -479 3945 -589Q3904 -767 3804 -849Q3710 -887 3712 -901Q3713 -912 3906 -949L3920 -948Q4112 -832 4143 -680L4151 -623H4144Q4157 -485 4049 -388Q3966 -324 3862 -345ZM3763 -987 3805 -982 3811 -974 3819 -980 3839 -978 3846 -971 3853 -970 3860 -975 3866 -969 3865 -962 3686 -918 3637 -930 3583 -936 3584 -949Z"/><path d="M5149 -435 5154 -414 5146 -408V-400L5148 -358L5140 -353L5144 -317L5132 -213L5124 -206V-200Q5090 -224 5003 -248L4995 -241L4988 -243L4927 -256L4919 -249L4920 -257L4835 -252Q4656 -579 4448 -686L4441 -687L4440 -680Q4512 -635 4511 -623L4509 -602Q4496 -489 4434 -365L4427 -366Q4303 -464 4281 -508L4277 -529L4284 -535Q4296 -636 4199 -852L4096 -1003Q4314 -1008 4316 -1022Q4639 -854 4825 -617L4924 -487L4931 -486L4932 -494L4929 -536L4936 -542L4937 -549L4934 -585L4944 -611L4937 -612L4946 -633Q4983 -970 5214 -1360Q5218 -1408 5371 -1399L5450 -1404L5449 -1398Q5393 -1331 5297 -1085L5255 -957Q5212 -818 5149 -435Z"/></clipPath>
+        <linearGradient id="kshine" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".42" stop-color="#e9ddff" stop-opacity=".55"/>
+          <stop offset=".5" stop-color="#fff" stop-opacity=".95"/><stop offset=".58" stop-color="#c9f6ff" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <g class="kl">
+      <path style="--i:0" pathLength="1" d="M324 -436 326 -379V-253L266 -251L259 -249L251 -256Q164 -232 130 -208V-214L122 -221L110 -325L114 -361L106 -366L108 -408V-416L100 -422L105 -443Q99 -503 92 -560L42 -896Q22 -1000 -1 -1090Q-52 -1348 -108 -1415L-109 -1421L-30 -1416Q123 -1425 127 -1377Q231 -1090 279 -835V-839Q472 -1015 533 -1060Q585 -1047 655 -964Q652 -935 652 -903Q514 -814 370 -688Q439 -579 557 -436Q686 -276 793 -181Q790 -150 777 -118L554 -122Q467 -254 324 -436Z"/>
+      <path style="--i:1" pathLength="1" d="M1783 -533Q1435 -487 1162 -292L1061 -205L880 -224Q867 -225 869 -247L877 -252Q893 -510 842 -515L784 -563L785 -571Q786 -581 844 -599L845 -613Q848 -634 790 -752L719 -745L709 -782L717 -787L718 -795L717 -858L718 -864L734 -877L740 -869Q855 -856 1197 -946Q1496 -1051 1528 -1100L1599 -980L1598 -966Q1320 -800 960 -769L959 -754L1005 -666L1019 -664Q1379 -794 1460 -785L1528 -708V-701Q1521 -690 1319 -654L1037 -571Q1044 -512 1071 -435Q1302 -573 1709 -632L1822 -648Q1893 -631 1876 -548L1822 -536Z"/>
+      <path style="--i:2" pathLength="1" d="M1712 -540 1677 -878Q1662 -983 1643 -1074Q1621 -1218 1568 -1287V-1293L1646 -1285Q1800 -1287 1801 -1239Q1910 -949 1931 -611L1939 -590L1932 -589L1941 -563L1937 -527V-520L1944 -513L1939 -472L1937 -349L1932 -223H1872L1865 -222L1857 -229Q1769 -209 1734 -187V-193L1726 -200L1719 -304L1725 -340L1717 -346L1721 -387V-395L1714 -402L1720 -423Q1716 -483 1712 -540Z"/>
+      <path style="--i:3" pathLength="1" d="M3164 -1197 3016 -920 2906 -743 2629 -716 2624 -723 2625 -737Q2731 -828 2839 -1036L2847 -1043Q2898 -1162 2925 -1188ZM3197 192Q3003 294 2983 359L2969 357L2772 301L2774 288L2771 245Q2871 34 2888 -120Q2899 -227 2835 -337L2753 -366V-360L2733 -369L2735 -389Q2736 -400 2958 -449Q3070 -407 3118 -306Q3136 -215 3126 -123Q3113 -4 3036 127Q3161 59 3337 -122Q3640 -408 3682 -540L3684 -547Q3677 -575 3623 -581L3589 -585L3546 -583L3541 -590L3534 -591Q3077 -549 2708 -463Q2029 -220 1864 -237Q1804 -244 1785 -281L1777 -283L1785 -352L1803 -391Q1826 -462 1905 -556Q1918 -608 2204 -859Q2562 -1171 2587 -1169L2841 -1184L2839 -1162Q2771 -1152 2387 -869Q2076 -611 1989 -490L1988 -476Q1992 -455 2026 -451Q2161 -437 2324 -482L2330 -475L2337 -474Q3111 -629 3424 -672L3661 -668L3696 -665L3798 -640Q3903 -577 3906 -467Q3875 -287 3197 192Z"/>
+      <path style="--i:4" pathLength="1" d="M3862 -345Q3721 -360 3653 -550Q3637 -598 3645 -669Q3656 -766 3754 -841L3761 -839Q3873 -777 3869 -730L3814 -616Q3804 -518 3902 -453Q3959 -479 3945 -589Q3904 -767 3804 -849Q3710 -887 3712 -901Q3713 -912 3906 -949L3920 -948Q4112 -832 4143 -680L4151 -623H4144Q4157 -485 4049 -388Q3966 -324 3862 -345ZM3763 -987 3805 -982 3811 -974 3819 -980 3839 -978 3846 -971 3853 -970 3860 -975 3866 -969 3865 -962 3686 -918 3637 -930 3583 -936 3584 -949Z"/>
+      <path style="--i:5" pathLength="1" d="M5149 -435 5154 -414 5146 -408V-400L5148 -358L5140 -353L5144 -317L5132 -213L5124 -206V-200Q5090 -224 5003 -248L4995 -241L4988 -243L4927 -256L4919 -249L4920 -257L4835 -252Q4656 -579 4448 -686L4441 -687L4440 -680Q4512 -635 4511 -623L4509 -602Q4496 -489 4434 -365L4427 -366Q4303 -464 4281 -508L4277 -529L4284 -535Q4296 -636 4199 -852L4096 -1003Q4314 -1008 4316 -1022Q4639 -854 4825 -617L4924 -487L4931 -486L4932 -494L4929 -536L4936 -542L4937 -549L4934 -585L4944 -611L4937 -612L4946 -633Q4983 -970 5214 -1360Q5218 -1408 5371 -1399L5450 -1404L5449 -1398Q5393 -1331 5297 -1085L5255 -957Q5212 -818 5149 -435Z"/>
+      </g>
+      <g clip-path="url(#kclip)"><rect class="kshine" x="-1699" y="-1511" width="1300" height="1960" fill="url(#kshine)"/></g>
+    </svg>
+  </div>
   <div class="holo" aria-hidden="true"></div>
 
   <header class="bar">
@@ -128,6 +160,6 @@
   </dialog>
 
   <noscript><p class="noscript">This site needs JavaScript to play the work. Email <a href="mailto:kelsonfilms.contact@gmail.com">kelsonfilms.contact@gmail.com</a>.</p></noscript>
-  <script src="assets/site.js?v=0eb08dfc" defer></script>
+  <script src="assets/site.js?v=a4d7e8c5" defer></script>
 </body>
 </html>

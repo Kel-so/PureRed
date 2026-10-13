@@ -127,6 +127,10 @@
   function renderWall() {
     const wall = $("#wall");
     for (const m of wall.querySelectorAll(".monitor")) m.remove();
+    heroReady = Promise.all((work.wall || []).map((slot) => {
+      const src = media(byId(slot.id)?.media?.poster);
+      return src ? new Promise((r) => { const im = new Image(); im.onload = im.onerror = r; im.fetchPriority = "high"; im.src = src; }) : null;
+    }));
     (work.wall || []).forEach((slot, n) => {
       const item = byId(slot.id);
       if (!item) return;
@@ -607,22 +611,22 @@
   const tagFont = ("fonts" in document ? document.fonts.load(TAG_FONT) : Promise.resolve()).catch(() => {})
     .then(() => "fonts" in document && [...document.fonts].some((f) => f.family.replace(/["']/g, "") === "Most Wasted" && f.status === "loaded"));
   let dataReady;
+  let heroReady = Promise.resolve();
+  // the intro plays on every visit; it leaves once the tag is drawn and the wall behind it is ready
   const introDone = new Promise((resolve) => {
     if (!intro || document.documentElement.classList.contains("no-intro")) { intro && intro.remove(); return resolve(); }
+    let gone = false;
     const finish = () => {
+      if (gone) return; gone = true;
       intro.classList.add("is-out");
-      try { sessionStorage.setItem("intro", "1"); } catch (e) {}
-      setTimeout(() => { intro.remove(); }, 700);
+      setTimeout(() => intro.remove(), 800);
       resolve();
     };
-    // only play when the tag font is really there; otherwise get out of the way at once
-    Promise.race([tagFont, new Promise((r) => setTimeout(() => r(false), 900))]).then((ok) => {
-      if (!ok) { intro.remove(); document.documentElement.classList.add("no-intro"); return resolve(); }
-      document.documentElement.classList.add("has-tag");
-      intro.classList.add("is-on");
-      intro.addEventListener("click", finish, { once: true });
-      Promise.all([new Promise((r) => setTimeout(r, 1650)), dataReady.catch(() => {})]).then(finish);
-    });
+    const at = (ms) => new Promise((r) => setTimeout(r, Math.max(0, ms - performance.now())));
+    intro.addEventListener("click", finish, { once: true });
+    // dataReady is assigned further down in this same script, so read it on the next tick
+    const ready = Promise.resolve().then(() => dataReady).catch(() => {}).then(() => heroReady);
+    Promise.race([Promise.all([at(3500), ready]), at(5600)]).then(finish);
   });
   tagFont.then((ok) => ok && document.documentElement.classList.add("has-tag"));
 
