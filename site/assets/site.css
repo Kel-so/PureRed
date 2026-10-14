@@ -100,7 +100,7 @@ button { font: inherit; color: inherit; }
 
 /* ---------- hero: wall of monitors ---------- */
 .hero { border-bottom: var(--line); }
-.wall { display: grid; gap: 4px; padding: 4px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.wall { display: grid; gap: 0; padding: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .monitor {
   position: relative; overflow: hidden; padding: 0; border: 0; background: #111; cursor: pointer;
   aspect-ratio: 4 / 5;
@@ -119,8 +119,8 @@ button { font: inherit; color: inherit; }
 
 .panel {
   grid-column: 1 / -1; order: 2; position: relative; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: flex-end; gap: 16px;
-  padding: 26px 16px 22px; background: var(--paper); border: var(--line);
+  display: flex; flex-direction: column; justify-content: center; gap: 16px;
+  padding: 26px 16px 22px; background: var(--paper); border: 0;
 }
 .panel::before {
   /* a piece of the CD-back sheen inside the title panel */
