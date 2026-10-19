@@ -18,7 +18,7 @@
       "contact.kicker": "Contact", "contact.note": "Send the goal, the deadline and one video you like. Reply within 24h.",
       "work.title": "Work", "work.all": "All", "work.lede": "Podcast clips, brand films, events and gaming. Tap any video to watch it with sound.", "tile.play": "▶ Play with sound", "tile.full": "Full video on YouTube ↗", "tile.videos": "videos", "tile.video": "video",
       "ba.before": "Raw", "ba.after": "Edit", "ba.sound": "Play with sound", "ba.hint": "Drag to compare",
-      "proof.title": "Clients & feedback",
+      "proof.title": "Clients & feedback", "clients.label": "Worked with",
       "foot.tz": "Brazil · UTC−3",
       "mail.subject": "Video editing — 15-min call",
       "mail.body": "Hi Kelson,\n\nWhat I need edited:\nHow often / how many:\nDeadline:\nA video I like:\n",
@@ -40,7 +40,7 @@
       "contact.kicker": "Contato", "contact.note": "Mande o objetivo, o prazo e um vídeo que você curte. Respondo em até 24h.",
       "work.title": "Trabalhos", "work.all": "Tudo", "work.lede": "Cortes de podcast, filmes de marca, eventos e games. Toque em qualquer vídeo para assistir com som.", "tile.play": "▶ Assistir com som", "tile.full": "Vídeo completo no YouTube ↗", "tile.videos": "vídeos", "tile.video": "vídeo",
       "ba.before": "Bruto", "ba.after": "Editado", "ba.sound": "Assistir com som", "ba.hint": "Arraste para comparar",
-      "proof.title": "Clientes & depoimentos",
+      "proof.title": "Clientes & depoimentos", "clients.label": "Trabalhei com",
       "foot.tz": "Brasil · UTC−3",
       "mail.subject": "Edição de vídeo — conversa de 15 min",
       "mail.body": "Oi Kelson,\n\nO que preciso editar:\nFrequência / quantidade:\nPrazo:\nUm vídeo de referência:\n",
@@ -425,17 +425,31 @@
     new ResizeObserver(() => { const w = $("#work").clientWidth; if (w !== last) { last = w; relayout(); } }).observe($("#work"));
   } else addEventListener("resize", relayout);
 
+  // ---------- client logos: one band under the hero, two copies of the row for a seamless loop ----------
+  function renderClients() {
+    const band = $("#clients"), track = $("#clients-track");
+    const logos = (site.clients || []).filter((c) => c && c.logo);
+    track.replaceChildren();
+    band.hidden = !logos.length;
+    if (!logos.length) return;
+    const row = (copy) => el("div", { class: "marquee-row", "aria-hidden": copy ? "true" : null }, logos.map((c) => {
+      // optical sizing: wide wordmarks get a little shorter, compact marks a little taller
+      const ratio = (c.w || 3) / (c.h || 1);
+      const h = Math.round(46 * Math.pow(ratio, -0.32) * 1.42);
+      return el("img", { src: c.logo, alt: copy ? "" : c.name, width: Math.round(h * ratio), height: h, decoding: "async", loading: "eager", style: `--lh:${h}px` });
+    }));
+    track.append(row(false), row(true));
+  }
+
   function renderProof() {
     const host = $("#proof");
-    const clients = site.clients || [];
     const quotes = site.testimonials || [];
     host.replaceChildren();
-    if (!clients.length && !quotes.length) { host.hidden = true; return; }
+    if (!quotes.length) { host.hidden = true; return; }
     host.hidden = false;
     host.append(el("header", { class: "block-head" },
       el("span", { class: "idx mono" }),
       el("h2", { class: "h2", text: t("proof.title") })));
-    if (clients.length) host.append(el("div", { class: "clients" }, clients.map((c) => el("span", { text: c }))));
     for (const q of quotes) {
       host.append(el("blockquote", { class: "quote" },
         el("p", { text: `“${L(q.quote)}”` }),
@@ -490,6 +504,7 @@
     loopObserver && loopObserver.disconnect();
     applyStatic();
     renderWall();
+    renderClients();
     renderWork();
     relayout();
     renderProof();

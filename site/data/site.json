@@ -7,7 +7,50 @@
   "whatsapp": "5514991223598",
   "timezone": "UTC−3",
   "links": [],
-  "clients": [],
+  "clients": [
+    {
+      "name": "LDJR Odisseia",
+      "logo": "assets/clients/odisseia.png",
+      "w": 473,
+      "h": 128
+    },
+    {
+      "name": "Londrina Júnior — Ascensão",
+      "logo": "assets/clients/ascensao.png",
+      "w": 154,
+      "h": 128
+    },
+    {
+      "name": "Maringá Júnior — Travessia",
+      "logo": "assets/clients/travessia.png",
+      "w": 514,
+      "h": 128
+    },
+    {
+      "name": "Feitos de Excelência",
+      "logo": "assets/clients/excelencia.png",
+      "w": 218,
+      "h": 128
+    },
+    {
+      "name": "Saber Gestão",
+      "logo": "assets/clients/saber-gestao.png",
+      "w": 359,
+      "h": 128
+    },
+    {
+      "name": "Drinks & Disco",
+      "logo": "assets/clients/drinks-disco.png",
+      "w": 196,
+      "h": 128
+    },
+    {
+      "name": "Franchi",
+      "logo": "assets/clients/franchi.png",
+      "w": 267,
+      "h": 128
+    }
+  ],
   "testimonials": [],
   "rates": [
     {
