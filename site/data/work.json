@@ -72,7 +72,7 @@
     },
     "youtube": null
   },
-  "featured": "sameday-day-2",
+  "featured": "aftermovie-maringa",
   "wall": [
     {
       "area": "b",
@@ -359,6 +359,29 @@
         "loop": "https://media.kelsonfilms.xyz/work/unect-promo/loop.5d17aa87.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/unect-promo/poster.fd8bd1c2.jpg",
         "full": "https://media.kelsonfilms.xyz/work/unect-promo/full.d781616f.mp4"
+      },
+      "youtube": null
+    },
+    {
+      "id": "aftermovie-maringa",
+      "section": "events",
+      "title": {
+        "en": "Travessia — aftermovie",
+        "pt": "Travessia — aftermovie"
+      },
+      "client": "Maringá Júnior",
+      "year": 2026,
+      "format": "16:9",
+      "duration": "5:43",
+      "role": {
+        "en": "Event film · edit, color, sound",
+        "pt": "Filme do evento · edição, cor, som"
+      },
+      "metrics": [],
+      "media": {
+        "loop": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/loop.ee85a868.mp4",
+        "poster": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/poster.15b0ba39.jpg",
+        "full": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/full.4c14a944.mp4"
       },
       "youtube": null
     },
