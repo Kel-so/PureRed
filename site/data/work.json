@@ -68,7 +68,9 @@
     "media": {
       "loop": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/loop.5bf6d075.mp4",
       "poster": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/poster.96ed5dab.jpg",
-      "full": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/full.8e5a4b7a.mp4"
+      "full": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/full.8e5a4b7a.mp4",
+      "loopHd": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/loop-hd.5d00aa30.mp4",
+      "posterHd": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/poster-hd.5e78d5e2.jpg"
     },
     "youtube": null
   },
@@ -135,7 +137,9 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/granja360-aline-viott/loop.91082ebd.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/granja360-aline-viott/poster.8b088f95.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/granja360-aline-viott/full.6601a96c.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/granja360-aline-viott/full.6601a96c.mp4",
+        "loopHd": "https://media.kelsonfilms.xyz/work/granja360-aline-viott/loop-hd.cf28ce58.mp4",
+        "posterHd": "https://media.kelsonfilms.xyz/work/granja360-aline-viott/poster-hd.0379c497.jpg"
       },
       "youtube": null
     },
@@ -258,7 +262,9 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/drift-night/loop.34a7a9ce.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/drift-night/poster.2736c814.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/drift-night/full.48aabd47.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/drift-night/full.48aabd47.mp4",
+        "loopHd": "https://media.kelsonfilms.xyz/work/drift-night/loop-hd.df0673ea.mp4",
+        "posterHd": "https://media.kelsonfilms.xyz/work/drift-night/poster-hd.b7ac825b.jpg"
       },
       "youtube": null
     },
@@ -312,7 +318,9 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/franchi-cookies/loop.eb053b7b.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/franchi-cookies/poster.89b8077f.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/franchi-cookies/full.d2c9a641.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/franchi-cookies/full.d2c9a641.mp4",
+        "loopHd": "https://media.kelsonfilms.xyz/work/franchi-cookies/loop-hd.1c78cc29.mp4",
+        "posterHd": "https://media.kelsonfilms.xyz/work/franchi-cookies/poster-hd.5ce8de21.jpg"
       },
       "youtube": null
     },
@@ -381,7 +389,9 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/loop.ee85a868.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/poster.15b0ba39.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/full.4c14a944.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/full.4c14a944.mp4",
+        "loopHd": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/loop-hd.6ec110f8.mp4",
+        "posterHd": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/poster-hd.633494ad.jpg"
       },
       "youtube": null
     },
@@ -404,7 +414,9 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/loop.81551522.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/poster.bc9caf6d.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/full.1cd6f555.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/full.1cd6f555.mp4",
+        "loopHd": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/loop-hd.9f546231.mp4",
+        "posterHd": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/poster-hd.2123fb3b.jpg"
       },
       "youtube": null
     },

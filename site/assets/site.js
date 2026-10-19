@@ -91,28 +91,32 @@
             if (autoplayLoops) v.play().catch(() => {});
           } else if (!v.paused) v.pause();
         }
-      }, { rootMargin: "200px 0px", threshold: 0.25 })
+      }, { rootMargin: "400px 0px", threshold: 0.25 })
     : null;
 
-  // posters below the fold wait until they are near the viewport, so the hero gets the bandwidth first
-  const posterObserver = "IntersectionObserver" in window
-    ? new IntersectionObserver((entries) => {
-        for (const e of entries) if (e.isIntersecting) { e.target.poster = e.target.dataset.poster; posterObserver.unobserve(e.target); }
-      }, { rootMargin: "700px 0px" })
-    : null;
-
+  // Each loop is a poster <img> with the <video> on top. The video stays transparent until it is really
+  // playing, so a tile never flashes black while the clip loads — the poster shows instead.
   function loopVideo(src, poster, { eager = false } = {}) {
-    const lazy = !eager && posterObserver && poster;
-    const v = el("video", { muted: true, loop: true, playsinline: true, preload: "none", poster: lazy ? null : poster, "aria-hidden": "true", disablepictureinpicture: true });
+    const img = poster ? el("img", { class: "loop-poster", src: poster, alt: "", "aria-hidden": "true", decoding: "async",
+      loading: eager ? "eager" : "lazy", fetchpriority: eager ? "high" : null }) : null;
+    const v = el("video", { class: "loop-video", muted: true, loop: true, playsinline: true, preload: eager ? "auto" : "none", "aria-hidden": "true", disablepictureinpicture: true });
     v.muted = true;
-    if (lazy) { v.dataset.poster = poster; posterObserver.observe(v); }
-    if (!src) return v;
+    const show = () => v.classList.add("is-ready");
+    v.addEventListener("playing", show);
+    v.addEventListener("timeupdate", () => { if (v.currentTime > 0) show(); });
+    v.ready = new Promise((r) => {
+      v.addEventListener("canplay", r, { once: true });
+      v.addEventListener("error", r, { once: true });
+    });
+    if (!src) return [img, v];
+    if (eager) { v.src = src; v.load(); }  // hero clips start downloading while the loader is up
     if (loopObserver) { v.dataset.src = src; loopObserver.observe(v); }
     else { v.src = src; if (autoplayLoops) v.autoplay = true; }
-    return v;
+    return [img, v];
   }
 
-  const LOOPS = ".tile-media video, .monitor video, .case-media video";
+  const LOOPS = "video.loop-video";
+  const hd = (m, k) => media(m?.[k + "Hd"] || m?.[k]);
   function playable(item) { return !!(item.media?.full || item.youtube); }
   const byId = (id) => [work.reel, ...work.items].find((i) => i && i.id === id);
 
@@ -127,10 +131,7 @@
   function renderWall() {
     const wall = $("#wall");
     for (const m of wall.querySelectorAll(".monitor")) m.remove();
-    heroReady = Promise.all((work.wall || []).map((slot) => {
-      const src = media(byId(slot.id)?.media?.poster);
-      return src ? new Promise((r) => { const im = new Image(); im.onload = im.onerror = r; im.fetchPriority = "high"; im.src = src; }) : null;
-    }));
+    const clips = [];
     (work.wall || []).forEach((slot, n) => {
       const item = byId(slot.id);
       if (!item) return;
@@ -141,18 +142,20 @@
         style: `--i:${n}`,
         "aria-label": canPlay ? `${t("tile.play")} — ${L(item.title)}` : L(item.title)
       },
-        loopVideo(media(item.media?.loop), media(item.media?.poster), { eager: true }),
+        loopVideo(hd(item.media, "loop"), hd(item.media, "poster"), { eager: true }),
         el("span", { class: "monitor-label mono", text: L(slot.label) }));
+      clips.push(m.querySelector("video").ready);
       if (canPlay) m.addEventListener("click", () => openItem(item));
       wall.append(m);
     });
+    heroReady = Promise.all(clips);
   }
 
   // ---------- featured case, big and centred above the mosaic ----------
   function caseBlock(item) {
     const canPlay = playable(item);
     const box = el(canPlay ? "button" : "div", { class: "case-media", type: canPlay ? "button" : null, "aria-label": `${t("case.watch")} — ${L(item.title)}` },
-      loopVideo(media(item.media?.loop), media(item.media?.poster)),
+      loopVideo(hd(item.media, "loop"), hd(item.media, "poster")),
       canPlay ? el("span", { class: "case-play mono", text: t("case.watch") }) : null);
     if (canPlay) box.addEventListener("click", () => openItem(item));
     return el("div", { class: "case" },
@@ -623,7 +626,7 @@
   const intro = $("#intro");
   let dataReady;
   let heroReady = Promise.resolve();
-  // loader on every visit: stays at least 2s (shorter read as a glitch), then slides up once the wall is ready (max 5s)
+  // loader on every visit: stays at least 3s, then slides up once the hero clips can play (max 8s)
   const introDone = new Promise((resolve) => {
     if (!intro) return resolve();
     let gone = false;
@@ -637,7 +640,7 @@
     intro.addEventListener("click", finish, { once: true });
     // dataReady is assigned further down in this same script, so read it on the next tick
     const ready = Promise.resolve().then(() => dataReady).catch(() => {}).then(() => heroReady);
-    Promise.race([Promise.all([at(2000), ready]), at(5000)]).then(finish);
+    Promise.race([Promise.all([at(3000), ready]), at(8000)]).then(finish);
   });
 
   dataReady = Promise.all([
