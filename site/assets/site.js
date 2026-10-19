@@ -435,13 +435,18 @@
     track.replaceChildren();
     band.hidden = !logos.length;
     if (!logos.length) return;
-    const row = (copy) => el("div", { class: "marquee-row", "aria-hidden": copy ? "true" : null }, logos.map((c) => {
-      // optical sizing: wide wordmarks get a little shorter, compact marks a little taller
+    // optical sizing: wide wordmarks get a little shorter, compact marks a little taller (tall icons capped)
+    const sized = logos.map((c) => {
       const ratio = (c.w || 3) / (c.h || 1);
-      const h = Math.round(46 * Math.pow(ratio, -0.32) * 1.42);
-      return el("img", { src: c.logo, alt: copy ? "" : c.name, width: Math.round(h * ratio), height: h, decoding: "async", loading: "eager", style: `--lh:${h}px` });
-    }));
+      const h = Math.min(78, Math.round(46 * Math.pow(ratio, -0.32) * 1.42 * (c.scale || 1)));
+      return { c, h, w: Math.round(h * ratio) };
+    });
+    const row = (copy) => el("div", { class: "marquee-row", "aria-hidden": copy ? "true" : null }, sized.map(({ c, h, w }) =>
+      el("img", { src: c.logo, alt: copy ? "" : c.name, width: w, height: h, decoding: "async", loading: "eager", style: `--lh:${h}px` })));
     track.append(row(false), row(true));
+    // constant scroll speed (~36px/s) however many logos there are
+    const span = sized.reduce((s, x) => s + x.w + 76, 0);
+    track.style.animationDuration = `${Math.max(20, Math.round(span / 36))}s`;
   }
 
   function renderProof() {

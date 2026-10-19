@@ -9,9 +9,28 @@
   "links": [],
   "clients": [
     {
+      "name": "Granja 360 Podcast",
+      "logo": "assets/clients/granja360.png",
+      "w": 128,
+      "h": 128,
+      "scale": 1.2
+    },
+    {
       "name": "LDJR Odisseia",
       "logo": "assets/clients/odisseia.png",
       "w": 473,
+      "h": 128
+    },
+    {
+      "name": "New Shoes",
+      "logo": "assets/clients/newshoes.png",
+      "w": 568,
+      "h": 128
+    },
+    {
+      "name": "Fejepar",
+      "logo": "assets/clients/fejepar.png",
+      "w": 174,
       "h": 128
     },
     {
@@ -21,15 +40,21 @@
       "h": 128
     },
     {
+      "name": "Barbearia Skoria",
+      "logo": "assets/clients/skoria.png",
+      "w": 250,
+      "h": 128
+    },
+    {
       "name": "Maringá Júnior — Travessia",
       "logo": "assets/clients/travessia.png",
       "w": 514,
       "h": 128
     },
     {
-      "name": "Feitos de Excelência",
-      "logo": "assets/clients/excelencia.png",
-      "w": 218,
+      "name": "NejLon — Núcleo Londrina",
+      "logo": "assets/clients/nejlon.png",
+      "w": 144,
       "h": 128
     },
     {
@@ -39,9 +64,27 @@
       "h": 128
     },
     {
+      "name": "Unect Jr.",
+      "logo": "assets/clients/unect.png",
+      "w": 94,
+      "h": 128
+    },
+    {
       "name": "Drinks & Disco",
       "logo": "assets/clients/drinks-disco.png",
       "w": 196,
+      "h": 128
+    },
+    {
+      "name": "Núcleo Maringá",
+      "logo": "assets/clients/numar.png",
+      "w": 44,
+      "h": 128
+    },
+    {
+      "name": "Feitos de Excelência",
+      "logo": "assets/clients/excelencia.png",
+      "w": 218,
       "h": 128
     },
     {
