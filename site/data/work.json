@@ -69,6 +69,7 @@
       "loop": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/loop.5bf6d075.mp4",
       "poster": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/poster.96ed5dab.jpg",
       "full": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/full.8e5a4b7a.mp4",
+      "fullSd": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/full-sd.5ef53115.mp4",
       "loopHd": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/loop-hd.115e3a25.mp4",
       "posterHd": "https://media.kelsonfilms.xyz/work/voodoo-lounge-vinyl-night/poster-hd.5e78d5e2.jpg"
     },
@@ -399,6 +400,7 @@
         "loop": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/loop.ee85a868.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/poster.15b0ba39.jpg",
         "full": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/full.4c14a944.mp4",
+        "fullSd": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/full-sd.c6906b7c.mp4",
         "loopHd": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/loop-hd.efb14759.mp4",
         "posterHd": "https://media.kelsonfilms.xyz/work/aftermovie-maringa/poster-hd.633494ad.jpg"
       },
@@ -424,6 +426,7 @@
         "loop": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/loop.81551522.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/poster.bc9caf6d.jpg",
         "full": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/full.1cd6f555.mp4",
+        "fullSd": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/full-sd.b573d645.mp4",
         "loopHd": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/loop-hd.0ba80204.mp4",
         "posterHd": "https://media.kelsonfilms.xyz/work/sameday-ascensao-final/poster-hd.2123fb3b.jpg"
       },
@@ -448,7 +451,8 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/futsal-championship/loop.0f9052fa.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/futsal-championship/poster.215484cd.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/futsal-championship/full.83c95098.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/futsal-championship/full.83c95098.mp4",
+        "fullSd": "https://media.kelsonfilms.xyz/work/futsal-championship/full-sd.c5ff4324.mp4"
       },
       "youtube": null
     },
@@ -471,7 +475,8 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/sameday-day-2/loop.fa4bcdc4.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/sameday-day-2/poster.3953991b.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/sameday-day-2/full.95c1dda0.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/sameday-day-2/full.95c1dda0.mp4",
+        "fullSd": "https://media.kelsonfilms.xyz/work/sameday-day-2/full-sd.b79bf9ae.mp4"
       },
       "youtube": null
     },
@@ -494,7 +499,8 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/sameday-odisseia-01/loop.81c4eb61.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/sameday-odisseia-01/poster.25f69b7b.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-01/full.6d275767.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-01/full.6d275767.mp4",
+        "fullSd": "https://media.kelsonfilms.xyz/work/sameday-odisseia-01/full-sd.54023cb7.mp4"
       },
       "youtube": null
     },
@@ -517,7 +523,8 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/sameday-odisseia-02/loop.8a09bd91.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/sameday-odisseia-02/poster.3e42602c.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-02/full.3b72587c.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-02/full.3b72587c.mp4",
+        "fullSd": "https://media.kelsonfilms.xyz/work/sameday-odisseia-02/full-sd.ae33a15a.mp4"
       },
       "youtube": null
     },
@@ -540,7 +547,8 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/sameday-odisseia-03/loop.5eb168ca.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/sameday-odisseia-03/poster.04a7420e.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-03/full.c3805767.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/sameday-odisseia-03/full.c3805767.mp4",
+        "fullSd": "https://media.kelsonfilms.xyz/work/sameday-odisseia-03/full-sd.e91443c3.mp4"
       },
       "youtube": null
     },
@@ -563,7 +571,8 @@
       "media": {
         "loop": "https://media.kelsonfilms.xyz/work/valorant-mickey/loop.a47febb9.mp4",
         "poster": "https://media.kelsonfilms.xyz/work/valorant-mickey/poster.2fd422cf.jpg",
-        "full": "https://media.kelsonfilms.xyz/work/valorant-mickey/full.994991b1.mp4"
+        "full": "https://media.kelsonfilms.xyz/work/valorant-mickey/full.994991b1.mp4",
+        "fullSd": "https://media.kelsonfilms.xyz/work/valorant-mickey/full-sd.979691ed.mp4"
       },
       "youtube": null
     },
