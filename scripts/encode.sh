@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Encode one portfolio video into the three files the site uses:
-#   full.<hash>.mp4   H.264/AAC, max 1080p, faststart — plays in the modal player
-#   loop.<hash>.mp4   6 s, muted, ~960px — autoplays in the grid
-#   poster.<hash>.jpg first frame of the loop
+# Encode one portfolio video into the files the site uses:
+#   full.<hash>.mp4     H.264/AAC, max 1080p, faststart — plays in the modal player on big screens
+#   full-sd.<hash>.mp4  720p, ~3 Mbps cap — the player picks it on phones and slow links
+#   loop.<hash>.mp4     6 s, muted, ~960px, ~1.5 Mbps cap — autoplays in the grid
+#   poster.<hash>.jpg   first frame of the loop
 # Files are written to media-out/work/<id>/ and a work.json snippet is printed.
 #
 # Usage:
@@ -46,10 +47,16 @@ echo "→ full"
   -c:v libx264 -preset "${PRESET:-slow}" -crf 20 -profile:v high -pix_fmt yuv420p -maxrate 10M -bufsize 20M \
   -c:a aac -b:a 160k -ac 2 -movflags +faststart "$TMP/full.mp4"
 
+echo "→ full-sd"
+"$FFMPEG" -hide_banner -loglevel error -y -i "$IN" \
+  -map 0:v:0 -map '0:a:0?' -vf "$(fit 1280)" \
+  -c:v libx264 -preset "${PRESET:-slow}" -crf 23 -profile:v high -level 4.0 -pix_fmt yuv420p -maxrate 3M -bufsize 6M \
+  -force_key_frames "expr:gte(t,n_forced*2)" -c:a aac -b:a 128k -ac 2 -movflags +faststart "$TMP/full-sd.mp4"
+
 echo "→ loop (${LEN}s from ${AT}s)"
 "$FFMPEG" -hide_banner -loglevel error -y -ss "$AT" -t "$LEN" -i "$IN" \
   -an -vf "$(fit 960),fps=30" \
-  -c:v libx264 -preset "${PRESET:-slow}" -crf 26 -profile:v high -pix_fmt yuv420p -movflags +faststart "$TMP/loop.mp4"
+  -c:v libx264 -preset "${PRESET:-slow}" -crf 26 -profile:v high -level 4.0 -pix_fmt yuv420p -maxrate 1.5M -bufsize 3M -movflags +faststart "$TMP/loop.mp4"
 
 echo "→ poster"
 "$FFMPEG" -hide_banner -loglevel error -y -i "$TMP/loop.mp4" -frames:v 1 -q:v 3 "$TMP/poster.jpg"
@@ -57,11 +64,11 @@ echo "→ poster"
 # content hash in the name → files can be cached forever by Cloudflare
 put() { local h; h="$(shasum -a 1 "$TMP/$1.$2" 2>/dev/null || sha1sum "$TMP/$1.$2")"; h="${h:0:8}"
         mv "$TMP/$1.$2" "$OUT/$PREFIX$1.$h.$2"; echo "work/$ID/$PREFIX$1.$h.$2"; }
-FULL="$(put full mp4)"; LOOP="$(put loop mp4)"; POSTER="$(put poster jpg)"
+FULL="$(put full mp4)"; FULLSD="$(put full-sd mp4)"; LOOP="$(put loop mp4)"; POSTER="$(put poster jpg)"
 LOCAL_FULL="$FULL"
 # with MEDIA_HOST set, work.json gets full URLs → this video loads from B2 while older ones stay local
 if [ -n "${MEDIA_HOST:-}" ]; then
-  FULL="https://$MEDIA_HOST/$FULL"; LOOP="https://$MEDIA_HOST/$LOOP"; POSTER="https://$MEDIA_HOST/$POSTER"
+  FULL="https://$MEDIA_HOST/$FULL"; FULLSD="https://$MEDIA_HOST/$FULLSD"; LOOP="https://$MEDIA_HOST/$LOOP"; POSTER="https://$MEDIA_HOST/$POSTER"
 fi
 
 read -r W H < <("$FFPROBE" -v error -select_streams v:0 -show_entries stream=width,height -of default=nw=1:nk=1 "$ROOT/media-out/$LOCAL_FULL" | paste -sd' ' -)
@@ -75,7 +82,7 @@ echo
 if [ -n "$PREFIX" ]; then
   echo "Add to the before/after item in site/data/work.json:"
   cat <<JSON
-      "before": { "loop": "$LOOP", "poster": "$POSTER", "full": "$FULL" },
+      "before": { "loop": "$LOOP", "poster": "$POSTER", "full": "$FULL", "fullSd": "$FULLSD" },
 JSON
 else
   echo "Paste into \"items\" in site/data/work.json (fill section, title, client, role, metrics):"
@@ -90,7 +97,7 @@ else
       "duration": "$DURTXT",
       "role": { "en": "", "pt": "" },
       "metrics": [],
-      "media": { "loop": "$LOOP", "poster": "$POSTER", "full": "$FULL" },
+      "media": { "loop": "$LOOP", "poster": "$POSTER", "full": "$FULL", "fullSd": "$FULLSD" },
       "youtube": null
     },
 JSON

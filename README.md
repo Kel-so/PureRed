@@ -51,6 +51,9 @@ vercel.json            publica site/ na Vercel + redirects dos links antigos
 ```
 
 - A ordem no arquivo é a ordem no site. Seção sem item não aparece.
+- Variantes opcionais em `media`, todas escolhidas pelo `site.js` conforme o tamanho real na tela e a conexão:
+  - `fullSd`: o mesmo vídeo em 720p (~3 Mbps). O player usa no celular e em conexão lenta, e troca pra ele sozinho se o 1080p travar.
+  - `loopHd` / `posterHd`: loop maior (720p na abertura, 1080p no case em destaque). Só entra onde o loop de 960px ficaria esticado.
 - Item de `before-after` leva também `"before": { "loop", "poster", "full" }` (o bruto).
 - O vídeo do topo é `reel` no mesmo arquivo.
 

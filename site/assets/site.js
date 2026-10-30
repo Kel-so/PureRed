@@ -63,8 +63,12 @@
   };
 
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  const conn = navigator.connection;
+  const saveData = !!(conn && conn.saveData);
   const autoplayLoops = !reduceMotion && !saveData;
+  // phones get a softer pixel budget: a muted preview at 1.5x looks the same and decodes far cheaper
+  const DPR = Math.min(devicePixelRatio || 1, matchMedia("(pointer: coarse)").matches ? 1.5 : 2);
+  const slowLink = !!(conn && (conn.saveData || /2g|3g/.test(conn.effectiveType || "") || (conn.downlink && conn.downlink < 4)));
 
   let lang = pickLang();
   let site = null;
@@ -81,25 +85,46 @@
   const L = (obj) => (obj && typeof obj === "object" ? obj[lang] ?? obj.en : obj) ?? "";
   const media = (path) => (!path ? null : /^https?:\/\//.test(path) ? path : site.mediaBase + path);
 
-  // ---------- loops: lazy load, play only while visible ----------
-  const loopObserver = "IntersectionObserver" in window
+  // ---------- loops: fetch a little ahead, decode only what is on screen ----------
+  const hasIO = "IntersectionObserver" in window;
+  const nearObserver = hasIO
+    ? new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const v = e.target;
+          if (!v.src && v.dataset.src) { v.preload = "auto"; v.src = v.dataset.src; }
+          nearObserver.unobserve(v);
+        }
+      }, { rootMargin: "600px 0px" })
+    : null;
+  const playObserver = hasIO
     ? new IntersectionObserver((entries) => {
         for (const e of entries) {
           const v = e.target;
+          v.onScreen = e.isIntersecting;
           if (e.isIntersecting) {
             if (!v.src && v.dataset.src) v.src = v.dataset.src;
-            if (autoplayLoops) v.play().catch(() => {});
+            if (autoplayLoops && !dlg.open) v.play().catch(() => {});
           } else if (!v.paused) v.pause();
         }
-      }, { rootMargin: "400px 0px", threshold: 0.25 })
+      }, { threshold: 0.01 })
     : null;
+
+  // SD loops are 960px on the long side. Pick the HD file only where the SD one would be visibly
+  // upscaled in its box (object-fit: cover), so phones never decode a stack of HD streams.
+  function wantsHd(box, ar) {
+    const w = Math.max(box.clientWidth, box.clientHeight * ar);
+    return w * DPR > (ar >= 1 ? 960 : 960 * ar) * 1.3;
+  }
 
   // Each loop is a poster <img> with the <video> on top. The video stays transparent until it is really
   // playing, so a tile never flashes black while the clip loads — the poster shows instead.
-  function loopVideo(src, poster, { eager = false } = {}) {
-    const img = poster ? el("img", { class: "loop-poster", src: poster, alt: "", "aria-hidden": "true", decoding: "async",
+  // Sources are picked in armLoops(), once the tile is in the page and has a size.
+  let pendingLoops = [];
+  function loopVideo(m, ar, { eager = false } = {}) {
+    const img = m?.poster || m?.posterHd ? el("img", { class: "loop-poster", alt: "", "aria-hidden": "true", decoding: "async",
       loading: eager ? "eager" : "lazy", fetchpriority: eager ? "high" : null }) : null;
-    const v = el("video", { class: "loop-video", muted: true, loop: true, playsinline: true, preload: eager ? "auto" : "none", "aria-hidden": "true", disablepictureinpicture: true });
+    const v = el("video", { class: "loop-video", muted: true, loop: true, playsinline: true, preload: "none", "aria-hidden": "true", disablepictureinpicture: true });
     v.muted = true;
     const show = () => v.classList.add("is-ready");
     v.addEventListener("playing", show);
@@ -108,15 +133,25 @@
       v.addEventListener("canplay", r, { once: true });
       v.addEventListener("error", r, { once: true });
     });
-    if (!src) return [img, v];
-    if (eager) { v.src = src; v.load(); }  // hero clips start downloading while the loader is up
-    if (loopObserver) { v.dataset.src = src; loopObserver.observe(v); }
-    else { v.src = src; if (autoplayLoops) v.autoplay = true; }
+    pendingLoops.push({ v, img, m: m || {}, ar, eager });
     return [img, v];
   }
 
+  function armLoops() {
+    for (const { v, img, m, ar, eager } of pendingLoops.splice(0)) {
+      const hd = wantsHd(v.parentElement, ar);
+      const src = media((hd && m.loopHd) || m.loop || m.loopHd);
+      const poster = media((hd && m.posterHd) || m.poster || m.posterHd);
+      if (img && poster) img.src = poster;
+      if (!src) continue;
+      if (!hasIO) { v.src = src; if (autoplayLoops) v.autoplay = true; continue; }
+      if (eager) { v.preload = "auto"; v.src = src; }  // hero clips start downloading while the loader is up
+      else { v.dataset.src = src; introDone.then(() => v.isConnected && nearObserver.observe(v)); }  // the rest waits, so the hero gets the bandwidth
+      playObserver.observe(v);
+    }
+  }
+
   const LOOPS = "video.loop-video";
-  const hd = (m, k) => media(m?.[k + "Hd"] || m?.[k]);
   function playable(item) { return !!(item.media?.full || item.youtube); }
   const byId = (id) => [work.reel, ...work.items].find((i) => i && i.id === id);
 
@@ -142,12 +177,13 @@
         style: `--i:${n}`,
         "aria-label": canPlay ? `${t("tile.play")} — ${L(item.title)}` : L(item.title)
       },
-        loopVideo(hd(item.media, "loop"), hd(item.media, "poster"), { eager: true }),
+        loopVideo(item.media, ratio(item), { eager: true }),
         el("span", { class: "monitor-label mono", text: L(slot.label) }));
       clips.push(m.querySelector("video").ready);
       if (canPlay) m.addEventListener("click", () => openItem(item));
       wall.append(m);
     });
+    armLoops();
     heroReady = Promise.all(clips);
   }
 
@@ -155,7 +191,7 @@
   function caseBlock(item) {
     const canPlay = playable(item);
     const box = el(canPlay ? "button" : "div", { class: "case-media", type: canPlay ? "button" : null, "aria-label": `${t("case.watch")} — ${L(item.title)}` },
-      loopVideo(hd(item.media, "loop"), hd(item.media, "poster")),
+      loopVideo(item.media, ratio(item)),
       canPlay ? el("span", { class: "case-play mono", text: t("case.watch") }) : null);
     if (canPlay) box.addEventListener("click", () => openItem(item));
     return el("div", { class: "case" },
@@ -214,7 +250,7 @@
   let featuredItem = null;
 
   function mosaicTile(item) {
-    const v = loopVideo(media(item.media?.loop), media(item.media?.poster));
+    const v = loopVideo(item.media, ratio(item));
     const canPlay = playable(item);
     const metric = (item.metrics || [])[0];
     const box = el(canPlay ? "button" : "div", {
@@ -265,6 +301,10 @@
             filter = c.id;
             for (const x of chips.children) x.setAttribute("aria-selected", String(x === b));
             setLede();
+            // tiles glide to their new spots only on a filter change, never on resize
+            mosaic.classList.add("is-anim");
+            clearTimeout(mosaic.animEnd);
+            mosaic.animEnd = setTimeout(() => mosaic.classList.remove("is-anim"), 500);
             layoutMosaic();
           });
           return b;
@@ -448,6 +488,11 @@
     const span = sized.reduce((s, x) => s + x.w + 76, 0);
     track.style.animationDuration = `${Math.max(20, Math.round(span / 36))}s`;
   }
+  // the band stops scrolling while it is off screen
+  if ("IntersectionObserver" in window) {
+    const band = $("#clients");
+    new IntersectionObserver(([e]) => band.classList.toggle("is-off", !e.isIntersecting)).observe(band);
+  }
 
   function renderProof() {
     const host = $("#proof");
@@ -509,12 +554,16 @@
 
   function render() {
     playlist = [];
-    loopObserver && loopObserver.disconnect();
+    pendingLoops = [];
+    for (const v of document.querySelectorAll(LOOPS)) unload(v);
+    nearObserver && nearObserver.disconnect();
+    playObserver && playObserver.disconnect();
     applyStatic();
     renderWall();
     renderClients();
     renderWork();
     relayout();
+    armLoops();
     renderProof();
     renderRates();
     wireContact();
@@ -565,18 +614,64 @@
     return m && m[1];
   }
 
+  // a <video> taken out of the page keeps downloading until it is garbage-collected;
+  // dropping its src stops the transfer right away so the next video gets the bandwidth
+  function unload(v) {
+    clearTimeout(v.stallTimer);
+    v.pause();
+    v.removeAttribute("src");
+    v.load();
+  }
+
+  function clearStage() {
+    const stage = $("#player-stage");
+    for (const v of stage.querySelectorAll("video")) unload(v);
+    stage.replaceChildren();
+  }
+
+  // full.mp4 is 1080p (~7 Mbps), fullSd 720p (~3 Mbps). Phones, small windows and slow links get
+  // the 720p file; if the 1080p one stalls for a couple of seconds, swap to 720p at the same spot.
+  function fullVideo(item, vert) {
+    const hdSrc = media(item.media.full), sdSrc = media(item.media.fullSd);
+    const cssW = vert ? Math.min(innerHeight - 60, 900) * 9 / 16 : Math.min(1280, innerWidth);
+    const useSd = sdSrc && (slowLink || cssW * DPR <= (vert ? 720 : 1280) * 1.15);
+    const v = el("video", { src: useSd ? sdSrc : hdSrc, poster: media(item.media.posterHd || item.media.poster),
+      controls: true, autoplay: true, playsinline: true, preload: "auto" });
+    if (!useSd && sdSrc) {
+      let swapped = false, stalls = 0;
+      const toSd = () => {
+        if (swapped || !v.isConnected) return;
+        swapped = true;
+        const at = v.currentTime;
+        v.src = sdSrc;
+        v.addEventListener("loadedmetadata", () => { v.currentTime = at; v.play().catch(() => {}); }, { once: true });
+      };
+      // one long stall (2.5s) or a third hiccup, whichever comes first
+      v.addEventListener("waiting", () => {
+        if (swapped || v.currentTime < 0.1) return;
+        if (++stalls >= 3) return toSd();
+        clearTimeout(v.stallTimer); v.stallTimer = setTimeout(toSd, 2500);
+      });
+      v.addEventListener("playing", () => clearTimeout(v.stallTimer));
+      v.addEventListener("pause", () => clearTimeout(v.stallTimer));
+      v.stallTimer = setTimeout(toSd, 3000);  // still not playing after 3s → the link can't keep up with 1080p
+    }
+    return v;
+  }
+
   function openPlayer(i) {
     if (!playlist.length) return;
     current = (i + playlist.length) % playlist.length;
     const item = playlist[current];
     const vert = item.format === "9:16";
     const stage = $("#player-stage");
+    clearStage();
     stage.className = `player-stage ${vert ? "v" : "h"}`;
     dlg.classList.toggle("is-v", vert);
     $("#player-title").textContent = [L(item.title), item.client].filter(Boolean).join(" — ");
     let node;
     if (item.media?.full) {
-      node = el("video", { src: media(item.media.full), poster: media(item.media.poster), controls: true, autoplay: true, playsinline: true, preload: "auto" });
+      node = fullVideo(item, vert);
     } else {
       const id = ytId(item.youtube);
       node = el("iframe", {
@@ -587,21 +682,26 @@
       });
     }
     stage.replaceChildren(node);
+    // play() starts as soon as a few frames are in; the autoplay attribute alone waits until the
+    // browser thinks it can play to the end, which on a slow link means a frozen first frame
+    if (node.play) node.play().catch(() => {});
     for (const v of document.querySelectorAll(LOOPS)) v.pause();
+    // everything behind the player holds still, so all of the GPU goes to the video
+    document.documentElement.classList.add("is-playing");
     if (!dlg.open) dlg.showModal();
   }
 
   function closePlayer() {
-    $("#player-stage").replaceChildren();
+    clearStage();
     if (dlg.open) dlg.close();
   }
 
   dlg.addEventListener("close", () => {
-    $("#player-stage").replaceChildren();
-    // resume visible loops
+    clearStage();
+    document.documentElement.classList.remove("is-playing");
+    // resume the loops that are on screen
     if (autoplayLoops) for (const v of document.querySelectorAll(LOOPS)) {
-      const r = v.getBoundingClientRect();
-      if (v.src && r.bottom > 0 && r.top < innerHeight) v.play().catch(() => {});
+      if (v.src && (v.onScreen ?? !hasIO)) v.play().catch(() => {});
     }
   });
   dlg.addEventListener("click", (e) => {
@@ -631,7 +731,8 @@
   const intro = $("#intro");
   let dataReady;
   let heroReady = Promise.resolve();
-  // loader on every visit: stays at least 3s, then slides up once the hero clips can play (max 8s)
+  // loader on every visit: stays at least 3s, then slides up once the hero clips can play (max 5s —
+  // past that the posters cover and each clip fades in when it is ready)
   const introDone = new Promise((resolve) => {
     if (!intro) return resolve();
     let gone = false;
@@ -645,7 +746,7 @@
     intro.addEventListener("click", finish, { once: true });
     // dataReady is assigned further down in this same script, so read it on the next tick
     const ready = Promise.resolve().then(() => dataReady).catch(() => {}).then(() => heroReady);
-    Promise.race([Promise.all([at(3000), ready]), at(8000)]).then(finish);
+    Promise.race([Promise.all([at(3000), ready]), at(5000)]).then(finish);
   });
 
   dataReady = Promise.all([
